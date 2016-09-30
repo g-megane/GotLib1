@@ -6,6 +6,15 @@
 #include "Texture.h"
 #include <sstream>
 
+template<typename Ptr>
+void safeRelease(Ptr *& ptr)
+{
+	if (ptr == nullptr) return;
+
+	ptr->Release();
+	ptr = nullptr;
+}
+
 namespace Got
 {
 	// コンストラクタ
@@ -29,7 +38,7 @@ namespace Got
 	 * VBlob を shaderCompile の戻り値に設定
 	 * 戻り値がbool型のため "return hr" を 失敗した場合 "return false"に変更
 	 */ 
-	bool Texture::create()
+	bool Texture::create(/*TODO:loadTexture()に渡す画像の名前*/)
 	{
 		if (!loadTexture(/*TODO:画像の名前を引数に*/)) { return false; }
 		if (!createShaderResourceView())			{ return false; }
@@ -51,7 +60,7 @@ namespace Got
 		UINT offset = 0;
 
 		auto vertexBuffer = spVertexBuffer.get();
-		auto samplerLinear = spSamplerLinear.get();
+		//auto samplerLinear = spSamplerLinear.get();
 		//auto textureRV	   = spTextureRV.get();
 		//auto samplerLinear = spSamplerLinear.get();
 		auto &directX11    = DirectX11::getInstance();
@@ -108,7 +117,7 @@ namespace Got
 
 		return createInputLayout(VSBlob);
 	}
-	bool Texture::createInputLayout(ID3DBlob *&VSBlob)
+	bool Texture::createInputLayout(std::shared_ptr<ID3DBlob> &VSBlob)
 	{
 		ID3D11InputLayout  *vertexLayout = nullptr;
 

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
 #pragma once
@@ -23,7 +23,7 @@ namespace Got
 		bool loadTexture();
 		bool createShaderResourceView();
 		bool createVertexShaderAndInputLayout();
-		bool createInputLayout(ID3DBlob *&VSBlob);
+		bool createInputLayout(std::shared_ptr<ID3DBlob> &VSBlob);
 		bool createPixelShader();
 		bool createBuffer();
 		bool createSamplerState();

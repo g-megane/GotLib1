@@ -1,11 +1,20 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
 #include "DirectX11.h"
 #include "GV.h"
 #include "Window.h"
+
+template<typename Ptr>
+void safeRelease(Ptr *& ptr)
+{
+	if (ptr == nullptr) return;
+
+	ptr->Release();
+	ptr = nullptr;
+}
 
 namespace Got
 {

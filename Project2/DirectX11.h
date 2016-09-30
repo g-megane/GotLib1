@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
 #pragma once
@@ -42,13 +42,4 @@ namespace Got
 		D3D_DRIVER_TYPE   g_driverType;
 		bool init;
 	};
-
-	template<typename Ptr>
-	void safeRelease(Ptr *& ptr)
-	{
-		if (ptr == nullptr) return;
-
-		ptr->Release();
-		ptr = nullptr;
-	}
 }

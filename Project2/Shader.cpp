@@ -1,13 +1,21 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
 
 #include "Shader.h"
-
 #include <D3Dcompiler.h>
 #pragma comment(lib, "D3Dcompiler.lib")
+
+template<typename Ptr>
+void safeRelease(Ptr *& ptr)
+{
+	if (ptr == nullptr) return;
+
+	ptr->Release();
+	ptr = nullptr;
+}
 
 namespace Got
 {
@@ -20,7 +28,7 @@ namespace Got
 	{
 	}
 
-	ID3DBlob* Shader::shaderCompile(WCHAR *szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel)
+	std::shared_ptr<ID3DBlob> Shader::shaderCompile(WCHAR *szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel)
 	{
 		ID3DBlob *ppBlobOut = nullptr;
 		auto hr = S_OK;
@@ -53,6 +61,6 @@ namespace Got
 			return nullptr;
 		}
 
-		return ppBlobOut;
+		return std::shared_ptr<ID3DBlob>(ppBlobOut, safeRelease<ID3DBlob>);
 	}
 }
