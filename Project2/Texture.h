@@ -22,6 +22,13 @@ namespace Got
 	private:
 		bool loadTexture();
 		bool createShaderResourceView();
+		bool createVertexShaderAndInputLayout();
+		bool createInputLayout(ID3DBlob *&VSBlob);
+		bool createPixelShader();
+		bool createBuffer();
+		bool createSamplerState();
+		bool createBulendState();
+		bool createConstantBuffer();
 
 		struct  SimpleVertex
 		{

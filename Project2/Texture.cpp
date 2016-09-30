@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
 #include "Texture.h"
@@ -31,10 +31,62 @@ namespace Got
 	 */ 
 	bool Texture::create()
 	{
+		if (!loadTexture(/*TODO:画像の名前を引数に*/)) { return false; }
+		if (!createShaderResourceView())			{ return false; }
+		if (!createVertexShaderAndInputLayout())	{ return false; }
+		if (!createPixelShader())					{ return false; }
+		if (!createBuffer())						{ return false; }
+		if (!createSamplerState())					{ return false; }
+		if (!createBulendState())					{ return false; }
+		if (!createConstantBuffer())				{ return false; }
+
+		return true;
+	}
+
+	// レンダリング
+	void Texture::render()
+	{
+		// Set VertexBuffer
+		UINT stride = sizeof(SimpleVertex);
+		UINT offset = 0;
+
+		auto vertexBuffer = spVertexBuffer.get();
+		auto samplerLinear = spSamplerLinear.get();
+		//auto textureRV	   = spTextureRV.get();
+		//auto samplerLinear = spSamplerLinear.get();
+		auto &directX11    = DirectX11::getInstance();
+
+		directX11.begineFrame();
+		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+
+		directX11.getDeviceContext()->VSSetShader(spVertexShader.get(), nullptr, 0);
+		DirectX11::getInstance().getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		
+		directX11.getDeviceContext()->PSSetShader(spPixelShader.get(), nullptr, 0);
+
+		directX11.getDeviceContext()->Draw(4, 0);
+		directX11.endFrame();
+	}
+
+	bool Texture::loadTexture()
+	{
+		// Create VertexBuffer
+		vertices[0] = { -0.5f,  0.5f, 0.0f };
+		vertices[1] = { 0.5f,  0.5f, 0.0f };
+		vertices[2] = { -0.5f, -0.5f, 0.0f };
+		vertices[3] = { 0.5f, -0.5f, 0.0f };
+
+		return true;
+	}
+
+	bool Texture::createShaderResourceView()
+	{
+			
+		return true;
+	}
+	bool Texture::createVertexShaderAndInputLayout()
+	{
 		ID3D11VertexShader *vertexShader = nullptr;
-		ID3D11PixelShader  *pixelShader  = nullptr;
-		ID3D11InputLayout  *vertexLayout = nullptr;
-		ID3D11Buffer	   *vertexBuffer = nullptr;
 
 		// Compile VertexShader
 		auto VSBlob = Shader::shaderCompile(L"ComputeShader.hlsl", "main", "vs_5_0");
@@ -48,10 +100,17 @@ namespace Got
 
 		// Create VertexShader
 		auto hr = DirectX11::getInstance().getDevice()->CreateVertexShader(VSBlob->GetBufferPointer(), VSBlob->GetBufferSize(), nullptr, &vertexShader);
+		spVertexShader = std::shared_ptr<ID3D11VertexShader>(vertexShader, safeRelease<ID3D11VertexShader>);
 		if (FAILED(hr)) {
 			VSBlob->Release();
 			return false;
 		}
+
+		return createInputLayout(VSBlob);
+	}
+	bool Texture::createInputLayout(ID3DBlob *&VSBlob)
+	{
+		ID3D11InputLayout  *vertexLayout = nullptr;
 
 		// InputLayout
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
@@ -60,7 +119,7 @@ namespace Got
 		UINT numElements = ARRAYSIZE(layout);
 
 		// Create InputLayout
-		hr = DirectX11::getInstance().getDevice()->CreateInputLayout(
+		auto hr = DirectX11::getInstance().getDevice()->CreateInputLayout(
 			layout,
 			numElements,
 			VSBlob->GetBufferPointer(),
@@ -75,84 +134,65 @@ namespace Got
 		// Set InputLayout
 		DirectX11::getInstance().getDeviceContext()->IASetInputLayout(vertexLayout);
 
+		spVertexLayout = std::shared_ptr<ID3D11InputLayout>(vertexLayout, safeRelease<ID3D11InputLayout>);
+
+
+		return true;
+	}
+	bool Texture::createPixelShader()
+	{
+		ID3D11PixelShader  *pixelShader = nullptr;
+
 		// Compile PixelShader
 		auto PSBlob = Shader::shaderCompile(L"PixelShader.hlsl", "main", "ps_5_0");
-		if (VSBlob == nullptr) {
+		if (PSBlob == nullptr) {
 			MessageBox(NULL, L"PSコンパイル失敗", L"Error", MB_OK);
 			return false;
 		}
 
 		// Create PixelShader
-		hr = DirectX11::getInstance().getDevice()->CreatePixelShader(PSBlob->GetBufferPointer(), PSBlob->GetBufferSize(), NULL, &pixelShader);
+		auto hr = DirectX11::getInstance().getDevice()->CreatePixelShader(PSBlob->GetBufferPointer(), PSBlob->GetBufferSize(), NULL, &pixelShader);
+		spPixelShader = std::shared_ptr<ID3D11PixelShader>(pixelShader, safeRelease<ID3D11PixelShader>);
 		PSBlob->Release();
 		if (FAILED(hr)) {
 			return false;
 		}
 
-		// Create VertexBuffer
-		vertices[0] = { -0.5f,  0.5f, 0.0f };
-		vertices[1] = {  0.5f,  0.5f, 0.0f };
-		vertices[2] = { -0.5f, -0.5f, 0.0f };
-		vertices[3] = {  0.5f, -0.5f, 0.0f };
+		return true;
+	}
+	bool Texture::createBuffer()
+	{
+		ID3D11Buffer *vertexBuffer = nullptr;
 
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
-		bd.Usage		  = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth	  = sizeof(SimpleVertex) * 4;
-		bd.BindFlags	  = D3D11_BIND_VERTEX_BUFFER;
+		bd.Usage = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth = sizeof(SimpleVertex) * 4;
+		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd.CPUAccessFlags = 0;
-		bd.MiscFlags	  = 0;
+		bd.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA initData;
 		ZeroMemory(&initData, sizeof(initData));
 		initData.pSysMem = vertices;
-		hr = DirectX11::getInstance().getDevice()->CreateBuffer(&bd, &initData, &vertexBuffer);
+		auto hr = DirectX11::getInstance().getDevice()->CreateBuffer(&bd, &initData, &vertexBuffer);
+		spVertexBuffer = std::shared_ptr<ID3D11Buffer>(vertexBuffer, safeRelease<ID3D11Buffer>);
 		if (FAILED(hr)) {
 			return false;
 		}
 
-		// Set VertexBuffer
-		UINT stride = sizeof(SimpleVertex);
-		UINT offset = 0;
-		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
-
-		// Set PrimitiveTopology
-		DirectX11::getInstance().getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-
-		spVertexShader = std::shared_ptr<ID3D11VertexShader>(vertexShader, safeRelease<ID3D11VertexShader>);
-		spPixelShader  = std::shared_ptr<ID3D11PixelShader> (pixelShader,  safeRelease<ID3D11PixelShader>);
-		spVertexLayout = std::shared_ptr<ID3D11InputLayout> (vertexLayout, safeRelease<ID3D11InputLayout>);
-		spVertexBuffer = std::shared_ptr<ID3D11Buffer>		(vertexBuffer, safeRelease<ID3D11Buffer>);
-
 		return true;
 	}
-
-	// レンダリング
-	void Texture::render()
+	bool Texture::createSamplerState()
 	{
-		auto textureRV	   = spTextureRV.get();
-		auto samplerLinear = spSamplerLinear.get();
-		auto &directX11    = DirectX11::getInstance();
-
-		directX11.begineFrame();
-
-		// シェーダーの登録
-		directX11.getDeviceContext()->VSSetShader(spVertexShader.get(), nullptr, 0);
-		directX11.getDeviceContext()->PSSetShader(spPixelShader.get(), nullptr, 0);
-
-		directX11.getDeviceContext()->Draw(4, 0);
-		directX11.endFrame();
-	}
-
-	bool Texture::loadTexture()
-	{
-
 		return true;
 	}
-
-	bool Texture::createShaderResourceView()
+	bool Texture::createBulendState()
 	{
-		
+		return true;
+	}
+	bool Texture::createConstantBuffer()
+	{
 		return true;
 	}
 }
