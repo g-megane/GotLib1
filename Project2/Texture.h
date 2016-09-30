@@ -18,12 +18,12 @@ namespace Got
 		Texture();
 		~Texture();
 
-		bool create();
+		bool create(const std::wstring &path);
 		void render();
 		Dimention<int> getTextureSize() const;
 
 	private:
-		bool loadTexture();
+		bool loadTexture(const std::wstring &path);
 		bool createShaderResourceView();
 		bool createVertexShaderAndInputLayout();
 		bool createInputLayout(std::shared_ptr<ID3DBlob> &VSBlob);
@@ -38,6 +38,17 @@ namespace Got
 			float Pos[3];
 		} vertices[4];
 
+		struct ConstantBuffer
+		{
+			float matrix[16];
+			float color[4];
+			float rect[4];
+			float vWidth;
+			float vHeight;
+			float tWidth;
+			float tHeight;
+		} cb;
+
 		Dimention<int> textureSize;
 		DirectX::TexMetadata metadata;
 		DirectX::ScratchImage image;
@@ -48,5 +59,8 @@ namespace Got
 		std::shared_ptr<ID3D11Buffer>			  spVertexBuffer;
 		std::shared_ptr<ID3D11ShaderResourceView> spTextureRV;
 		std::shared_ptr<ID3D11SamplerState>		  spSamplerLinear;
+		std::shared_ptr<ID3D11ShaderResourceView> spResourceView;
+		std::shared_ptr<ID3D11BlendState>		  spBlendState;
+		std::shared_ptr<ID3D11Buffer>			  spConstantBuffer;
 	};
 }

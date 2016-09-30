@@ -20,12 +20,15 @@ namespace Got
 	// コンストラクタ
 	Texture::Texture()
 	{
-		spVertexShader  = nullptr;
-		spPixelShader   = nullptr;
-		spVertexLayout  = nullptr;
-		spVertexBuffer  = nullptr;
-		spTextureRV		= nullptr;
-		spSamplerLinear = nullptr;
+		spVertexShader	 = nullptr;
+		spPixelShader	 = nullptr;
+		spVertexLayout	 = nullptr;
+		spVertexBuffer	 = nullptr;
+		spTextureRV		 = nullptr;
+		spSamplerLinear  = nullptr;
+		spResourceView   = nullptr;
+		spBlendState	 = nullptr;
+		spConstantBuffer = nullptr;
 	}
 	// デストラクタ
 	Texture::~Texture()
@@ -40,9 +43,9 @@ namespace Got
 	 */
 
 	//
-	bool Texture::create(/*TODO:loadTexture()に渡す画像の名前*/)
+	bool Texture::create(const std::wstring &path)
 	{
-		if (!loadTexture(/*TODO:画像の名前を引数に*/)) { return false; }
+		if (!loadTexture(path)) { return false; }
 		if (!createShaderResourceView())			{ return false; }
 		if (!createVertexShaderAndInputLayout())	{ return false; }
 		if (!createPixelShader())					{ return false; }
@@ -83,12 +86,12 @@ namespace Got
 	{
 		return textureSize;
 	}
-
-	bool Texture::loadTexture()
+	// テクスチャの読み込み
+	bool Texture::loadTexture(const std::wstring &path)
 	{
-		//DirectX::LoadFromWICFile(path.c_str(), &metadata, image);
+		DirectX::LoadFromWICFile(path.c_str(), 0, &metadata, image);
 
-		//textureSize = Dimention<int>(static_cast<float>(image.GetImages()->width), static_cast<float>(image.GetImages()->height));
+		textureSize = Dimention<int>(static_cast<int>(image.GetImages()->width), static_cast<int>(image.GetImages()->height));
 
 		// Create VertexBuffer
 		vertices[0] = { -0.5f,  0.5f, 0.0f };
@@ -101,7 +104,12 @@ namespace Got
 	//
 	bool Texture::createShaderResourceView()
 	{
-			
+		ID3D11ShaderResourceView *resourceView = nullptr;
+
+		DirectX::CreateShaderResourceView(DirectX11::getInstance().getDevice().get(), image.GetImages(), image.GetImageCount(), metadata, &resourceView);
+
+		spResourceView = std::shared_ptr<ID3D11ShaderResourceView>(resourceView, safeRelease<ID3D11ShaderResourceView>);
+
 		return true;
 	}
 	//
@@ -207,14 +215,65 @@ namespace Got
 	}
 	bool Texture::createSamplerState()
 	{
+		ID3D11SamplerState *samplerLinear = nullptr;
+
+		D3D11_SAMPLER_DESC samplerDesc;
+		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+		samplerDesc.MinLOD = 0;
+		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+		auto hr = DirectX11::getInstance().getDevice()->CreateSamplerState(&samplerDesc, &samplerLinear);
+		spSamplerLinear = std::shared_ptr<ID3D11SamplerState>(samplerLinear, safeRelease<ID3D11SamplerState>);
+		if (FAILED(hr)) {
+			return false;
+		}
+
 		return true;
 	}
+	//
 	bool Texture::createBulendState()
 	{
+		ID3D11BlendState *blendState = nullptr;
+
+		D3D11_BLEND_DESC blendDesc;
+		ZeroMemory(&blendDesc, sizeof(blendDesc));
+		blendDesc.AlphaToCoverageEnable					= false;
+		blendDesc.IndependentBlendEnable				= false;
+		blendDesc.RenderTarget[0].BlendEnable			= true;
+		blendDesc.RenderTarget[0].SrcBlend				= D3D11_BLEND_SRC_ALPHA;
+		blendDesc.RenderTarget[0].DestBlend				= D3D11_BLEND_INV_SRC_ALPHA;
+		blendDesc.RenderTarget[0].BlendOp				= D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].SrcBlendAlpha			= D3D11_BLEND_ONE;
+		blendDesc.RenderTarget[0].DestBlendAlpha		= D3D11_BLEND_ZERO;
+		blendDesc.RenderTarget[0].BlendOpAlpha		    = D3D11_BLEND_OP_ADD;
+		blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+		float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		DirectX11::getInstance().getDevice()->CreateBlendState(&blendDesc, &blendState);
+		spBlendState = std::shared_ptr<ID3D11BlendState>(blendState, safeRelease<ID3D11BlendState>);
+
+		DirectX11::getInstance().getDeviceContext()->OMSetBlendState(blendState, blendFactor, 0xffffffff);
 		return true;
 	}
+	//
 	bool Texture::createConstantBuffer()
 	{
+		D3D11_BUFFER_DESC bd;
+		ZeroMemory(&bd, sizeof(bd));
+		bd.Usage		  = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth	  = sizeof(ConstantBuffer);
+		bd.BindFlags	  = D3D11_BIND_CONSTANT_BUFFER;
+		bd.CPUAccessFlags = 0;
+
+		ID3D11Buffer *bufferaa;
+		DirectX11::getInstance().getDevice()->CreateBuffer(&bd, nullptr, &bufferaa);
+
+		spConstantBuffer = std::shared_ptr<ID3D11Buffer>(bufferaa, safeRelease<ID3D11Buffer>);
+
 		return true;
 	}
 }
