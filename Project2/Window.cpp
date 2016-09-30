@@ -22,6 +22,7 @@ namespace Got
 	// 初期化
 	int Window::Initialize()
 	{
+		windowSize = Dimention<int>(static_cast<int>(WINDOW_WIDTH), static_cast<int>(WINDOW_HEIGHT));
 		texture = std::make_shared<Texture>();
 		auto hInstance = GetModuleHandle(NULL);
 		auto nCmdShow = SW_SHOWNORMAL;
@@ -36,6 +37,10 @@ namespace Got
 	HWND Window::getHWND() const
 	{
 		return hWnd;
+	}
+	Dimention<int> Window::getWindowSize() const
+	{
+		return windowSize;
 	}
 	// ウィンドウの初期化
 	HRESULT Window::InitWindow(HINSTANCE hInstance, int nCmdShow)

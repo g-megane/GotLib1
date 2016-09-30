@@ -3,8 +3,8 @@
 // 更新日:2016/10/1
 // 制作者:Got
 //////////////////////////////////////////////////
-#include "Texture.h"
 #include <sstream>
+#include "Texture.h"
 
 template<typename Ptr>
 void safeRelease(Ptr *& ptr)
@@ -37,7 +37,9 @@ namespace Got
 	 * shaderCompile の EntryPoint を "VS", "PS" から "main"に変更
 	 * VBlob を shaderCompile の戻り値に設定
 	 * 戻り値がbool型のため "return hr" を 失敗した場合 "return false"に変更
-	 */ 
+	 */
+
+	//
 	bool Texture::create(/*TODO:loadTexture()に渡す画像の名前*/)
 	{
 		if (!loadTexture(/*TODO:画像の名前を引数に*/)) { return false; }
@@ -76,23 +78,33 @@ namespace Got
 		directX11.getDeviceContext()->Draw(4, 0);
 		directX11.endFrame();
 	}
+	// テクスチャのサイズを取得
+	Dimention<int> Texture::getTextureSize() const
+	{
+		return textureSize;
+	}
 
 	bool Texture::loadTexture()
 	{
+		//DirectX::LoadFromWICFile(path.c_str(), &metadata, image);
+
+		//textureSize = Dimention<int>(static_cast<float>(image.GetImages()->width), static_cast<float>(image.GetImages()->height));
+
 		// Create VertexBuffer
 		vertices[0] = { -0.5f,  0.5f, 0.0f };
-		vertices[1] = { 0.5f,  0.5f, 0.0f };
+		vertices[1] = {  0.5f,  0.5f, 0.0f };
 		vertices[2] = { -0.5f, -0.5f, 0.0f };
-		vertices[3] = { 0.5f, -0.5f, 0.0f };
+		vertices[3] = {  0.5f, -0.5f, 0.0f };
 
 		return true;
 	}
-
+	//
 	bool Texture::createShaderResourceView()
 	{
 			
 		return true;
 	}
+	//
 	bool Texture::createVertexShaderAndInputLayout()
 	{
 		ID3D11VertexShader *vertexShader = nullptr;
@@ -117,6 +129,7 @@ namespace Got
 
 		return createInputLayout(VSBlob);
 	}
+	//
 	bool Texture::createInputLayout(std::shared_ptr<ID3DBlob> &VSBlob)
 	{
 		ID3D11InputLayout  *vertexLayout = nullptr;

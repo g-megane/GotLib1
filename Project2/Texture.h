@@ -6,7 +6,9 @@
 #pragma once
 
 #include"DirectX11.h"
+#include"DirectXTex.h"
 #include"Shader.h"
+#include"Dimention.h"
 
 namespace Got
 {
@@ -18,6 +20,7 @@ namespace Got
 
 		bool create();
 		void render();
+		Dimention<int> getTextureSize() const;
 
 	private:
 		bool loadTexture();
@@ -34,6 +37,10 @@ namespace Got
 		{
 			float Pos[3];
 		} vertices[4];
+
+		Dimention<int> textureSize;
+		DirectX::TexMetadata metadata;
+		DirectX::ScratchImage image;
 
 		std::shared_ptr<ID3D11VertexShader>       spVertexShader;
 		std::shared_ptr<ID3D11PixelShader>        spPixelShader;

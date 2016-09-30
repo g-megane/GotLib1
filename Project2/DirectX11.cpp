@@ -82,6 +82,11 @@ namespace Got
 	{
 		return spDeviceContext;
 	}
+	// サイズを返す
+	Dimention<int> DirectX11::getSize() const
+	{
+		return size;
+	}
 
 	// デバイスとスワップチェーンを作成
 	HRESULT DirectX11::createDeviceAndSwapChain()
@@ -90,11 +95,7 @@ namespace Got
 		ID3D11DeviceContext *deviceContext = nullptr;
 		IDXGISwapChain		*swapChain = nullptr;
 		HRESULT				hr = S_OK;
-
-		RECT rc;
-		GetClientRect(window->getHWND(), &rc);
-		UINT width = rc.right - rc.left;
-		UINT height = rc.bottom - rc.top;
+		size = window->getWindowSize();
 
 		// ドライバーの種類のオプション
 		D3D_DRIVER_TYPE driverTypes[] =
@@ -120,8 +121,8 @@ namespace Got
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory(&sd, sizeof(sd));
 		sd.BufferCount = 1;								   // スワップチェーンのバッファー数
-		sd.BufferDesc.Width = width;					   // 解像度の幅
-		sd.BufferDesc.Height = height;					   // 解像度の高さ
+		sd.BufferDesc.Width = size.width;					   // 解像度の幅
+		sd.BufferDesc.Height = size.height;					   // 解像度の高さ
 		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 表示フォーマット
 		sd.BufferDesc.RefreshRate.Numerator = 60;		   // 有理数の最大値
 		sd.BufferDesc.RefreshRate.Denominator = 1;		   // 有理数の最小値
@@ -197,8 +198,8 @@ namespace Got
 
 		// Viewportの初期化
 		D3D11_VIEWPORT vp;
-		vp.Width    = static_cast<FLOAT>(WINDOW_WIDTH);  // ビューポート左側のX位置
-		vp.Height   = static_cast<FLOAT>(WINDOW_HEIGHT); // ビューポート上側のY位置
+		vp.Width    = static_cast<FLOAT>(size.width);	 // ビューポート左側のX位置
+		vp.Height   = static_cast<FLOAT>(size.height);   // ビューポート上側のY位置
 		vp.MinDepth = 0.0f;								 // ビューポートの幅
 		vp.MaxDepth = 1.0f;								 // ビューポートの高さ
 		vp.TopLeftX = 0;								 // ビューポートの最小震度（0～1）

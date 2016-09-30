@@ -6,8 +6,8 @@
 #pragma once
 
 #include <d3d11.h>
-//#include"Window.h"
 #include"Singleton.h"
+#include"Dimention.h"
 
 // DirectX11の制御クラス
 namespace Got
@@ -23,6 +23,7 @@ namespace Got
 		void endFrame() const;
 		std::shared_ptr<ID3D11Device> getDevice() const;
 		std::shared_ptr<ID3D11DeviceContext> getDeviceContext() const;
+		Dimention<int> getSize() const;
 		bool isInit() const;
 
 	private:
@@ -40,6 +41,8 @@ namespace Got
 		std::shared_ptr<ID3D11RenderTargetView> spRenderTargetView;
 		D3D_FEATURE_LEVEL featureLevel;
 		D3D_DRIVER_TYPE   g_driverType;
+
+		Dimention<int> size;
 		bool init;
 	};
 }

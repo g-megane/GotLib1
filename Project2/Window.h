@@ -7,6 +7,7 @@
 #include<Windows.h>
 #include<memory>
 #include"Texture.h"
+#include"Dimention.h"
 
 // ウィンドウ生成クラス
 namespace Got
@@ -19,6 +20,7 @@ namespace Got
 
 		int Update();
 		HWND getHWND() const;
+		Dimention<int> getWindowSize() const;
 
 	private:
 		HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
@@ -27,6 +29,7 @@ namespace Got
 
 		LPCWCHAR windowName;
 		HWND hWnd;
+		Dimention<int> windowSize;
 		std::shared_ptr<Texture> texture;
 	};
 }
