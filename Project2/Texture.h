@@ -36,6 +36,8 @@ namespace Got
 		struct  SimpleVertex
 		{
 			float Pos[3];
+			float col[4];
+			float uv[2];
 		} vertices[4];
 
 		struct ConstantBuffer

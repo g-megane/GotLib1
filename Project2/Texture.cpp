@@ -1,7 +1,10 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/10/1
+// 更新日:2016/10/2
 // 制作者:Got
+// 
+//TODO:テクスチャの貼り付けができたらコメントを書こう
+//
 //////////////////////////////////////////////////
 #include <sstream>
 #include "Texture.h"
@@ -42,10 +45,10 @@ namespace Got
 	 * 戻り値がbool型のため "return hr" を 失敗した場合 "return false"に変更
 	 */
 
-	//
+	// テクスチャの作成
 	bool Texture::create(const std::wstring &path)
 	{
-		if (!loadTexture(path)) { return false; }
+		if (!loadTexture(path))						{ return false; }
 		if (!createShaderResourceView())			{ return false; }
 		if (!createVertexShaderAndInputLayout())	{ return false; }
 		if (!createPixelShader())					{ return false; }
@@ -53,6 +56,13 @@ namespace Got
 		if (!createSamplerState())					{ return false; }
 		if (!createBulendState())					{ return false; }
 		if (!createConstantBuffer())				{ return false; }
+
+		auto vSize = DirectX11::getInstance().getSize();
+
+		cb.vWidth  = static_cast<float>(vSize.width);
+		cb.vHeight = static_cast<float>(vSize.height);
+		cb.tWidth  = static_cast<float>(image.GetImages()->width);
+		cb.tHeight = static_cast<float>(image.GetImages()->height);
 
 		return true;
 	}
@@ -64,28 +74,58 @@ namespace Got
 		UINT stride = sizeof(SimpleVertex);
 		UINT offset = 0;
 
-		auto vertexBuffer = spVertexBuffer.get();
-		//auto samplerLinear = spSamplerLinear.get();
-		//auto textureRV	   = spTextureRV.get();
-		//auto samplerLinear = spSamplerLinear.get();
+		auto vertexBuffer  = spVertexBuffer.get();
+		auto samplerLinear = spSamplerLinear.get();
+		auto resourceView  = spResourceView.get();
 		auto &directX11    = DirectX11::getInstance();
+
+		const float mat[16] = {
+			1.0f, 0.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f, 
+			0.0f, 0.0f, 1.0f, 0.0f, 
+			0.0f, 0.0f, 0.0f, 1.0f };
+		for (int i = 0; i < 16; i++) {
+			cb.matrix[i] = mat[i];
+		}
+		for (int i = 0; i < 4; i++) {
+			cb.color[i] = 1.0f;
+		}
+
+		cb.rect[0] = static_cast<float>(0.0f);
+		cb.rect[1] = static_cast<float>(0.0f);
+		cb.rect[2] = static_cast<float>(image.GetImages()->width);
+		cb.rect[3] = static_cast<float>(image.GetImages()->height);
 
 		directX11.begineFrame();
 		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
 
+		auto constantBuffer = spConstantBuffer.get();
+
+		// コンスタントバッファを更新
+		directX11.getDeviceContext()->UpdateSubresource(spConstantBuffer.get(), 0, nullptr, &cb, 0, 0);
+
+
 		directX11.getDeviceContext()->VSSetShader(spVertexShader.get(), nullptr, 0);
-		DirectX11::getInstance().getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		// コンスタントバッファをシェーダーステージにセット
+		directX11.getDeviceContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
+
+		directX11.getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 		
 		directX11.getDeviceContext()->PSSetShader(spPixelShader.get(), nullptr, 0);
+		directX11.getDeviceContext()->PSSetConstantBuffers(0, 1, &constantBuffer);
+		directX11.getDeviceContext()->PSSetShaderResources(0, 1, &resourceView);
+		directX11.getDeviceContext()->PSSetSamplers(0, 1, &samplerLinear);
 
 		directX11.getDeviceContext()->Draw(4, 0);
 		directX11.endFrame();
 	}
-	// テクスチャのサイズを取得
+
+	// テクスチャのサイズを返す
 	Dimention<int> Texture::getTextureSize() const
 	{
 		return textureSize;
 	}
+	
 	// テクスチャの読み込み
 	bool Texture::loadTexture(const std::wstring &path)
 	{
@@ -94,14 +134,14 @@ namespace Got
 		textureSize = Dimention<int>(static_cast<int>(image.GetImages()->width), static_cast<int>(image.GetImages()->height));
 
 		// Create VertexBuffer
-		vertices[0] = { -0.5f,  0.5f, 0.0f };
-		vertices[1] = {  0.5f,  0.5f, 0.0f };
-		vertices[2] = { -0.5f, -0.5f, 0.0f };
-		vertices[3] = {  0.5f, -0.5f, 0.0f };
-
+		vertices[0] = {{ 0.0f, 0.0f, 1.0f },{ 1.0f, 1.0f, 1.0f, 1.0f },{ 0.0f, 0.0f }};
+		vertices[1] = {{ static_cast<float>(image.GetImages()->width) , 0.0f, 1.0f },{ 1.0f, 1.0f, 1.0f, 1.0f },{ 1.0f, 0.0f }};
+		vertices[2] = {{ 0.0f, static_cast<float>(image.GetImages()->height), 1.0f },{ 1.0f, 1.0f, 1.0f, 1.0f },{ 0.0f, 1.0f }};
+		vertices[3] = {{ static_cast<float>(image.GetImages()->width) , static_cast<float>(image.GetImages()->height), 1.0f },{ 1.0f, 1.0f, 1.0f, 1.0f },{ 1.0f, 1.0f }};
+		
 		return true;
 	}
-	//
+	// ShaderResourceViewの作成
 	bool Texture::createShaderResourceView()
 	{
 		ID3D11ShaderResourceView *resourceView = nullptr;
@@ -112,7 +152,8 @@ namespace Got
 
 		return true;
 	}
-	//
+
+	// VertexShaderの作成とcreateInputLayout関数の呼び出し
 	bool Texture::createVertexShaderAndInputLayout()
 	{
 		ID3D11VertexShader *vertexShader = nullptr;
@@ -128,7 +169,7 @@ namespace Got
 		}
 
 		// Create VertexShader
-		auto hr = DirectX11::getInstance().getDevice()->CreateVertexShader(VSBlob->GetBufferPointer(), VSBlob->GetBufferSize(), nullptr, &vertexShader);
+		auto hr		   = DirectX11::getInstance().getDevice()->CreateVertexShader(VSBlob->GetBufferPointer(), VSBlob->GetBufferSize(), nullptr, &vertexShader);
 		spVertexShader = std::shared_ptr<ID3D11VertexShader>(vertexShader, safeRelease<ID3D11VertexShader>);
 		if (FAILED(hr)) {
 			VSBlob->Release();
@@ -137,14 +178,17 @@ namespace Got
 
 		return createInputLayout(VSBlob);
 	}
-	//
+
+	// InputLayoutの作成
 	bool Texture::createInputLayout(std::shared_ptr<ID3DBlob> &VSBlob)
 	{
 		ID3D11InputLayout  *vertexLayout = nullptr;
 
 		// InputLayout
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * 4, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 3 * 4 + 4 * 4, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 		};
 		UINT numElements = ARRAYSIZE(layout);
 
@@ -166,9 +210,10 @@ namespace Got
 
 		spVertexLayout = std::shared_ptr<ID3D11InputLayout>(vertexLayout, safeRelease<ID3D11InputLayout>);
 
-
 		return true;
 	}
+
+	// PixelShaderの作成
 	bool Texture::createPixelShader()
 	{
 		ID3D11PixelShader  *pixelShader = nullptr;
@@ -181,7 +226,7 @@ namespace Got
 		}
 
 		// Create PixelShader
-		auto hr = DirectX11::getInstance().getDevice()->CreatePixelShader(PSBlob->GetBufferPointer(), PSBlob->GetBufferSize(), NULL, &pixelShader);
+		auto hr		  = DirectX11::getInstance().getDevice()->CreatePixelShader(PSBlob->GetBufferPointer(), PSBlob->GetBufferSize(), NULL, &pixelShader);
 		spPixelShader = std::shared_ptr<ID3D11PixelShader>(pixelShader, safeRelease<ID3D11PixelShader>);
 		PSBlob->Release();
 		if (FAILED(hr)) {
@@ -190,43 +235,47 @@ namespace Got
 
 		return true;
 	}
+
+	// Bufferの作成
 	bool Texture::createBuffer()
 	{
 		ID3D11Buffer *vertexBuffer = nullptr;
 
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(bd));
-		bd.Usage = D3D11_USAGE_DEFAULT;
-		bd.ByteWidth = sizeof(SimpleVertex) * 4;
-		bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+		bd.Usage		  = D3D11_USAGE_DEFAULT;
+		bd.ByteWidth	  = sizeof(SimpleVertex) * 4;
+		bd.BindFlags	  = D3D11_BIND_VERTEX_BUFFER;
 		bd.CPUAccessFlags = 0;
-		bd.MiscFlags = 0;
+		bd.MiscFlags	  = 0;
 
 		D3D11_SUBRESOURCE_DATA initData;
 		ZeroMemory(&initData, sizeof(initData));
 		initData.pSysMem = vertices;
-		auto hr = DirectX11::getInstance().getDevice()->CreateBuffer(&bd, &initData, &vertexBuffer);
-		spVertexBuffer = std::shared_ptr<ID3D11Buffer>(vertexBuffer, safeRelease<ID3D11Buffer>);
+		auto hr			 = DirectX11::getInstance().getDevice()->CreateBuffer(&bd, &initData, &vertexBuffer);
+		spVertexBuffer   = std::shared_ptr<ID3D11Buffer>(vertexBuffer, safeRelease<ID3D11Buffer>);
 		if (FAILED(hr)) {
 			return false;
 		}
 
 		return true;
 	}
+
+	// SamplerStateの作成
 	bool Texture::createSamplerState()
 	{
 		ID3D11SamplerState *samplerLinear = nullptr;
 
 		D3D11_SAMPLER_DESC samplerDesc;
 		ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-		samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.Filter		   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+		samplerDesc.AddressU	   = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressV	   = D3D11_TEXTURE_ADDRESS_WRAP;
+		samplerDesc.AddressW	   = D3D11_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-		samplerDesc.MinLOD = 0;
-		samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-		auto hr = DirectX11::getInstance().getDevice()->CreateSamplerState(&samplerDesc, &samplerLinear);
+		samplerDesc.MinLOD		   = 0;
+		samplerDesc.MaxLOD		   = D3D11_FLOAT32_MAX;
+		auto hr			= DirectX11::getInstance().getDevice()->CreateSamplerState(&samplerDesc, &samplerLinear);
 		spSamplerLinear = std::shared_ptr<ID3D11SamplerState>(samplerLinear, safeRelease<ID3D11SamplerState>);
 		if (FAILED(hr)) {
 			return false;
@@ -234,7 +283,8 @@ namespace Got
 
 		return true;
 	}
-	//
+
+	// BlendStateの作成
 	bool Texture::createBulendState()
 	{
 		ID3D11BlendState *blendState = nullptr;
@@ -259,20 +309,23 @@ namespace Got
 		DirectX11::getInstance().getDeviceContext()->OMSetBlendState(blendState, blendFactor, 0xffffffff);
 		return true;
 	}
-	//
+
+	// ConstantBufferの作成
 	bool Texture::createConstantBuffer()
 	{
-		D3D11_BUFFER_DESC bd;
+		D3D11_BUFFER_DESC bd = {};
 		ZeroMemory(&bd, sizeof(bd));
 		bd.Usage		  = D3D11_USAGE_DEFAULT;
 		bd.ByteWidth	  = sizeof(ConstantBuffer);
 		bd.BindFlags	  = D3D11_BIND_CONSTANT_BUFFER;
 		bd.CPUAccessFlags = 0;
 
-		ID3D11Buffer *bufferaa;
-		DirectX11::getInstance().getDevice()->CreateBuffer(&bd, nullptr, &bufferaa);
-
+		ID3D11Buffer *bufferaa = nullptr;
+		auto hr = DirectX11::getInstance().getDevice()->CreateBuffer(&bd, nullptr, &bufferaa);
 		spConstantBuffer = std::shared_ptr<ID3D11Buffer>(bufferaa, safeRelease<ID3D11Buffer>);
+		if (FAILED(hr)) {
+			return false;
+		}
 
 		return true;
 	}
