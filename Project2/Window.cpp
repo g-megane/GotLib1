@@ -110,7 +110,7 @@ namespace Got
 	int Window::Update()
 	{
 		MSG msg = { 0 };
-		texture->create(L"plane.png");
+		texture->create(L"plane2.png");
 
 		while (WM_QUIT != msg.message) {
 			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/10/2
+// 更新日:2016/10/5
 // 制作者:Got
 // 
 //TODO:テクスチャの貼り付けができたらコメントを書こう
@@ -79,6 +79,7 @@ namespace Got
 		auto resourceView  = spResourceView.get();
 		auto &directX11    = DirectX11::getInstance();
 
+		//TODO:マトリックスクラス、色クラスを実装する
 		const float mat[16] = {
 			1.0f, 0.0f, 0.0f, 1.0f,
 			0.0f, 1.0f, 0.0f, 1.0f, 
@@ -104,13 +105,13 @@ namespace Got
 		// コンスタントバッファを更新
 		directX11.getDeviceContext()->UpdateSubresource(spConstantBuffer.get(), 0, nullptr, &cb, 0, 0);
 
-
+		// 頂点シェーダーをセット
 		directX11.getDeviceContext()->VSSetShader(spVertexShader.get(), nullptr, 0);
 		// コンスタントバッファをシェーダーステージにセット
 		directX11.getDeviceContext()->VSSetConstantBuffers(0, 1, &constantBuffer);
-
-		directX11.getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 		
+		directX11.getDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+		// ピクセルシェーダーをセット
 		directX11.getDeviceContext()->PSSetShader(spPixelShader.get(), nullptr, 0);
 		directX11.getDeviceContext()->PSSetConstantBuffers(0, 1, &constantBuffer);
 		directX11.getDeviceContext()->PSSetShaderResources(0, 1, &resourceView);
@@ -159,7 +160,7 @@ namespace Got
 		ID3D11VertexShader *vertexShader = nullptr;
 
 		// Compile VertexShader
-		auto VSBlob = Shader::shaderCompile(L"ComputeShader.hlsl", "main", "vs_5_0");
+		auto VSBlob = Shader::shaderCompile(L"VertexShader.hlsl", "main", "vs_5_0");
 		std::basic_ostringstream<wchar_t> oss;
 
 		if (VSBlob == nullptr) {

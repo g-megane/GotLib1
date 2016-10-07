@@ -121,8 +121,8 @@ namespace Got
 		DXGI_SWAP_CHAIN_DESC sd;
 		ZeroMemory(&sd, sizeof(sd));
 		sd.BufferCount = 1;								   // スワップチェーンのバッファー数
-		sd.BufferDesc.Width = size.width;					   // 解像度の幅
-		sd.BufferDesc.Height = size.height;					   // 解像度の高さ
+		sd.BufferDesc.Width = size.width;				   // 解像度の幅
+		sd.BufferDesc.Height = size.height;				   // 解像度の高さ
 		sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // 表示フォーマット
 		sd.BufferDesc.RefreshRate.Numerator = 60;		   // 有理数の最大値
 		sd.BufferDesc.RefreshRate.Denominator = 1;		   // 有理数の最小値

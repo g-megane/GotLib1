@@ -4,6 +4,11 @@
 // 制作者:Got
 //////////////////////////////////////////////////
 #pragma once
-// グローバル変数
+// グローバル変数群
+
+// ウィンドウ関係
 constexpr int WINDOW_WIDTH = 980;
 constexpr int WINDOW_HEIGHT = 680;
+
+// 円周率
+constexpr float PI = 3.14159265358979323846f;
