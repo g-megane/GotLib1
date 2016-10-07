@@ -182,13 +182,13 @@ namespace Got
 	};
 
 	template<class T>
-	const Vector2<T> Vector2<T>::ZERO( static_cast<T>(0),  static_cast(0));
+	const Vector2<T> Vector2<T>::ZERO( static_cast<T>(0),  static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::LEFT( static_cast<T>(-1), static_cast(0));
+	const Vector2<T> Vector2<T>::LEFT( static_cast<T>(-1), static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::RIGHT(static_cast<T>(1),  static_cast(0));
+	const Vector2<T> Vector2<T>::RIGHT(static_cast<T>(1),  static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::DOWN( static_cast<T>(0),  static_cast(-1));
+	const Vector2<T> Vector2<T>::DOWN( static_cast<T>(0),  static_cast<T>(-1));
 	template<class T>
-	const Vector2<T> Vector2<T>::UP( static_cast<T>(0),  static_cast(1));
+	const Vector2<T> Vector2<T>::UP( static_cast<T>(0),  static_cast<T>(1));
 }

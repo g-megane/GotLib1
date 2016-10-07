@@ -8,6 +8,7 @@
 //////////////////////////////////////////////////
 #include <sstream>
 #include "Texture.h"
+#include "Matrix4x4.h"
 
 template<typename Ptr>
 void safeRelease(Ptr *& ptr)
@@ -80,14 +81,9 @@ namespace Got
 		auto &directX11    = DirectX11::getInstance();
 
 		//TODO:マトリックスクラス、色クラスを実装する
-		const float mat[16] = {
-			1.0f, 0.0f, 0.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 1.0f, 
-			0.0f, 0.0f, 1.0f, 0.0f, 
-			0.0f, 0.0f, 0.0f, 1.0f };
-		for (int i = 0; i < 16; i++) {
-			cb.matrix[i] = mat[i];
-		}
+		const auto mt = Matrix4x4<float>();
+		std::copy(std::begin(mt.mat16), std::end(mt.mat16), cb.matrix);
+		
 		for (int i = 0; i < 4; i++) {
 			cb.color[i] = 1.0f;
 		}

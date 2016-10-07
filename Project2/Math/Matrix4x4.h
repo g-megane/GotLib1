@@ -1,13 +1,13 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/5
-// 更新日:2016/10/5
+// 更新日:2016/10/7
 // 制作者:Got
 //////////////////////////////////////////////////
 #pragma once
 #include<cmath>
 #include"Vector2.h"
 
-// 4x4の行列クラス
+// 4x4の行列クラス(2D用)
 namespace Got
 {
 	template <class T>
@@ -68,9 +68,31 @@ namespace Got
 			tmp.m43 = static_cast<T>(z);
 			return tmp;
 		}
-		// 回転
+		// 回転(X)
 		template<class U>
-		static Matrix4x4 rotate(const U& angle)
+		static Matrix4x4 rotateX(const U& angle)
+		{
+			Matrix4x4 tmp;
+			tmp.m22 =  std::cos(static_cast<T>(angle));
+			tmp.m23 =  std::sin(static_cast<T>(angle));
+			tmp.m32 = -std::sin(static_cast<T>(angle));
+			tmp.m33 =  std::cos(static_cast<T>(angle));
+			return tmp;
+		}
+		// 回転(Y)
+		template<class U>
+		static Matrix4x4 rotateY(const U& angle)
+		{
+			Matrix4x4 tmp;
+			tmp.m11 =  std::cos(static_cast<T>(angle));
+			tmp.m13 = -std::sin(static_cast<T>(angle));
+			tmp.m13 =  std::sin(static_cast<T>(angle));
+			tmp.m33 =  std::cos(static_cast<T>(angle));
+			return tmp;
+		}
+		// 回転(Z)
+		template<class U>
+		static Matrix4x4 rotateZ(const U& angle)
 		{
 			Matrix4x4 tmp;
 			tmp.m11 =  std::cos(static_cast<T>(angle));
