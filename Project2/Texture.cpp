@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/10/5
+// 更新日:2016/10/6
 // 制作者:Got
 // 
 //TODO:テクスチャの貼り付けができたらコメントを書こう
@@ -9,6 +9,7 @@
 #include <sstream>
 #include "Texture.h"
 #include "Matrix4x4.h"
+#include "Color.h"
 
 template<typename Ptr>
 void safeRelease(Ptr *& ptr)
@@ -84,9 +85,9 @@ namespace Got
 		const auto mt = Matrix4x4<float>();
 		std::copy(std::begin(mt.mat16), std::end(mt.mat16), cb.matrix);
 		
-		for (int i = 0; i < 4; i++) {
-			cb.color[i] = 1.0f;
-		}
+		const auto color = Color<float>();
+		std::copy(std::begin(color.rgba), std::end(color.rgba), cb.color);
+
 
 		cb.rect[0] = static_cast<float>(0.0f);
 		cb.rect[1] = static_cast<float>(0.0f);
@@ -183,9 +184,9 @@ namespace Got
 
 		// InputLayout
 		D3D11_INPUT_ELEMENT_DESC layout[] = {
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * 4, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 3 * 4 + 4 * 4, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,	 0,		0,		   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "COLOR",	  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 3 * 4,		   D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,		 0, 3 * 4 + 4 * 4, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 		};
 		UINT numElements = ARRAYSIZE(layout);
 
