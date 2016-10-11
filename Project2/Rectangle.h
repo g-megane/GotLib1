@@ -21,7 +21,7 @@ namespace got
 		// コピーコンストラクタ
 		Rectangle(const Rectangle &other)
 		{
-			topleft		= other.topleft;
+			topLeft		= other.topLeft;
 			bottomRight = other.bottomRight;
 		}
 		// デストラクタ
@@ -98,7 +98,7 @@ namespace got
 		}
 
 	private:
-		Vector2<T> topleft;     // 左上隅
+		Vector2<T> topLeft;     // 左上隅
 		Vector2<T> bottomRight;	// 右下隅
 	};
 }

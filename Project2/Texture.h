@@ -9,6 +9,9 @@
 #include"DirectXTex.h"
 #include"Shader.h"
 #include"Dimention.h"
+#include"Matrix4x4.h"
+#include"Color.h"
+#include"Rectangle.h"
 
 namespace got
 {
@@ -19,7 +22,7 @@ namespace got
 		~Texture();
 
 		bool create(const std::wstring &path);
-		void render();
+		void render(const Matrix4x4<float> & _matrix, const Color<float> & _color, const Rectangle<float> & rect);
 		Dimention<int> getTextureSize() const;
 
 	private:

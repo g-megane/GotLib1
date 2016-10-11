@@ -4,7 +4,11 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
+#include<list>
+#include<memory>
 #include"Scene.h"
+#include"Actor.h"
+#include"Player.h"
 
 class MainScene : public Scene
 {
@@ -18,5 +22,6 @@ public:
 	void end() override;
 
 private:
-
+	std::list<std::shared_ptr<Actor>> actors;
+	std::shared_ptr<Actor> player;
 };

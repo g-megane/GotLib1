@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #pragma once
 #include"Actor.h"
+#include"Texture.h"
 
 class Player : public Actor
 {
@@ -15,5 +16,5 @@ public:
 	bool init() override;
 	void move() override;
 	void draw()const override;
-	
+
 };

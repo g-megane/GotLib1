@@ -4,6 +4,9 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
+#include<memory>
+#include"Texture.h"
+#include"Vector2.h"
 
 class Actor
 {
@@ -13,5 +16,7 @@ public:
 	virtual void draw() const = 0;
 
 protected:
+	std::shared_ptr<got::Texture> texture;
+	got::Vector2<float> position;
 
 };

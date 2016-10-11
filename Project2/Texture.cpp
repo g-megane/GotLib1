@@ -70,7 +70,7 @@ namespace got
 	}
 
 	// レンダリング
-	void Texture::render()
+	void Texture::render(const Matrix4x4<float> & _matrix, const Color<float> & _color, const Rectangle<float> & rect)
 	{
 		// Set VertexBuffer
 		UINT stride = sizeof(SimpleVertex);
@@ -82,17 +82,16 @@ namespace got
 		auto &directX11    = DirectX11::getInstance();
 
 		//TODO:マトリックスクラス、色クラスを実装する
-		const auto mt = Matrix4x4<float>();
+		const auto mt = Matrix4x4<float>::transpose(Matrix4x4<float>(_matrix));
 		std::copy(std::begin(mt.mat16), std::end(mt.mat16), cb.matrix);
 		
-		const auto color = Color<float>();
-		std::copy(std::begin(color.rgba), std::end(color.rgba), cb.color);
+		//const auto color = Color<float>();
+		std::copy(std::begin(_color.rgba), std::end(_color.rgba), cb.color);
 
-
-		cb.rect[0] = static_cast<float>(0.0f);
-		cb.rect[1] = static_cast<float>(0.0f);
-		cb.rect[2] = static_cast<float>(image.GetImages()->width);
-		cb.rect[3] = static_cast<float>(image.GetImages()->height);
+		cb.rect[0] = static_cast<float>(rect.getTopLeft().x);
+		cb.rect[1] = static_cast<float>(rect.getTopLeft().y);
+		cb.rect[2] = static_cast<float>(rect.getBottomRight().x);
+		cb.rect[3] = static_cast<float>(rect.getBottomRight().y);
 
 		directX11.begineFrame();
 		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
