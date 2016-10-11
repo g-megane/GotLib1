@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/10/1
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 
 #include "Shader.h"
@@ -17,7 +17,7 @@ void safeRelease(Ptr *& ptr)
 	ptr = nullptr;
 }
 
-namespace Got
+namespace got
 {
 	Shader::Shader()
 	{

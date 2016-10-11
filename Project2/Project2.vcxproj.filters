@@ -19,6 +19,12 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{def2bf2a-e6ed-4e53-9fcf-1211e6f5f4ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{4a144002-74a9-40ae-8714-22b21f547abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{3c7492cb-96c5-4af9-b4d4-c107adc838aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp">
@@ -35,6 +41,18 @@
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +91,24 @@
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

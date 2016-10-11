@@ -1,14 +1,14 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/5
 // 更新日:2016/10/6
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #pragma once
 #include<cmath>
 #include"Vector2.h"
 
 // 4x4の行列クラス
-namespace Got
+namespace got
 {
 	template <class T>
 	class Matrix4x4

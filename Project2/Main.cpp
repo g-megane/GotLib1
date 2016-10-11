@@ -1,9 +1,10 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/9/27
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
-#include"Window.h"
+#include<memory>
+#include"Game.h"
 #include"DirectX11.h"
 
 // メイン関数
@@ -14,12 +15,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
-	std::shared_ptr<Got::Window> window;
-	window = std::make_shared<Got::Window>(L"GotLib");
+	std::shared_ptr<Game> game;
+	game = std::make_shared<Game>();
 
-	Got::DirectX11::getInstance().initialize(window);
+	game->init();
 
-	window->Update();
+	game->update();
+	
+	game->end();
 
 	return 0;
 }

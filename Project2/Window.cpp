@@ -1,13 +1,13 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/9/27
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #include"Window.h"
 #include"DirectX11.h"
 #include"GV.h"
 
-namespace Got
+namespace got
 {
 	// コンストラクタ
 	Window::Window(const LPCWCHAR _windowName)
@@ -55,7 +55,7 @@ namespace Got
 		wcex.hIcon		   = NULL;										 // アイコン
 		wcex.hCursor	   = NULL;										 // カーソル
 		wcex.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1); // 背景色
-		wcex.lpszMenuName  = L"GotLib";									 // メニュー
+		wcex.lpszMenuName  = L"gotLib";									 // メニュー
 		wcex.lpszClassName = windowName;								 // ウィンドウクラスの名前
 		wcex.hIconSm	   = NULL;										 // アイコン小
 		if (!RegisterClassEx(&wcex)) {
@@ -66,8 +66,8 @@ namespace Got
 		RECT rect = { 0, 0, static_cast<LONG>(WINDOW_WIDTH), static_cast<LONG>(WINDOW_HEIGHT) };
 		AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 		hWnd = CreateWindow(
-			L"GotLib",				// ウィンドウクラス名
-			L"GotLib",				// ウィンドウタイトル
+			L"gotLib",				// ウィンドウクラス名
+			L"gotLib",				// ウィンドウタイトル
 			WS_OVERLAPPEDWINDOW,	// ウィンドウスタイル
 			CW_USEDEFAULT,			// Y座標の初期値
 			CW_USEDEFAULT,			// X座標の初期値
@@ -107,25 +107,16 @@ namespace Got
 		return 0;
 	}
 	// アップデート
-	int Window::Update()
+	MSG Window::Update()
 	{
 		MSG msg = { 0 };
-		texture->create(L"plane2.png");
 
-		while (WM_QUIT != msg.message) {
-			if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-			else {
-				DirectX11::getInstance().begineFrame();
 
-				texture->render();
-
-				DirectX11::getInstance().endFrame();
-			}
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
 
-		return static_cast<int>(msg.wParam);
+		return msg;
 	}
 }

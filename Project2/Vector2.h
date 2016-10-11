@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/5
 // 更新日:2016/10/5
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #pragma once
 #include<cmath>
@@ -9,7 +9,7 @@
 #include"Angle.h"
 
 // 2Dベクトルクラス
-namespace Got
+namespace got
 {
 	template <class T>
 	class Vector2

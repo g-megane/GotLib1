@@ -9,7 +9,7 @@
 // コンストラクタ
 Game::Game()
 {
-	window = std::make_shared<got::Window>(L"GotLib");
+	window = std::make_shared<got::Window>(L"gotLib");
 }
 // デストラクタ
 Game::~Game()
@@ -22,6 +22,8 @@ void Game::init()
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();
 	sm.init();
+
+	//return true;
 }
 // 更新
 void Game::update()

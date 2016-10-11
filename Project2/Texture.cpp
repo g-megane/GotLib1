@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/10/8
-// 制作者:Got
+// 制作者:got
 // 
 //TODO:テクスチャの貼り付けができたらコメントを書こう
 //
@@ -20,7 +20,7 @@ void safeRelease(Ptr *& ptr)
 	ptr = nullptr;
 }
 
-namespace Got
+namespace got
 {
 	// コンストラクタ
 	Texture::Texture()

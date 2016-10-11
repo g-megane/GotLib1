@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/10/1
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #pragma once
 
@@ -10,7 +10,7 @@
 #include"Dimention.h"
 
 // DirectX11の制御クラス
-namespace Got
+namespace got
 {
 	class Window;
 	class DirectX11 : public Singleton<DirectX11>

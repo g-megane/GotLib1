@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/9/27
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #pragma once
 #include<Windows.h>
@@ -10,7 +10,7 @@
 #include"Dimention.h"
 
 // ウィンドウ生成クラス
-namespace Got
+namespace got
 {
 	class Window
 	{
@@ -18,7 +18,7 @@ namespace Got
 		Window(const LPCWCHAR _windowName);
 		~Window();
 
-		int Update();
+		MSG Update();
 		HWND getHWND() const;
 		Dimention<int> getWindowSize() const;
 

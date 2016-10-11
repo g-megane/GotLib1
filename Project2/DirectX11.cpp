@@ -1,7 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
 // 更新日:2016/10/1
-// 制作者:Got
+// 制作者:got
 //////////////////////////////////////////////////
 #include "DirectX11.h"
 #include "GV.h"
@@ -16,14 +16,14 @@ void safeRelease(Ptr *& ptr)
 	ptr = nullptr;
 }
 
-namespace Got
+namespace got
 {
 	// コンストラクタ
-	Got::DirectX11::DirectX11()
+	got::DirectX11::DirectX11()
 	{
 	}
 	// デストラクタ
-	Got::DirectX11::~DirectX11()
+	got::DirectX11::~DirectX11()
 	{
 	}
 	// 初期化関数
