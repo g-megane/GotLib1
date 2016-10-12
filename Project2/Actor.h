@@ -17,6 +17,6 @@ public:
 
 protected:
 	std::shared_ptr<got::Texture> texture;
-	got::Vector2<float> position;
+	got::Vector2<int> position;
 
 };

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/11
+// 更新日:2016/10/12
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -8,6 +8,7 @@
 #include"Singleton.h"
 #include"Scene.h"
 
+// シーンのマネージャークラス（シングルトンを継承）
 class SceneManager : public got::Singleton<SceneManager>
 {
 public:
@@ -20,9 +21,9 @@ public:
 
 	~SceneManager();
 	void changeScene(SCENE_NAME name, bool init = true); // シーンの遷移
-	void init();
+	bool init();
 	void move();
-	void draw()const; // シーンの描画
+	void draw() const; // シーンの描画
 	void end();
 	void createScene();
 

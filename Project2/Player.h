@@ -7,6 +7,7 @@
 #include"Actor.h"
 #include"Texture.h"
 
+// プレイヤークラス（Actorを継承）
 class Player : public Actor
 {
 public:
@@ -16,5 +17,9 @@ public:
 	bool init() override;
 	void move() override;
 	void draw()const override;
+
+private:
+	float dx;
+	float dy;
 
 };

@@ -59,7 +59,7 @@ namespace got
 			return tmp;
 		}
 		template<class U>
-		static Matrix4x4 translate(const U& x, const U& y, const U& z = static_cast<U>(1))
+		static Matrix4x4 translate(const U& x, const U& y, const U& z = static_cast<U>(0))
 		{
 			Matrix4x4 tmp;
 			tmp.m41 = static_cast<T>(x);

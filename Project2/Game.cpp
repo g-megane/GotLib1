@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #include "Game.h"
 #include "SceneManager.h"
+#include "SpriteManager.h"
 
 // コンストラクタ
 Game::Game()
@@ -16,14 +17,21 @@ Game::~Game()
 {
 }
 // 初期化
-void Game::init()
+bool Game::init()
 {
 	got::DirectX11::getInstance().initialize(window);
+
+	//TODO:test用
+	got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
+
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();
-	sm.init();
+	
+	if (!sm.init()) {
+		return false;
+	}
 
-	//return true;
+	return true;
 }
 // 更新
 void Game::update()

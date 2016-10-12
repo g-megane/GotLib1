@@ -36,9 +36,13 @@ void SceneManager::changeScene(SCENE_NAME name, bool init)
 	nowScene = p->second;
 }
 
-void SceneManager::init()
+bool SceneManager::init()
 {
-	nowScene->init();
+	if (!nowScene->init()) {
+		return false;
+	}
+
+	return true;
 }
 
 void SceneManager::move()

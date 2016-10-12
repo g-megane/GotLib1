@@ -70,7 +70,7 @@ namespace got
 	}
 
 	// レンダリング
-	void Texture::render(const Matrix4x4<float> & _matrix, const Color<float> & _color, const Rectangle<float> & rect)
+	void Texture::render(const Matrix4x4<float> & _matrix, const Rectangle<int> & rect, const Color<float> & _color)
 	{
 		// Set VertexBuffer
 		UINT stride = sizeof(SimpleVertex);

@@ -6,12 +6,13 @@
 #pragma once
 #include"Window.h"
 
+// ゲームを動かすクラス
 class Game
 {
 public:
 	Game();
 	~Game();
-	void init();
+	bool init();
 	void update();
 	void end();
 

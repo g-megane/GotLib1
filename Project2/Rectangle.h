@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #pragma once
 #include"Vector2.h"
+#include"Dimention.h"
 
 namespace got
 {
@@ -35,7 +36,12 @@ namespace got
 			bottomRight.x = vec2.x + picWidth;
 			bottomRight.y = vec2.y + picHeight;
 		}
-
+		explicit Rectangle(const Dimention<T>& size)
+			:topLeft()
+		{
+			bottomRight.x = size.width;
+			bottomRight.y = size.height;
+		}
 		// 引数：（左上隅、右下隅）
 		explicit Rectangle(const Vector2<T> & _min, const Vector2<T> & _max)
 		{

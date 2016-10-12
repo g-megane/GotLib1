@@ -10,6 +10,7 @@
 #include"Actor.h"
 #include"Player.h"
 
+// メインシーンクラス（Sceneを継承）
 class MainScene : public Scene
 {
 public:
