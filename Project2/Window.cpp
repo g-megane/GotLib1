@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/9/27
+// 更新日:2016/10/12
 // 制作者:got
 //////////////////////////////////////////////////
 #include"Window.h"
@@ -52,12 +52,12 @@ namespace got
 		wcex.cbClsExtra	   = 0;											 // ウィンドウクラスに付加したいメモリ
 		wcex.cbWndExtra	   = 0;											 // ウィンドウに付加したいメモリ
 		wcex.hInstance	   = hInstance;									 // インスタンスハンドル
-		wcex.hIcon		   = NULL;										 // アイコン
-		wcex.hCursor	   = NULL;										 // カーソル
+		wcex.hIcon		   = nullptr;										 // アイコン
+		wcex.hCursor	   = nullptr;										 // カーソル
 		wcex.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1); // 背景色
 		wcex.lpszMenuName  = L"gotLib";									 // メニュー
 		wcex.lpszClassName = windowName;								 // ウィンドウクラスの名前
-		wcex.hIconSm	   = NULL;										 // アイコン小
+		wcex.hIconSm	   = nullptr;										 // アイコン小
 		if (!RegisterClassEx(&wcex)) {
 			return E_FAIL;
 		}
@@ -73,10 +73,10 @@ namespace got
 			CW_USEDEFAULT,			// X座標の初期値
 			rect.right - rect.left, // 幅の初期値
 			rect.bottom - rect.top, // 高さの初期値
-			NULL,					// 親ウィンドウのハンドル
-			NULL,					// ウィンドウメニュー
+			nullptr,				// 親ウィンドウのハンドル
+			nullptr,				// ウィンドウメニュー
 			hInstance,				// インスタンスハンドル
-			NULL);					// 作成パラメータ
+			nullptr);				// 作成パラメータ
 		if (!hWnd) {
 			return E_FAIL;
 		}
@@ -100,6 +100,11 @@ namespace got
 		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
+		case WM_KEYDOWN:
+			if (wParam == VK_ESCAPE) {
+				PostQuitMessage(0);
+			}
+			break;
 		default:
 			return DefWindowProc(_hWnd, message, wParam, lParam);
 		}
@@ -112,7 +117,7 @@ namespace got
 		MSG msg = { 0 };
 
 
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
