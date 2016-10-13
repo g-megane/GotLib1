@@ -10,7 +10,7 @@
 template<typename Ptr>
 void safeRelease(Ptr *& ptr)
 {
-	if (ptr == nullptr) return;
+	if (ptr != nullptr) return;
 
 	ptr->Release();
 	ptr = nullptr;
@@ -82,6 +82,10 @@ namespace got
 	{
 		return spDeviceContext;
 	}
+	std::shared_ptr<Window> DirectX11::getWindow() const
+	{
+		return window;
+	}
 	// サイズを返す
 	Dimention<int> DirectX11::getSize() const
 	{
@@ -91,10 +95,10 @@ namespace got
 	// デバイスとスワップチェーンを作成
 	HRESULT DirectX11::createDeviceAndSwapChain()
 	{
-		ID3D11Device		*device = nullptr;
+		ID3D11Device		*device		   = nullptr;
 		ID3D11DeviceContext *deviceContext = nullptr;
-		IDXGISwapChain		*swapChain = nullptr;
-		HRESULT				hr = S_OK;
+		IDXGISwapChain		*swapChain	   = nullptr;
+		HRESULT				 hr			   = S_OK;
 		size = window->getWindowSize();
 
 		// ドライバーの種類のオプション

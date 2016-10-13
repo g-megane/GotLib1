@@ -7,8 +7,8 @@
 // グローバル変数群
 
 // ウィンドウ関係
-constexpr int WINDOW_WIDTH = 980;
-constexpr int WINDOW_HEIGHT = 680;
+static constexpr int WINDOW_WIDTH = 1024;
+static constexpr int WINDOW_HEIGHT = 768;
 
 // 円周率
-constexpr float PI = 3.14159265358979323846f;
+static constexpr float PI = 3.14159265358979323846f;

@@ -19,10 +19,13 @@ namespace got
 		~DirectX11();
 
 		void DirectX11::initialize(std::shared_ptr<Window> _window);
+
 		void begineFrame() const;
 		void endFrame() const;
+		
 		std::shared_ptr<ID3D11Device> getDevice() const;
 		std::shared_ptr<ID3D11DeviceContext> getDeviceContext() const;
+		std::shared_ptr<Window> getWindow() const;
 		Dimention<int> getSize() const;
 		bool isInit() const;
 

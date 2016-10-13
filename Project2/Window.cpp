@@ -22,10 +22,10 @@ namespace got
 	// 初期化
 	int Window::Initialize()
 	{
-		windowSize = Dimention<int>(static_cast<int>(WINDOW_WIDTH), static_cast<int>(WINDOW_HEIGHT));
-		texture = std::make_shared<Texture>();
-		auto hInstance = GetModuleHandle(NULL);
-		auto nCmdShow = SW_SHOWNORMAL;
+		windowSize	   = Dimention<int>(static_cast<int>(WINDOW_WIDTH), static_cast<int>(WINDOW_HEIGHT));
+		texture		   = std::make_shared<Texture>();
+		auto hInstance = GetModuleHandle(nullptr);
+		auto nCmdShow  = SW_SHOWNORMAL;
 
 		if (FAILED(InitWindow(hInstance, nCmdShow))) {
 			return 0;
