@@ -7,14 +7,28 @@
 #include "DirectX11.h"
 #include "Window.h"
 
+template<typename Ptr>
+void safeRelease(Ptr & ptr)
+{
+	if (ptr == nullptr) return;
+	ptr->Release();
+	ptr = nullptr;
+}
+
 namespace got
 {
 	// コンストラクタ
 	MyDirectInput::MyDirectInput()
 	{
+		spDInput  = nullptr;
+		spDDevice = nullptr;
+	}
+	// デストラクタ
+	MyDirectInput::~MyDirectInput()
+	{
 	}
 	// DirectInputの初期化
-	bool MyDirectInput::init()
+	HRESULT MyDirectInput::init()
 	{
 		// DirectInputオブジェクトの作成
 		LPDIRECTINPUT8 dInput = nullptr;
@@ -30,14 +44,9 @@ namespace got
 		// 型が違うように見えるがLPDIRECTINPUT8はIDirectInput8
 		// shred_ptr<LPDIRECTINPUT8>だとポインターのポインター
 		// になってしまうので下記のようになっている
-		spDInput = std::shared_ptr<IDirectInput8>(dInput, [](LPDIRECTINPUT8 ptr)
-		{
-			if (ptr == nullptr) return;
-			ptr->Release();
-			ptr = nullptr;
-		});
+		spDInput = std::shared_ptr<IDirectInput8>(dInput, safeRelease<LPDIRECTINPUT8>);
 		if (FAILED(hr)) {
-			return false;
+			return E_FAIL;
 		}
 
 		// DirectInputキーボードデバイスの作成
@@ -52,20 +61,20 @@ namespace got
 		// 型が違うように見えるがLPDIRECTINPUTDEVICE8はIDirectInputDevice8
 		// shred_ptr<LPDIRECTINPUTDEVICE8>だとポインターのポインター
 		// になってしまうので下記のようになっている
-		spDDevice = std::shared_ptr<IDirectInputDevice8>(dDevice, [](LPDIRECTINPUTDEVICE8 ptr)
+		spDDevice = std::shared_ptr<IDirectInputDevice8>(dDevice, [](LPDIRECTINPUTDEVICE8 & ptr)
 		{
+			if (ptr == nullptr) return;
 			ptr->Unacquire();
-			ptr->Release();
-			ptr = nullptr;
+			safeRelease<LPDIRECTINPUTDEVICE8>;
 		});
 		if (FAILED(hr)) {
-			return false;
+			return E_FAIL;
 		}
 		
 		// キーボードのデータ形式の設定
 		hr = dDevice->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(hr)) {
-			return false;
+			return E_FAIL;
 		}
 
 		// キーボードの動作の設定
@@ -75,15 +84,32 @@ namespace got
 			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
 		);
 		if (FAILED(hr)) {
-			return false;
+			return E_FAIL;
 		}
 
+		return S_OK;
+	}
+	// キーが押されているか
+	bool MyDirectInput::keyPush(const int code)
+	{
 		// キーボードへのアクセス権の取得
-		hr = dDevice->Acquire();
-		if (FAILED(hr)) {
-			return false;
-		}
+		spDDevice->Acquire();
 
-		return true;
+		spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+
+		if (buffer[code] & 0x80) {
+			return true;
+		}
+		return false;
+	}
+	// キーが押された瞬間か
+	bool MyDirectInput::keyTrigger(const int code)
+	{
+		return false;
+	}
+	// キーが離した瞬間か
+	bool MyDirectInput::keyRelease(const int code)
+	{
+		return false;
 	}
 }

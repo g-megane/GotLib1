@@ -4,8 +4,9 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
-#include"Matrix4x4.h"
-#include"SpriteManager.h"
+#include "Matrix4x4.h"
+#include "SpriteManager.h"
+#include "MyDirectInput.h"
 
 Player::Player()
 {
@@ -28,8 +29,11 @@ bool Player::init()
 
 void Player::move()
 {
-	dx += 0.1f;
-	dy += 0.1f;
+	auto &input = got::MyDirectInput::getInstance();
+	if (input.keyPush(DIK_UP)) {
+		dx += 0.1f;
+		dy += 0.1f;
+	}
 
 	//position.move(dx, dy);
 }

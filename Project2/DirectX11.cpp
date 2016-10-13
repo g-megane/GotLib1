@@ -10,8 +10,7 @@
 template<typename Ptr>
 void safeRelease(Ptr *& ptr)
 {
-	if (ptr != nullptr) return;
-
+	if (ptr == nullptr) return;
 	ptr->Release();
 	ptr = nullptr;
 }

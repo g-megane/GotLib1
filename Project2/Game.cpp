@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "SceneManager.h"
 #include "SpriteManager.h"
+#include "MyDirectInput.h"
 
 // コンストラクタ
 Game::Game()
@@ -20,7 +21,7 @@ Game::~Game()
 bool Game::init()
 {
 	got::DirectX11::getInstance().initialize(window);
-
+	got::MyDirectInput::getInstance().init();
 	//TODO:test用
 	got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
 
