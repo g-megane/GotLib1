@@ -30,11 +30,14 @@ bool Player::init()
 void Player::move()
 {
 	auto &input = got::MyDirectInput::getInstance();
-	if (input.keyPush(DIK_UP)) {
+	if (input.keyTrigger(DIK_UP)) {
 		dx += 0.1f;
 		dy += 0.1f;
 	}
-
+	if (input.keyPush(DIK_DOWN)) {
+		dx += 0.1f;
+		dy += 0.1f;
+	}
 	//position.move(dx, dy);
 }
 

@@ -31,7 +31,8 @@ namespace got
 		friend class Singleton<MyDirectInput>;
 		MyDirectInput();
 
-		unsigned char buffer[256];
+		unsigned char buffer[256];		// 現在の入力
+		unsigned char bufferPrev[256];  // 前のフレームでの入力
 
 		//BYTE keyPushTime(int code);
 

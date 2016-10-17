@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/12
-// 更新日:2016/10/12
+// 更新日:2016/10/13
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MyDirectInput.h"
@@ -105,7 +105,18 @@ namespace got
 	// キーが押された瞬間か
 	bool MyDirectInput::keyTrigger(const int code)
 	{
-		return false;
+		bool result = false;
+		// キーボードへのアクセス権の取得
+		spDDevice->Acquire();
+
+		spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+
+		if ((buffer[code] & 0x80) != 0 && (bufferPrev[code] & 0x80) == 0) {
+			result = true;
+		}
+		std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
+
+		return result;
 	}
 	// キーが離した瞬間か
 	bool MyDirectInput::keyRelease(const int code)

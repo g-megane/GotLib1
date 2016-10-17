@@ -20,8 +20,9 @@ Game::~Game()
 // 初期化
 bool Game::init()
 {
-	got::DirectX11::getInstance().initialize(window);
-	got::MyDirectInput::getInstance().init();
+	got::DirectX11::getInstance().initialize(window); // DirectXの初期化
+	
+	got::MyDirectInput::getInstance().init();		  // DirectInputの初期化
 	//TODO:test用
 	got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
 
@@ -46,10 +47,11 @@ void Game::update()
 			break;
 		}
 
+		// シーンのアップデート
 		sm.move();
 
 		got::DirectX11::getInstance().begineFrame();
-
+		// シーンの描画
 		sm.draw();
 
 		got::DirectX11::getInstance().endFrame();
