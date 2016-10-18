@@ -20,11 +20,12 @@ Game::~Game()
 // 初期化
 bool Game::init()
 {
-	got::DirectX11::getInstance().initialize(window); // DirectXの初期化
-	
+	got::DirectX11::getInstance().initialize(window); // DirectXの初期化	
 	got::MyDirectInput::getInstance().init();		  // DirectInputの初期化
-	//TODO:test用
-	got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
+
+	//TODO:test用スプライト
+	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
+	got::SpriteManager::getInstance().addMap("Player", L"player.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();

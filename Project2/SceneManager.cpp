@@ -5,6 +5,8 @@
 //////////////////////////////////////////////////
 #include "SceneManager.h"
 #include "MainScene.h"
+#include "TitleScene.h"
+#include "ResultScene.h"
 
 SceneManager::SceneManager()
 {
@@ -20,8 +22,14 @@ void SceneManager::createScene()
 {
 	std::shared_ptr<Scene> scene;
 
+	scene = std::make_shared<ResultScene>();
+	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(RESULT, scene));
+
 	scene = std::make_shared<MainScene>();
-	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN, scene));
+	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
+
+	scene = std::make_shared<TitleScene>();
+	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
 
 	nowScene = scene;
 }

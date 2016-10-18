@@ -14,6 +14,7 @@ namespace got
 	class Matrix4x4
 	{
 	public:
+#pragma warning(disable:4201)
 		union
 		{
 			struct
@@ -26,6 +27,7 @@ namespace got
 			T mat4x4[4][4];
 			T mat16[16];
 		};
+#pragma warning(default:4201)
 
 		// コピーコンストラクタ
 		Matrix4x4(const Matrix4x4 &other)

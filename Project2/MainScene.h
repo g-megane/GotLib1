@@ -4,13 +4,13 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include<list>
-#include<memory>
-#include"Scene.h"
-#include"Actor.h"
-#include"Player.h"
+#include <list>
+#include <memory>
+#include "Scene.h"
+#include "Actor.h"
+#include "Player.h"
 
-// メインシーンクラス（Sceneを継承）
+// メインシーンクラス(Sceneを継承)
 class MainScene : public Scene
 {
 public:

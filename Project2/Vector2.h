@@ -160,14 +160,22 @@ namespace got
 			if (y < other.y) return true;
 			return false;
 		}
-		Vector2 & operator=(const Vector2 &other) const
+
+		template<typename U>
+		operator Vector2<U>() const
 		{
-			if (this != &other) {
-				x = other.x;
-				y = other.y;
-			}
-			return *this;
+			return Vector2<U>(static_cast<U>(x), static_cast<U>(y));
 		}
+		//Vector2 operator=(const Vector2 &other) const
+		//{
+		//	//if (*this == other) {
+		//	//
+		//	//	x = other.x;
+		//	//	y = other.y;
+		//	//}
+		//	auto ret =Vector2(other.x, other.y);
+		//	return ret;//Vector2(other.x, other.y);
+		//}
 
 		// 定数
 		static const Vector2 ZERO;	// ゼロベクトル
@@ -180,15 +188,14 @@ namespace got
 		T x; // X座標
 		T y; // y座標
 	};
-
 	template<class T>
-	const Vector2<T> Vector2<T>::ZERO( static_cast<T>(0),  static_cast(0));
+	const Vector2<T> Vector2<T>::ZERO( static_cast<T>(0),  static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::LEFT( static_cast<T>(-1), static_cast(0));
+	const Vector2<T> Vector2<T>::LEFT( static_cast<T>(-1), static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::RIGHT(static_cast<T>(1),  static_cast(0));
+	const Vector2<T> Vector2<T>::RIGHT(static_cast<T>(1),  static_cast<T>(0));
 	template<class T>
-	const Vector2<T> Vector2<T>::DOWN( static_cast<T>(0),  static_cast(-1));
+	const Vector2<T> Vector2<T>::DOWN( static_cast<T>(0),  static_cast<T>(-1));
 	template<class T>
-	const Vector2<T> Vector2<T>::UP( static_cast<T>(0),  static_cast(1));
+	const Vector2<T> Vector2<T>::UP( static_cast<T>(0),    static_cast<T>(1));
 }

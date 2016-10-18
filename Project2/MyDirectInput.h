@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/12
-// 更新日:2016/10/12
+// 更新日:2016/10/17
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -15,6 +15,7 @@
 
 #include"Singleton.h"
 
+// DirectIputクラス
 namespace got
 {
 	class MyDirectInput : public Singleton<MyDirectInput>
@@ -25,7 +26,7 @@ namespace got
 		
 		bool keyPush	(const int code);
 		bool keyTrigger (const int code);
-		bool keyRelease (const int code);
+		//bool keyRelease (const int code);
 
 	private:
 		friend class Singleton<MyDirectInput>;
@@ -34,10 +35,6 @@ namespace got
 		unsigned char buffer[256];		// 現在の入力
 		unsigned char bufferPrev[256];  // 前のフレームでの入力
 
-		//BYTE keyPushTime(int code);
-
-		//BYTE keyInput[INPUT_BUFFER_SIZE];		 // キーボードの入力情報
-		//BYTE keyInputPreview[INPUT_BUFFER_SIZE]; // ↑の入力情報
 		std::shared_ptr<IDirectInput8> spDInput;
 		std::shared_ptr<IDirectInputDevice8> spDDevice; 
 	};

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/12
-// 更新日:2016/10/13
+// 更新日:2016/10/17
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MyDirectInput.h"
@@ -65,7 +65,7 @@ namespace got
 		{
 			if (ptr == nullptr) return;
 			ptr->Unacquire();
-			safeRelease<LPDIRECTINPUTDEVICE8>;
+			safeRelease<LPDIRECTINPUTDEVICE8>(ptr);
 		});
 		if (FAILED(hr)) {
 			return E_FAIL;
@@ -119,8 +119,8 @@ namespace got
 		return result;
 	}
 	// キーが離した瞬間か
-	bool MyDirectInput::keyRelease(const int code)
-	{
-		return false;
-	}
+	//bool MyDirectInput::keyRelease(const int code)
+	//{
+	//	return false;
+	//}
 }

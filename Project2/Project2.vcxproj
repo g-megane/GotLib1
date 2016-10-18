@@ -122,16 +122,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MyDirectInput.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,13 +144,16 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Dimention.h" />
     <ClInclude Include="DirectX11.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GV.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MyDirectInput.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
@@ -154,6 +161,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

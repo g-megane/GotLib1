@@ -12,6 +12,8 @@ namespace got
 	class Color
 	{
 	public:
+// 非標準の
+#pragma warning(disable:4201)
 		union
 		{
 			struct
@@ -23,6 +25,7 @@ namespace got
 			};
 			T rgba[4];
 		};
+#pragma warning(default:4201)
 
 		//	コンストラクタ
 		Color(const T _r = static_cast<T>(1), const T _g = static_cast<T>(1), const T _b = static_cast<T>(1), const T _a = static_cast<T>(1))

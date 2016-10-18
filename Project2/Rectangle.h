@@ -50,7 +50,7 @@ namespace got
 		// 引数：（右下隅）
 		explicit Rectangle(const Vector2<T> & _max)
 		{
-			set(Vector2D<T>(), _max);
+			set(Vector2<T>(), _max);
 		}
 		// 指定された幅と高さに変更
 		Rectangle & setSize(const T width, const T height) {
@@ -102,6 +102,7 @@ namespace got
 			bottomRight = other.bottomRight;
 			return *this;
 		}
+
 
 	private:
 		Vector2<T> topLeft;     // 左上隅

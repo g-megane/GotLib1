@@ -28,6 +28,12 @@
     <Filter Include="Input">
       <UniqueIdentifier>{f28702da-e706-4603-87c3-68ef3ea04072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{ce28ba94-bbff-4a0c-9824-e4197baca37f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Enemy">
+      <UniqueIdentifier>{210e83ef-f7a7-49b8-9fa7-a2b1e5d0d151}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp">
@@ -54,9 +60,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -65,6 +68,21 @@
     </ClCompile>
     <ClCompile Include="MyDirectInput.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>Actor\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +137,6 @@
     <ClInclude Include="Actor.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -130,6 +145,21 @@
     </ClInclude>
     <ClInclude Include="MyDirectInput.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>Actor\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
