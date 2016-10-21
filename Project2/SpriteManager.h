@@ -20,7 +20,7 @@ namespace got
 		std::shared_ptr<Sprite> getSprite(std::string key);
 
 		template<class T = float>
-		void draw(const std::string& key, const Matrix4x4<T>& matrix, const Rectangle<int>& rect, const Color<T>& color = Color<T>::WHITE)
+		void draw(const std::string& key, const Matrix4x4<float>& matrix, const Rectangle<int>& rect, const Color<T>& color = Color<T>::WHITE)
 		{
 			spriteMap[key]->draw(matrix, rect, color);
 		}

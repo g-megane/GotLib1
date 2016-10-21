@@ -4,19 +4,22 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include"Window.h"
+#include "Window.h"
+#include "Singleton.h"
 
 // ゲームを動かすクラス
-class Game
+class Game : public got::Singleton<Game>
 {
 public:
-	Game();
 	~Game();
 	bool init();
 	void update();
 	void end();
 
 private:
+	friend class got::Singleton<Game>;
+	Game();
+
 	std::shared_ptr<got::Window> window;
 	MSG msg;
 };

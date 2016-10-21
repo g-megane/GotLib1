@@ -34,6 +34,9 @@
     <Filter Include="Actor\Enemy">
       <UniqueIdentifier>{210e83ef-f7a7-49b8-9fa7-a2b1e5d0d151}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Bullet">
+      <UniqueIdentifier>{ef431c23-f0d6-4a15-836f-2705e73f18f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp">
@@ -83,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="PlayerBullet.cpp">
       <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>Actor\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="PlayerBullet.h">
       <Filter>Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Actor\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ TitleScene::~TitleScene()
 // 初期化
 bool TitleScene::init()
 {
-	return false;
+	return true;
 }
 // 更新
 void TitleScene::move()

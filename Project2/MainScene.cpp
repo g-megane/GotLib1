@@ -9,6 +9,7 @@
 MainScene::MainScene()
 {
 	player = std::make_shared<Player>();
+	bm	   = std::make_shared<BulletManager>(100);
 }
 // デストラクタ
 MainScene::~MainScene()
@@ -17,7 +18,8 @@ MainScene::~MainScene()
 // 初期化
 bool MainScene::init()
 {
-	actors.push_back(player);
+	actors.emplace_back(player);
+	actors.emplace_back(bm);
 
 	for (auto &actor : actors) {
 		if (!actor->init()) {

@@ -1,26 +1,30 @@
 ﻿//////////////////////////////////////////////////
-// 作成日:2016/10/11
-// 更新日:2016/10/18
+// 作成日:2016/10/21
+// 更新日:2016/10/21
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include"Actor.h"
-#include"Texture.h"
+#include "Actor.h"
 
-// プレイヤークラス（Actorを継承）
-class Player : public Actor
+class Bullet : public Actor
 {
 public:
-	Player();
-	~Player();// override;
+	Bullet();
+
+	~Bullet();// override;
 
 	bool init() override;
 	void move() override;
 	void draw() const override;
 
 private:
-	float dx;
+	enum State
+	{
+		USE,
+		UN_USE
+	};
+
+	//float dx;
 	float dy;
-
-
+	State state;
 };

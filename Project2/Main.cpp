@@ -15,14 +15,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
-	std::shared_ptr<Game> game;
-	game = std::make_shared<Game>();
+	auto & game = Game::getInstance();
 
-	game->init();
+	game.init();
 
-	game->update();
-	
-	game->end();
+	game.update();
+
+	game.end();
+	//std::shared_ptr<Game> game;
+	//game = std::make_shared<Game>();
+	//
+	//game->init();
+	//
+	//game->update();
+	//
+	//game->end();
 
 	return 0;
 }

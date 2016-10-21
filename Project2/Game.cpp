@@ -26,6 +26,7 @@ bool Game::init()
 	//TODO:test用スプライト
 	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
 	got::SpriteManager::getInstance().addMap("Player", L"player.png");
+	got::SpriteManager::getInstance().addMap("Bullet", L"Boul.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();
@@ -40,6 +41,7 @@ bool Game::init()
 void Game::update()
 {
 	auto & sm = SceneManager::getInstance();
+	//TODO:runを上手く実装する
 	bool run = true;
 
 	while (run) {

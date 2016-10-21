@@ -11,6 +11,7 @@
 class Actor
 {
 public:
+	//virtual ~Actor() = 0;
 	virtual bool init() = 0;
 	virtual void move() = 0;
 	virtual void draw() const = 0;

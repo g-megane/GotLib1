@@ -4,3 +4,8 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
+
+class PlayerBullet
+{
+	public
+};

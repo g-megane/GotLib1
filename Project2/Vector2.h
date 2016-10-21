@@ -43,6 +43,11 @@ namespace got
 			x = _x;
 			y = _y;
 		}
+		void move(const Vector2 &vec)
+		{
+			x = vec.x;
+			y = vec.y;
+		}
 		// 座標を引数分ずらす
 		Vector2 & translate(const Vector2 &vec)
 		{

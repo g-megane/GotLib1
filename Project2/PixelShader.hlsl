@@ -11,7 +11,7 @@ struct PixelOut
 };
 
 Texture2D txDiffuse : register(t0);
-SamplerState samLinear : register(s0);
+SamplerState samLinear : register(s);
 
 float4 main(PixelIn input) : SV_TARGET
 {

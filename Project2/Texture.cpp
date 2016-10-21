@@ -93,7 +93,6 @@ namespace got
 		cb.rect[2] = static_cast<float>(rect.getBottomRight().x);
 		cb.rect[3] = static_cast<float>(rect.getBottomRight().y);
 
-		directX11.begineFrame();
 		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
 
 		auto constantBuffer = spConstantBuffer.get();
@@ -114,7 +113,6 @@ namespace got
 		directX11.getDeviceContext()->PSSetSamplers(0, 1, &samplerLinear);
 
 		directX11.getDeviceContext()->Draw(4, 0);
-		directX11.endFrame();
 	}
 
 	// テクスチャのサイズを返す
@@ -157,11 +155,9 @@ namespace got
 
 		// Compile VertexShader
 		auto VSBlob = Shader::shaderCompile(L"VertexShader.hlsl", "main", "vs_5_0");
-		std::basic_ostringstream<wchar_t> oss;
 
 		if (VSBlob == nullptr) {
-			oss << L"VSのコンパイル失敗 : ";
-			MessageBox(NULL, oss.str().c_str(), L"Error", MB_OK);
+			MessageBox(NULL, L"VSコンパイル失敗", L"Error", MB_OK);
 			return false;
 		}
 

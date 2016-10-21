@@ -9,6 +9,7 @@
 #include "Scene.h"
 #include "Actor.h"
 #include "Player.h"
+#include "BulletManager.h"
 
 // メインシーンクラス(Sceneを継承)
 class MainScene : public Scene
@@ -25,4 +26,5 @@ public:
 private:
 	std::list<std::shared_ptr<Actor>> actors;
 	std::shared_ptr<Actor> player;
+	std::shared_ptr<BulletManager> bm;
 };

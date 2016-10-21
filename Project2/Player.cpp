@@ -28,8 +28,10 @@ bool Player::init()
 // 更新
 void Player::move()
 {
-	//TODO:斜め移動早くなるやつ直す
-	auto &input		 = got::MyDirectInput::getInstance();
+	//TODO:・斜め移動早くなるやつ直す
+	//     ・弾の発射
+	//     ・当たり判定
+	auto &input		= got::MyDirectInput::getInstance();
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 
 	// キー移動
@@ -43,16 +45,17 @@ void Player::move()
 	if (position.x > STAGE_WIDTH - spriteSize.width  ) { position.x = STAGE_WIDTH - spriteSize.width;	}
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
+
+	//if(input.keyPush(DIK_SPACE)) { new }
 }
 
 void Player::draw() const
 {
 	//TODO:テスト
-	auto mt = got::Matrix4x4<float>::translate(position);
+	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	auto color = got::Color<float>();
-
-	auto rect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Player")->getSize().width, spriteManager.getSprite("Player")->getSize().height));
+	auto color			 = got::Color<float>();
+	auto rect			 = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Player")->getSize().width, spriteManager.getSprite("Player")->getSize().height));
 
 	got::SpriteManager::getInstance().draw("Player", mt, rect, color);
 }
