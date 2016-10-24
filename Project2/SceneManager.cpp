@@ -23,25 +23,30 @@ void SceneManager::createScene()
 	std::shared_ptr<Scene> scene;
 
 	scene = std::make_shared<ResultScene>();
-	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(RESULT, scene));
+	sceneMap[RESULT] = scene;
+	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(RESULT, scene));
 
 	scene = std::make_shared<MainScene>();
-	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
+	sceneMap[MAIN] = scene;
+	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
 
 	scene = std::make_shared<TitleScene>();
-	sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
+	sceneMap[TITLE] = scene;
+	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
 
 	nowScene = scene;
 }
 
 void SceneManager::changeScene(SCENE_NAME name, bool init)
 {
-	const std::unordered_map<SCENE_NAME, std::shared_ptr<Scene>>::const_iterator p = sceneMap.find(name);
+	//const std::unordered_map<SCENE_NAME, std::shared_ptr<Scene>>::const_iterator p = sceneMap.find(name);
 
 	if (init) {
-		p->second->init();
+		sceneMap[name]->init();
 	}
-	nowScene = p->second;
+
+	nowScene = sceneMap[name];
+	//nowScene = p->second;
 }
 
 bool SceneManager::init()

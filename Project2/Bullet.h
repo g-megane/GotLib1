@@ -16,6 +16,7 @@ public:
 	bool init() override;
 	void move() override;
 	void draw() const override;
+	void end() override;
 
 private:
 	enum State

@@ -19,7 +19,7 @@ namespace got
 	{
 		spriteMap[key] = std::make_shared<Sprite>(path);
 	}
-	std::shared_ptr<Sprite> SpriteManager::getSprite(std::string key)
+	std::shared_ptr<Sprite> SpriteManager::getSprite(const std::string & key)
 	{
 		return spriteMap[key];
 	}

@@ -17,7 +17,7 @@ namespace got
 		void addMap(const std::string& key, const std::shared_ptr<Sprite>& sprite);
 		void addMap(const std::string& key, const std::wstring& path);
 
-		std::shared_ptr<Sprite> getSprite(std::string key);
+		std::shared_ptr<Sprite> getSprite(const std::string & key);
 
 		template<class T = float>
 		void draw(const std::string& key, const Matrix4x4<float>& matrix, const Rectangle<int>& rect, const Color<T>& color = Color<T>::WHITE)

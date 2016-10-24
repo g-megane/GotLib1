@@ -15,6 +15,7 @@ public:
 	virtual bool init() = 0;
 	virtual void move() = 0;
 	virtual void draw() const = 0;
+	virtual void end() = 0;
 
 protected:
 	std::shared_ptr<got::Texture> texture;

@@ -48,3 +48,7 @@ void Bullet::draw() const
 		got::SpriteManager::getInstance().draw("Bullet", mt, rect, color);
 	}
 }
+
+void Bullet::end()
+{
+}

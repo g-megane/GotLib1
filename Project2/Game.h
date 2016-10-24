@@ -6,6 +6,7 @@
 #pragma once
 #include "Window.h"
 #include "Singleton.h"
+#include "Time.h"
 
 // ゲームを動かすクラス
 class Game : public got::Singleton<Game>
@@ -22,4 +23,5 @@ private:
 
 	std::shared_ptr<got::Window> window;
 	MSG msg;
+	got::Time time;
 };

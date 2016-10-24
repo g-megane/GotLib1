@@ -17,11 +17,12 @@ public:
 	bool init() override;
 	void move() override;
 	void draw() const override;
+	void end() override;
 		
 	void shot(float x, float y);
 	void shot(got::Vector2<float> pos);
 
 private:
 	const int bulletsNum;
-	std::vector<std::shared_ptr<Bullet>> bullets;
+	std::vector<Bullet> bullets;
 };

@@ -19,8 +19,8 @@ Player::~Player()
 
 bool Player::init()
 {
-	dx = 0.5f; //TODO:移動量(仮)
-	dy = 0.5f; //TODO:移動量(仮)
+	dx = 6.0f; //TODO:移動量(仮)
+	dy = 6.0f; //TODO:移動量(仮)
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
 
 	return false;
@@ -58,4 +58,8 @@ void Player::draw() const
 	auto rect			 = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Player")->getSize().width, spriteManager.getSprite("Player")->getSize().height));
 
 	got::SpriteManager::getInstance().draw("Player", mt, rect, color);
+}
+
+void Player::end()
+{
 }

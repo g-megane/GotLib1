@@ -7,12 +7,12 @@
 
 // コンストラクタ
 BulletManager::BulletManager(const int num)
-	: bulletsNum(num)
+	: bulletsNum(num), bullets(num)
 {
-	bullets.reserve(bulletsNum);
-	for (int i = 0; i < bulletsNum; i++) {
-		bullets.emplace_back(std::make_shared<Bullet>());
-	}
+	//bullets.reserve(bulletsNum);
+	//for (int i = 0; i < bulletsNum; i++) {
+	//	bullets.emplace_back(std::make_shared<Bullet>());
+	//}
 }
 // デストラクタ
 BulletManager::~BulletManager()
@@ -21,8 +21,8 @@ BulletManager::~BulletManager()
 // 初期化
 bool BulletManager::init()
 {
-	for (auto bullet : bullets) {
-		if (!bullet->init()) {
+	for (auto & bullet : bullets) {
+		if (!bullet.init()) {
 			return false;
 		}
 	}
@@ -31,15 +31,18 @@ bool BulletManager::init()
 }
 void BulletManager::move()
 {
-	for (auto bullet : bullets) {
-		bullet->move();
+	for (auto & bullet : bullets) {
+		bullet.move();
 	}
 }
 void BulletManager::draw() const
 {
-	for (auto bullet : bullets) {
-		bullet->draw();
+	for (auto & bullet : bullets) {
+		bullet.draw();
 	}
+}
+void BulletManager::end()
+{
 }
 // 弾の発射
 void BulletManager::shot(float x, float y)
