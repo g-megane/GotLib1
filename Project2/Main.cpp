@@ -22,14 +22,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	game.update();
 
 	game.end();
-	//std::shared_ptr<Game> game;
-	//game = std::make_shared<Game>();
-	//
-	//game->init();
-	//
-	//game->update();
-	//
-	//game->end();
 
 	return 0;
 }

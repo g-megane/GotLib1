@@ -8,8 +8,10 @@
 #include "SpriteManager.h"
 #include "MyDirectInput.h"
 #include "GV.h"
+#include "BulletManager.h"
 
 Player::Player()
+	:Actor(L"Player")
 {
 }
 
@@ -46,7 +48,9 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
-	//if(input.keyPush(DIK_SPACE)) { new }
+	if(input.keyPush(DIK_SPACE)) {
+	//std::shared_ptr<BulletManager> bm = dynamic_cast<BulletManager*>(getChild(L"BulletManager"));
+	}
 }
 
 void Player::draw() const

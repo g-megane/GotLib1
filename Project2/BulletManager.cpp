@@ -7,12 +7,8 @@
 
 // コンストラクタ
 BulletManager::BulletManager(const int num)
-	: bulletsNum(num), bullets(num)
+	: Actor(L"BulletManager"), bulletsNum(num), bullets(num)
 {
-	//bullets.reserve(bulletsNum);
-	//for (int i = 0; i < bulletsNum; i++) {
-	//	bullets.emplace_back(std::make_shared<Bullet>());
-	//}
 }
 // デストラクタ
 BulletManager::~BulletManager()

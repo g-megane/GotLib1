@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/11
+// 更新日:2016/10/26
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -24,7 +24,8 @@ public:
 	void end() override;
 
 private:
-	std::list<std::shared_ptr<Actor>> actors;
-	std::shared_ptr<Actor> player;
-	std::shared_ptr<BulletManager> bm;
+	std::shared_ptr<Actor> rootActor;
+	//std::list<std::shared_ptr<Actor>> actors;
+	//std::shared_ptr<Actor> player;
+	//std::shared_ptr<BulletManager> bm;
 };

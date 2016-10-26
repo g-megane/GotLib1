@@ -14,6 +14,7 @@
 Game::Game() : time()
 {
 	window = std::make_shared<got::Window>(L"gotLib");
+	rootActor = std::make_shared<Actor>(L"RootActor");
 }
 // デストラクタ
 Game::~Game()
@@ -83,3 +84,8 @@ void Game::update()
 void Game::end()
 {
 }
+
+//std::shared_ptr<Actor> Game::getRootActor()
+//{
+//	return rootActor;
+//}
