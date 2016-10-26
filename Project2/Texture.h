@@ -24,6 +24,8 @@ namespace got
 		bool create(const std::wstring &path);
 		void render(const Matrix4x4<float> & _matrix, const Rectangle<int> & rect, const Color<float> & _color);
 		Dimention<int> getTextureSize() const;
+		//void setTextureSize(Dimention<int> dimention);
+		//void setTextureSize(const int width, const int height);
 
 	private:
 		bool loadTexture(const std::wstring &path);

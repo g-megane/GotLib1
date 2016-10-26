@@ -25,7 +25,4 @@ public:
 
 private:
 	std::shared_ptr<Actor> rootActor;
-	//std::list<std::shared_ptr<Actor>> actors;
-	//std::shared_ptr<Actor> player;
-	//std::shared_ptr<BulletManager> bm;
 };

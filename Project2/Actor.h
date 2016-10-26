@@ -8,7 +8,9 @@
 #include <list>
 #include "Texture.h"
 #include "Vector2.h"
+//#include "Game.h"
 
+class Game;
 class Actor
 {
 public:
@@ -19,12 +21,12 @@ public:
 	virtual void move();
 	virtual void draw() const;
 	virtual void end();
+	//got::Vector2<float> getCenter() const;
 
 	void addChild(std::shared_ptr<Actor>& newChild);
 	std::shared_ptr<Actor> getChild(const LPCWSTR _name) const;
 	LPCWSTR getName() const;
-	//Actor* getParent() const;
-	//const Actor* getRootActor() const;
+
 protected:
 	WCHAR name[256];
 	std::list<std::shared_ptr<Actor>> children;

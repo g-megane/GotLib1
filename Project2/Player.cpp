@@ -8,6 +8,7 @@
 #include "SpriteManager.h"
 #include "MyDirectInput.h"
 #include "GV.h"
+#include "Game.h"
 #include "BulletManager.h"
 
 Player::Player()
@@ -23,6 +24,9 @@ bool Player::init()
 {
 	dx = 6.0f; //TODO:移動量(仮)
 	dy = 6.0f; //TODO:移動量(仮)
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	//texture->setTextureSize(spriteSize.width, spriteSize.height);
+
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
 
 	return false;
@@ -48,8 +52,10 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
-	if(input.keyPush(DIK_SPACE)) {
-	//std::shared_ptr<BulletManager> bm = dynamic_cast<BulletManager*>(getChild(L"BulletManager"));
+	if(input.keyTrigger(DIK_SPACE)) {
+		auto rootActor = Game::getInstance().getRootActor();
+		auto bm = dynamic_cast<BulletManager*>(rootActor->getChild(L"BulletManager").get());
+		bm->shot(position);
 	}
 }
 

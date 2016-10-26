@@ -41,10 +41,16 @@ void BulletManager::end()
 {
 }
 // 弾の発射
-void BulletManager::shot(float x, float y)
+void BulletManager::shot(got::Vector2<float> pos)
 {
+	for (auto &bullet : bullets) {
+		if (bullet.getState() == Bullet::State::UN_USE) {
+			bullet.Shot(pos);
+			return;
+		}
+	}
 }
 // 弾の発射
-void BulletManager::shot(got::Vector2<float> pos)
+void BulletManager::shot(float x, float y)
 {
 }

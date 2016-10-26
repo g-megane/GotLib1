@@ -120,6 +120,16 @@ namespace got
 	{
 		return textureSize;
 	}
+
+	//void Texture::setTextureSize(Dimention<int> dimention)
+	//{
+	//	textureSize = dimention;
+	//}
+
+	//void Texture::setTextureSize(const int width, const int height)
+	//{
+	//	textureSize = Dimention<int>(width, height);
+	//}
 	
 	// テクスチャの読み込み
 	bool Texture::loadTexture(const std::wstring &path)

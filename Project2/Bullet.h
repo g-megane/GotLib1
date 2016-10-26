@@ -9,8 +9,13 @@
 class Bullet : public Actor
 {
 public:
-	Bullet();
+	enum State
+	{
+		USE,
+		UN_USE
+	};
 
+	Bullet();
 	~Bullet();// override;
 
 	bool init() override;
@@ -18,14 +23,16 @@ public:
 	void draw() const override;
 	void end() override;
 
-private:
-	enum State
-	{
-		USE,
-		UN_USE
-	};
+	void Shot(const got::Vector2<float> vec);
+	void Shot(const float x, const float y);
+	void setState(const State _state);
+	State getState() const;
 
-	//float dx;
+
+private:
+	float dx;
 	float dy;
 	State state;
+
+	void stateReset();
 };

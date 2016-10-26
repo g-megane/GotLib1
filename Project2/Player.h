@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/18
+// 更新日:2016/10/26
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -18,6 +18,7 @@ public:
 	void move() override;
 	void draw() const override;
 	void end() override;
+
 
 private:
 	float dx;

@@ -19,8 +19,8 @@ public:
 	void draw() const override;
 	void end() override;
 		
+	void shot(const got::Vector2<float> pos);
 	void shot(float x, float y);
-	void shot(got::Vector2<float> pos);
 
 private:
 	const int bulletsNum;

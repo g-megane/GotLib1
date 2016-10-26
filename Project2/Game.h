@@ -17,7 +17,7 @@ public:
 	bool init();
 	void update();
 	void end();
-	//std::shared_ptr<Actor> getRootActor();
+	std::shared_ptr<Actor> getRootActor();
 
 private:
 	friend class got::Singleton<Game>;

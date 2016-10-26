@@ -9,12 +9,22 @@
 #include "SceneManager.h"
 #include "SpriteManager.h"
 #include "MyDirectInput.h"
+#include "Player.h"
+#include "BulletManager.h"
 
 // コンストラクタ
 Game::Game() : time()
 {
 	window = std::make_shared<got::Window>(L"gotLib");
 	rootActor = std::make_shared<Actor>(L"RootActor");
+
+	// rootActorに追加したいActorを継承したオブジェクト
+	std::shared_ptr<Actor> player = std::make_shared<Player>();
+	std::shared_ptr<Actor> bm = std::make_shared<BulletManager>(100);
+
+	// rootActorへの追加
+	rootActor->addChild(player);
+	rootActor->addChild(bm);
 }
 // デストラクタ
 Game::~Game()
@@ -61,7 +71,7 @@ void Game::update()
 		}
 		countTime += time.getDeltaTime();
 		if (countTime > 1000.0f) {
-			stream << fps << std::endl;// std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
+			stream << fps << std::endl;
 			OutputDebugString(stream.str().c_str());
 			fps = 0;
 			countTime = 0.0f;
@@ -85,7 +95,7 @@ void Game::end()
 {
 }
 
-//std::shared_ptr<Actor> Game::getRootActor()
-//{
-//	return rootActor;
-//}
+std::shared_ptr<Actor> Game::getRootActor()
+{
+	return rootActor;
+}

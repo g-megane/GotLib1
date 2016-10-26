@@ -14,7 +14,7 @@ namespace got
 	public:
 		Dimention(const Dimention<T> &other)
 		{
-			this->width = other.width;
+			this->width  = other.width;
 			this->height = other.height;
 		}
 		Dimention(const T &_width = static_cast<T>(0), const T &_height = static_cast<T>(0))
@@ -24,6 +24,11 @@ namespace got
 		~Dimention()
 		{
 		}
+		//Dimention & operator=(const Dimention<T>& other) {
+		//	width  = other.width;
+		//	height = other.height;
+		//	return *this;
+		//}
 
 		T width;
 		T height;

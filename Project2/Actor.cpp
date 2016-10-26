@@ -1,9 +1,10 @@
-﻿#include "Actor.h"
-//////////////////////////////////////////////////
+﻿//////////////////////////////////////////////////
 // 作成日:2016/10/26
 // 更新日:2016/10/26
 // 制作者:got
 //////////////////////////////////////////////////
+#include "Actor.h"
+#include "Game.h"
 
 Actor::Actor()
 {
@@ -54,6 +55,12 @@ void Actor::end()
 {
 }
 
+//got::Vector2<float> Actor::getCenter() const
+//{
+//	//TODO:実装途中
+//	return got::Vector2<float>(position.x + texture->getTextureSize().width / 2, position.y + texture->getTextureSize().height / 2);
+//}
+
 void Actor::addChild(std::shared_ptr<Actor>& newChild)
 {
 	children.emplace_back(newChild);
@@ -67,7 +74,7 @@ std::shared_ptr<Actor> Actor::getChild(const LPCWSTR _name) const
 	//}
 	std::shared_ptr<Actor> ActorTmp = nullptr;
 	for (auto & child : children) {
-		if (_name == child->getName()) {
+		if (lstrcmpW(_name, child->getName()) == 0) {
 			return child;
 		}
 	}
