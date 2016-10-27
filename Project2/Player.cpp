@@ -52,10 +52,11 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
+	//TODO:(仮)弾の発射
 	if(input.keyTrigger(DIK_SPACE)) {
 		auto rootActor = Game::getInstance().getRootActor();
 		auto bm = dynamic_cast<BulletManager*>(rootActor->getChild(L"BulletManager").get());
-		bm->shot(position);
+		bm->shot(getShotPosition());
 	}
 }
 
@@ -72,4 +73,10 @@ void Player::draw() const
 
 void Player::end()
 {
+}
+
+got::Vector2<int> Player::getShotPosition() const
+{
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y);
 }

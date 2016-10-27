@@ -12,17 +12,25 @@ namespace got
 	class Dimention
 	{
 	public:
+		// コピーコンストラクタ
 		Dimention(const Dimention<T> &other)
 		{
 			this->width  = other.width;
 			this->height = other.height;
 		}
+		// コンストラクタ
 		Dimention(const T &_width = static_cast<T>(0), const T &_height = static_cast<T>(0))
 			:width(_width), height(_height)
 		{
 		}
+		// デストラクタ
 		~Dimention()
 		{
+		}
+		// 中央を求める
+		Dimention & getCenter() const
+		{
+			return Dimention(this->width / 2, this->height / 2);
 		}
 		//Dimention & operator=(const Dimention<T>& other) {
 		//	width  = other.width;

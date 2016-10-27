@@ -84,9 +84,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>Actor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>Actor\Bullet</Filter>
     </ClCompile>
@@ -172,9 +169,6 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
-      <Filter>Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Actor\Bullet</Filter>

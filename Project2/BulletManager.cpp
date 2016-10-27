@@ -25,23 +25,26 @@ bool BulletManager::init()
 
 	return true;
 }
+// 移動
 void BulletManager::move()
 {
 	for (auto & bullet : bullets) {
 		bullet.move();
 	}
 }
+// 描画
 void BulletManager::draw() const
 {
 	for (auto & bullet : bullets) {
 		bullet.draw();
 	}
 }
+// 終了
 void BulletManager::end()
 {
 }
 // 弾の発射
-void BulletManager::shot(got::Vector2<float> pos)
+void BulletManager::shot(const got::Vector2<float>& pos)
 {
 	for (auto &bullet : bullets) {
 		if (bullet.getState() == Bullet::State::UN_USE) {

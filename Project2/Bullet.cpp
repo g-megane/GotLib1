@@ -62,9 +62,10 @@ void Bullet::end()
 {
 }
 
-void Bullet::Shot(const got::Vector2<float> vec)
+void Bullet::Shot(const got::Vector2<float>& vec)
 {
-	position = vec;
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
+	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = USE;
 }
 

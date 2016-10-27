@@ -4,10 +4,11 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include<unordered_map>
+#include <unordered_map>
 
-#include"Singleton.h"
-#include"Sprite.h"
+#include "Singleton.h"
+#include "Sprite.h"
+#include "Dimention.h"
 
 namespace got
 {

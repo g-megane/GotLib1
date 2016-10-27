@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/10/11
+// 更新日:2016/10/27
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -15,12 +15,12 @@
 // コンストラクタ
 Game::Game() : time()
 {
-	window = std::make_shared<got::Window>(L"gotLib");
-	rootActor = std::make_shared<Actor>(L"RootActor");
+	window    = std::make_shared<got::Window>(L"gotLib"); // Windowの生成
+	rootActor = std::make_shared<Actor>(L"RootActor");    // RootActorの生成
 
-	// rootActorに追加したいActorを継承したオブジェクト
+	// rootActorに追加したいActorを継承したオブジェクト(MainScene)
 	std::shared_ptr<Actor> player = std::make_shared<Player>();
-	std::shared_ptr<Actor> bm = std::make_shared<BulletManager>(100);
+	std::shared_ptr<Actor> bm	  = std::make_shared<BulletManager>(100);
 
 	// rootActorへの追加
 	rootActor->addChild(player);
@@ -38,8 +38,11 @@ bool Game::init()
 
 	//TODO:test用スプライト
 	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
-	got::SpriteManager::getInstance().addMap("Player", L"player.png");
-	got::SpriteManager::getInstance().addMap("Bullet", L"Boul.png");
+	auto &spriteManager = got::SpriteManager::getInstance();
+	spriteManager.addMap("Player", L"player.png");
+	spriteManager.addMap("Bullet", L"Boul.png");
+	spriteManager.addMap("Enemy", L"enemy.png");
+	
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();

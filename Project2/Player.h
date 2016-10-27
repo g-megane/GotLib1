@@ -19,6 +19,7 @@ public:
 	void draw() const override;
 	void end() override;
 
+	got::Vector2<int> getShotPosition() const; 
 
 private:
 	float dx;

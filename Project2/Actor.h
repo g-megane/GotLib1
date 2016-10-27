@@ -30,7 +30,7 @@ public:
 protected:
 	WCHAR name[256];
 	std::list<std::shared_ptr<Actor>> children;
-	std::shared_ptr<got::Texture> texture;
+	//std::shared_ptr<got::Texture> texture;
 	got::Vector2<float> position;
 
 };
