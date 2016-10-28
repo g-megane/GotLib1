@@ -6,11 +6,12 @@
 #include "Actor.h"
 #include "Game.h"
 
+// デフォルトコンストラクタ(名無し)
 Actor::Actor()
 {
 	wcscpy_s(name, L"NO_NAME");
 }
-
+// コンストラクタ(名前有)
 Actor::Actor(const LPCWSTR _name)
 {
 	// wcspyを使うとコピー先のバッファの容量が指定されないが
@@ -20,11 +21,11 @@ Actor::Actor(const LPCWSTR _name)
 	// でき、バッファーオーバーランを未然に防ぐことができる
 	wcscpy_s(name, _name);
 }
-
+// デストラクタ
 Actor::~Actor()
 {
 }
-
+// 初期化
 bool Actor::init()
 {
 	for (auto & child : children) {
@@ -36,21 +37,21 @@ bool Actor::init()
 
 	return true;
 }
-
+// 更新
 void Actor::move()
 {
 	for (auto & child : children) {
 		child->move();
 	}
 }
-
+// 描画
 void Actor::draw() const
 {
 	for (auto & child : children) {
 		child->draw();
 	}
 }
-
+// 終了
 void Actor::end()
 {
 }
@@ -60,12 +61,12 @@ void Actor::end()
 //	//TODO:実装途中
 //	return got::Vector2<float>(position.x + texture->getTextureSize().width / 2, position.y + texture->getTextureSize().height / 2);
 //}
-
+// 子要素を追加
 void Actor::addChild(std::shared_ptr<Actor>& newChild)
 {
 	children.emplace_back(newChild);
 }
-
+// 子要素の取得
 std::shared_ptr<Actor> Actor::getChild(const LPCWSTR _name) const
 {
 	//TODO:引数がの名前が自分と一致した場合自分を返す
@@ -81,14 +82,26 @@ std::shared_ptr<Actor> Actor::getChild(const LPCWSTR _name) const
 	
 	return nullptr;
 }
-
+// 名前の取得
 LPCWSTR Actor::getName() const
 {
 	return name;
 }
 
-//const Actor * Actor::getRootActor() const
-//{
-//	if()
-//	return ;
-//}
+// Actorに名前をセットする
+// ※名前を上書きできてしまうので注意！！
+void Actor::setName(const LPCWSTR _name)
+{
+	wcscpy_s(name, _name);
+}
+
+void Actor::setState(const State _state)
+{
+	state = _state;
+}
+
+Actor::State Actor::getState() const
+{
+	return state;
+}
+

@@ -9,7 +9,7 @@
 #include "Scene.h"
 #include "Actor.h"
 #include "Player.h"
-#include "BulletManager.h"
+#include "PlayerBulletManager.h"
 
 // メインシーンクラス(Sceneを継承)
 class MainScene : public Scene

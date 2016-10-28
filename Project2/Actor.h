@@ -5,15 +5,20 @@
 //////////////////////////////////////////////////
 #pragma once
 #include <memory>
-#include <list>
+#include <vector>
 #include "Texture.h"
 #include "Vector2.h"
-//#include "Game.h"
-
 class Game;
 class Actor
 {
 public:
+	enum State 
+	{
+		USE,
+		UN_USE,
+		DEAD,
+	};
+
 	Actor();
 	Actor(const LPCWSTR name);
 	virtual ~Actor();
@@ -21,16 +26,19 @@ public:
 	virtual void move();
 	virtual void draw() const;
 	virtual void end();
-	//got::Vector2<float> getCenter() const;
 
 	void addChild(std::shared_ptr<Actor>& newChild);
 	std::shared_ptr<Actor> getChild(const LPCWSTR _name) const;
 	LPCWSTR getName() const;
+	void setName(const LPCWSTR _name);
+	void setState(const State _state);
+	State getState() const;
 
 protected:
 	WCHAR name[256];
-	std::list<std::shared_ptr<Actor>> children;
+	std::vector<std::shared_ptr<Actor>> children;
 	//std::shared_ptr<got::Texture> texture;
 	got::Vector2<float> position;
+	State state;
 
 };

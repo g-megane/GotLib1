@@ -34,20 +34,20 @@ bool Bullet::init()
 // 更新
 void Bullet::move()
 {
-	if (state == UN_USE) return;
+	if (state == UN_USE) { return; }
 
 	position.y -= dy;
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
-	if (position.x < 0)								   { stateReset(); }
-	if (position.x > STAGE_WIDTH - spriteSize.width)   { stateReset(); }
-	if (position.y < 0)								   { stateReset(); }
-	if (position.y > STAGE_HEIGHT - spriteSize.height) { stateReset(); }
+	if (position.x < 0)								   { setState(UN_USE); }
+	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(UN_USE); }
+	if (position.y < 0)								   { setState(UN_USE); }
+	if (position.y > STAGE_HEIGHT - spriteSize.height) { setState(UN_USE); }
 }
 // 描画
 void Bullet::draw() const
 {
-	if (state == UN_USE) return;
+	if (state == UN_USE) { return; }
 	
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
@@ -57,7 +57,7 @@ void Bullet::draw() const
 	got::SpriteManager::getInstance().draw("Bullet", mt, rect, color);
 	
 }
-
+// 終了
 void Bullet::end()
 {
 }
@@ -71,19 +71,4 @@ void Bullet::Shot(const got::Vector2<float>& vec)
 
 void Bullet::Shot(const float x, const float y)
 {
-}
-
-void Bullet::setState(const State _state)
-{
-	state = _state;
-}
-
-Bullet::State Bullet::getState() const
-{
-	return state;
-}
-
-void Bullet::stateReset()
-{
-	state = UN_USE;
 }

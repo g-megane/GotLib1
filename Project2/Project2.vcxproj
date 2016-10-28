@@ -123,7 +123,9 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="EnemyBulletManager.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="PlayerBulletManager.cpp" />
     <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -145,7 +147,9 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Angle.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="EnemyBulletManager.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="PlayerBulletManager.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Dimention.h" />
     <ClInclude Include="DirectX11.h" />

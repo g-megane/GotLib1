@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/10/27
+// 更新日:2016/10/28
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -10,7 +10,10 @@
 #include "SpriteManager.h"
 #include "MyDirectInput.h"
 #include "Player.h"
-#include "BulletManager.h"
+#include "PlayerBulletManager.h"
+#include "Enemy.h"
+#include "EnemyBulletManager.h"
+#include "EnemyManager.h"
 
 // コンストラクタ
 Game::Game() : time()
@@ -20,11 +23,16 @@ Game::Game() : time()
 
 	// rootActorに追加したいActorを継承したオブジェクト(MainScene)
 	std::shared_ptr<Actor> player = std::make_shared<Player>();
-	std::shared_ptr<Actor> bm	  = std::make_shared<BulletManager>(100);
+	std::shared_ptr<Actor> pbm	  = std::make_shared<PlayerBulletManager>(100);
+	// std::shared_ptr<Actor> em	  = std::make_shared<EnemyManager>(10);
+	std::shared_ptr<Actor> enemy  = std::make_shared<Enemy>();
+	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(100);
 
 	// rootActorへの追加
 	rootActor->addChild(player);
-	rootActor->addChild(bm);
+	rootActor->addChild(pbm);
+	rootActor->addChild(enemy);
+	rootActor->addChild(ebm);
 }
 // デストラクタ
 Game::~Game()
@@ -69,10 +77,11 @@ void Game::update()
 		if (msg.message == WM_QUIT) {
 			break;
 		}
-		if (!time.timeOver(1000.0f / 60.0f)) {
+		if (!time.timeOver(1000.0f / 60.0f)) { // FPSの固定
 			continue;
 		}
-		countTime += time.getDeltaTime();
+		countTime += time.getDeltaTime(); // 経過時間を数える
+		// FPSの表示
 		if (countTime > 1000.0f) {
 			stream << fps << std::endl;
 			OutputDebugString(stream.str().c_str());
@@ -88,9 +97,7 @@ void Game::update()
 		// シーンの描画
 		sm.draw();
 
-		got::DirectX11::getInstance().endFrame();
-
-	
+		got::DirectX11::getInstance().endFrame();	
 	}
 }
 // 終了
@@ -98,7 +105,7 @@ void Game::end()
 {
 }
 
-std::shared_ptr<Actor> Game::getRootActor()
+std::shared_ptr<Actor> & Game::getRootActor()
 {
 	return rootActor;
 }

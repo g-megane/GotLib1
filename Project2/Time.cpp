@@ -7,6 +7,7 @@
 
 namespace got
 {
+	// コンストラクタ
 	Time::Time()
 	{
 		start = std::chrono::system_clock::now();

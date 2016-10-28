@@ -9,7 +9,7 @@
 #include "MyDirectInput.h"
 #include "GV.h"
 #include "Game.h"
-#include "BulletManager.h"
+#include "PlayerBulletManager.h"
 
 Player::Player()
 	:Actor(L"Player")
@@ -55,7 +55,7 @@ void Player::move()
 	//TODO:(仮)弾の発射
 	if(input.keyTrigger(DIK_SPACE)) {
 		auto rootActor = Game::getInstance().getRootActor();
-		auto bm = dynamic_cast<BulletManager*>(rootActor->getChild(L"BulletManager").get());
+		auto bm = dynamic_cast<PlayerBulletManager*>(rootActor->getChild(L"PlayerBulletManager").get());
 		bm->shot(getShotPosition());
 	}
 }

@@ -1,21 +1,21 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/21
+// 更新日:2016/10/27
 // 制作者:got
 //////////////////////////////////////////////////
-#include "BulletManager.h"
+#include "PlayerBulletManager.h"
 
 // コンストラクタ
-BulletManager::BulletManager(const int num)
-	: Actor(L"BulletManager"), bulletsNum(num), bullets(num)
+PlayerBulletManager::PlayerBulletManager(const int num)
+	: Actor(L"PlayerBulletManager"), bulletsNum(num), bullets(num)
 {
 }
 // デストラクタ
-BulletManager::~BulletManager()
+PlayerBulletManager::~PlayerBulletManager()
 {
 }
 // 初期化
-bool BulletManager::init()
+bool PlayerBulletManager::init()
 {
 	for (auto & bullet : bullets) {
 		if (!bullet.init()) {
@@ -26,25 +26,25 @@ bool BulletManager::init()
 	return true;
 }
 // 移動
-void BulletManager::move()
+void PlayerBulletManager::move()
 {
 	for (auto & bullet : bullets) {
 		bullet.move();
 	}
 }
 // 描画
-void BulletManager::draw() const
+void PlayerBulletManager::draw() const
 {
 	for (auto & bullet : bullets) {
 		bullet.draw();
 	}
 }
 // 終了
-void BulletManager::end()
+void PlayerBulletManager::end()
 {
 }
 // 弾の発射
-void BulletManager::shot(const got::Vector2<float>& pos)
+void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 {
 	for (auto &bullet : bullets) {
 		if (bullet.getState() == Bullet::State::UN_USE) {
@@ -54,6 +54,6 @@ void BulletManager::shot(const got::Vector2<float>& pos)
 	}
 }
 // 弾の発射
-void BulletManager::shot(float x, float y)
+void PlayerBulletManager::shot(float x, float y)
 {
 }

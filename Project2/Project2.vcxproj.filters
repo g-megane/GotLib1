@@ -87,14 +87,20 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Actor\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.cpp">
-      <Filter>Actor\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBulletManager.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Actor\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,10 +179,16 @@
     <ClInclude Include="Bullet.h">
       <Filter>Actor\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="BulletManager.h">
+    <ClInclude Include="Time.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBulletManager.h">
       <Filter>Actor\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
+    <ClInclude Include="EnemyBulletManager.h">
+      <Filter>Actor\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

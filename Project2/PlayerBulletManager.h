@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/21
+// 更新日:2016/10/27
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -9,11 +9,11 @@
 
 #include "Bullet.h"
 
-class BulletManager : public Actor
+class PlayerBulletManager : public Actor
 {
 public:
-	BulletManager(const int num);
-	~BulletManager();
+	PlayerBulletManager(const int num);
+	~PlayerBulletManager() override;
 	bool init() override;
 	void move() override;
 	void draw() const override;
