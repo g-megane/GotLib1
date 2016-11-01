@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/21
+// 更新日:2016/11/1
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Bullet.h"
@@ -25,10 +25,10 @@ Bullet::~Bullet()
 bool Bullet::init()
 {
 	auto &spriteManager = got::SpriteManager::getInstance();
-    rect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
+    collisionRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
 	state = UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
-	rect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
+	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
 	dx = 0.5f;
 	dy = 10.0f;
 	return true;
@@ -39,7 +39,7 @@ void Bullet::move()
 	if (state == UN_USE) { return; }
 	auto &spriteManager = got::SpriteManager::getInstance();
 	position.y -= dy;
-	rect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
+	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
 	if (position.x < 0)								   { setState(UN_USE); }
 	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(UN_USE); }
@@ -71,6 +71,6 @@ void Bullet::Shot(const got::Vector2<float>& vec)
 	state = USE;
 }
 
-void Bullet::Shot(const float x, const float y)
-{
-}
+//void Bullet::Shot(const float x, const float y)
+//{
+//}

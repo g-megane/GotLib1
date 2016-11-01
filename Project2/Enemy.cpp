@@ -10,7 +10,6 @@
 Enemy::Enemy()
 	: Actor(), time()
 {
-
 }
 // デストラクタ
 Enemy::~Enemy()
@@ -27,7 +26,7 @@ bool Enemy::init()
 	//TODO:timeの初期化は必要？
 	time.reset();
 	state = USE;
-	rect = got::Rectangle<int>(position, spriteManager.getSprite("Enemy")->getSize().width, spriteManager.getSprite("Enemy")->getSize().height);
+	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Enemy")->getSize().width, spriteManager.getSprite("Enemy")->getSize().height);
 
 	return true;
 }
@@ -36,15 +35,15 @@ void Enemy::move()
 {
 	if (state == UN_USE) { return; }
 
-	// ステージ外に出たら補正する
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
-	auto & spriteManager = got::SpriteManager::getInstance();
+	
 	if (!time.timeOver(1000.0f)) {
 		position.translate(dx, dy);
-		rect = got::Rectangle<int>(position, spriteManager.getSprite("Enemy")->getSize().width, spriteManager.getSprite("Enemy")->getSize().height);
+		collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 		return;
 	}
 	dx = -dx;
+	// ステージ外に出たら消す
 	if (position.x < 0)								   { setState(UN_USE); }
 	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(UN_USE); }
 	if (position.y < 0)								   { setState(UN_USE); }

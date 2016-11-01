@@ -25,7 +25,7 @@ void ResultScene::move()
 {
 	// シーン遷移(TITLE->MAIN)
 	if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
-		SceneManager::getInstance().changeScene(SceneManager::getInstance().MAIN, true);
+		SceneManager::getInstance().changeScene(SceneManager::TITLE);
 	}
 }
 // 描画

@@ -111,6 +111,6 @@ Actor::State Actor::getState() const
 
 got::Rectangle<int> Actor::getRect() const
 {
-	return rect;
+	return collisionRect;
 }
 

@@ -32,6 +32,9 @@ bool EnemyManager::init()
 void EnemyManager::move()
 {
 	for (auto & child : children) {
+		if(child->getState() == UN_USE) {
+			child->init();
+		}
 		child->move();
 	}
 }

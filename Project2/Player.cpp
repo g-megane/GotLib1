@@ -10,6 +10,7 @@
 #include "GV.h"
 #include "Game.h"
 #include "PlayerBulletManager.h"
+#include "SceneManager.h"
 
 Player::Player()
 	:Actor(L"Player")
@@ -24,12 +25,14 @@ bool Player::init()
 {
 	dx = 6.0f; //TODO:移動量(仮)
 	dy = 6.0f; //TODO:移動量(仮)
-	auto &rootActor = Game::getInstance().getRootActor();
+	
+	auto &root = Game::getInstance().getRootActor();
+	enemyManager = dynamic_cast<EnemyManager*>(root->getChild(L"EnemyManager").get());
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
-	//texture->setTextureSize(spriteSize.width, spriteSize.height);
-
+	
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
+	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
 	return false;
 }
@@ -54,6 +57,17 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
+	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
+	// 敵とのあたり判定
+	for (auto & enemy : enemyManager->getChildren()) {
+		if (enemy->getState() == UN_USE) { continue; }
+		if (collisionRect.intersection(enemy->getRect())) {
+			// シーン遷移(MAIN->RESULT)
+			SceneManager::getInstance().changeScene(SceneManager::RESULT);
+		}
+	}
+
 	//TODO:(仮)弾の発射
 	if(input.keyTrigger(DIK_SPACE)) {
 		auto &rootActor = Game::getInstance().getRootActor();
@@ -66,11 +80,11 @@ void Player::draw() const
 {
 	//TODO:テスト
 	auto mt				 = got::Matrix4x4<float>::translate(position);
-	auto & spriteManager = got::SpriteManager::getInstance();
+	auto spriteSize      = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	auto color			 = got::Color<float>();
-	auto rect			 = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Player")->getSize().width, spriteManager.getSprite("Player")->getSize().height));
+	auto drawRect		 = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
-	got::SpriteManager::getInstance().draw("Player", mt, rect, color);
+	got::SpriteManager::getInstance().draw("Player", mt, drawRect, color);
 }
 
 void Player::end()

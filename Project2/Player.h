@@ -4,8 +4,9 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include"Actor.h"
-#include"Texture.h"
+#include "Actor.h"
+#include "Texture.h"
+#include "EnemyManager.h"
 
 // プレイヤークラス（Actorを継承）
 class Player : public Actor
@@ -24,6 +25,6 @@ public:
 private:
 	float dx;
 	float dy;
-
+	EnemyManager *enemyManager;
 
 };

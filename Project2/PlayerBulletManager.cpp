@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/27
+// 更新日:2016/11/1
 // 制作者:got
 //////////////////////////////////////////////////
 #include "PlayerBulletManager.h"
@@ -42,7 +42,9 @@ void PlayerBulletManager::move()
 	}
 	//std::vector<Actor>::iterator itr = ;
 	for (auto & bullet : children) {
+		if (bullet->getState() == UN_USE) { continue; }
 		for (auto & enemy : enemyManager->getChildren()) {
+			if (enemy->getState() == UN_USE) { continue; }
 			if (bullet->getRect().intersection(enemy->getRect())) {
 				bullet->setState(UN_USE);
 				enemy->setState(UN_USE);
@@ -73,6 +75,6 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 	}
 }
 // 弾の発射
-void PlayerBulletManager::shot(float x, float y)
-{
-}
+//void PlayerBulletManager::shot(float x, float y)
+//{
+//}
