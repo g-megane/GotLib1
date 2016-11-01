@@ -8,6 +8,7 @@
 #include <memory>
 
 #include "Bullet.h"
+#include "EnemyManager.h"
 
 class PlayerBulletManager : public Actor
 {
@@ -24,5 +25,5 @@ public:
 
 private:
 	const int bulletsNum;
-	std::vector<Bullet> bullets;
+	EnemyManager* enemyManager;
 };

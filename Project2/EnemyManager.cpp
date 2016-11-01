@@ -8,8 +8,13 @@
 // コンストラクタ
 // 引数: Enemyの生成数
 EnemyManager::EnemyManager(const int _num)
-	: Actor(L"EnemyManager"), enemies(_num)
+	: Actor(L"EnemyManager")//, enemies(_num)
 {
+	std::shared_ptr<Actor> enemy;
+	for (int i = 0; i < _num; ++i) {
+		enemy = std::make_shared<Enemy>();
+		addChild(enemy);
+	}
 }
 // デストラクタ
 EnemyManager::~EnemyManager()
@@ -18,29 +23,29 @@ EnemyManager::~EnemyManager()
 // 初期化
 bool EnemyManager::init()
 {
-	for (auto & enemy : enemies) {
-		enemy.init();
+	for (auto & child : children) {
+		child->init();
 	}
 	return true;
 }
 // 更新
 void EnemyManager::move()
 {
-	for (auto & enemy : enemies) {
-		enemy.move();
+	for (auto & child : children) {
+		child->move();
 	}
 }
 // 描画
 void EnemyManager::draw() const
 {
-	for (auto & enemy : enemies) {
-		enemy.draw();
+	for (auto & child : children) {
+		child->draw();
 	}
 }
 // 終了
 void EnemyManager::end()
 {
-	for (auto & enemy : enemies) {
-		enemy.end();
+	for (auto & child : children) {
+		child->end();
 	}
 }

@@ -82,6 +82,10 @@ std::shared_ptr<Actor> Actor::getChild(const LPCWSTR _name) const
 	
 	return nullptr;
 }
+std::vector<std::shared_ptr<Actor>>& Actor::getChildren()
+{
+	return children;
+}
 // 名前の取得
 LPCWSTR Actor::getName() const
 {
@@ -103,5 +107,10 @@ void Actor::setState(const State _state)
 Actor::State Actor::getState() const
 {
 	return state;
+}
+
+got::Rectangle<int> Actor::getRect() const
+{
+	return rect;
 }
 

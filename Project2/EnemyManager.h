@@ -19,6 +19,6 @@ public:
 	void end() override;
 
 private:
-	std::vector<Enemy> enemies;
+	//std::vector<Enemy> enemies;
 
 };

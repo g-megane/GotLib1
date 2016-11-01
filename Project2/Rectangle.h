@@ -77,7 +77,7 @@ namespace got
 			return *this;
 		}
 		// 指定された短形と交差するか
-		bool Intersection(const Rectangle & other) const {
+		bool intersection(const Rectangle & other) const {
 			return topLeft.x < other.bottomRight.x && topLeft.y < other.bottomRight.y && other.topLeft.x < bottomRight.x && other.topLeft.y < bottomRight.y;
 		}
 		// 長方形の幅を取得

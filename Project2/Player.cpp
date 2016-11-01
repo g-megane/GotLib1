@@ -24,6 +24,8 @@ bool Player::init()
 {
 	dx = 6.0f; //TODO:移動量(仮)
 	dy = 6.0f; //TODO:移動量(仮)
+	auto &rootActor = Game::getInstance().getRootActor();
+
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	//texture->setTextureSize(spriteSize.width, spriteSize.height);
 
@@ -54,7 +56,7 @@ void Player::move()
 
 	//TODO:(仮)弾の発射
 	if(input.keyTrigger(DIK_SPACE)) {
-		auto rootActor = Game::getInstance().getRootActor();
+		auto &rootActor = Game::getInstance().getRootActor();
 		auto bm = dynamic_cast<PlayerBulletManager*>(rootActor->getChild(L"PlayerBulletManager").get());
 		bm->shot(getShotPosition());
 	}

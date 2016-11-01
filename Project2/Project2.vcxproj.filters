@@ -189,7 +189,7 @@
       <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="EnemyManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>Actor\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
