@@ -45,13 +45,19 @@ bool Game::init()
 	got::DirectX11::getInstance().initialize(window); // DirectXの初期化	
 	got::MyDirectInput::getInstance().init();		  // DirectInputの初期化
 
-	//TODO:test用スプライト
-	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
 	auto &spriteManager = got::SpriteManager::getInstance();
+	//TODO:Titlecene用画像(仮)
+	spriteManager.addMap("Title", L"TitleSample.png");
+	spriteManager.addMap("PushEnter", L"PushEnterSample.png");
+
+	//TODO:MainScene用画像(仮)
+	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
 	spriteManager.addMap("Player", L"player.png");
 	spriteManager.addMap("Bullet", L"Boul.png");
-	spriteManager.addMap("Enemy", L"enemy.png");
+	spriteManager.addMap("Enemy", L"EnemySample.png");
 	
+	//TODO:ResultScene用画像(仮)
+	spriteManager.addMap("Result", L"ResultSample.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();

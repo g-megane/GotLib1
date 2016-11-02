@@ -38,7 +38,7 @@ void Bullet::move()
 {
 	if (state == UN_USE) { return; }
 	auto &spriteManager = got::SpriteManager::getInstance();
-	position.y -= dy;
+ 	position.y -= dy;
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
 	if (position.x < 0)								   { setState(UN_USE); }
