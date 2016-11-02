@@ -8,7 +8,7 @@
 // コンストラクタ
 // 引数: Enemyの生成数
 EnemyManager::EnemyManager(const int _num)
-	: Actor(L"EnemyManager")//, enemies(_num)
+	: Actor(L"EnemyManager")
 {
 	std::shared_ptr<Actor> enemy;
 	for (int i = 0; i < _num; ++i) {

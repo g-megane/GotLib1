@@ -25,5 +25,5 @@ public:
 
 private:
 	const int bulletsNum;
-	EnemyManager* enemyManager;
+	EnemyManager *enemyManager;
 };

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/18
-// 更新日:2016/10/18
+// 更新日:2016/11/1
 // 制作者:got
 //////////////////////////////////////////////////
 #include "TitleScene.h"
@@ -36,9 +36,9 @@ void TitleScene::draw() const
 	auto &spriteManager = got::SpriteManager::getInstance();
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto color = got::Color<float>();
-	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Result")->getSize().width, spriteManager.getSprite("Result")->getSize().height));
+	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Title")->getSize().width, spriteManager.getSprite("Result")->getSize().height));
 
-	got::SpriteManager::getInstance().draw("Result", mt, drawRect, color);
+	got::SpriteManager::getInstance().draw("Title", mt, drawRect, color);
 
 	auto mt2 = got::Matrix4x4<float>::translate(STAGE_WIDTH / 2 - spriteManager.getSprite("PushEnter")->getSize().width / 2, 500.0f);
 	//auto mt3 = got::Matrix4x4<float>::translate(position) * mt2;

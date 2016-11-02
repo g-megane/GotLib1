@@ -23,7 +23,7 @@ public:
 	void draw() const override;
 	void end() override;
 
-	void Shot(const got::Vector2<float>& vec);
+	void Shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
 	//void Shot(const float x, const float y);
 
 private:

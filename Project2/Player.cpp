@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/10/18
+// 更新日:2016/11/1
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -9,12 +9,12 @@
 #include "MyDirectInput.h"
 #include "GV.h"
 #include "Game.h"
-#include "PlayerBulletManager.h"
 #include "SceneManager.h"
 
 Player::Player()
-	:Actor(L"Player")
+	:Actor(L"Player"), time()
 {
+	time = got::Time();
 }
 
 Player::~Player()
@@ -27,12 +27,15 @@ bool Player::init()
 	dy = 6.0f; //TODO:移動量(仮)
 	
 	auto &root = Game::getInstance().getRootActor();
-	enemyManager = dynamic_cast<EnemyManager*>(root->getChild(L"EnemyManager").get());
+	enemyManager		= dynamic_cast<EnemyManager*>(root->getChild(L"EnemyManager").get());
+	playerBulletManager = dynamic_cast<PlayerBulletManager*>(root->getChild(L"PlayerBulletManager").get());
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
 	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
+	time.reset();
 
 	return false;
 }
@@ -69,13 +72,13 @@ void Player::move()
 	}
 
 	//TODO:(仮)弾の発射
-	if(input.keyTrigger(DIK_SPACE)) {
-		auto &rootActor = Game::getInstance().getRootActor();
-		auto bm = dynamic_cast<PlayerBulletManager*>(rootActor->getChild(L"PlayerBulletManager").get());
-		bm->shot(getShotPosition());
+	if (!time.timeOver(500.0f)) { return; } // 発射間隔(仮)
+	time.reset();
+	if(input.keyPush(DIK_SPACE)) {
+		playerBulletManager->shot(getShotPosition());
 	}
 }
-
+// 描画
 void Player::draw() const
 {
 	//TODO:テスト
@@ -86,11 +89,11 @@ void Player::draw() const
 
 	got::SpriteManager::getInstance().draw("Player", mt, drawRect, color);
 }
-
+// 終了
 void Player::end()
 {
 }
-
+// 弾を発射する座標を返す
 got::Vector2<int> Player::getShotPosition() const
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();

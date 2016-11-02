@@ -7,6 +7,7 @@
 
 #include "Actor.h"
 #include "Time.h"
+#include "EnemyBulletManager.h"
 
 class Enemy : public Actor
 {
@@ -23,5 +24,9 @@ private:
 	float dx;
 	float dy;
 	got::Time time;
+	got::Time time2;
+	EnemyBulletManager *enemyBulletManager;
+
+	got::Vector2<float>  getShotPosition() const;
 
 };

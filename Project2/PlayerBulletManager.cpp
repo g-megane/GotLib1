@@ -23,8 +23,8 @@ PlayerBulletManager::~PlayerBulletManager()
 // 初期化
 bool PlayerBulletManager::init()
 {
-	auto &rootActor = Game::getInstance().getRootActor();
-	enemyManager = dynamic_cast<EnemyManager*>(rootActor->getChild(L"EnemyManager").get());
+	auto &root = Game::getInstance().getRootActor();
+	enemyManager = dynamic_cast<EnemyManager*>(root->getChild(L"EnemyManager").get());
 
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
@@ -69,7 +69,7 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 {
  	for (auto &bullet : children) {
 		if (bullet->getState() == Bullet::State::UN_USE) {
-			dynamic_cast<Bullet*>(bullet.get())->Shot(pos);
+			dynamic_cast<Bullet*>(bullet.get())->Shot(pos, 0.0f, 10.0f);
 			return;
 		}
 	}

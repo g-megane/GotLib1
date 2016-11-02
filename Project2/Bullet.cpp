@@ -29,8 +29,8 @@ bool Bullet::init()
 	state = UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
-	dx = 0.5f;
-	dy = 10.0f;
+	dx = 0.0f;
+	dy = 0.0f;
 	return true;
 }
 // 更新
@@ -64,8 +64,10 @@ void Bullet::end()
 {
 }
 
-void Bullet::Shot(const got::Vector2<float>& vec)
+void Bullet::Shot(const got::Vector2<float>& vec, const float _dx, const float _dy)
 {
+	dx = _dx;
+	dy = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = USE;

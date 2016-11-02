@@ -6,7 +6,9 @@
 #pragma once
 #include "Actor.h"
 #include "Texture.h"
+#include "PlayerBulletManager.h"
 #include "EnemyManager.h"
+#include "Time.h"
 
 // プレイヤークラス（Actorを継承）
 class Player : public Actor
@@ -25,6 +27,8 @@ public:
 private:
 	float dx;
 	float dy;
+	PlayerBulletManager *playerBulletManager;
 	EnemyManager *enemyManager;
+	got::Time time;
 
 };

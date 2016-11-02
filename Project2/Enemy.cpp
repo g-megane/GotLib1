@@ -5,10 +5,11 @@
 //////////////////////////////////////////////////
 #include "Enemy.h"
 #include "SpriteManager.h"
+#include "Game.h"
 
 // コンストラクタ
 Enemy::Enemy()
-	: Actor(), time()
+	: Actor(), time(), time2()
 {
 }
 // デストラクタ
@@ -18,6 +19,8 @@ Enemy::~Enemy()
 // 初期化
 bool Enemy::init()
 {
+	auto &root = Game::getInstance().getRootActor();
+	enemyBulletManager = dynamic_cast<EnemyBulletManager*>(root->getChild(L"EnemyBulletManager").get());
 	auto & spriteManager = got::SpriteManager::getInstance();
 	position.move(STAGE_WIDTH / 2, 0);
 	//TODO:仮の移動量
@@ -25,6 +28,7 @@ bool Enemy::init()
 	dy = 2.5f;
 	//TODO:timeの初期化は必要？
 	time.reset();
+	time2.reset();
 	state = USE;
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Enemy")->getSize().width, spriteManager.getSprite("Enemy")->getSize().height);
 
@@ -37,19 +41,25 @@ void Enemy::move()
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 	
-	if (!time.timeOver(1000.0f)) {
-		position.translate(dx, dy);
-		collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
-		return;
+	// 移動
+	position.translate(dx, dy);	
+	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+	if (time.timeOver(1000.0f)) {
+		dx = -dx;
+		time.reset();
 	}
-	dx = -dx;
-	// ステージ外に出たら消す
-	if (position.x < 0)								   { setState(UN_USE); }
-	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(UN_USE); }
-	if (position.y < 0)								   { setState(UN_USE); }
-	if (position.y > STAGE_HEIGHT - spriteSize.height) { setState(UN_USE); }
 
-	time.reset();
+	// 弾の発射
+	if (time2.timeOver(500.0f)) {
+		enemyBulletManager->shot(getShotPosition());
+		time2.reset();
+	}
+	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
+	if (position.x - spriteSize.width < 0)  { setState(UN_USE); }
+	if (position.x > STAGE_WIDTH)			{ setState(UN_USE); }
+	if (position.y < 0) { setState(UN_USE); }
+	if (position.y > STAGE_HEIGHT)			{ setState(UN_USE); }
+
 }
 // 描画
 void Enemy::draw() const
@@ -66,4 +76,10 @@ void Enemy::draw() const
 // 終了
 void Enemy::end()
 {
+}
+
+got::Vector2<float> Enemy::getShotPosition() const
+{
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y + spriteSize.height);
 }
