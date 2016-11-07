@@ -25,12 +25,16 @@ namespace got
 		{
 			spriteMap[key]->draw(matrix, rect, color);
 		}
+		//template<class T = float>
+		//void numDraw(const std::string& key, const Matrix4x4<float>& matrix, const Rectangle<int>& rext, const Color<T>& color = Color<T>::WHITE)
+		//{
+		//	spriteMap[key]->draw(matrix, rect, color);
+		//}
 
 	private:
 		friend class Singleton<SpriteManager>;
 		SpriteManager();
 		
 		std::unordered_map<std::string, std::shared_ptr<Sprite>> spriteMap;
-
 	};
 }

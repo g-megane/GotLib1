@@ -23,7 +23,7 @@ namespace got
 		template<class T = float>
 		void draw(const Matrix4x4<T>& matrix, const Rectangle<int>& rect, const Color<T>& color)
 		{
-			auto x = Color<T>::WHITE;
+			//auto x = Color<T>::WHITE;
 			texture->render(matrix, rect, color);
 		}
 

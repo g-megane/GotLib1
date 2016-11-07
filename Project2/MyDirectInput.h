@@ -26,7 +26,6 @@ namespace got
 		
 		bool keyPush	(const int code);
 		bool keyTrigger (const int code);
-		//bool keyRelease (const int code);
 
 	private:
 		friend class Singleton<MyDirectInput>;

@@ -13,6 +13,7 @@
 #include "PlayerBulletManager.h"
 #include "EnemyBulletManager.h"
 #include "EnemyManager.h"
+#include "Information.h"
 
 // コンストラクタ
 Game::Game() : time()
@@ -26,11 +27,15 @@ Game::Game() : time()
 	std::shared_ptr<Actor> pbm	  = std::make_shared<PlayerBulletManager>(100);
 	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(1);
 
+	std::shared_ptr<Actor> info = std::make_shared<Information>();
+
 	// rootActorへの追加
 	rootActor->addChild(player);
 	rootActor->addChild(em);
 	rootActor->addChild(pbm);
 	rootActor->addChild(ebm);
+
+	rootActor->addChild(info); // 最前面に表示したいので最後にadd
 }
 // デストラクタ
 Game::~Game()
@@ -39,22 +44,42 @@ Game::~Game()
 // 初期化
 bool Game::init()
 {
-	got::DirectX11::getInstance().initialize(window); // DirectXの初期化	
-	got::MyDirectInput::getInstance().init();		  // DirectInputの初期化
-
+	auto hr = got::DirectX11::getInstance().initialize(window);
+	if (FAILED(hr)) { // DirectXの初期化	
+		return false;
+	}
+	hr = got::MyDirectInput::getInstance().init();
+	if (FAILED(hr)) {		 // DirectInputの初期化
+		return false;
+	}
 	auto &spriteManager = got::SpriteManager::getInstance();
+	//TODO:Font(仮)
+	spriteManager.addMap("0", L"Resources\\0.png");
+	spriteManager.addMap("1", L"Resources\\1.png");
+	spriteManager.addMap("2", L"Resources\\2.png");
+	spriteManager.addMap("3", L"Resources\\3.png");
+	spriteManager.addMap("4", L"Resources\\4.png");
+	spriteManager.addMap("5", L"Resources\\5.png");
+	spriteManager.addMap("6", L"Resources\\6.png");
+	spriteManager.addMap("7", L"Resources\\7.png");
+	spriteManager.addMap("8", L"Resources\\8.png");
+	spriteManager.addMap("9", L"Resources\\9.png");
+
+	//TODO:フェードとスコア表示に使う四角(仮)
+	spriteManager.addMap("Board", L"Resources\\Board.png");
+
 	//TODO:Titlecene用画像(仮)
-	spriteManager.addMap("Title", L"TitleSample.png");
-	spriteManager.addMap("PushEnter", L"PushEnterSample.png");
+	spriteManager.addMap("Title"	, L"Resources\\TitleSample.png");
+	spriteManager.addMap("PushEnter", L"Resources\\PushEnterSample.png");
 
 	//TODO:MainScene用画像(仮)
-	//got::SpriteManager::getInstance().addMap("Player", L"plane2.png");
-	spriteManager.addMap("Player", L"player.png");
-	spriteManager.addMap("Bullet", L"Boul.png");
-	spriteManager.addMap("Enemy", L"EnemySample.png");
+	//spriteManager.addMap("Player", L"Resources\\player.png");
+	spriteManager.addMap("Player", L"Resources\\player1.png");
+	spriteManager.addMap("Bullet", L"Resources\\Boul.png");
+	spriteManager.addMap("Enemy" , L"Resources\\EnemySample.png");
 	
 	//TODO:ResultScene用画像(仮)
-	spriteManager.addMap("Result", L"ResultSample.png");
+	spriteManager.addMap("Result", L"Resources\\ResultSample.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();

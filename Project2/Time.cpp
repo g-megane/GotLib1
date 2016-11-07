@@ -23,7 +23,7 @@ namespace got
 	{
 		return std::chrono::duration<float, std::milli>(start.time_since_epoch()).count();
 	}
-
+	// 引数で渡した時間が経過していればtrueを返す(ミリ秒)
 	bool Time::timeOver(const float limit)
 	{
 		if (limit <= getDeltaTime()) {

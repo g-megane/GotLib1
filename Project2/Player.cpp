@@ -82,10 +82,10 @@ void Player::move()
 void Player::draw() const
 {
 	//TODO:テスト
-	auto mt				 = got::Matrix4x4<float>::translate(position);
-	auto spriteSize      = got::SpriteManager::getInstance().getSprite("Player")->getSize();
-	auto color			 = got::Color<float>();
-	auto drawRect		 = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+	auto mt			= got::Matrix4x4<float>::translate(position);
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	auto color		= got::Color<float>();
+	auto drawRect	= got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
 	got::SpriteManager::getInstance().draw("Player", mt, drawRect, color);
 }

@@ -26,27 +26,31 @@ namespace got
 	{
 	}
 	// 初期化関数
-	void DirectX11::initialize(std::shared_ptr<Window> _window)
+	HRESULT DirectX11::initialize(std::shared_ptr<Window> _window)
 	{
-		window = _window;
-		spDevice = nullptr;
-		spDeviceContext = nullptr;
-		spSwapChain = nullptr;
+		window			   = _window;
+		spDevice		   = nullptr;
+		spDeviceContext	   = nullptr;
+		spSwapChain		   = nullptr;
 		spRenderTargetView = nullptr;
-		featureLevel = D3D_FEATURE_LEVEL_11_0;
-		g_driverType = D3D_DRIVER_TYPE_NULL;
-		//init = createDeviceAndSwapChain();
-		//if (!init) {
-		//	return;
-		//}
-		//
-		//init = createRenderTargetView();
-		//if (!init) {
-		//	return;
-		//}
-		createDeviceAndSwapChain();
-		createRenderTargetView();
+		featureLevel	   = D3D_FEATURE_LEVEL_11_0;
+		g_driverType	   = D3D_DRIVER_TYPE_NULL;
+		clearColor		   = Color<float>::BLUE;
+
+		init = createDeviceAndSwapChain();
+		if (FAILED(init)) {
+			OutputDebugString(L"createDeviceAndSwapChain()の失敗");
+			return false;
+		}
+		
+		init = createRenderTargetView();
+		if (FAILED(init)) {
+			OutputDebugString(L"createRenderTargetView()の失敗");
+			return false;
+		}
 		setRenderTargetView();
+
+		return true;
 	}
 
 	// フレームを開始
@@ -55,6 +59,7 @@ namespace got
 		//TODO:Colorクラスを作って実装しなおし
 		float ClearColor[4]{ 0.0f, 0.125f, 0.3f, 1.0f };
 		// レンダーターゲットのすべての要素に１つの値を設定
+		//spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), clearColor.rgba);
 		spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), ClearColor);
 	}
 
@@ -65,7 +70,7 @@ namespace got
 	}
 
 	// 初期化が正常に完了しているか
-	bool DirectX11::isInit() const
+	HRESULT DirectX11::isInit() const
 	{
 		return init;
 	}

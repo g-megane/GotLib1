@@ -125,6 +125,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Information.cpp" />
     <ClCompile Include="PlayerBulletManager.cpp" />
     <ClCompile Include="DirectX11.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Information.h" />
     <ClInclude Include="PlayerBulletManager.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Dimention.h" />

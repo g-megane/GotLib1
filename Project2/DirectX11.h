@@ -6,8 +6,9 @@
 #pragma once
 
 #include <d3d11.h>
-#include"Singleton.h"
-#include"Dimention.h"
+#include "Singleton.h"
+#include "Dimention.h"
+#include "Color.h"
 
 // DirectX11の制御クラス
 namespace got
@@ -18,7 +19,7 @@ namespace got
 	public:
 		~DirectX11();
 
-		void DirectX11::initialize(std::shared_ptr<Window> _window);
+		HRESULT DirectX11::initialize(std::shared_ptr<Window> _window);
 
 		void begineFrame() const;
 		void endFrame() const;
@@ -27,7 +28,7 @@ namespace got
 		std::shared_ptr<ID3D11DeviceContext> getDeviceContext() const;
 		std::shared_ptr<Window> getWindow() const;
 		Dimention<int> getSize() const;
-		bool isInit() const;
+		HRESULT isInit() const;
 
 	private:
 		DirectX11();
@@ -46,6 +47,7 @@ namespace got
 		D3D_DRIVER_TYPE   g_driverType;
 
 		Dimention<int> size;
-		bool init;
+		HRESULT init;
+		Color<float> clearColor;
 	};
 }

@@ -14,5 +14,5 @@ static constexpr int WINDOW_HEIGHT = 768;
 static constexpr float PI = 3.14159265358979323846f;
 
 // 画面のゲーム部分のサイズ
-static constexpr float STAGE_WIDTH  = 1024.0f;
-static constexpr float STAGE_HEIGHT = 768.0f;
+static constexpr float STAGE_WIDTH  = WINDOW_WIDTH - WINDOW_WIDTH / 3;
+static constexpr float STAGE_HEIGHT = WINDOW_HEIGHT;

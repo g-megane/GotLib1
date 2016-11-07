@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/18
-// 更新日:2016/11/1
+// 更新日:2016/11/2
 // 制作者:got
 //////////////////////////////////////////////////
 #include "TitleScene.h"
@@ -19,7 +19,7 @@ TitleScene::~TitleScene()
 bool TitleScene::init()
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Title")->getSize();
-	position.move(STAGE_WIDTH / 2.0f - spriteSize.width / 2.0f, STAGE_HEIGHT / 4);
+	position.move(WINDOW_WIDTH / 2.0f - spriteSize.width / 2.0f, WINDOW_HEIGHT / 4);
 	return true;
 }
 // 更新
@@ -40,7 +40,7 @@ void TitleScene::draw() const
 
 	got::SpriteManager::getInstance().draw("Title", mt, drawRect, color);
 
-	auto mt2 = got::Matrix4x4<float>::translate(STAGE_WIDTH / 2 - spriteManager.getSprite("PushEnter")->getSize().width / 2, 500.0f);
+	auto mt2 = got::Matrix4x4<float>::translate(static_cast<float>(WINDOW_WIDTH / 2 - spriteManager.getSprite("PushEnter")->getSize().width / 2), 500.0f);
 	//auto mt3 = got::Matrix4x4<float>::translate(position) * mt2;
 	auto drawRect2 = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("PushEnter")->getSize().width, spriteManager.getSprite("PushEnter")->getSize().height));
 
