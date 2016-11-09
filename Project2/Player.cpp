@@ -25,10 +25,11 @@ bool Player::init()
 {
 	dx = 6.0f; //TODO:移動量(仮)
 	dy = 6.0f; //TODO:移動量(仮)
+	hp = 2;
 	
 	auto &root = Game::getInstance().getRootActor();
-	enemyManager		= dynamic_cast<EnemyManager*>(root->getChild(L"EnemyManager").get());
-	playerBulletManager = dynamic_cast<PlayerBulletManager*>(root->getChild(L"PlayerBulletManager").get());
+	enemyManager		= std::dynamic_pointer_cast<EnemyManager*>(root->getChild(L"EnemyManager"));
+	playerBulletManager = std::dynamic_pointer_cast<PlayerBulletManager*>(root->getChild(L"PlayerBulletManager"));
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	
@@ -92,6 +93,18 @@ void Player::draw() const
 // 終了
 void Player::end()
 {
+}
+
+int Player::getHp() const
+{
+	return hp;
+}
+void Player::setDamage(const int damage)
+{
+	hp -= damage;
+	if (hp <= 0) {
+		SceneManager::getInstance().changeScene(SceneManager::RESULT);
+	}
 }
 // 弾を発射する座標を返す
 got::Vector2<int> Player::getShotPosition() const

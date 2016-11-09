@@ -12,7 +12,7 @@ EnemyManager::EnemyManager(const int _num)
 {
 	std::shared_ptr<Actor> enemy;
 	for (int i = 0; i < _num; ++i) {
-		enemy = std::make_shared<Enemy>();
+		enemy = std::make_shared<Enemy>(1);
 		addChild(enemy);
 	}
 }

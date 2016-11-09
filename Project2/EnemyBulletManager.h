@@ -24,5 +24,5 @@ public:
 
 private:
 	const int bulletsNum;
-	Player *player;
+	std::shared_ptr<Player> player;
 };

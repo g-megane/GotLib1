@@ -8,9 +8,10 @@
 #include "Game.h"
 
 // コンストラクタ
-Enemy::Enemy()
+Enemy::Enemy(const int _hp)
 	: Actor(), time(), time2()
 {
+	hp = _hp;
 }
 // デストラクタ
 Enemy::~Enemy()
@@ -20,7 +21,7 @@ Enemy::~Enemy()
 bool Enemy::init()
 {
 	auto &root = Game::getInstance().getRootActor();
-	enemyBulletManager = dynamic_cast<EnemyBulletManager*>(root->getChild(L"EnemyBulletManager").get());
+	enemyBulletManager = std::dynamic_pointer_cast<EnemyBulletManager>(root->getChild(L"EnemyBulletManager"));
 	auto & spriteManager = got::SpriteManager::getInstance();
 	position.move(STAGE_WIDTH / 2, 0);
 	//TODO:仮の移動量
@@ -76,6 +77,19 @@ void Enemy::draw() const
 // 終了
 void Enemy::end()
 {
+}
+
+int Enemy::getHp() const
+{
+	return hp;
+}
+
+void Enemy::setDamage(const int damage)
+{
+	hp -= damage;
+	if (hp <= 0) {
+		state = UN_USE;
+	}
 }
 
 got::Vector2<float> Enemy::getShotPosition() const

@@ -22,13 +22,16 @@ public:
 	void draw() const override;
 	void end() override;
 
+	int getHp() const;
+	void setDamage(const int damage);
 	got::Vector2<int> getShotPosition() const; 
 
 private:
 	float dx;
 	float dy;
-	PlayerBulletManager *playerBulletManager;
-	EnemyManager *enemyManager;
+	int   hp;
+	std::shared_ptr<PlayerBulletManager> playerBulletManager;
+	std::shared_ptr<EnemyManager>		 enemyManager;
 	got::Time time;
 
 };

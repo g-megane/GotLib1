@@ -12,7 +12,7 @@
 class Enemy : public Actor
 {
 public:
-	Enemy();
+	Enemy(const int hp);
 	~Enemy() override;
 
 	bool init() override;
@@ -20,12 +20,16 @@ public:
 	void draw() const override;
 	void end() override;
 
+	int getHp() const;
+	void setDamage(const int damage);
+
 private:
 	float dx;
 	float dy;
+	int	  hp;
 	got::Time time;
 	got::Time time2;
-	EnemyBulletManager *enemyBulletManager;
+	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
 
 	got::Vector2<float>  getShotPosition() const;
 

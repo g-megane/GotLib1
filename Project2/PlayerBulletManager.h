@@ -25,5 +25,7 @@ public:
 
 private:
 	const int bulletsNum;
-	EnemyManager *enemyManager;
+	//EnemyManager *enemyManager;
+	std::shared_ptr<EnemyManager> enemyManager;
+	std::shared_ptr<Enemy> spEnemy;
 };
