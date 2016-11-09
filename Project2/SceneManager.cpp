@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/11
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "SceneManager.h"
@@ -23,15 +23,15 @@ void SceneManager::createScene()
 	std::shared_ptr<Scene> scene;
 
 	scene = std::make_shared<ResultScene>();
-	sceneMap[RESULT] = scene;
+	sceneMap[SCENE_NAME::RESULT] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(RESULT, scene));
 
 	scene = std::make_shared<MainScene>();
-	sceneMap[MAIN] = scene;
+	sceneMap[SCENE_NAME::MAIN] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
 
 	scene = std::make_shared<TitleScene>();
-	sceneMap[TITLE] = scene;
+	sceneMap[SCENE_NAME::TITLE] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
 
 	nowScene = scene;

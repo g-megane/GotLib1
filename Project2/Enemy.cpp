@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/1
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Enemy.h"
@@ -30,7 +30,7 @@ bool Enemy::init()
 	//TODO:timeの初期化は必要？
 	time.reset();
 	time2.reset();
-	state = USE;
+	state = STATE::USE; //TODO:UN_USEにしておいてEnemyManagerがUSEにする
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Enemy")->getSize().width, spriteManager.getSprite("Enemy")->getSize().height);
 
 	return true;
@@ -38,7 +38,7 @@ bool Enemy::init()
 // 更新
 void Enemy::move()
 {
-	if (state == UN_USE) { return; }
+	if (state == STATE::UN_USE) { return; }
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 	
@@ -56,16 +56,16 @@ void Enemy::move()
 		time2.reset();
 	}
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
-	if (position.x - spriteSize.width < 0)  { setState(UN_USE); }
-	if (position.x > STAGE_WIDTH)			{ setState(UN_USE); }
-	if (position.y < 0) { setState(UN_USE); }
-	if (position.y > STAGE_HEIGHT)			{ setState(UN_USE); }
+	if (position.x - spriteSize.width < 0)  { setState(STATE::UN_USE); }
+	if (position.x > STAGE_WIDTH)           { setState(STATE::UN_USE); }
+	if (position.y < 0)                     { setState(STATE::UN_USE); }
+	if (position.y > STAGE_HEIGHT)          { setState(STATE::UN_USE); }
 
 }
 // 描画
 void Enemy::draw() const
 {
-	if (state == UN_USE) { return; }
+	if (state == STATE::UN_USE) { return; }
 	//TODO:テスト
 	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
@@ -88,7 +88,7 @@ void Enemy::setDamage(const int damage)
 {
 	hp -= damage;
 	if (hp <= 0) {
-		state = UN_USE;
+		state = STATE::UN_USE;
 	}
 }
 

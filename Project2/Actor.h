@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/26
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -14,7 +14,7 @@ class Game;
 class Actor
 {
 public:
-	enum State 
+	enum class STATE 
 	{
 		USE,
 		UN_USE,
@@ -34,8 +34,8 @@ public:
 	std::vector<std::shared_ptr<Actor>>& getChildren();
 	LPCWSTR getName() const;
 	void setName(const LPCWSTR _name);
-	void setState(const State _state);
-	State getState() const;
+	void setState(const STATE _state);
+	STATE getState() const;
 	got::Rectangle<int> getRect() const;
 
 protected:
@@ -44,6 +44,6 @@ protected:
 	//std::shared_ptr<got::Texture> texture;
 	got::Vector2<float> position;
 	got::Rectangle<int> collisionRect;
-	State state;
+	STATE state;
 
 };

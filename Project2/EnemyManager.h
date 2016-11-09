@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/10/28
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -17,8 +17,4 @@ public:
 	void move() override;
 	void draw() const override;
 	void end() override;
-
-private:
-	//std::vector<Enemy> enemies;
-
 };

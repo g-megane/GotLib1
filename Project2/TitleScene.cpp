@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/18
-// 更新日:2016/11/2
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "TitleScene.h"
@@ -27,7 +27,7 @@ void TitleScene::move()
 {
 	// シーン遷移(TITLE->MAIN)
 	if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
-		SceneManager::getInstance().changeScene(SceneManager::getInstance().MAIN, true);
+		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::MAIN, true);
 	}
 }
 // 描画

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/12
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -12,7 +12,7 @@
 class SceneManager : public got::Singleton<SceneManager>
 {
 public:
-	enum SCENE_NAME
+	enum class SCENE_NAME
 	{
 		TITLE,
 		MAIN,

@@ -99,12 +99,12 @@ void Actor::setName(const LPCWSTR _name)
 	wcscpy_s(name, _name);
 }
 
-void Actor::setState(const State _state)
+void Actor::setState(const STATE _state)
 {
 	state = _state;
 }
 
-Actor::State Actor::getState() const
+Actor::STATE Actor::getState() const
 {
 	return state;
 }

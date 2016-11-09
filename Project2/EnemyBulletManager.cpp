@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/2
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyBulletManager.h"
@@ -43,10 +43,10 @@ void EnemyBulletManager::move()
 	}
 
 	for (auto & bullet : children) {
-		if (bullet->getState() == UN_USE) { continue; }
+		if (bullet->getState() == STATE::UN_USE) { continue; }
 		if (player->getRect().intersection(bullet->getRect())) {
 			player->setDamage(1);
-			bullet->setState(UN_USE);
+			bullet->setState(STATE::UN_USE);
 			return;
 			//SceneManager::getInstance().changeScene(SceneManager::RESULT);
 		}
@@ -68,7 +68,7 @@ void EnemyBulletManager::end()
 void EnemyBulletManager::shot(const got::Vector2<float>& pos)
 {
 	for (auto & bullet : children) {
-		if (bullet->getState() == Bullet::State::UN_USE) {
+		if (bullet->getState() == Bullet::STATE::UN_USE) {
 			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(pos, 0.0f, -10.0f);
 			return;
 		}

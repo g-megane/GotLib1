@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/1
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Bullet.h"
@@ -26,7 +26,7 @@ bool Bullet::init()
 {
 	auto &spriteManager = got::SpriteManager::getInstance();
     collisionRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
-	state = UN_USE;
+	state = STATE::UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
 	dx = 0.0f;
@@ -36,20 +36,20 @@ bool Bullet::init()
 // 更新
 void Bullet::move()
 {
-	if (state == UN_USE) { return; }
+	if (state == STATE::UN_USE) { return; }
 	auto &spriteManager = got::SpriteManager::getInstance();
  	position.y -= dy;
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
-	if (position.x < 0)								   { setState(UN_USE); }
-	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(UN_USE); }
-	if (position.y < 0)								   { setState(UN_USE); }
-	if (position.y > STAGE_HEIGHT - spriteSize.height) { setState(UN_USE); }
+	if (position.x < 0)								   { setState(STATE::UN_USE); }
+	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(STATE::UN_USE); }
+	if (position.y < 0)								   { setState(STATE::UN_USE); }
+	if (position.y > STAGE_HEIGHT - spriteSize.height) { setState(STATE::UN_USE); }
 }
 // 描画
 void Bullet::draw() const
 {
-	if (state == UN_USE) { return; }
+	if (state == STATE::UN_USE) { return; }
 	
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
@@ -70,7 +70,7 @@ void Bullet::Shot(const got::Vector2<float>& vec, const float _dx, const float _
 	dy = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
-	state = USE;
+	state = STATE::USE;
 }
 
 //void Bullet::Shot(const float x, const float y)

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/11/1
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -65,10 +65,10 @@ void Player::move()
 
 	// 敵とのあたり判定
 	for (auto & enemy : enemyManager->getChildren()) {
-		if (enemy->getState() == UN_USE) { continue; }
+		if (enemy->getState() == STATE::UN_USE) { continue; }
 		if (collisionRect.intersection(enemy->getRect())) {
 			// シーン遷移(MAIN->RESULT)
-			SceneManager::getInstance().changeScene(SceneManager::RESULT);
+			SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::RESULT);
 		}
 	}
 
@@ -103,7 +103,7 @@ void Player::setDamage(const int damage)
 {
 	hp -= damage;
 	if (hp <= 0) {
-		SceneManager::getInstance().changeScene(SceneManager::RESULT);
+		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::RESULT);
 	}
 }
 // 弾を発射する座標を返す

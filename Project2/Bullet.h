@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/21
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -9,12 +9,6 @@
 class Bullet : public Actor
 {
 public:
-	//enum State
-	//{
-	//	USE,
-	//	UN_USE
-	//};
-
 	Bullet();
 	~Bullet() override;
 
@@ -24,7 +18,6 @@ public:
 	void end() override;
 
 	void Shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
-	//void Shot(const float x, const float y);
 
 private:
 	float dx;

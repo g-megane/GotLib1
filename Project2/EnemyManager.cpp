@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/10/28
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyManager.h"
@@ -32,7 +32,7 @@ bool EnemyManager::init()
 void EnemyManager::move()
 {
 	for (auto & child : children) {
-		if(child->getState() == UN_USE) {
+		if(child->getState() == STATE::UN_USE) {
 			child->init();
 		}
 		child->move();

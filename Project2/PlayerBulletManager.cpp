@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/1
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #include "PlayerBulletManager.h"
@@ -41,11 +41,11 @@ void PlayerBulletManager::move()
 	}
 
 	for (auto & bullet : children) {
-		if (bullet->getState() == UN_USE) { continue; }
+		if (bullet->getState() == STATE::UN_USE) { continue; }
 		for (auto & enemy : enemyManager->getChildren()) {
-			if (enemy->getState() == UN_USE) { continue; }
+			if (enemy->getState() == STATE::UN_USE) { continue; }
 			if (bullet->getRect().intersection(enemy->getRect())) {
-				bullet->setState(UN_USE);
+				bullet->setState(STATE::UN_USE);
 				spEnemy = std::dynamic_pointer_cast<Enemy>(enemy);// ->setDamage(1);
 				spEnemy->setDamage(1);
 				//enemy->setState(UN_USE);
@@ -69,7 +69,7 @@ void PlayerBulletManager::end()
 void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 {
  	for (auto &bullet : children) {
-		if (bullet->getState() == Bullet::State::UN_USE) {
+		if (bullet->getState() == Bullet::STATE::UN_USE) {
 			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(pos, 0.0f, 10.0f);
 			return;
 		}

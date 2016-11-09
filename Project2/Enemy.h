@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #pragma once
 
+#include <functional>
 #include "Actor.h"
 #include "Time.h"
 #include "EnemyBulletManager.h"
@@ -31,6 +32,7 @@ private:
 	got::Time time2;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
 
+    std::function<void()> moveFunc;
 	got::Vector2<float>  getShotPosition() const;
 
 };
