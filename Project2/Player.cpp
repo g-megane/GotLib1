@@ -28,8 +28,8 @@ bool Player::init()
 	hp = 2;
 	
 	auto &root = Game::getInstance().getRootActor();
-	enemyManager		= std::dynamic_pointer_cast<EnemyManager*>(root->getChild(L"EnemyManager"));
-	playerBulletManager = std::dynamic_pointer_cast<PlayerBulletManager*>(root->getChild(L"PlayerBulletManager"));
+	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
+	playerBulletManager = std::dynamic_pointer_cast<PlayerBulletManager>(root->getChild(L"PlayerBulletManager"));
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	
