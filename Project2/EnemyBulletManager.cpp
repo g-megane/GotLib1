@@ -26,7 +26,7 @@ EnemyBulletManager::~EnemyBulletManager()
 bool EnemyBulletManager::init()
 {
 	auto &root = Game::getInstance().getRootActor();
-	player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player")); 
+    player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player")); 
 
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
@@ -48,7 +48,6 @@ void EnemyBulletManager::move()
 			player->setDamage(1);
 			bullet->setState(STATE::UN_USE);
 			return;
-			//SceneManager::getInstance().changeScene(SceneManager::RESULT);
 		}
 
 	}

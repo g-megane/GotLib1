@@ -9,6 +9,7 @@
 #include "Actor.h"
 #include "Time.h"
 #include "EnemyBulletManager.h"
+#include "Sprite.h"
 
 class Enemy : public Actor
 {
@@ -31,8 +32,14 @@ private:
 	got::Time time;
 	got::Time time2;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
+    std::shared_ptr<Player> player;
 
-    std::function<void()> moveFunc;
+    //std::function<void()> Enemy::moveFunc;
+    void (Enemy::*moveFunc)();
+    void move1();
+    void move2();
+    void move3();
+
 	got::Vector2<float>  getShotPosition() const;
 
 };

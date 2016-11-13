@@ -8,6 +8,7 @@
 #include <memory>
 #include "Scene.h"
 #include "Actor.h"
+#include "BackGround.h"
 
 // メインシーンクラス(Sceneを継承)
 class MainScene : public Scene
@@ -23,4 +24,5 @@ public:
 
 private:
 	std::shared_ptr<Actor> rootActor;
+    std::shared_ptr<BackGround> backGround;
 };

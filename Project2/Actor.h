@@ -41,7 +41,6 @@ public:
 protected:
 	WCHAR name[256];
 	std::vector<std::shared_ptr<Actor>> children;
-	//std::shared_ptr<got::Texture> texture;
 	got::Vector2<float> position;
 	got::Rectangle<int> collisionRect;
 	STATE state;

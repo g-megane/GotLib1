@@ -10,6 +10,7 @@
 MainScene::MainScene()
 {
 	rootActor = Game::getInstance().getRootActor();
+    backGround = std::make_shared<BackGround>();
 }
 // デストラクタ
 MainScene::~MainScene()
@@ -18,6 +19,9 @@ MainScene::~MainScene()
 // 初期化
 bool MainScene::init()
 {	
+    if (!backGround->init()) {
+        return false;
+    }
 	if (!rootActor->init()) {
 		return false;
 	}
@@ -27,14 +31,18 @@ bool MainScene::init()
 // 更新
 void MainScene::move()
 {
+    backGround->move();
 	rootActor->move();
 }
 // 描画
 void MainScene::draw() const
 {
+    backGround->draw();
 	rootActor->draw();
 }
 // 終了
 void MainScene::end()
 {
+   backGround->end();
+   rootActor->end();
 }

@@ -25,7 +25,7 @@ bool Player::init()
 {
 	dx = 6.0f; //TODO:移動量(仮)
 	dy = 6.0f; //TODO:移動量(仮)
-	hp = 2;
+	hp = 1;
 	
 	auto &root = Game::getInstance().getRootActor();
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));

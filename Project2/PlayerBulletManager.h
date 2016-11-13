@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/10/27
+// 更新日:2016/11/9
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -21,11 +21,9 @@ public:
 	void end() override;
 		
 	void shot(const got::Vector2<float>& pos);
-	//void shot(float x, float y);
 
 private:
 	const int bulletsNum;
-	//EnemyManager *enemyManager;
 	std::shared_ptr<EnemyManager> enemyManager;
 	std::shared_ptr<Enemy> spEnemy;
 };

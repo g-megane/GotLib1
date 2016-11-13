@@ -74,9 +74,10 @@ bool Game::init()
 
 	//TODO:MainScene用画像(仮)
 	//spriteManager.addMap("Player", L"Resources\\player.png");
-	spriteManager.addMap("Player", L"Resources\\player1.png");
-	spriteManager.addMap("Bullet", L"Resources\\Boul.png");
-	spriteManager.addMap("Enemy" , L"Resources\\EnemySample.png");
+	spriteManager.addMap("Player"    , L"Resources\\player1.png");
+	spriteManager.addMap("Bullet"    , L"Resources\\Boul.png");
+	spriteManager.addMap("Enemy"     , L"Resources\\EnemySample.png");
+    spriteManager.addMap("BackGround", L"Resources\\BackGround.png");
 	
 	//TODO:ResultScene用画像(仮)
 	spriteManager.addMap("Result", L"Resources\\ResultSample.png");
