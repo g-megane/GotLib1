@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/9
+// 更新日:2016/11/16
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -36,7 +36,8 @@ public:
 	void setName(const LPCWSTR _name);
 	void setState(const STATE _state);
 	STATE getState() const;
-	got::Rectangle<int> getRect() const;
+	const got::Rectangle<int>& getRect() const;
+    const got::Vector2<float>& getPosition() const;
 
 protected:
 	WCHAR name[256];

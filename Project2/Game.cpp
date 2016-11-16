@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/10/28
+// 更新日:2016/11/16
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -23,15 +23,15 @@ Game::Game() : time()
 
 	// rootActorに追加したいActorを継承したオブジェクト(MainScene)
 	std::shared_ptr<Actor> player = std::make_shared<Player>();
-	std::shared_ptr<Actor> em	  = std::make_shared<EnemyManager>(1);
+	//std::shared_ptr<Actor> em	  = std::make_shared<EnemyManager>(/*10*/);
 	std::shared_ptr<Actor> pbm	  = std::make_shared<PlayerBulletManager>(100);
 	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(1);
 
-	std::shared_ptr<Actor> info = std::make_shared<Information>();
+	std::shared_ptr<Actor> info   = std::make_shared<Information>();
 
 	// rootActorへの追加
 	rootActor->addChild(player);
-	rootActor->addChild(em);
+	//rootActor->addChild(em);
 	rootActor->addChild(pbm);
 	rootActor->addChild(ebm);
 

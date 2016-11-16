@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/5
-// 更新日:2016/10/5
+// 更新日:2016/11/16
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -84,10 +84,11 @@ namespace got
 		// 正規化する
 		Vector2 normalize() const
 		{
-			const float len = length();
-			if (len < FLT_EPSILON) {
-				return Vector2
+			const float len = this->length();
+            if (len < FLT_EPSILON) {
+				return Vector2::ZERO;
 			}
+            return *this / len;
 		}
 		// ゼロベクトルか？
 		bool isZero() const

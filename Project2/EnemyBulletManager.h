@@ -20,7 +20,8 @@ public:
 	void draw() const override;
 	void end() override;
 
-	void shot(const got::Vector2<float>& pos);
+	void shot1(const got::Vector2<float>& startPos, const float speed);
+    void shot2(const got::Vector2<float>& startPos, const float speed);
 
 private:
 	const int bulletsNum;

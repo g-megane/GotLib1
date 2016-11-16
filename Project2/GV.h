@@ -6,6 +6,8 @@
 #pragma once
 // グローバル変数群
 
+//TODO:無名名前空間に変える
+
 // ウィンドウ関係
 static constexpr int WINDOW_WIDTH  = 1024;
 static constexpr int WINDOW_HEIGHT = 768;

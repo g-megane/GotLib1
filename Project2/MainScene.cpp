@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/26
+// 更新日:2016/11/16
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
@@ -11,6 +11,9 @@ MainScene::MainScene()
 {
 	rootActor = Game::getInstance().getRootActor();
     backGround = std::make_shared<BackGround>();
+
+    enemyManager = std::make_shared<EnemyManager>(10);
+    rootActor->addChild(enemyManager);
 }
 // デストラクタ
 MainScene::~MainScene()
@@ -19,6 +22,15 @@ MainScene::~MainScene()
 // 初期化
 bool MainScene::init()
 {	
+    auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
+    em->setEnemy(1, STAGE_WIDTH / 2.0f, 50.0f, 0, 0, 7.0f);
+    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
+    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
+    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
+    em->setEnemy(1, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
+    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 0, 0, 7.0f);
+    
+
     if (!backGround->init()) {
         return false;
     }

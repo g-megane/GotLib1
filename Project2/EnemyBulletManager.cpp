@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/9
+// 更新日:2016/11/16
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyBulletManager.h"
@@ -64,12 +64,24 @@ void EnemyBulletManager::end()
 {
 }
 
-void EnemyBulletManager::shot(const got::Vector2<float>& pos)
+void EnemyBulletManager::shot1(const got::Vector2<float>& startPos, const float speed)
 {
 	for (auto & bullet : children) {
 		if (bullet->getState() == Bullet::STATE::UN_USE) {
-			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(pos, 0.0f, -10.0f);
+			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(startPos, 0.0f, speed);
 			return;
 		}
 	}
+}
+
+void EnemyBulletManager::shot2(const got::Vector2<float>& startPos, const float speed)
+{
+    for (auto & bullet : children) {
+        if (bullet->getState() == Bullet::STATE::UN_USE) {
+            got::Vector2<float> shotVec(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+            got::Vector2<float> shotVec2(shotVec.normalize());
+            std::dynamic_pointer_cast<Bullet>(bullet)->Shot(startPos, shotVec2.x * speed, shotVec2.y * speed);
+            return;
+        }
+    }
 }

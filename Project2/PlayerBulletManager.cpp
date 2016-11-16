@@ -70,12 +70,8 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 {
  	for (auto &bullet : children) {
 		if (bullet->getState() == Bullet::STATE::UN_USE) {
-			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(pos, 0.0f, 10.0f);
+			std::dynamic_pointer_cast<Bullet>(bullet)->Shot(pos, 0.0f, -10.0f);
 			return;
 		}
 	}
 }
-// 弾の発射
-//void PlayerBulletManager::shot(float x, float y)
-//{
-//}

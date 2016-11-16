@@ -109,8 +109,13 @@ Actor::STATE Actor::getState() const
 	return state;
 }
 
-got::Rectangle<int> Actor::getRect() const
+const got::Rectangle<int>& Actor::getRect() const
 {
 	return collisionRect;
+}
+
+const got::Vector2<float>& Actor::getPosition() const 
+{
+    return position;
 }
 
