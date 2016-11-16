@@ -55,7 +55,7 @@ void Enemy::move()
     this->moveFunc();
 
 	// 弾の発射
-	if (time2.timeOver(250.0f)) {
+	if (time2.timeOver(750.0f)) {
 		this->shotFunc();
 		time2.reset();
 	}
@@ -161,6 +161,8 @@ void Enemy::setShotPattern(const int pattern)
     case 1:
         shotFunc = [this]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
         break;
+    case 2:
+        shotFunc = [this]() { enemyBulletManager->shot3(getShotPosition(), 0.0f, 5.0f); };
     default:
         break;
     }

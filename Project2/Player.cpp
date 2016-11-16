@@ -73,7 +73,7 @@ void Player::move()
 	}
 
 	//TODO:(仮)弾の発射
-	if (!time.timeOver(500.0f)) { return; } // 発射間隔(仮)
+	if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
 	time.reset();
 	if(input.keyPush(DIK_SPACE)) {
 		playerBulletManager->shot(getShotPosition());

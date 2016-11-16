@@ -23,12 +23,12 @@ MainScene::~MainScene()
 bool MainScene::init()
 {	
     auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
-    em->setEnemy(1, STAGE_WIDTH / 2.0f, 50.0f, 0, 0, 7.0f);
-    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
-    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
-    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
-    em->setEnemy(1, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
-    em->setEnemy(1, STAGE_WIDTH / 4.0f, 50.0f, 0, 0, 7.0f);
+    em->setEnemy(5, STAGE_WIDTH / 2.0f, 50.0f, 0, 2, 7.0f);
+    //em->setEnemy(5, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
+    //em->setEnemy(5, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
+    //em->setEnemy(5, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
+    //em->setEnemy(5, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
+    //em->setEnemy(5, STAGE_WIDTH / 5.0f, 50.0f, 0, 0, 7.0f);
     
 
     if (!backGround->init()) {

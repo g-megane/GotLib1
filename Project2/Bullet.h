@@ -17,7 +17,7 @@ public:
 	void draw() const override;
 	void end() override;
 
-	void Shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
+	void shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
 
 private:
 	float dx;

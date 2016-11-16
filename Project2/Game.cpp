@@ -25,7 +25,7 @@ Game::Game() : time()
 	std::shared_ptr<Actor> player = std::make_shared<Player>();
 	//std::shared_ptr<Actor> em	  = std::make_shared<EnemyManager>(/*10*/);
 	std::shared_ptr<Actor> pbm	  = std::make_shared<PlayerBulletManager>(100);
-	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(1);
+	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(100);
 
 	std::shared_ptr<Actor> info   = std::make_shared<Information>();
 

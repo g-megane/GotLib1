@@ -65,7 +65,7 @@ void Bullet::end()
 {
 }
 
-void Bullet::Shot(const got::Vector2<float>& vec, const float _dx, const float _dy)
+void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _dy)
 {
 	dx = _dx;
 	dy = _dy;
