@@ -110,7 +110,8 @@ void Game::update()
 		if (!time.timeOver(1000.0f / 60.0f)) { // FPSの固定
 			continue;
 		}
-		countTime += time.getDeltaTime(); // 経過時間を数える
+        deltaTime = time.getDeltaTime();
+		countTime += deltaTime; // 経過時間を数える
 		// FPSの表示
 		if (countTime > 1000.0f) {
 			stream << fps << std::endl;
@@ -138,4 +139,9 @@ void Game::end()
 std::shared_ptr<Actor> & Game::getRootActor()
 {
 	return rootActor;
+}
+
+const float Game::getDeltaTime() const
+{
+    return deltaTime;
 }

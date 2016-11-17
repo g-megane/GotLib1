@@ -91,23 +91,55 @@ void EnemyBulletManager::shot2(const got::Vector2<float>& startPos, const float 
 // 円形弾(引数のsizeは弾を何度ずつ出すかということ)
 void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int size, const float speed)
 {
-    const float dtheta = 2.0f * PI / size;
-    got::Vector2<float> shotVec;
-    got::Vector2<float> shotVec2;
-    got::Vector2<float> shotVec3;
+    // dtheta間隔で弾を発射
+    const float dtheta = 360.0f / size;
+
+    got::Vector2<float> shotVec(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+    got::Vector2<float> shotVec2(shotVec.normalize());
+    
     for (int i = 0; i < size; ++i) {
         for (auto & bullet : children) {
             if (bullet->getState() == Bullet::STATE::UN_USE) {
-                shotVec.move(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
-                shotVec2 = shotVec.normalize();
-                shotVec3 = shotVec2.rotate(dtheta * i);
-                std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec3.x * speed, shotVec3.y * speed);
+                shotVec = shotVec2.rotate(dtheta * i);
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
                 break;
             }
         }
     }
 }
-
+// 3way弾
 void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int size, const float speed)
 {
+    const float dtheta = 10.0f * PI / 180;
+
+    got::Vector2<float> shotVec(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+    got::Vector2<float> shotVec2(shotVec.normalize());
+
+    int loopCount = 0;
+    int count2 = 0;
+    int count3 = 0;
+    for (auto & bullet : children) {
+        if (bullet->getState() == Bullet::STATE::UN_USE) {
+            if(loopCount == size) {
+                break;
+            }
+            if (loopCount == 0) {
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec2.x * speed, shotVec2.y * speed);
+                ++loopCount;
+            }
+            else if (loopCount % 2 == 1) {
+                ++count2;
+                shotVec = shotVec2.rotate(10.0f * count2);
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
+                ++loopCount;
+            }
+            else if(loopCount % 2 == 0) {
+                ++count3;
+                shotVec = shotVec2.rotate(-10.0f * count3);
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
+                ++loopCount;
+            }
+        }
+    }
+    
 }

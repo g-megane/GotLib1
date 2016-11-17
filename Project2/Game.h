@@ -17,9 +17,12 @@ public:
 	bool init();
 	void update();
 	void end();
-	std::shared_ptr<Actor> & getRootActor();
+	
+    std::shared_ptr<Actor> & getRootActor();
+    const float getDeltaTime() const;
 
 private:
+    float deltaTime;
 	friend class got::Singleton<Game>;
 	Game();
 	std::shared_ptr<Actor> rootActor;

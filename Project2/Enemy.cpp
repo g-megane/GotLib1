@@ -27,8 +27,8 @@ bool Enemy::init()
     
 	//TODO:仮の移動量
     hp = 0;
-	dx = 2.0f;
-	dy = 2.0f;
+	dx = 0.1f;
+	dy = 0.1f;
     bulletSpeed = 0.0f;
     shotInterval = 0.0f;
 
@@ -49,6 +49,8 @@ void Enemy::move()
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 	
+    dTime = Game::getInstance().getDeltaTime();
+
 	// 移動
     this->moveFunc();
 
@@ -107,8 +109,8 @@ void Enemy::setData(const int _hp, const float _initX, const float _initY, const
     shotInterval = _shotInterval;
 
     //TODO:移動量の初期化
-    dx = 2.0f;
-    dy = 2.0f;
+    dx = 0.1f;
+    dy = 0.1f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
     collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
@@ -125,7 +127,7 @@ void Enemy::setMovePattern(const int pattern)
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
-            position.translate(0, dy);
+            position.translate(0, dy * dTime);
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
         };
         break;
@@ -134,7 +136,7 @@ void Enemy::setMovePattern(const int pattern)
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
-            position.translate(dx, dy);
+            position.translate(dx * dTime, dy * dTime);
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (time.timeOver(1000.0f)) {
@@ -148,7 +150,7 @@ void Enemy::setMovePattern(const int pattern)
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
-            position.translate(0, dy);
+            position.translate(0, dy * dTime);
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) { dy = -dy; }
@@ -168,7 +170,13 @@ void Enemy::setShotPattern(const int pattern)
         shotFunc = [&]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
         break;
     case 2:
-        shotFunc = [&]() { enemyBulletManager->shot3(getShotPosition(), 36, 5.0f); };
+        //TODO:マジックナンバーをやめる
+        shotFunc = [&]() { enemyBulletManager->shot3(getShotPosition(), 36, bulletSpeed); };
+        break;
+    case 3:
+        //TODO:マジックナンバーをやめる
+        shotFunc = [&]() { enemyBulletManager->shot4(getShotPosition(), 7, bulletSpeed); };
+        break;
     default:
         break;
     }

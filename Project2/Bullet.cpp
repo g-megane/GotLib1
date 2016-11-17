@@ -5,16 +5,12 @@
 //////////////////////////////////////////////////
 #include "Bullet.h"
 #include "SpriteManager.h"
-
-#include <random>
+#include "Game.h"
 
 // コンストラクタ
 Bullet::Bullet()
 	:Actor(), color()
 {
-	//std::random_device rd;
-	//auto urd = std::uniform_real_distribution<float>(0.1f, 5.0f);
-	//dy = urd(rd);	
 }
 
 // デストラクタ
@@ -40,7 +36,9 @@ void Bullet::move()
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
 
-    position.translate(dx, dy);
+    auto dTime = Game::getInstance().getDeltaTime();
+
+    position.translate(dx * dTime, dy * dTime);
 	collisionRect  = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
 	if (position.x < 0)								   { setState(STATE::UN_USE); }

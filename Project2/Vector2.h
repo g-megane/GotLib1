@@ -110,7 +110,7 @@ namespace got
 		// 回転
 		Vector2 rotate(T degree) const
 		{
-			const float rad = Angle<T>::toDegree(degree); // 弧度法に変換
+			const float rad = Angle<T>::toRadian(degree); // 弧度法に変換
 			return Vector2(x * std::cos(rad) - y * std::sin(rad),
 						   x * std::sin(rad) + y * std::cos(rad));
 		}

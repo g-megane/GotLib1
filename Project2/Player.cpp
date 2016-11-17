@@ -23,8 +23,8 @@ Player::~Player()
 
 bool Player::init()
 {
-	dx = 6.0f; //TODO:移動量(仮)
-	dy = 6.0f; //TODO:移動量(仮)
+	dx = 0.5f; //TODO:移動量(仮)
+	dy = 0.5f; //TODO:移動量(仮)
 	hp = 1;
 	
 	auto &root = Game::getInstance().getRootActor();
@@ -49,11 +49,13 @@ void Player::move()
 	auto &input		= got::MyDirectInput::getInstance();
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 
+    auto dTime = Game::getInstance().getDeltaTime();
+
 	// キー移動
-	if		(input.keyPush(DIK_UP	)) { position.y -= dy; }
-	else if (input.keyPush(DIK_DOWN	)) { position.y += dy; }
-	if		(input.keyPush(DIK_RIGHT)) { position.x += dx; }
-	else if (input.keyPush(DIK_LEFT	)) { position.x	-= dx; }
+	if		(input.keyPush(DIK_UP	)) { position.y -= dy * dTime; }
+	else if (input.keyPush(DIK_DOWN	)) { position.y += dy * dTime; }
+	if		(input.keyPush(DIK_RIGHT)) { position.x += dx * dTime; }
+	else if (input.keyPush(DIK_LEFT	)) { position.x	-= dx * dTime; }
 
 	// ステージ外に出たら補正する
 	if (position.x < 0							     ) { position.x = 0;								}

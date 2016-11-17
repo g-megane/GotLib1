@@ -26,12 +26,12 @@ bool MainScene::init()
     //TODO:仮データ
     // --------------------------------- [エネミーデータのセット] -----------------------------------------------
     // -------- {HP} -- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -- {攻撃パターン} -- {弾速} -- {発射間隔}
-    em->setEnemy(5,      STAGE_WIDTH / 2.0f,   50.0f,           0,              2,              5.0f,     500.0f);
-    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           1,              0,              5.0f,     500.0f);
-    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           2,              1,              5.0f,     500.0f);
-    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           2,              2,              5.0f,     500.0f);
-    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           1,              0,              5.0f,     500.0f);
-    em->setEnemy(5,      STAGE_WIDTH / 5.0f,   50.0f,           0,              1,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 2.0f,   50.0f,           0,              3,              0.3f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           1,              0,              0.3f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           2,              1,              0.3f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           2,              2,              0.3f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           1,              0,              0.3f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 5.0f,   50.0f,           0,              1,              0.3f,     500.0f);
     // --------------------------------------------------------------------------------------------------------
     
     if (!backGround->init()) {

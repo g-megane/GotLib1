@@ -34,6 +34,7 @@ private:
 	int	  hp;
     float bulletSpeed;
     float shotInterval;
+    float dTime;
 	got::Time time;
 	got::Time time2;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
