@@ -9,7 +9,7 @@
 // コンストラクタ
 MainScene::MainScene()
 {
-	rootActor = Game::getInstance().getRootActor();
+	rootActor  = Game::getInstance().getRootActor();
     backGround = std::make_shared<BackGround>();
 
     enemyManager = std::make_shared<EnemyManager>(10);
@@ -23,14 +23,17 @@ MainScene::~MainScene()
 bool MainScene::init()
 {	
     auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
-    em->setEnemy(5, STAGE_WIDTH / 2.0f, 50.0f, 0, 2, 7.0f);
-    //em->setEnemy(5, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
-    //em->setEnemy(5, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
-    //em->setEnemy(5, STAGE_WIDTH / 4.0f, 50.0f, 1, 0, 7.0f);
-    //em->setEnemy(5, STAGE_WIDTH / 3.0f, 50.0f, 2, 0, 7.0f);
-    //em->setEnemy(5, STAGE_WIDTH / 5.0f, 50.0f, 0, 0, 7.0f);
+    //TODO:仮データ
+    // --------------------------------- [エネミーデータのセット] -----------------------------------------------
+    // -------- {HP} -- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -- {攻撃パターン} -- {弾速} -- {発射間隔}
+    em->setEnemy(5,      STAGE_WIDTH / 2.0f,   50.0f,           0,              2,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           1,              0,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           2,              1,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 4.0f,   50.0f,           2,              2,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 3.0f,   50.0f,           1,              0,              5.0f,     500.0f);
+    em->setEnemy(5,      STAGE_WIDTH / 5.0f,   50.0f,           0,              1,              5.0f,     500.0f);
+    // --------------------------------------------------------------------------------------------------------
     
-
     if (!backGround->init()) {
         return false;
     }

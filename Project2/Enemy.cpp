@@ -30,9 +30,7 @@ bool Enemy::init()
 	dx = 2.0f;
 	dy = 2.0f;
     bulletSpeed = 0.0f;
-    
-    //setMovePattern();
-    //setShotPattern();
+    shotInterval = 0.0f;
 
     //TODO:timeの初期化は必要？
 	time.reset();
@@ -55,11 +53,12 @@ void Enemy::move()
     this->moveFunc();
 
 	// 弾の発射
-	if (time2.timeOver(750.0f)) {
+	if (time2.timeOver(shotInterval)) {
 		this->shotFunc();
 		time2.reset();
 	}
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
+    //TODO:仮の値
 	if (position.x /*spriteSize.width*/ < -100)   { setState(STATE::UN_USE); }
 	if (position.x > STAGE_WIDTH + 100)           { setState(STATE::UN_USE); }
 	if (position.y + 100/*spriteSize.height*/< 0) { setState(STATE::UN_USE); }
@@ -82,40 +81,47 @@ void Enemy::draw() const
 void Enemy::end()
 {
 }
-
+// ヒットポイントを返す
 int Enemy::getHp() const
 {
 	return hp;
 }
-
+// ダメージ処理を行う
 void Enemy::setDamage(const int damage)
 {
 	hp -= damage;
+    // 死んでいる場合
 	if (hp <= 0) {
 		state = STATE::UN_USE;
 	}
 }
-
-void Enemy::setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed)
+// EnemyManagerがEnemyを動かすのに必要なデータをセットする
+void Enemy::setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval)
 {
+    // データのセット
     hp = _hp;
     position.move(_initX, _initY);
     setMovePattern(_movePattern);
     setShotPattern(_shotPattern);
-    bulletSpeed = _bulletSpeed;
+    bulletSpeed  = _bulletSpeed;
+    shotInterval = _shotInterval;
+
+    //TODO:移動量の初期化
     dx = 2.0f;
     dy = 2.0f;
+
     auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
     collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+    
     state = STATE::USE;
 }
-
+// 移動処理を行う関数オブジェクトに関数をセット
 void Enemy::setMovePattern(const int pattern)
 {
     switch (pattern)
     {
     case 0:
-        moveFunc = [this]()
+        moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
@@ -124,7 +130,7 @@ void Enemy::setMovePattern(const int pattern)
         };
         break;
     case 1:
-        moveFunc = [this]()
+        moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
@@ -138,7 +144,7 @@ void Enemy::setMovePattern(const int pattern)
         };
         break;
     case 2:
-        moveFunc = [this]()
+        moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
@@ -150,24 +156,24 @@ void Enemy::setMovePattern(const int pattern)
         break;
     }
 }
-
+// 弾の発射処理を行う関数オブジェクトに関数をセット
 void Enemy::setShotPattern(const int pattern)
 {
     switch (pattern)
     {
     case 0:
-        shotFunc = [this]() { enemyBulletManager->shot1(getShotPosition(), bulletSpeed); };
+        shotFunc = [&]() { enemyBulletManager->shot1(getShotPosition(), bulletSpeed); };
         break;
     case 1:
-        shotFunc = [this]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
+        shotFunc = [&]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
         break;
     case 2:
-        shotFunc = [this]() { enemyBulletManager->shot3(getShotPosition(), 0.0f, 5.0f); };
+        shotFunc = [&]() { enemyBulletManager->shot3(getShotPosition(), 36, 5.0f); };
     default:
         break;
     }
 }
-
+// 弾の発射位置を返す
 got::Vector2<float> Enemy::getShotPosition() const
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();

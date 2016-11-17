@@ -10,7 +10,7 @@
 
 // コンストラクタ
 Bullet::Bullet()
-	:Actor()
+	:Actor(), color()
 {
 	//std::random_device rd;
 	//auto urd = std::uniform_real_distribution<float>(0.1f, 5.0f);
@@ -37,11 +37,12 @@ bool Bullet::init()
 void Bullet::move()
 {
 	if (state == STATE::UN_USE) { return; }
-	auto &spriteManager = got::SpriteManager::getInstance();
-    position.x += dx;
- 	position.y += dy;
-	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
+
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
+
+    position.translate(dx, dy);
+	collisionRect  = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
 	if (position.x < 0)								   { setState(STATE::UN_USE); }
 	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(STATE::UN_USE); }
 	if (position.y < 0)								   { setState(STATE::UN_USE); }
@@ -54,7 +55,7 @@ void Bullet::draw() const
 	
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	auto color = got::Color<float>();
+	//color = got::Color<float>();
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
 
 	got::SpriteManager::getInstance().draw("Bullet", mt, drawRect, color);

@@ -21,18 +21,19 @@ public:
 	void draw() const override;
 	void end() override;
 
-    void setEnemy(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed);
+    void setEnemy(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval);
 
 private:
     got::Time time;
 
     struct EnemyData {
-        int   hp;          // ヒットポイント
-        float initX;       // 初期位置
-        float initY;       // 初期位置
-        int   movePattern; // 移動パターン
-        int   shotPattern; // 発射パターン
-        float bulletSpeed; // 弾速
+        int   hp;           // ヒットポイント
+        float initX;        // 初期位置
+        float initY;        // 初期位置
+        int   movePattern;  // 移動パターン
+        int   shotPattern;  // 発射パターン
+        float bulletSpeed;  // 弾速
+        float shotInterval; // 発射間隔
     };
     std::list<EnemyData> dataList;
 };

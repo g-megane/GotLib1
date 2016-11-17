@@ -22,4 +22,6 @@ public:
 private:
 	float dx;
 	float dy;
+    got::Color<float> color;
+
 };

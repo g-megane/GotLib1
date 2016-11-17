@@ -26,13 +26,14 @@ public:
 
 	int getHp() const;
 	void setDamage(const int damage);
-    void setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed);
+    void setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval);
 
 private:
 	float dx;
 	float dy;
 	int	  hp;
     float bulletSpeed;
+    float shotInterval;
 	got::Time time;
 	got::Time time2;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
@@ -42,6 +43,6 @@ private:
 
     void setMovePattern(const int pattern);
     void setShotPattern(const int pattern);
-	got::Vector2<float>  getShotPosition() const;
+	got::Vector2<float> getShotPosition() const;
 
 };

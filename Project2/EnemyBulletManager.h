@@ -22,7 +22,8 @@ public:
 
 	void shot1(const got::Vector2<float>& startPos, const float speed);
     void shot2(const got::Vector2<float>& startPos, const float speed);
-    void shot3(const got::Vector2<float>& startPos, const float dx, const float dy);
+    void shot3(const got::Vector2<float>& startPos, const int size, const float speed);
+    void shot4(const got::Vector2<float>& startPos, const int size, const float speed);
 
 private:
 	const int bulletsNum;
