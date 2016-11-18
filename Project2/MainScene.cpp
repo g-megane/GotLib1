@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/16
+// 更新日:2016/11/18
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
@@ -11,7 +11,8 @@ MainScene::MainScene()
 {
 	rootActor  = Game::getInstance().getRootActor();
     backGround = std::make_shared<BackGround>();
-
+   　
+    //TODO:とりあえず10体を使いまわし
     enemyManager = std::make_shared<EnemyManager>(10);
     rootActor->addChild(enemyManager);
 }

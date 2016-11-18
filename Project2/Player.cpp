@@ -11,21 +11,23 @@
 #include "Game.h"
 #include "SceneManager.h"
 
+// コンストラクタ
 Player::Player()
 	:Actor(L"Player"), time()
 {
 	time = got::Time();
 }
-
+// デストラクタ
 Player::~Player()
 {
 }
-
+// 初期化
 bool Player::init()
 {
-	dx = 0.5f; //TODO:移動量(仮)
-	dy = 0.5f; //TODO:移動量(仮)
-	hp = 1;
+	dx           = 0.4f; //TODO:移動量(仮)
+	dy           = 0.4f; //TODO:移動量(仮)
+    deceleration = 1.0f; // 減速量
+	hp           = 1;
 	
 	auto &root = Game::getInstance().getRootActor();
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
@@ -38,24 +40,26 @@ bool Player::init()
 
 	time.reset();
 
-	return false;
+	return true;
 }
 // 更新
 void Player::move()
 {
 	//TODO:・斜め移動早くなるやつ直す
-	//     ・弾の発射
-	//     ・当たり判定
 	auto &input		= got::MyDirectInput::getInstance();
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 
     auto dTime = Game::getInstance().getDeltaTime();
 
+    // 低速移動(左Shiftを押している間移動量を減らす)
+    deceleration = 1.0f;
+    if (input.keyPush(DIK_LSHIFT)) { deceleration = 0.4f; }
+
 	// キー移動
-	if		(input.keyPush(DIK_UP	)) { position.y -= dy * dTime; }
-	else if (input.keyPush(DIK_DOWN	)) { position.y += dy * dTime; }
-	if		(input.keyPush(DIK_RIGHT)) { position.x += dx * dTime; }
-	else if (input.keyPush(DIK_LEFT	)) { position.x	-= dx * dTime; }
+	if		(input.keyPush(DIK_UP	)) { position.y -= dy * deceleration * dTime; }
+	else if (input.keyPush(DIK_DOWN	)) { position.y += dy * deceleration * dTime; }
+	if		(input.keyPush(DIK_RIGHT)) { position.x += dx * deceleration * dTime; }
+	else if (input.keyPush(DIK_LEFT	)) { position.x	-= dx * deceleration * dTime; }
 
 	// ステージ外に出たら補正する
 	if (position.x < 0							     ) { position.x = 0;								}
@@ -75,6 +79,7 @@ void Player::move()
 	}
 
 	//TODO:(仮)弾の発射
+    //     ・低速移動
 	if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
 	time.reset();
 	if(input.keyPush(DIK_SPACE)) {
@@ -96,11 +101,12 @@ void Player::draw() const
 void Player::end()
 {
 }
-
+// ヒットポイントを返す
 int Player::getHp() const
 {
 	return hp;
 }
+// ダメージ処理
 void Player::setDamage(const int damage)
 {
 	hp -= damage;

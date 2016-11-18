@@ -27,9 +27,10 @@ public:
 	got::Vector2<int> getShotPosition() const; 
 
 private:
-	float dx;
-	float dy;
-	int   hp;
+	float dx;           // x移動量
+	float dy;           // y移動量
+    float deceleration; // 減速量
+	int   hp;           // ヒットポイント
 	std::shared_ptr<PlayerBulletManager> playerBulletManager;
 	std::shared_ptr<EnemyManager>		 enemyManager;
 	got::Time time;

@@ -46,9 +46,7 @@ void PlayerBulletManager::move()
 			if (enemy->getState() == STATE::UN_USE) { continue; }
 			if (bullet->getRect().intersection(enemy->getRect())) {
 				bullet->setState(STATE::UN_USE);
-				spEnemy = std::dynamic_pointer_cast<Enemy>(enemy);// ->setDamage(1);
-				spEnemy->setDamage(1);
-				//enemy->setState(UN_USE);
+				std::dynamic_pointer_cast<Enemy>(enemy)->setDamage(1);
 			}
 		}
 	}

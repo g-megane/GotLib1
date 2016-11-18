@@ -45,7 +45,7 @@ void EnemyBulletManager::move()
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		if (player->getRect().intersection(bullet->getRect())) {
-			//player->setDamage(1);
+			player->setDamage(1);
 			bullet->setState(STATE::UN_USE);
 			return;
 		}
