@@ -21,12 +21,13 @@ public:
 	void draw() const override;
 	void end() override;
 
-    void setEnemy(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval);
+    void setEnemy(const float _bornTime, const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval);
 
 private:
     got::Time time;
 
     struct EnemyData {
+        float bornTime;     // 出現までの時間
         int   hp;           // ヒットポイント
         float initX;        // 初期位置
         float initY;        // 初期位置

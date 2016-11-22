@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/16
+// 更新日:2016/11/22
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyBulletManager.h"
@@ -45,7 +45,9 @@ void EnemyBulletManager::move()
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		if (player->getRect().intersection(bullet->getRect())) {
+#ifndef _DEBUG
 			player->setDamage(1);
+#endif // _DEBUG
 			bullet->setState(STATE::UN_USE);
 			return;
 		}
@@ -81,7 +83,7 @@ void EnemyBulletManager::shot2(const got::Vector2<float>& startPos, const float 
 
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
-            shotVec.move(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+            shotVec.move(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
             shotVec2 = shotVec.normalize();
             std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec2.x * speed, shotVec2.y * speed);
             return;
@@ -94,7 +96,7 @@ void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int si
     // dtheta間隔で弾を発射
     const float dtheta = 360.0f / size;
 
-    got::Vector2<float> shotVec(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+    got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
     got::Vector2<float> shotVec2(shotVec.normalize());
     
     for (int i = 0; i < size; ++i) {
@@ -107,17 +109,17 @@ void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int si
         }
     }
 }
-// 3way弾
+// 奇数way弾
 void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int size, const float speed)
 {
     const float dtheta = 10.0f * PI / 180;
 
-    got::Vector2<float> shotVec(player->getPosition().x - startPos.x, player->getPosition().y - startPos.y);
+    got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
     got::Vector2<float> shotVec2(shotVec.normalize());
 
     int loopCount = 0;
-    int count2 = 0;
-    int count3 = 0;
+    int leftTurncount = 0;
+    int rightTurnCount = 0;
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
             if(loopCount == size) {
@@ -128,14 +130,14 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
                 ++loopCount;
             }
             else if (loopCount % 2 == 1) {
-                ++count2;
-                shotVec = shotVec2.rotate(10.0f * count2);
+                ++leftTurncount;
+                shotVec = shotVec2.rotate(10.0f * leftTurncount);
                 std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
                 ++loopCount;
             }
             else if(loopCount % 2 == 0) {
-                ++count3;
-                shotVec = shotVec2.rotate(-10.0f * count3);
+                ++rightTurnCount;
+                shotVec = shotVec2.rotate(-10.0f * rightTurnCount);
                 std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
                 ++loopCount;
             }

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/11/9
+// 更新日:2016/11/22
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -29,7 +29,7 @@ bool Player::init()
     deceleration = 1.0f; // 減速量
 	hp           = 1;
 	
-	auto &root = Game::getInstance().getRootActor();
+	auto &root          = Game::getInstance().getRootActor();
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
 	playerBulletManager = std::dynamic_pointer_cast<PlayerBulletManager>(root->getChild(L"PlayerBulletManager"));
 
@@ -53,7 +53,7 @@ void Player::move()
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyPush(DIK_LSHIFT)) { deceleration = 0.4f; }
+    if (input.keyPush(DIK_LSHIFT)) { deceleration = 0.5f; }
 
 	// キー移動
 	if		(input.keyPush(DIK_UP	)) { position.y -= dy * deceleration * dTime; }
@@ -115,8 +115,14 @@ void Player::setDamage(const int damage)
 	}
 }
 // 弾を発射する座標を返す
-got::Vector2<int> Player::getShotPosition() const
+const got::Vector2<float>& Player::getShotPosition() const
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
 	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y);
+}
+
+const got::Vector2<float>& Player::getCenter() const
+{
+    auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+    return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
 }

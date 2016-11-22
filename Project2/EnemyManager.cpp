@@ -38,7 +38,7 @@ void EnemyManager::move()
     }
  
     auto itr = dataList.begin();
-    if (!time.timeOver(3000.0f)) { return; }
+    if (!time.timeOver(itr->bornTime)) { return; }
     for (auto & child : children) {
         if (child->getState() == STATE::UN_USE) {
             std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->initX, itr->initY, itr->movePattern, itr->shotPattern, itr->bulletSpeed, itr->shotInterval);
@@ -65,9 +65,10 @@ void EnemyManager::end()
 	}
 }
 
-void EnemyManager::setEnemy(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulltSpeed,const float _shotInterval)
+void EnemyManager::setEnemy(const float _bornTime, const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulltSpeed,const float _shotInterval)
 {
     EnemyData data;
+    data.bornTime     = _bornTime;
     data.hp           = _hp;
     data.initX        = _initX;
     data.initY        = _initY;

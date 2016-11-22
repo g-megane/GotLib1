@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/9
+// 更新日:2016/11/22
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -24,7 +24,8 @@ public:
 
 	int getHp() const;
 	void setDamage(const int damage);
-	got::Vector2<int> getShotPosition() const; 
+	const got::Vector2<float>& getShotPosition() const; 
+    const got::Vector2<float>& getCenter() const;
 
 private:
 	float dx;           // x移動量

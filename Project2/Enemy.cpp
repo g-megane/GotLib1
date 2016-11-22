@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/16
+// 更新日:2016/11/22
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Enemy.h"
@@ -154,6 +154,17 @@ void Enemy::setMovePattern(const int pattern)
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) { dy = -dy; }
+        };
+        break;
+    case 3:
+        moveFunc = [&]()
+        {
+            auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+
+            position.translate(0, dy * dTime);
+            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
+            if (position.y >= STAGE_HEIGHT / 3 - spriteSize.height) { dy = 0; }
         };
         break;
     }

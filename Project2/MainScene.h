@@ -24,7 +24,7 @@ public:
 	void end() override;
 
 private:
-	std::shared_ptr<Actor> rootActor;
+	std::shared_ptr<Actor>      rootActor;
     std::shared_ptr<BackGround> backGround;
-    std::shared_ptr<Actor> enemyManager;
+    std::shared_ptr<Actor>      enemyManager;
 };
