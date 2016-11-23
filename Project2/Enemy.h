@@ -24,19 +24,32 @@ public:
 	void draw() const override;
 	void end() override;
 
-	int getHp() const;
+	int  getHp() const;
 	void setDamage(const int damage);
-    void setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval);
+    void setData(const int          _hp,
+                 const std::string& _spriteName,
+                 const float        _initX, 
+                 const float        _initY, 
+                 const int          _movePattern, 
+                 const float        _dx, 
+                 const float        _dy, 
+                 const int          _shotPattern, 
+                 const float        _bulletSpeed, 
+                 const float        _shotInterval, 
+                 const int          _score);
 
 private:
+	int	  hp;
+    std::string spriteName;
 	float dx;
 	float dy;
-	int	  hp;
     float bulletSpeed;
     float shotInterval;
-    float dTime;
+    int   score;
 	got::Time time;
 	got::Time time2;
+
+    float dTime;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
 
     std::function<void()> Enemy::moveFunc;

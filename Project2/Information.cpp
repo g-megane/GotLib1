@@ -8,6 +8,7 @@
 #include <iomanip>
 #include "Information.h"
 #include "GV.h"
+#include "Game.h"
 
 // コンストラクタ
 Information::Information()
@@ -47,24 +48,39 @@ void Information::draw() const
 
 	
 	std::ostringstream oss;
-	float a = elapsedTime / 1000.0f;
-	oss << std::fixed << std::setprecision(1) << std::setfill('0') << std::setw(6) << a;
+	float nowTime = elapsedTime / 1000.0f;
+	oss << std::fixed << std::setprecision(1) << std::setfill('0') << std::setw(6) << nowTime;
 	int length = oss.str().length();
 	
-	{
-		auto str = oss.str();
+	//auto str = oss.str();
 
-		for (int i = length - 1; i > 0; --i) {
-			const auto c = oss.str().substr(i, 1);
-			if (c == ".") continue;
-			mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 100));
-			spriteSize = got::SpriteManager::getInstance().getSprite(c)->getSize();
-			color = got::Color<float>::WHITE;
-			drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+	for (int i = length - 1; i > 0; --i) {
+		const auto str = oss.str().substr(i, 1);
+        if (str == ".") { continue; };
+		mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 100));
+		spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
+		color = got::Color<float>::WHITE;
+		drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
-			got::SpriteManager::getInstance().draw(c, mt, drawRect, color);
+		got::SpriteManager::getInstance().draw(str, mt, drawRect, color);
 
 	}
+
+    int b = Game::getInstance().getScore();
+    std::ostringstream oss2;
+    oss2 << std::setfill('0') << std::setw(6) << b;
+    length = oss2.str().length();
+
+    for (int i = length - 1; i > 0; --i) {
+        const auto c = oss2.str().substr(i, 1);
+        mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 400));
+        spriteSize = got::SpriteManager::getInstance().getSprite(c)->getSize();
+       // color = got::Color<float>::WHITE;
+        drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    
+        got::SpriteManager::getInstance().draw(c, mt, drawRect, color);
+    }
+
 //	std::string str;
 //	for (int i = length; i > 0; --i) {
 //		str = oss.str().substr(i, 1);
@@ -75,7 +91,7 @@ void Information::draw() const
 //		drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 //
 //		got::SpriteManager::getInstance().draw(std::to_string(num), mt, drawRect, color);
-	}
+	
 }
 // 終了
 void Information::end()

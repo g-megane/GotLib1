@@ -22,8 +22,8 @@ public:
 	void draw() const override;
 	void end() override;
 
-	int getHp() const;
-	void setDamage(const int damage);
+	int   getHp() const;
+	void  setDamage(const int damage);
 	const got::Vector2<float> getShotPosition() const; 
     const got::Vector2<float> getCenter() const;
 

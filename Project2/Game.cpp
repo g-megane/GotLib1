@@ -146,3 +146,13 @@ const float Game::getDeltaTime() const
 {
     return deltaTime;
 }
+
+void Game::addScore(const int addValue)
+{
+    score += addValue;
+}
+
+const int Game::getScore() const
+{
+    return score;
+}

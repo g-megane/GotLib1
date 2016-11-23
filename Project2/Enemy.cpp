@@ -95,13 +95,15 @@ void Enemy::setDamage(const int damage)
     // 死んでいる場合
 	if (hp <= 0) {
 		state = STATE::UN_USE;
+        Game::getInstance().addScore(score);
 	}
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval)
+void Enemy::setData(const int _hp, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score)
 {
     // データのセット
     hp = _hp;
+    spriteName = _spriteName;
     position.move(_initX, _initY);
     setMovePattern(_movePattern);
     dx = _dx;
@@ -109,13 +111,14 @@ void Enemy::setData(const int _hp, const float _initX, const float _initY, const
     setShotPattern(_shotPattern);
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
+    score = _score;
 
     //TODO:移動量の初期化
     //dx = 0.1f;
     //dy = 0.1f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
-    collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+    collisionRect   = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
     
     state = STATE::USE;
 }

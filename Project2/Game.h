@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/10/11
+// 更新日:2016/10/23
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -20,10 +20,14 @@ public:
 	
     std::shared_ptr<Actor> & getRootActor();
     const float getDeltaTime() const;
+    void addScore(const int addValue);
+    const int getScore() const;
 
 private:
-    float deltaTime;
 	friend class got::Singleton<Game>;
+
+    float deltaTime;
+    int   score;
 	Game();
 	std::shared_ptr<Actor> rootActor;
 	std::shared_ptr<got::Window> window;

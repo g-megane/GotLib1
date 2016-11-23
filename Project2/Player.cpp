@@ -81,10 +81,9 @@ void Player::move()
 	}
 
 	//TODO:(仮)弾の発射
-    //     ・低速移動
 	if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
 	time.reset();
-	if(input.keyPush(DIK_SPACE)) {
+	if(input.keyPush(DIK_Z)) {
 		playerBulletManager->shot(getShotPosition());
 	}
 }
