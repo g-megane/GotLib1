@@ -56,11 +56,6 @@ void Actor::end()
 {
 }
 
-//got::Vector2<float> Actor::getCenter() const
-//{
-//	//TODO:実装途中
-//	return got::Vector2<float>(position.x + texture->getTextureSize().width / 2, position.y + texture->getTextureSize().height / 2);
-//}
 // 子要素を追加
 void Actor::addChild(std::shared_ptr<Actor>& newChild)
 {

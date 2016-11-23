@@ -29,12 +29,14 @@ public:
 	virtual void draw() const;
 	virtual void end();
 
+    // 木構造関係
 	void addChild(std::shared_ptr<Actor>& newChild);
 	std::shared_ptr<Actor> getChild(const LPCWSTR _name) const;
 	std::vector<std::shared_ptr<Actor>>& getChildren();
 	LPCWSTR getName() const;
-	void setName(const LPCWSTR _name);
-	void setState(const STATE _state);
+    void setName(const LPCWSTR _name);
+	
+    void setState(const STATE _state);
 	STATE getState() const;
 	const got::Rectangle<int>& getRect() const;
     const got::Vector2<float>& getPosition() const;

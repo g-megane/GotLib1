@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/16
+// 更新日:2016/11/23
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyManager.h"
@@ -41,7 +41,7 @@ void EnemyManager::move()
     if (!time.timeOver(itr->bornTime)) { return; }
     for (auto & child : children) {
         if (child->getState() == STATE::UN_USE) {
-            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->initX, itr->initY, itr->movePattern, itr->shotPattern, itr->bulletSpeed, itr->shotInterval);
+            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval);
             //EnemyData e(*itr);
             dataList.emplace_back(*itr);
             dataList.pop_front();
@@ -65,7 +65,7 @@ void EnemyManager::end()
 	}
 }
 
-void EnemyManager::setEnemy(const float _bornTime, const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulltSpeed,const float _shotInterval)
+void EnemyManager::setEnemy(const float _bornTime, const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed,const float _shotInterval)
 {
     EnemyData data;
     data.bornTime     = _bornTime;
@@ -73,6 +73,8 @@ void EnemyManager::setEnemy(const float _bornTime, const int _hp, const float _i
     data.initX        = _initX;
     data.initY        = _initY;
     data.movePattern  = _movePattern;
+    data.dx           = _dx;
+    data.dy           = _dy;
     data.shotPattern  = _shotPattern;
     data.bulletSpeed  = _bulltSpeed;
     data.shotInterval = _shotInterval;

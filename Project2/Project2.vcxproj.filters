@@ -114,6 +114,9 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="PauseScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -208,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseScene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

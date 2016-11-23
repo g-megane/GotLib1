@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/22
+// 更新日:2016/11/23
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Enemy.h"
@@ -98,19 +98,21 @@ void Enemy::setDamage(const int damage)
 	}
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const int _shotPattern, const float _bulletSpeed, const float _shotInterval)
+void Enemy::setData(const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval)
 {
     // データのセット
     hp = _hp;
     position.move(_initX, _initY);
     setMovePattern(_movePattern);
+    dx = _dx;
+    dy = _dy;
     setShotPattern(_shotPattern);
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
 
     //TODO:移動量の初期化
-    dx = 0.1f;
-    dy = 0.1f;
+    //dx = 0.1f;
+    //dy = 0.1f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
     collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
@@ -122,16 +124,16 @@ void Enemy::setMovePattern(const int pattern)
 {
     switch (pattern)
     {
-    case 0:
+    case 0: // 直線移動
         moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
-            position.translate(0, dy * dTime);
+            position.translate(0.0f, dy * dTime);
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
         };
         break;
-    case 1:
+    case 1: // ジグザグ移動
         moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
@@ -145,7 +147,7 @@ void Enemy::setMovePattern(const int pattern)
             }
         };
         break;
-    case 2:
+    case 2: // ステージの真ん中で折り返し
         moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
@@ -156,15 +158,61 @@ void Enemy::setMovePattern(const int pattern)
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) { dy = -dy; }
         };
         break;
-    case 3:
+    case 3: // 定位置まで移動しその後静止
         moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
 
-            position.translate(0, dy * dTime);
+            position.translate(0.0f, dy * dTime);
             collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 3 - spriteSize.height) { dy = 0; }
+        };
+        break;
+    case 4: // 左斜め移動
+        moveFunc = [&]()
+        {
+            auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+
+            position.translate(-dx * dTime, dy * dTime);
+            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+        };
+        break;
+    case 5: // 右斜め移動
+        moveFunc = [&]()
+        {
+            auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+
+            position.translate(dx * dTime, dy * dTime);
+            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+        };
+        break;
+    case 6: // 直進後定位置で左斜めに折り返し
+        moveFunc = [&]()
+        {
+            auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+
+            position.translate(dx * dTime, dy * dTime);
+            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
+            if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) {
+                dx = -0.1f;
+                dy = -dy; 
+            }
+        };
+        break;
+    case 7: // 直進後定位置で右斜めに折り返し
+        moveFunc = [&]()
+        {
+            auto spriteSize = got::SpriteManager::getInstance().getSprite("Enemy")->getSize();
+
+            position.translate(dx * dTime, dy * dTime);
+            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+
+            if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) {
+                dx = 0.1f;
+                dy = -dy;
+            }
         };
         break;
     }
@@ -174,17 +222,17 @@ void Enemy::setShotPattern(const int pattern)
 {
     switch (pattern)
     {
-    case 0:
+    case 0: // 直進弾
         shotFunc = [&]() { enemyBulletManager->shot1(getShotPosition(), bulletSpeed); };
         break;
-    case 1:
+    case 1: // 自機狙い
         shotFunc = [&]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
         break;
-    case 2:
+    case 2: // 円形弾
         //TODO:マジックナンバーをやめる
         shotFunc = [&]() { enemyBulletManager->shot3(getShotPosition(), 36, bulletSpeed); };
         break;
-    case 3:
+    case 3: // 奇数way弾
         //TODO:マジックナンバーをやめる
         shotFunc = [&]() { enemyBulletManager->shot4(getShotPosition(), 7, bulletSpeed); };
         break;

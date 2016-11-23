@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/11/16
+// 更新日:2016/11/23
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -21,21 +21,22 @@ Game::Game() : time()
 	window    = std::make_shared<got::Window>(L"gotLib"); // Windowの生成
 	rootActor = std::make_shared<Actor>(L"RootActor");    // RootActorの生成
 
+    // rootActorにaddChildするための一時変数
+    std::shared_ptr<Actor> tmp;
 	// rootActorに追加したいActorを継承したオブジェクト(MainScene)
-	std::shared_ptr<Actor> player = std::make_shared<Player>();
-	//std::shared_ptr<Actor> em	  = std::make_shared<EnemyManager>(/*10*/);
-	std::shared_ptr<Actor> pbm	  = std::make_shared<PlayerBulletManager>(100);
-	std::shared_ptr<Actor> ebm    = std::make_shared<EnemyBulletManager>(500);
-
-	std::shared_ptr<Actor> info   = std::make_shared<Information>();
+	tmp = std::make_shared<Player>();
+	rootActor->addChild(tmp);
+	//std::shared_ptr<Actor> pbm	  = 
+    tmp = std::make_shared<PlayerBulletManager>(100);
+    rootActor->addChild(tmp);
+	//std::shared_ptr<Actor> ebm    
+    tmp= std::make_shared<EnemyBulletManager>(500);
+    rootActor->addChild(tmp);
 
 	// rootActorへの追加
-	rootActor->addChild(player);
-	//rootActor->addChild(em);
-	rootActor->addChild(pbm);
-	rootActor->addChild(ebm);
-
-	rootActor->addChild(info); // 最前面に表示したいので最後にadd
+	//rootActor->addChild(player);
+	//rootActor->addChild(pbm);
+	//rootActor->addChild(ebm);
 }
 // デストラクタ
 Game::~Game()
