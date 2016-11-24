@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/16
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -40,6 +40,7 @@ public:
 	STATE getState() const;
 	const got::Rectangle<int>& getRect() const;
     const got::Vector2<float>& getPosition() const;
+    const got::Vector2<float> getCenter() const;
 
 protected:
 	WCHAR name[256];
@@ -47,5 +48,6 @@ protected:
 	got::Vector2<float> position;
 	got::Rectangle<int> collisionRect;
 	STATE state;
+    std::string spriteName;
 
 };

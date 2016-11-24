@@ -1,10 +1,11 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/26
-// 更新日:2016/11/16
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Actor.h"
 #include "Game.h"
+#include "SpriteManager.h"
 
 // デフォルトコンストラクタ(名無し)
 Actor::Actor()
@@ -112,5 +113,11 @@ const got::Rectangle<int>& Actor::getRect() const
 const got::Vector2<float>& Actor::getPosition() const 
 {
     return position;
+}
+
+const got::Vector2<float> Actor::getCenter() const
+{
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+   return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
 }
 

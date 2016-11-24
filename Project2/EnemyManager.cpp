@@ -1,7 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/23
-
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyManager.h"
@@ -43,7 +42,6 @@ void EnemyManager::move()
     for (auto & child : children) {
         if (child->getState() == STATE::UN_USE) {
             std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score);
-            //EnemyData e(*itr);
             dataList.emplace_back(*itr);
             dataList.pop_front();
             time.reset();

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/11/23
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -16,6 +16,7 @@ Player::Player()
 	:Actor(L"Player"), time()
 {
 	time = got::Time();
+    spriteName = "Player";
 }
 // デストラクタ
 Player::~Player()
@@ -33,7 +34,7 @@ bool Player::init()
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
 	playerBulletManager = std::dynamic_pointer_cast<PlayerBulletManager>(root->getChild(L"PlayerBulletManager"));
 
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
 	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
@@ -47,7 +48,7 @@ void Player::move()
 {
 	//TODO:・斜め移動早くなるやつ直す
 	auto &input		= got::MyDirectInput::getInstance();
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
     auto dTime = Game::getInstance().getDeltaTime();
 
@@ -92,11 +93,11 @@ void Player::draw() const
 {
 	//TODO:テスト
 	auto mt			= got::Matrix4x4<float>::translate(position);
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	auto color		= got::Color<float>();
 	auto drawRect	= got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
-	got::SpriteManager::getInstance().draw("Player", mt, drawRect, color);
+	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
 }
 // 終了
 void Player::end()
@@ -118,12 +119,12 @@ void Player::setDamage(const int damage)
 // 弾を発射する座標を返す
 const got::Vector2<float> Player::getShotPosition() const
 {
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y);
 }
 
 const got::Vector2<float> Player::getCenter() const
 {
-    auto spriteSize = got::SpriteManager::getInstance().getSprite("Player")->getSize();
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
 }

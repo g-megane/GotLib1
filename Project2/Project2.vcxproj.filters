@@ -215,6 +215,9 @@
     <ClInclude Include="PauseScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

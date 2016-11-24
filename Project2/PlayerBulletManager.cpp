@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/9
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "PlayerBulletManager.h"
@@ -12,7 +12,7 @@ PlayerBulletManager::PlayerBulletManager(const int num)
 {
 	std::shared_ptr<Actor> bullet;
 	for (int i = 0; i < bulletsNum; ++i) {
-		bullet = std::make_shared<Bullet>();
+		bullet = std::make_shared<Bullet>("Bullet");
 		addChild(bullet);
 	}
 }
@@ -68,7 +68,7 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 {
  	for (auto &bullet : children) {
 		if (bullet->getState() == Bullet::STATE::UN_USE) {
-			std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.04f * Game::getInstance().getDeltaTime());
+			std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.4f);
 			return;
 		}
 	}

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/16
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Bullet.h"
@@ -8,9 +8,11 @@
 #include "Game.h"
 
 // コンストラクタ
-Bullet::Bullet()
+//TODO:使う弾のスプライトを引数で呼べるように
+Bullet::Bullet(const std::string& _spriteName)
 	:Actor(), color()
 {
+    spriteName = _spriteName;
 }
 
 // デストラクタ
@@ -21,10 +23,10 @@ Bullet::~Bullet()
 bool Bullet::init()
 {
 	auto &spriteManager = got::SpriteManager::getInstance();
-    collisionRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
+    collisionRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 	state = STATE::UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
-	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height);
+	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height);
 	dx = 0.0f;
 	dy = 0.0f;
 	return true;
@@ -34,7 +36,7 @@ void Bullet::move()
 {
 	if (state == STATE::UN_USE) { return; }
 
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
     auto dTime = Game::getInstance().getDeltaTime();
 
@@ -54,9 +56,9 @@ void Bullet::draw() const
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
 	//color = got::Color<float>();
-	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Bullet")->getSize().width, spriteManager.getSprite("Bullet")->getSize().height));
+	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
-	got::SpriteManager::getInstance().draw("Bullet", mt, drawRect, color);
+	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
 	
 }
 // 終了
@@ -68,7 +70,7 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 {
 	dx = _dx;
 	dy = _dy;
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Bullet")->getSize();
+	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = STATE::USE;
 }

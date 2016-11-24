@@ -25,6 +25,7 @@ public:
 	void end() override;
 
 	int  getHp() const;
+    int  getRad() const;
 	void setDamage(const int damage);
     void setData(const int          _hp,
                  const std::string& _spriteName,

@@ -1,12 +1,13 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/23
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyBulletManager.h"
 #include "Game.h"
 #include "SceneManager.h"
 #include "Player.h"
+#include "Collision.h"
 
 //コンストラクタ
 EnemyBulletManager::EnemyBulletManager(const int _num)
@@ -14,7 +15,7 @@ EnemyBulletManager::EnemyBulletManager(const int _num)
 {
 	std::shared_ptr<Actor> bullet;
 	for (int i = 0; i < bulletsNum; ++i) {
-		bullet = std::make_shared<Bullet>();
+		bullet = std::make_shared<Bullet>("Bullet");
 		addChild(bullet);
 	}
 }
@@ -44,14 +45,16 @@ void EnemyBulletManager::move()
 
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
-		if (player->getRect().intersection(bullet->getRect())) {
+		//TODO:円と円のあたり判定に
+        if (got::Collison::citcleToClircle<float>(bullet->getCenter(), 5.0f, player->getCenter(), 2.0f)) {
+            //if (player->getRect().intersection(bullet->getRect())) {
 #ifndef _DEBUG
-			player->setDamage(1);
+            player->setDamage(1);
 #endif // _DEBUG
-			bullet->setState(STATE::UN_USE);
-			return;
-		}
-
+            bullet->setState(STATE::UN_USE);
+            return;
+            //}
+        }
 	}
 }
 // 描画
