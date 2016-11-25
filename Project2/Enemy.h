@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/23
+// 更新日:2016/11/24
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -41,7 +41,7 @@ public:
 
 private:
 	int	  hp;
-    std::string spriteName;
+   // std::string spriteName;
 	float dx;
 	float dy;
     float bulletSpeed;

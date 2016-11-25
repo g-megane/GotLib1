@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #include "PlayerBulletManager.h"
 #include "Game.h"
+#include "Collision.h"
 
 // コンストラクタ
 PlayerBulletManager::PlayerBulletManager(const int num)
@@ -44,9 +45,11 @@ void PlayerBulletManager::move()
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		for (auto & enemy : enemyManager->getChildren()) {
 			if (enemy->getState() == STATE::UN_USE) { continue; }
-			if (bullet->getRect().intersection(enemy->getRect())) {
+			if(got::Collison::citcleToClircle<float>(bullet->getCenter(), 8.0f, enemy->getCenter(), 50.0f)) {
+            //if (bullet->getRect().intersection(enemy->getRect())) {
 				bullet->setState(STATE::UN_USE);
 				std::dynamic_pointer_cast<Enemy>(enemy)->setDamage(1);
+                break;
 			}
 		}
 	}

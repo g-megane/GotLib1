@@ -23,8 +23,8 @@ Bullet::~Bullet()
 bool Bullet::init()
 {
 	auto &spriteManager = got::SpriteManager::getInstance();
-    collisionRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
-	state = STATE::UN_USE;
+    collisionRect       = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
+	state               = STATE::UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
 	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height);
 	dx = 0.0f;
@@ -74,7 +74,3 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = STATE::USE;
 }
-
-//void Bullet::Shot(const float x, const float y)
-//{
-//}

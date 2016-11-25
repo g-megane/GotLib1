@@ -27,7 +27,7 @@ EnemyBulletManager::~EnemyBulletManager()
 bool EnemyBulletManager::init()
 {
 	auto &root = Game::getInstance().getRootActor();
-    player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player")); 
+    player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
 
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
@@ -45,14 +45,14 @@ void EnemyBulletManager::move()
 
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
-		//TODO:円と円のあたり判定に
-        if (got::Collison::citcleToClircle<float>(bullet->getCenter(), 5.0f, player->getCenter(), 2.0f)) {
+		//TODO:半径を変数に変える
+        if (got::Collison::citcleToClircle<float>(bullet->getCenter(), 8.0f, player->getCenter(), 8.0f)) {
             //if (player->getRect().intersection(bullet->getRect())) {
 #ifndef _DEBUG
             player->setDamage(1);
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
-            return;
+            break;
             //}
         }
 	}
