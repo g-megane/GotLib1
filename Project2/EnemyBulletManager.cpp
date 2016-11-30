@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyBulletManager.h"
@@ -46,7 +46,7 @@ void EnemyBulletManager::move()
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		//TODO:半径を変数に変える
-        if (got::Collison::citcleToClircle<float>(bullet->getCenter(), 8.0f, player->getCenter(), 8.0f)) {
+        if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, player->getCenter(), 8.0f)) {
             //if (player->getRect().intersection(bullet->getRect())) {
 #ifndef _DEBUG
             player->setDamage(1);

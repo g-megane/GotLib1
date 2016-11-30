@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "PlayerBulletManager.h"
@@ -45,7 +45,7 @@ void PlayerBulletManager::move()
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		for (auto & enemy : enemyManager->getChildren()) {
 			if (enemy->getState() == STATE::UN_USE) { continue; }
-			if(got::Collison::citcleToClircle<float>(bullet->getCenter(), 8.0f, enemy->getCenter(), 50.0f)) {
+			if(got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, enemy->getCenter(), 50.0f)) {
             //if (bullet->getRect().intersection(enemy->getRect())) {
 				bullet->setState(STATE::UN_USE);
 				std::dynamic_pointer_cast<Enemy>(enemy)->setDamage(1);
