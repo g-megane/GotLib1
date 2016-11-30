@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/11/23
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -55,6 +55,7 @@ bool Game::init()
 	}
 	auto &spriteManager = got::SpriteManager::getInstance();
 	//TODO:Font(仮)
+    spriteManager.addMap("comma", L"Resources\\comma.png");
 	spriteManager.addMap("0", L"Resources\\0.png");
 	spriteManager.addMap("1", L"Resources\\1.png");
 	spriteManager.addMap("2", L"Resources\\2.png");
@@ -74,11 +75,14 @@ bool Game::init()
 	spriteManager.addMap("PushEnter", L"Resources\\PushEnterSample.png");
 
 	//TODO:MainScene用画像(仮)
-	//spriteManager.addMap("Player", L"Resources\\player.png");
 	spriteManager.addMap("Player"    , L"Resources\\player1.png");
 	spriteManager.addMap("Bullet"    , L"Resources\\Boul.png");
+    spriteManager.addMap("Bullet1"   , L"Resources\\Bullet1.png");
+    spriteManager.addMap("Bullet2"   , L"Resources\\Bullet2.png");
+    spriteManager.addMap("Bullet3"   , L"Resources\\Bullet3.png");
 	spriteManager.addMap("Enemy"     , L"Resources\\EnemySample.png");
-    spriteManager.addMap("BackGround", L"Resources\\BackGround.png");
+    spriteManager.addMap("BackGround", L"Resources\\Background1.png");
+    spriteManager.addMap("Info"      , L"Resources\\Info.png");
 	
 	//TODO:ResultScene用画像(仮)
 	spriteManager.addMap("Result", L"Resources\\ResultSample.png");

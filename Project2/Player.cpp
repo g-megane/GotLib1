@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -10,6 +10,7 @@
 #include "GV.h"
 #include "Game.h"
 #include "SceneManager.h"
+#include "Collision.h"
 
 // コンストラクタ
 Player::Player()
@@ -28,7 +29,8 @@ bool Player::init()
 	dx           = 0.4f; //TODO:移動量(仮)
 	dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
-	hp           = 1;
+	hp           = 1;    // ヒットポイント
+    rad          = 8.0f; // 円のあたり判定の半径
 	
 	auto &root          = Game::getInstance().getRootActor();
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
@@ -37,7 +39,6 @@ bool Player::init()
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
-	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
 	time.reset();
 
@@ -68,12 +69,13 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
-	collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
+	//collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
 	// 敵とのあたり判定
 	for (auto & enemy : enemyManager->getChildren()) {
 		if (enemy->getState() == STATE::UN_USE) { continue; }
-        if (collisionRect.intersection(enemy->getRect())) {
+        if(got::Collison::circleToCircle(this->getCenter(), 8.0f, enemy->getCenter(), 50.0f)) {
+        //if (collisionRect.intersection(enemy->getRect())) {
 #ifndef _DEBUG
             setDamage(1);
 #endif // !_DEBUG
@@ -121,10 +123,4 @@ const got::Vector2<float> Player::getShotPosition() const
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y);
-}
-
-const got::Vector2<float> Player::getCenter() const
-{
-    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
 }

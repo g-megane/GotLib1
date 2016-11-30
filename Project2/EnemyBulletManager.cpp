@@ -15,7 +15,7 @@ EnemyBulletManager::EnemyBulletManager(const int _num)
 {
 	std::shared_ptr<Actor> bullet;
 	for (int i = 0; i < bulletsNum; ++i) {
-		bullet = std::make_shared<Bullet>("Bullet");
+		bullet = std::make_shared<Bullet>("Bullet1");
 		addChild(bullet);
 	}
 }

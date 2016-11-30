@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Bullet.h"
@@ -23,13 +23,16 @@ Bullet::~Bullet()
 bool Bullet::init()
 {
 	auto &spriteManager = got::SpriteManager::getInstance();
-    collisionRect       = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 	state               = STATE::UN_USE;
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
-	collisionRect = got::Rectangle<int>(position, spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height);
-	dx = 0.0f;
+	
+    // 半径を画像幅の半分で初期化
+    rad = spriteManager.getSprite(spriteName)->getSize().width / 2;
+
+    dx = 0.0f;
 	dy = 0.0f;
-	return true;
+	
+    return true;
 }
 // 更新
 void Bullet::move()
@@ -41,7 +44,6 @@ void Bullet::move()
     auto dTime = Game::getInstance().getDeltaTime();
 
     position.translate(dx * dTime, dy * dTime);
-	collisionRect  = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
 	if (position.x < 0)								   { setState(STATE::UN_USE); }
 	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(STATE::UN_USE); }
@@ -55,7 +57,6 @@ void Bullet::draw() const
 	
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	//color = got::Color<float>();
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);

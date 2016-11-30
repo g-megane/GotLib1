@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Enemy.h"
@@ -21,12 +21,8 @@ bool Enemy::init()
 {
 	auto &root = Game::getInstance().getRootActor();
 	enemyBulletManager = std::dynamic_pointer_cast<EnemyBulletManager>(root->getChild(L"EnemyBulletManager"));
-   
-	//auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	//position.move(STAGE_WIDTH / 2, static_cast<float>(-spriteSize.height));
-    
-	//TODO:仮の移動量
-    hp = 0;
+       
+	hp = 0;
 	dx = 0.1f;
 	dy = 0.1f;
     bulletSpeed = 0.0f;
@@ -38,8 +34,6 @@ bool Enemy::init()
 
 	state = STATE::UN_USE; 
 	
-    //collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
-
 	return true;
 }
 // 更新
@@ -123,7 +117,6 @@ void Enemy::setData(const int _hp, const std::string& _spriteName, const float _
     //dy = 0.1f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    collisionRect   = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
     
     state = STATE::USE;
 }
@@ -138,7 +131,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(0.0f, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
         };
         break;
     case 1: // ジグザグ移動
@@ -147,7 +139,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(dx * dTime, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (time.timeOver(1000.0f)) {
                 dx = -dx;
@@ -161,7 +152,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(0, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) { dy = -dy; }
         };
@@ -172,7 +162,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(0.0f, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 3 - spriteSize.height) { dy = 0; }
         };
@@ -183,7 +172,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(-dx * dTime, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
         };
         break;
     case 5: // 右斜め移動
@@ -192,7 +180,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(dx * dTime, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
         };
         break;
     case 6: // 直進後定位置で左斜めに折り返し
@@ -201,7 +188,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(dx * dTime, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) {
                 dx = -0.1f;
@@ -215,7 +201,6 @@ void Enemy::setMovePattern(const int pattern)
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(dx * dTime, dy * dTime);
-            collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
 
             if (position.y >= STAGE_HEIGHT / 2 - spriteSize.height) {
                 dx = 0.1f;

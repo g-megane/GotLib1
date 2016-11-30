@@ -11,13 +11,13 @@
 namespace
 {
     // ウィンドウ関係
-    constexpr int WINDOW_WIDTH = 1024;
+    constexpr int WINDOW_WIDTH  = 1024;
     constexpr int WINDOW_HEIGHT = 768;
 
     // 円周率
     constexpr float PI = 3.14159265358979323846f;
 
     // 画面のゲーム部分のサイズ
-    constexpr float STAGE_WIDTH = WINDOW_WIDTH - WINDOW_WIDTH / 3;
+    constexpr float STAGE_WIDTH  = WINDOW_WIDTH - WINDOW_WIDTH / 3;
     constexpr float STAGE_HEIGHT = WINDOW_HEIGHT;
 }

@@ -22,7 +22,7 @@ Information::~Information()
 // 初期化
 bool Information::init()
 {
-	position.move(WINDOW_WIDTH - WINDOW_WIDTH / 3, 0);
+	position.move(STAGE_WIDTH, 0.0f);
 	for (int i = 0; i < 5; ++i) {
 		poses[i].move(STAGE_WIDTH + 50 * i, 100);
 	}
@@ -40,11 +40,11 @@ void Information::move()
 void Information::draw() const
 {
 	auto mt = got::Matrix4x4<float>::translate(position);
-	auto spriteSize = got::SpriteManager::getInstance().getSprite("Board")->getSize();
-	auto color = got::Color<float>::BLACK;
+	auto spriteSize = got::SpriteManager::getInstance().getSprite("Info")->getSize();
+	auto color = got::Color<float>::WHITE;
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
-	got::SpriteManager::getInstance().draw("Board", mt, drawRect, color);
+	got::SpriteManager::getInstance().draw("Info", mt, drawRect, color);
 
 	
 	std::ostringstream oss;
@@ -55,13 +55,20 @@ void Information::draw() const
 	//auto str = oss.str();
 
 	for (int i = length - 1; i > 0; --i) {
-		const auto str = oss.str().substr(i, 1);
-        if (str == ".") { continue; };
-		mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 100));
-		spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
-		color = got::Color<float>::WHITE;
-		drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
-
+		auto str = oss.str().substr(i, 1);
+        if (str == ".") {
+            str = "comma";
+            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 100));
+            spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
+            color = got::Color<float>::WHITE;
+            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+        }
+        else {
+            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 50 * i, 100));
+            spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
+            color = got::Color<float>::WHITE;
+            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+        }
 		got::SpriteManager::getInstance().draw(str, mt, drawRect, color);
 
 	}

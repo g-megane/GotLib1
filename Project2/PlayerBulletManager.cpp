@@ -13,7 +13,7 @@ PlayerBulletManager::PlayerBulletManager(const int num)
 {
 	std::shared_ptr<Actor> bullet;
 	for (int i = 0; i < bulletsNum; ++i) {
-		bullet = std::make_shared<Bullet>("Bullet");
+		bullet = std::make_shared<Bullet>("Bullet2");
 		addChild(bullet);
 	}
 }

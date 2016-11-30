@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -14,11 +14,11 @@ class Game;
 class Actor
 {
 public:
+    // Actorの状態
 	enum class STATE 
 	{
 		USE,
 		UN_USE,
-		DEAD,
 	};
 
 	Actor();
@@ -38,15 +38,16 @@ public:
 	
     void setState(const STATE _state);
 	STATE getState() const;
-	const got::Rectangle<int>& getRect() const;
     const got::Vector2<float>& getPosition() const;
+    //TODO: 参照に変えれるかも？受け取る側がconst Vector2<float>& なら
     const got::Vector2<float> getCenter() const;
+    const float getRad() const;
 
 protected:
 	WCHAR name[256];
 	std::vector<std::shared_ptr<Actor>> children;
 	got::Vector2<float> position;
-	got::Rectangle<int> collisionRect;
+    float rad;
 	STATE state;
     std::string spriteName;
 

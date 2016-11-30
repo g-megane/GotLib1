@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/26
-// 更新日:2016/11/24
+// 更新日:2016/11/30
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Actor.h"
@@ -105,11 +105,6 @@ Actor::STATE Actor::getState() const
 	return state;
 }
 
-const got::Rectangle<int>& Actor::getRect() const
-{
-	return collisionRect;
-}
-
 const got::Vector2<float>& Actor::getPosition() const 
 {
     return position;
@@ -119,5 +114,10 @@ const got::Vector2<float> Actor::getCenter() const
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
    return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
+}
+
+const float Actor::getRad() const
+{
+    return rad;
 }
 
