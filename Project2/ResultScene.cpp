@@ -15,7 +15,7 @@ ResultScene::ResultScene()
 ResultScene::~ResultScene()
 {
 }
-// 初期
+// 初期化
 bool ResultScene::init()
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Result")->getSize();
