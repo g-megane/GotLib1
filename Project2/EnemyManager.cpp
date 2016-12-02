@@ -1,14 +1,15 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/24
+// 更新日:2016/12/2
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyManager.h"
+#include "Game.h"
 
 // コンストラクタ
 // 引数: Enemyの生成数
 EnemyManager::EnemyManager(const int _num)
-	: Actor(L"EnemyManager"), time()
+	: Actor(L"EnemyManager")
 {
 	std::shared_ptr<Actor> enemy;
 	for (int i = 0; i < _num; ++i) {
@@ -27,7 +28,7 @@ bool EnemyManager::init()
 		child->init();
 	}
 
-    time.reset();
+    elapsedTime = 0.0f;
 	return true;
 }
 // 更新
@@ -38,13 +39,19 @@ void EnemyManager::move()
     }
  
     auto itr = dataList.begin();
-    if (!time.timeOver(itr->bornTime)) { return; }
+    // ポーズ中かどうかの確認
+    if (!Game::getInstance().getIsPause()) {
+        elapsedTime += Game::getInstance().getDeltaTime();
+    }
+    // 出現時間かどうか？
+    if(itr->bornTime > elapsedTime) { return; }
     for (auto & child : children) {
         if (child->getState() == STATE::UN_USE) {
+           //TODO:vectorに変更して繰り返しをなくす
             std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score);
             dataList.emplace_back(*itr);
             dataList.pop_front();
-            time.reset();
+            elapsedTime = 0.0f;
             break;
         }
     }

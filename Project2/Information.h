@@ -22,7 +22,6 @@ public:
 
 private:
 	got::Vector2<float> poses[5];
-	got::Time time;
 	float elapsedTime;
 
 };

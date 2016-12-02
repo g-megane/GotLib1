@@ -6,6 +6,8 @@
 #include "MainScene.h"
 #include "Game.h"
 #include "Information.h"
+#include "MyDirectInput.h"
+#include "SceneManager.h"
 
 // コンストラクタ
 MainScene::MainScene()
@@ -57,6 +59,10 @@ bool MainScene::init()
 // 更新
 void MainScene::move()
 {
+    if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
+        Game::getInstance().setIsPause(true);
+        SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::PAUSE);
+    }
     backGround->move();
 	rootActor->move();
 }

@@ -53,6 +53,9 @@ bool Game::init()
 	if (FAILED(hr)) {		 // DirectInputの初期化
 		return false;
 	}
+
+    isPause = false;
+
 	auto &spriteManager = got::SpriteManager::getInstance();
 	//TODO:Font(仮)
     spriteManager.addMap("comma", L"Resources\\comma.png");
@@ -115,7 +118,7 @@ void Game::update()
 		if (!time.timeOver(1000.0f / 60.0f)) { // FPSの固定
 			continue;
 		}
-        deltaTime = time.getDeltaTime();
+        deltaTime  = time.getDeltaTime();
 		countTime += deltaTime; // 経過時間を数える
 		// FPSの表示
 		if (countTime > 1000.0f) {
@@ -159,4 +162,14 @@ void Game::addScore(const int addValue)
 const int Game::getScore() const
 {
     return score;
+}
+
+const bool Game::getIsPause() const
+{
+    return isPause;
+}
+
+void Game::setIsPause(const bool _isPause)
+{
+    isPause = _isPause;
 }

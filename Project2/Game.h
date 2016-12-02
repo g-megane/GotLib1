@@ -22,12 +22,15 @@ public:
     const float getDeltaTime() const;
     void addScore(const int addValue);
     const int getScore() const;
+    const bool getIsPause() const;
+    void setIsPause(const bool _isPause);
 
 private:
 	friend class got::Singleton<Game>;
 
     float deltaTime;
     int   score;
+    bool  isPause;
 	Game();
 	std::shared_ptr<Actor> rootActor;
 	std::shared_ptr<got::Window> window;

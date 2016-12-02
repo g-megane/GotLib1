@@ -12,7 +12,6 @@
 
 // コンストラクタ
 Information::Information()
-	: time()
 {
 }
 // デストラクタ
@@ -27,14 +26,14 @@ bool Information::init()
 		poses[i].move(STAGE_WIDTH + 50 * i, 100);
 	}
 	elapsedTime = 0.0f;
-	time.reset();
 	return true;
 }
 // 更新
 void Information::move()
 {
-	elapsedTime += time.getDeltaTime();
-	time.reset();
+    if (!Game::getInstance().getIsPause()) {
+	    elapsedTime += Game::getInstance().getDeltaTime();
+    }
 }
 // 描画
 void Information::draw() const
@@ -46,7 +45,6 @@ void Information::draw() const
 
 	got::SpriteManager::getInstance().draw("Info", mt, drawRect, color);
 
-	
 	std::ostringstream oss;
 	float nowTime = elapsedTime / 1000.0f;
 	oss << std::fixed << std::setprecision(1) << std::setfill('0') << std::setw(6) << nowTime;

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/11/23
+// 更新日:2016/12/2
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -19,7 +19,7 @@ public:
 	bool init() override;
 	void move() override;
 	void draw() const override;
-	void end() override;
+	void end()  override;
 
     void setEnemy(const float        _bornTime,
                   const std::string& _spriteName,
@@ -35,7 +35,7 @@ public:
                   const int          _score);
 
 private:
-    got::Time time;
+    float elapsedTime; // Enemyの生成に使う経過時間
 
     struct EnemyData {
         float       bornTime;     // 出現までの時間

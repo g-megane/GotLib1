@@ -7,17 +7,19 @@
 #include "MainScene.h"
 #include "TitleScene.h"
 #include "ResultScene.h"
+#include "PauseScene.h"
 
+// コンストラクタ
 SceneManager::SceneManager()
 {
 
 }
-
+// デストラクタ
 SceneManager::~SceneManager()
 {
 	nowScene = nullptr;
 }
-
+// シーンの作成
 void SceneManager::createScene()
 {
 	std::shared_ptr<Scene> scene;
@@ -30,16 +32,28 @@ void SceneManager::createScene()
 	sceneMap[SCENE_NAME::MAIN] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
 
+    scene = std::make_shared<PauseScene>();
+    sceneMap[SCENE_NAME::PAUSE] = scene;
+
 	scene = std::make_shared<TitleScene>();
 	sceneMap[SCENE_NAME::TITLE] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
 
+    nowSceneName = SCENE_NAME::TITLE;
 	nowScene = scene;
 }
 
-void SceneManager::changeScene(SCENE_NAME name, bool init)
+SceneManager::SCENE_NAME SceneManager::getBeforeSceneName()
+{
+    return beforeSceneName;
+}
+
+// シーン遷移
+void SceneManager::changeScene(SCENE_NAME name, bool init/*= true*/)
 {
 	//const std::unordered_map<SCENE_NAME, std::shared_ptr<Scene>>::const_iterator p = sceneMap.find(name);
+    beforeSceneName = nowSceneName; // 今のシーン名を前のシーン名に
+    nowSceneName    = name;         // 遷移先のシーン名を今のシーン名に
 
 	if (init) {
 		sceneMap[name]->init();
@@ -48,7 +62,7 @@ void SceneManager::changeScene(SCENE_NAME name, bool init)
 	nowScene = sceneMap[name];
 	//nowScene = p->second;
 }
-
+// 初期化
 bool SceneManager::init()
 {
 	if (!nowScene->init()) {
@@ -57,17 +71,17 @@ bool SceneManager::init()
 
 	return true;
 }
-
+// 更新
 void SceneManager::move()
 {
 	nowScene->move();
 }
-
+// 描画
 void SceneManager::draw() const
 {
 	nowScene->draw();
 }
-
+// 終了
 void SceneManager::end()
 {
 	nowScene->end();

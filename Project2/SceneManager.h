@@ -15,6 +15,7 @@ public:
 	enum class SCENE_NAME
 	{
 		TITLE,
+        PAUSE,
 		MAIN,
 		RESULT,
 	};
@@ -26,11 +27,14 @@ public:
 	void draw() const; // シーンの描画
 	void end();
 	void createScene();
+    SCENE_NAME getBeforeSceneName();
 
 private:
 	friend class got::Singleton<SceneManager>;
 	SceneManager();
 
 	std::shared_ptr<Scene> nowScene; // シーンオブジェクト
+    SCENE_NAME nowSceneName;
+    SCENE_NAME beforeSceneName;
 	std::unordered_map<SCENE_NAME, std::shared_ptr<Scene>> sceneMap;
 };
