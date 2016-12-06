@@ -29,9 +29,12 @@ void PauseScene::move()
     //      またはタイトルに戻る
     if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
         Game::getInstance().setIsPause(false);
-        SceneManager::getInstance().changeScene(SceneManager::getInstance().getBeforeSceneName(), false);
+    }
+    if (!Game::getInstance().getIsPause()) {
+        got::Fade::getInstance().fadeOut(SceneManager::getInstance().getBeforeSceneName(), false);
     }
 }
+
 // 描画
 void PauseScene::draw() const
 {

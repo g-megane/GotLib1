@@ -38,10 +38,10 @@ void Information::move()
 // 描画
 void Information::draw() const
 {
-	auto mt = got::Matrix4x4<float>::translate(position);
+	auto mt         = got::Matrix4x4<float>::translate(position);
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Info")->getSize();
-	auto color = got::Color<float>::WHITE;
-	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+	auto color      = got::Color<float>::WHITE;
+	auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
 	got::SpriteManager::getInstance().draw("Info", mt, drawRect, color);
 
@@ -58,15 +58,15 @@ void Information::draw() const
         if (str == ".") {
             str = "comma";
             spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
-            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 125));
-            color = got::Color<float>::WHITE;
-            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+            mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 125));
+            color      = got::Color<float>::WHITE;
+            drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
         }
         else {
             spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
-            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 125));
-            color = got::Color<float>::WHITE;
-            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+            mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 125));
+            color      = got::Color<float>::WHITE;
+            drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
         }
 		got::SpriteManager::getInstance().draw(str, mt, drawRect, color);
 
@@ -81,8 +81,8 @@ void Information::draw() const
     for (int i = length - 1; i > 0; --i) {
         const auto c = oss2.str().substr(i, 1);
         spriteSize = got::SpriteManager::getInstance().getSprite(c)->getSize();
-        mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 310));
-        drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+        mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 310));
+        drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     
         got::SpriteManager::getInstance().draw(c, mt, drawRect, color);
     }

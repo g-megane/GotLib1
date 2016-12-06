@@ -27,7 +27,7 @@ bool Bullet::init()
 	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
 	
     // 半径を画像幅の半分で初期化
-    rad = spriteManager.getSprite(spriteName)->getSize().width / 2;
+    rad = spriteManager.getSprite(spriteName)->getSize().width / 2.0f;
 
     dx = 0.0f;
 	dy = 0.0f;

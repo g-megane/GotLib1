@@ -8,6 +8,7 @@
 #include "Information.h"
 #include "MyDirectInput.h"
 #include "SceneManager.h"
+#include "Fade.h"
 
 // コンストラクタ
 MainScene::MainScene()
@@ -59,12 +60,19 @@ bool MainScene::init()
 // 更新
 void MainScene::move()
 {
+    // ここがおかしい
     if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
         Game::getInstance().setIsPause(true);
-        SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::PAUSE);
+        got::Fade::getInstance().setIsFadeOut(true);
     }
-    backGround->move();
-	rootActor->move();
+    //TODO:fadeOutに変更する
+    if (got::Fade::getInstance().getIsFadeOut()) {
+        got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::PAUSE);
+    }
+    else {
+        backGround->move();
+        rootActor->move();
+    }
 }
 // 描画
 void MainScene::draw() const

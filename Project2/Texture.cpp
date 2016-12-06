@@ -1,10 +1,7 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/10/8
+// 更新日:2016/12/2
 // 制作者:got
-// 
-//TODO:テクスチャの貼り付けができたらコメントを書こう
-//
 //////////////////////////////////////////////////
 #include <sstream>
 #include "Texture.h"
@@ -81,11 +78,9 @@ namespace got
 		auto resourceView  = spResourceView.get();
 		auto &directX11    = DirectX11::getInstance();
 
-		//TODO:マトリックスクラス、色クラスを実装する
 		const auto mt = Matrix4x4<float>::transpose(Matrix4x4<float>(_matrix));
 		std::copy(std::begin(mt.mat16), std::end(mt.mat16), cb.matrix);
 		
-		//const auto color = Color<float>();
 		std::copy(std::begin(_color.rgba), std::end(_color.rgba), cb.color);
 
 		cb.rect[0] = static_cast<float>(rect.getTopLeft().x);

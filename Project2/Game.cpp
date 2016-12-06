@@ -132,10 +132,17 @@ void Game::update()
 		// シーンのアップデート
 		sm.move();
 
+        if (got::Fade::getInstance().getIsFadeIn()) {
+            got::Fade::getInstance().fadeIn();
+        }
+
 		got::DirectX11::getInstance().begineFrame();
 		// シーンの描画
 		sm.draw();
-
+        // フェードの描画
+        if (got::Fade::getInstance().getIsFade()) {
+            got::Fade::getInstance().draw();
+        }
 		got::DirectX11::getInstance().endFrame();	
 	}
 }

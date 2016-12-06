@@ -117,6 +117,9 @@
     <ClCompile Include="PauseScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

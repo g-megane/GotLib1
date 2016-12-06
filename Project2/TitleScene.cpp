@@ -5,7 +5,8 @@
 //////////////////////////////////////////////////
 #include "TitleScene.h"
 #include "MyDirectInput.h"
-#include "SceneManager.h"
+#include "Fade.h"
+#include "Game.h"
 
 // コンストラクタ
 TitleScene::TitleScene()
@@ -27,8 +28,12 @@ void TitleScene::move()
 {
 	// シーン遷移(TITLE->MAIN)
 	if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
-		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::MAIN, true);
-	}
+        got::Fade::getInstance().setIsFadeOut(true);
+    }
+    //TODO:fadeOutに変更する
+    if (got::Fade::getInstance().getIsFadeOut()) {
+        got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::MAIN);
+    }
 }
 // 描画
 void TitleScene::draw() const

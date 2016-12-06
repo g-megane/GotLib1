@@ -21,7 +21,7 @@ public:
 	bool init() override;
 	void move() override;
 	void draw() const override;
-	void end() override;
+	void end()  override;
 
 private:
 	std::shared_ptr<Actor>      rootActor;

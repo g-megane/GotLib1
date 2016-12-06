@@ -8,6 +8,7 @@
 #include "Singleton.h"
 #include "Time.h"
 #include "Actor.h"
+#include "Fade.h"
 
 // ゲームを動かすクラス
 class Game : public got::Singleton<Game>
