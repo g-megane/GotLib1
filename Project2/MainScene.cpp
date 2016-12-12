@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/24
+// 更新日:2016/12/6
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
@@ -60,12 +60,10 @@ bool MainScene::init()
 // 更新
 void MainScene::move()
 {
-    // ここがおかしい
     if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
         Game::getInstance().setIsPause(true);
         got::Fade::getInstance().setIsFadeOut(true);
     }
-    //TODO:fadeOutに変更する
     if (got::Fade::getInstance().getIsFadeOut()) {
         got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::PAUSE);
     }

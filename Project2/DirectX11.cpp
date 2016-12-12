@@ -39,13 +39,13 @@ namespace got
 
 		init = createDeviceAndSwapChain();
 		if (FAILED(init)) {
-			OutputDebugString(L"createDeviceAndSwapChain()の失敗");
+			OutputDebugString("createDeviceAndSwapChain()の失敗");
 			return false;
 		}
 		
 		init = createRenderTargetView();
 		if (FAILED(init)) {
-			OutputDebugString(L"createRenderTargetView()の失敗");
+			OutputDebugString("createRenderTargetView()の失敗");
 			return false;
 		}
 		setRenderTargetView();

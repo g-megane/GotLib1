@@ -14,11 +14,12 @@
 #include "EnemyBulletManager.h"
 #include "EnemyManager.h"
 #include "Information.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 Game::Game() : time()
 {
-	window    = std::make_shared<got::Window>(L"gotLib"); // Windowの生成
+	window    = std::make_shared<got::Window>("gotLib"); // Windowの生成
 	rootActor = std::make_shared<Actor>(L"RootActor");    // RootActorの生成
 
     // rootActorにaddChildするための一時変数
@@ -53,6 +54,8 @@ bool Game::init()
 	if (FAILED(hr)) {		 // DirectInputの初期化
 		return false;
 	}
+
+    got::XAudio2::getInstance().openWave("sample0019.wav");
 
     isPause = false;
 
@@ -107,7 +110,7 @@ void Game::update()
 	bool run = true;
 	int fps = 0;
 	float countTime = 0.0f;
-	std::wstringstream stream;
+	std::ostringstream oss;
 	
 	while (run) {
 
@@ -122,8 +125,8 @@ void Game::update()
 		countTime += deltaTime; // 経過時間を数える
 		// FPSの表示
 		if (countTime > 1000.0f) {
-			stream << fps << std::endl;
-			OutputDebugString(stream.str().c_str());
+			oss << fps << std::endl;
+			OutputDebugString(oss.str().c_str());
 			fps = 0;
 			countTime = 0.0f;
 		}

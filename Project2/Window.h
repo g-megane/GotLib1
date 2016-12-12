@@ -15,7 +15,7 @@ namespace got
 	class Window
 	{
 	public:
-		Window(const LPCWCHAR _windowName);
+		Window(const LPCSTR _windowName);
 		~Window();
 
 		MSG Update();
@@ -27,7 +27,7 @@ namespace got
 		static LRESULT CALLBACK WndProck(HWND _hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 		int Initialize();
 
-		LPCWCHAR windowName;
+		LPCSTR windowName;
 		HWND hWnd;
 		Dimention<int> windowSize;
 		std::shared_ptr<Texture> texture;

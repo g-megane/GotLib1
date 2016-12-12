@@ -7,6 +7,7 @@
 #include "MyDirectInput.h"
 #include "Fade.h"
 #include "Game.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 TitleScene::TitleScene()
@@ -21,6 +22,7 @@ bool TitleScene::init()
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Title")->getSize();
 	position.move(WINDOW_WIDTH / 2.0f - spriteSize.width / 2.0f, WINDOW_HEIGHT / 4);
+    got::XAudio2::getInstance().play();
 	return true;
 }
 // 更新

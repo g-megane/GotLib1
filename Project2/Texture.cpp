@@ -162,7 +162,7 @@ namespace got
 		auto VSBlob = Shader::shaderCompile(L"VertexShader.hlsl", "main", "vs_5_0");
 
 		if (VSBlob == nullptr) {
-			MessageBox(NULL, L"VSコンパイル失敗", L"Error", MB_OK);
+			MessageBox(NULL, "VSコンパイル失敗", "Error", MB_OK);
 			return false;
 		}
 
@@ -219,7 +219,7 @@ namespace got
 		// Compile PixelShader
 		auto PSBlob = Shader::shaderCompile(L"PixelShader.hlsl", "main", "ps_5_0");
 		if (PSBlob == nullptr) {
-			MessageBox(NULL, L"PSコンパイル失敗", L"Error", MB_OK);
+			MessageBox(NULL, "PSコンパイル失敗", "Error", MB_OK);
 			return false;
 		}
 
