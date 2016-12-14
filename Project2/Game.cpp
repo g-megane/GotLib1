@@ -55,7 +55,9 @@ bool Game::init()
 		return false;
 	}
 
-    got::XAudio2::getInstance().openWave("sample0019.wav");
+    got::XAudio2::getInstance().openWave("Title", "sample0019.wav");
+    got::XAudio2::getInstance().openWave("Stage", "Stage.wav");
+    got::XAudio2::getInstance().openWave("Shot1", "Shot1.wav");
 
     isPause = false;
 
@@ -134,6 +136,8 @@ void Game::update()
 		fps++;
 		// シーンのアップデート
 		sm.move();
+        //TODO:動作確認
+        got::XAudio2::getInstance().update();
 
         if (got::Fade::getInstance().getIsFadeIn()) {
             got::Fade::getInstance().fadeIn();
@@ -172,6 +176,11 @@ void Game::addScore(const int addValue)
 const int Game::getScore() const
 {
     return score;
+}
+
+void Game::resetScore()
+{
+    score = 0;
 }
 
 const bool Game::getIsPause() const

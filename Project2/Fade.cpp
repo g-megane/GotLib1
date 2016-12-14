@@ -43,13 +43,9 @@ namespace got
 
     bool Fade::fadeOut(SceneManager::SCENE_NAME nextScene, bool isnextSceneInit /*= true*/)
     {
-     /*   if(!isFade) {
-            alpha   = 0.0f;
-            color.a = alpha;
-        }*/
-        isFade    = true;
-        //isFadeOut = true;
 
+        isFade    = true;
+        
 
         // ループさせてα値を255から一定時間ごとに下げていく
         alpha += 0.025f;

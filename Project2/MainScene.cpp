@@ -9,6 +9,7 @@
 #include "MyDirectInput.h"
 #include "SceneManager.h"
 #include "Fade.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 MainScene::MainScene()
@@ -31,6 +32,8 @@ MainScene::~MainScene()
 // 初期化
 bool MainScene::init()
 {	
+    Game::getInstance().resetScore();
+
     auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
     //TODO:仮データ
     //TODO:出現位置は定数にするのが有かも？
@@ -54,6 +57,8 @@ bool MainScene::init()
 	if (!rootActor->init()) {
 		return false;
 	}
+
+    got::XAudio2::getInstance().playBGM("Stage");
 
 	return true;
 }

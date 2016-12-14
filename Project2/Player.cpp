@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "SceneManager.h"
 #include "Collision.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 Player::Player()
@@ -55,7 +56,7 @@ void Player::move()
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyPush(DIK_LSHIFT)) { deceleration = 0.5f; }
+    if (input.keyPush(DIK_LSHIFT))     { deceleration = 0.5f; }
 
 	// キー移動
 	if		(input.keyPush(DIK_UP	)) { position.y -= dy * deceleration * dTime; }
@@ -88,6 +89,7 @@ void Player::move()
 	time.reset();
 	if(input.keyPush(DIK_Z)) {
 		playerBulletManager->shot(getShotPosition());
+        got::XAudio2::getInstance().play("Shot1");
 	}
 }
 // 描画
@@ -116,6 +118,7 @@ void Player::setDamage(const int damage)
 	hp -= damage;
 	if (hp <= 0) {
 		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::RESULT);
+        got::XAudio2::getInstance().stopBGM();
 	}
 }
 // 弾を発射する座標を返す

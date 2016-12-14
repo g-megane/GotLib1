@@ -23,6 +23,7 @@ public:
     const float getDeltaTime() const;
     void addScore(const int addValue);
     const int getScore() const;
+    void resetScore();
     const bool getIsPause() const;
     void setIsPause(const bool _isPause);
 

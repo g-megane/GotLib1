@@ -11,6 +11,7 @@
 #include <mmsystem.h>
 #include <memory>
 #include <vector>
+#include <unordered_map>
 #include "Singleton.h"
 
 namespace got {
@@ -18,9 +19,12 @@ namespace got {
     {
     public:
         ~XAudio2();
-        bool openWave(const std::string& fileName);
+        bool openWave(const std::string keyName, const std::string& fileName);
 
-        bool play();
+        void update();
+        bool playBGM(const std::string key);
+        bool play(const std::string key);
+        void stopBGM();
 
         struct Riff
         {
@@ -48,20 +52,27 @@ namespace got {
             std::vector<uint8_t> waveFormatData;
         };
 
+        struct Wave
+        {
+            WAVEFORMATEXTENSIBLE wfx;
+            Data data;
+        };
+
     private:
         friend class Singleton<XAudio2>;
         XAudio2();
 
-        bool read(const std::string& fileName);
+        bool read(const std::string &fileName);
         bool readRiff(std::ifstream &ifs);
         bool readFmt(std::ifstream &ifs);
         bool readData(std::ifstream &ifs);
 
-        Riff riff;
-        Format format;
-        Data data;
+        std::unordered_map<std::string, Wave> waveMap;
+        std::vector<IXAudio2SourceVoice*> voices_;
+
         std::shared_ptr<IXAudio2> spXAudio2;
         std::shared_ptr<IXAudio2MasteringVoice> spMasteringVoice;
+        std::shared_ptr<IXAudio2SourceVoice> BGM;
         std::shared_ptr<IXAudio2SourceVoice> spSourceVoice;
     };
 

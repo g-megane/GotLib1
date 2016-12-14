@@ -22,7 +22,7 @@ bool TitleScene::init()
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Title")->getSize();
 	position.move(WINDOW_WIDTH / 2.0f - spriteSize.width / 2.0f, WINDOW_HEIGHT / 4);
-    got::XAudio2::getInstance().play();
+    got::XAudio2::getInstance().playBGM("Title");
 	return true;
 }
 // 更新
@@ -34,6 +34,7 @@ void TitleScene::move()
     }
     //TODO:fadeOutに変更する
     if (got::Fade::getInstance().getIsFadeOut()) {
+        got::XAudio2::getInstance().stopBGM();
         got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::MAIN);
     }
 }
