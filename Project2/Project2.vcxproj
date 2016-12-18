@@ -127,6 +127,7 @@
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Information.cpp" />
+    <ClCompile Include="OperatingScene.cpp" />
     <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="PlayerBulletManager.cpp" />
     <ClCompile Include="DirectX11.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Information.h" />
+    <ClInclude Include="OperatingScene.h" />
     <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PlayerBulletManager.h" />
     <ClInclude Include="Color.h" />

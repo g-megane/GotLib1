@@ -49,6 +49,7 @@ bool MainScene::init()
     em->setEnemy(3000.0f,  "Enemy",         5,               0,          50.0f,           5,            0.1f,         0.1f,         0,              0.3f,      500.0f,     100);
     em->setEnemy(3000.0f,  "Enemy",         5,     STAGE_WIDTH - 200.0f, 50.0f,           6,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
     em->setEnemy(3000.0f,  "Enemy",         5,               0,          50.0f,           7,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
+    //em->setEnemy(3000.0f,  "Finish",         5,               0,          50.0f,           7,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     if (!backGround->init()) {
@@ -62,6 +63,7 @@ bool MainScene::init()
 
 	return true;
 }
+
 // 更新
 void MainScene::move()
 {
@@ -77,6 +79,7 @@ void MainScene::move()
         rootActor->move();
     }
 }
+
 // 描画
 void MainScene::draw() const
 {

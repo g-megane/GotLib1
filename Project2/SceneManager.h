@@ -15,8 +15,9 @@ public:
 	enum class SCENE_NAME
 	{
 		TITLE,
-        PAUSE,
 		MAIN,
+        PAUSE,
+        OPERATING,
 		RESULT,
 	};
 

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/9
+// 更新日:2016/12/14
 // 制作者:got
 //////////////////////////////////////////////////
 #include "SceneManager.h"
@@ -8,6 +8,7 @@
 #include "TitleScene.h"
 #include "ResultScene.h"
 #include "PauseScene.h"
+#include "OperatingScene.h"
 
 // コンストラクタ
 SceneManager::SceneManager()
@@ -35,6 +36,9 @@ void SceneManager::createScene()
     scene = std::make_shared<PauseScene>();
     sceneMap[SCENE_NAME::PAUSE] = scene;
 
+    scene = std::make_shared<OperatingScene>();
+    sceneMap[SCENE_NAME::OPERATING] = scene;
+
 	scene = std::make_shared<TitleScene>();
 	sceneMap[SCENE_NAME::TITLE] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
@@ -43,6 +47,7 @@ void SceneManager::createScene()
 	nowScene = scene;
 }
 
+// 前のシーンの名前を取得する
 SceneManager::SCENE_NAME SceneManager::getBeforeSceneName()
 {
     return beforeSceneName;

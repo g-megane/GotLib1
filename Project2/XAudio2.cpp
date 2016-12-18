@@ -42,10 +42,13 @@ namespace got {
     // デストラクタ
     XAudio2::~XAudio2()
     {
-        for (auto voice : voices_) {
-            voice->Stop();
-            voice->DestroyVoice();
-        }
+        //while (itr != voices_.end()) {
+        //    (*itr)->Stop();
+        //    (*itr)->DestroyVoice();
+        //     voices_.erase(itr);
+        //     ++itr;
+        //}
+        voices_.clear();
         //spSourceVoice.reset();
         BGM.reset();
         spMasteringVoice.reset();
@@ -164,13 +167,11 @@ namespace got {
     // 終了している効果音を探し終了処理を行う
     void XAudio2::update()
     {
-        std::vector<IXAudio2SourceVoice*>::iterator itr = voices_.begin();
+        auto itr = voices_.begin();
         while (itr != voices_.end()) {
             XAUDIO2_VOICE_STATE state;
             (*itr)->GetState(&state);
             if (state.BuffersQueued <= 0) {
-                (*itr)->Stop();
-                (*itr)->DestroyVoice();
                 itr = voices_.erase(itr);
             }
             else {
@@ -240,19 +241,16 @@ namespace got {
             return false;
         }
 
-        //TODO:スマートポインタに変更する
-        //     スマートポインタにしたときにデストラクタで例外が起こった
-        //     再生途中の場合
-        /*spSourceVoice = nullptr;
-        spSourceVoice = std::shared_ptr<IXAudio2SourceVoice>(sourceVoice, [](IXAudio2SourceVoice *&ptr)
+        decltype(spSourceVoice) temp = nullptr;
+        temp = std::shared_ptr<IXAudio2SourceVoice>(sourceVoice, [](IXAudio2SourceVoice *&ptr)
         {
             if (!ptr) { return; }
+            ptr->Stop();
             ptr->DestroyVoice();
             ptr = nullptr;
-        });*/
+        });
 
-
-        voices_.emplace_back(sourceVoice);
+        voices_.emplace_back(temp);
         //spSourceVoice.reset();
 
         sourceVoice->Start(0);

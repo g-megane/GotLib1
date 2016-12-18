@@ -123,6 +123,9 @@
     <ClCompile Include="XAudio2.cpp">
       <Filter>got\ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="OperatingScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -229,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="XAudio2.h">
       <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatingScene.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

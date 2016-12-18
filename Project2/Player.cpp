@@ -31,7 +31,7 @@ bool Player::init()
 	dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
 	hp           = 1;    // ヒットポイント
-    rad          = 8.0f; // 円のあたり判定の半径
+    rad          = 4.0f; // 円のあたり判定の半径
 	
 	auto &root          = Game::getInstance().getRootActor();
 	enemyManager		= std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
@@ -70,13 +70,10 @@ void Player::move()
 	if (position.y < 0								 ) { position.y = 0;								}
 	if (position.y > STAGE_HEIGHT - spriteSize.height) { position.y = STAGE_HEIGHT - spriteSize.height; }
 
-	//collisionRect = got::Rectangle<int>(position, spriteSize.width, spriteSize.height);
-
 	// 敵とのあたり判定
 	for (auto & enemy : enemyManager->getChildren()) {
 		if (enemy->getState() == STATE::UN_USE) { continue; }
-        if(got::Collison::circleToCircle(this->getCenter(), 8.0f, enemy->getCenter(), 50.0f)) {
-        //if (collisionRect.intersection(enemy->getRect())) {
+        if(got::Collison::circleToCircle(this->getCenter(), rad, enemy->getCenter(), enemy->getRad())) {
 #ifndef _DEBUG
             setDamage(1);
 #endif // !_DEBUG

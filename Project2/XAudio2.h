@@ -68,7 +68,8 @@ namespace got {
         bool readData(std::ifstream &ifs);
 
         std::unordered_map<std::string, Wave> waveMap;
-        std::vector<IXAudio2SourceVoice*> voices_;
+        //std::vector<IXAudio2SourceVoice*> voices_;
+        std::vector<std::shared_ptr<IXAudio2SourceVoice>> voices_;
 
         std::shared_ptr<IXAudio2> spXAudio2;
         std::shared_ptr<IXAudio2MasteringVoice> spMasteringVoice;

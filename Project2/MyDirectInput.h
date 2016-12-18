@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/12
-// 更新日:2016/10/17
+// 更新日:2016/12/15
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -24,8 +24,10 @@ namespace got
 		~MyDirectInput();
 		HRESULT init();
 		
+        void update     ();
 		bool keyPush	(const int code);
 		bool keyTrigger (const int code);
+        bool keyRelease (const int code);
 
 	private:
 		friend class Singleton<MyDirectInput>;

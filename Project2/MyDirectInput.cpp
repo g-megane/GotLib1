@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/12
-// 更新日:2016/10/17
+// 更新日:2016/12/15
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MyDirectInput.h"
@@ -89,13 +89,21 @@ namespace got
 
 		return S_OK;
 	}
-	// キーが押されているか
+
+    // キー情報の更新
+    void MyDirectInput::update()
+    {
+        std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
+        spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+    }
+
+    // キーが押されているか
 	bool MyDirectInput::keyPush(const int code)
 	{
 		// キーボードへのアクセス権の取得
 		spDDevice->Acquire();
 
-		spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+		//spDDevice->GetDeviceState(sizeof(buffer), &buffer);
 
 		if (buffer[code] & 0x80) {
 			return true;
@@ -109,18 +117,29 @@ namespace got
 		// キーボードへのアクセス権の取得
 		spDDevice->Acquire();
 
-		spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+		//spDDevice->GetDeviceState(sizeof(buffer), &buffer);
 
 		if ((buffer[code] & 0x80) != 0 && (bufferPrev[code] & 0x80) == 0) {
 			result = true;
 		}
-		std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
+		//std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
 
 		return result;
 	}
 	// キーが離した瞬間か
-	//bool MyDirectInput::keyRelease(const int code)
-	//{
-	//	return false;
-	//}
+	bool MyDirectInput::keyRelease(const int code)
+	{
+        bool result = false;
+        // キーボードへのアクセス権の取得
+        spDDevice->Acquire();
+
+        spDDevice->GetDeviceState(sizeof(buffer), &buffer);
+
+        if ((buffer[code] & 0x80) == 0 && (bufferPrev[code] & 0x80) != 0) {
+            result = true;
+        }
+        std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
+
+        return result;
+	}
 }

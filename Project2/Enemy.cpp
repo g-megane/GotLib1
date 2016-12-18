@@ -68,7 +68,7 @@ void Enemy::draw() const
 	//TODO:テスト
 	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	auto color			 = got::Color<float>();
+	auto color			 = got::Color<float>::RED;
 	auto drawRect	     = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	spriteManager.draw(spriteName, mt, drawRect, color);
@@ -111,6 +111,7 @@ void Enemy::setData(const int _hp, const std::string& _spriteName, const float _
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
     score = _score;
+    rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
 
     //TODO:移動量の初期化
     //dx = 0.1f;

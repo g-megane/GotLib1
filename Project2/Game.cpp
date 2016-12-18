@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/11/30
+// 更新日:2016/12/14
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -55,7 +55,6 @@ bool Game::init()
 		return false;
 	}
 
-    got::XAudio2::getInstance().openWave("Title", "sample0019.wav");
     got::XAudio2::getInstance().openWave("Stage", "Stage.wav");
     got::XAudio2::getInstance().openWave("Shot1", "Shot1.wav");
 
@@ -81,17 +80,24 @@ bool Game::init()
 	//TODO:Titlecene用画像(仮)
 	spriteManager.addMap("Title"	, L"Resources\\TitleSample.png");
 	spriteManager.addMap("PushEnter", L"Resources\\PushEnterSample.png");
+    spriteManager.addMap("Start"    , L"Resources\\Start.png");
+    spriteManager.addMap("Operating", L"Resources\\Operating.png");
+    spriteManager.addMap("ChooseBar", L"Resources\\ChooseBar.png");
 
 	//TODO:MainScene用画像(仮)
-	spriteManager.addMap("Player"    , L"Resources\\player1.png");
+	spriteManager.addMap("Player"    , L"Resources\\Player.png");
 	spriteManager.addMap("Bullet"    , L"Resources\\Boul.png");
     spriteManager.addMap("Bullet1"   , L"Resources\\Bullet1.png");
     spriteManager.addMap("Bullet2"   , L"Resources\\Bullet2.png");
     spriteManager.addMap("Bullet3"   , L"Resources\\Bullet3.png");
-	spriteManager.addMap("Enemy"     , L"Resources\\EnemySample.png");
+	spriteManager.addMap("Enemy"     , L"Resources\\EnemyBase2.png");
     spriteManager.addMap("BackGround", L"Resources\\Background1.png");
-    spriteManager.addMap("Info"      , L"Resources\\Info.png");
-	
+
+    //spriteManager.addMap("Info"      , L"Resources\\Info.png");
+	spriteManager.addMap("Time", L"Resources\\Time.png");
+    spriteManager.addMap("Score", L"Resources\\Score.png");
+    spriteManager.addMap("ShotLevel", L"Resources\\ShotLevel.png");
+
 	//TODO:ResultScene用画像(仮)
 	spriteManager.addMap("Result", L"Resources\\ResultSample.png");
 
@@ -136,6 +142,7 @@ void Game::update()
 		fps++;
 		// シーンのアップデート
 		sm.move();
+        got::MyDirectInput::getInstance().update();
         //TODO:動作確認
         got::XAudio2::getInstance().update();
 
