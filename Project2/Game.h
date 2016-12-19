@@ -26,6 +26,8 @@ public:
     void resetScore();
     const bool getIsPause() const;
     void setIsPause(const bool _isPause);
+    const bool getIsNextScene() const;
+    void setIsNextScene(const bool _isNextScene);
 
 private:
 	friend class got::Singleton<Game>;
@@ -33,6 +35,7 @@ private:
     float deltaTime;
     int   score;
     bool  isPause;
+    bool  isNextScene;
 	Game();
 	std::shared_ptr<Actor> rootActor;
 	std::shared_ptr<got::Window> window;

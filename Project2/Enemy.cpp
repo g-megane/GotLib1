@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/30
+// 更新日:2016/12/19
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Enemy.h"
@@ -25,7 +25,7 @@ bool Enemy::init()
 	hp = 0;
 	dx = 0.1f;
 	dy = 0.1f;
-    bulletSpeed = 0.0f;
+    bulletSpeed  = 0.0f;
     shotInterval = 0.0f;
 
     //TODO:timeの初期化は必要？
@@ -55,10 +55,10 @@ void Enemy::move()
 	}
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
     //TODO:仮の値
-	if (position.x /*spriteSize.width*/ < -100)   { setState(STATE::UN_USE); }
-	if (position.x > STAGE_WIDTH + 100)           { setState(STATE::UN_USE); }
-	if (position.y + 100/*spriteSize.height*/< 0) { setState(STATE::UN_USE); }
-	if (position.y > STAGE_HEIGHT + 100)          { setState(STATE::UN_USE); }
+	if (position.x /*spriteSize.width*/ < -100)   { outOfStage(); return; }
+	if (position.x > STAGE_WIDTH + 100)           { outOfStage(); return; }
+	if (position.y + 100/*spriteSize.height*/< 0) { outOfStage(); return; }
+	if (position.y > STAGE_HEIGHT + 100)          { outOfStage(); return; }
 
 }
 // 描画
@@ -82,22 +82,21 @@ int Enemy::getHp() const
 {
 	return hp;
 }
-int Enemy::getRad() const
-{
-    return 0;
-}
 // ダメージ処理を行う
 void Enemy::setDamage(const int damage)
 {
 	hp -= damage;
     // 死んでいる場合
-	if (hp <= 0) {
-		state = STATE::UN_USE;
+    if (hp <= 0) {
+        state = STATE::UN_USE;
         Game::getInstance().addScore(score);
-	}
+        if (!isStageLastEnemy) { return; }
+        got::Fade::getInstance().setIsFadeOut(true);
+        Game::getInstance().setIsNextScene(true);
+    }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score)
+void Enemy::setData(const int _hp, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*= false*/)
 {
     // データのセット
     hp = _hp;
@@ -111,6 +110,7 @@ void Enemy::setData(const int _hp, const std::string& _spriteName, const float _
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
     score = _score;
+    isStageLastEnemy = _isStageLastEnemy;
     rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
 
     //TODO:移動量の初期化
@@ -120,6 +120,17 @@ void Enemy::setData(const int _hp, const std::string& _spriteName, const float _
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
     state = STATE::USE;
+}
+void Enemy::outOfStage()
+{
+    state = STATE::UN_USE;
+    // ステージの最後の敵(モブ)の場合
+    //TODO:ボスを出現させる
+    if (isStageLastEnemy) {
+        //TODO:とりあえずリザルトシーンへ
+        got::Fade::getInstance().setIsFadeOut(true);
+        Game::getInstance().setIsNextScene(true);
+    }
 }
 // 移動処理を行う関数オブジェクトに関数をセット
 void Enemy::setMovePattern(const int pattern)

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/12/6
+// 更新日:2016/12/19
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
@@ -32,7 +32,9 @@ MainScene::~MainScene()
 // 初期化
 bool MainScene::init()
 {	
+    // 先頭のメインシーンだけでいい(Stage1のこと)
     Game::getInstance().resetScore();
+    Game::getInstance().setIsNextScene(false);
 
     auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
     //TODO:仮データ
@@ -40,7 +42,7 @@ bool MainScene::init()
     // ・出現時間を0にするとひとつ前の敵と同時に出現する
     // ・移動パターンの6と7は移動量(X)を0にしてやる必要がある
     //------------------------------------------------ [エネミーデータのセット] ----------------------------------------------------------------------------------------------------
-    //-------- {出現時間} - {スプライト名} - {HP} -- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -{移動量(x)} - {移動量(y)} - {攻撃パターン} -- {弾速} -- {発射間隔} - {持ち点}
+    //-------- {出現時間} - {スプライト名} - {HP} -- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -{移動量(x)} - {移動量(y)} - {攻撃パターン} -- {弾速} -- {発射間隔} - {持ち点} - {ステージ最後の敵か？(デフォルトではfalse)}
     em->setEnemy(3000.0f,  "Enemy",         5,     STAGE_WIDTH / 2.0f,   50.0f,           0,            0.1f,         0.1f,         0,              0.3f,      500.0f,     100);
     em->setEnemy(   0.0f,  "Enemy",         5,     STAGE_WIDTH / 4.0f,   50.0f,           1,            0.1f,         0.1f,         1,              0.3f,     1000.0f,     100);
     em->setEnemy(3000.0f,  "Enemy",         5,     STAGE_WIDTH / 3.0f,   50.0f,           2,            0.1f,         0.1f,         2,              0.3f,      500.0f,     100);
@@ -48,8 +50,7 @@ bool MainScene::init()
     em->setEnemy(3000.0f,  "Enemy",         5,     STAGE_WIDTH,          50.0f,           4,            0.1f,         0.1f,         0,              0.3f,      500.0f,     100);
     em->setEnemy(3000.0f,  "Enemy",         5,               0,          50.0f,           5,            0.1f,         0.1f,         0,              0.3f,      500.0f,     100);
     em->setEnemy(3000.0f,  "Enemy",         5,     STAGE_WIDTH - 200.0f, 50.0f,           6,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
-    em->setEnemy(3000.0f,  "Enemy",         5,               0,          50.0f,           7,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
-    //em->setEnemy(3000.0f,  "Finish",         5,               0,          50.0f,           7,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100);
+    em->setEnemy(3000.0f,  "Enemy",         5,               0,          50.0f,           7,            0.0f,         0.1f,         0,              0.3f,      500.0f,     100, true);
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     if (!backGround->init()) {
@@ -72,12 +73,19 @@ void MainScene::move()
         got::Fade::getInstance().setIsFadeOut(true);
     }
     if (got::Fade::getInstance().getIsFadeOut()) {
+        // 次のシーンへの遷移の場合
+        if (Game::getInstance().getIsNextScene()) {
+            got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::RESULT);
+            return;
+        }
+        // ポーズシーンへの遷移の場合
         got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::PAUSE);
+        return;
     }
-    else {
-        backGround->move();
-        rootActor->move();
-    }
+
+    backGround->move();
+    rootActor->move();
+    
 }
 
 // 描画

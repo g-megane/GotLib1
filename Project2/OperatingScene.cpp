@@ -33,6 +33,7 @@ void OperatingScene::move()
 
 void OperatingScene::draw() const
 {
+    //TODO: 操作説明を描画
 }
 
 void OperatingScene::end()

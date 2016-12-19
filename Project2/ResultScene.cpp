@@ -20,7 +20,6 @@ bool ResultScene::init()
 {
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Result")->getSize();
 	position.move(WINDOW_WIDTH / 2.0f - spriteSize.width / 2.0f, WINDOW_HEIGHT / 4.0f);
-
 	return true;
 }
 // 更新

@@ -60,19 +60,21 @@ namespace got {
     {
         std::ifstream ifs(fileName, std::ios::binary);
 
+        // riffチャンクの読み込み
         Riff riff;
         ifs.read(reinterpret_cast<char*>(&riff), sizeof(Riff));
         if (strncmp(reinterpret_cast<char *>(&riff.riff), "RIFF", 4) != 0) {
             return false;
         }
 
+        // fmtチャンクの読み込み
         Format format;
         ifs.read(reinterpret_cast<char*>(&format), sizeof(Format));
 
         if (strncmp(reinterpret_cast<char*>(&format.id), "fmt ", 4) != 0) {
             return false;
         }
-
+        // dataチャンクの読み込み
         Data data;
         ifs.read(reinterpret_cast<char*>(&data.id), sizeof(4));
         if (strncmp(reinterpret_cast<char*>(&data.id), "data", 4) != 0) {

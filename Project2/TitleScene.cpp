@@ -23,7 +23,7 @@ bool TitleScene::init()
 	auto &sm = got::SpriteManager::getInstance();
 	position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
-	return true;
+    return true;
 }
 // 更新
 void TitleScene::move()

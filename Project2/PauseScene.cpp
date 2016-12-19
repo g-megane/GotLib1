@@ -31,7 +31,7 @@ void PauseScene::move()
         Game::getInstance().setIsPause(false);
     }
     if (!Game::getInstance().getIsPause()) {
-        got::Fade::getInstance().fadeOut(SceneManager::getInstance().getBeforeSceneName(), false);
+        got::Fade::getInstance().fadeOut(SceneManager::getInstance().getBeforeSceneName() , false);
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/12/2
+// 更新日:2016/12/19
 // 制作者:got
 //////////////////////////////////////////////////
 #include "EnemyManager.h"
@@ -46,9 +46,10 @@ void EnemyManager::move()
     // 出現時間かどうか？
     if(itr->bornTime > elapsedTime) { return; }
     for (auto & child : children) {
+        // 空いている敵を探してデータをセット
         if (child->getState() == STATE::UN_USE) {
            //TODO:vectorに変更して繰り返しをなくす
-            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score);
+            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isStageLastEnemy);
             dataList.emplace_back(*itr);
             dataList.pop_front();
             elapsedTime = 0.0f;
@@ -71,21 +72,22 @@ void EnemyManager::end()
 	}
 }
 
-void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score)
+void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*=fasle*/)
 {
     EnemyData data;
-    data.bornTime     = _bornTime;
-    data.spriteName   = _spriteName;
-    data.hp           = _hp;
-    data.initX        = _initX;
-    data.initY        = _initY;
-    data.movePattern  = _movePattern;
-    data.dx           = _dx;
-    data.dy           = _dy;
-    data.shotPattern  = _shotPattern;
-    data.bulletSpeed  = _bulltSpeed;
-    data.shotInterval = _shotInterval;
-    data.score        = _score;
+    data.bornTime         = _bornTime;
+    data.spriteName       = _spriteName;
+    data.hp               = _hp;
+    data.initX            = _initX;
+    data.initY            = _initY;
+    data.movePattern      = _movePattern;
+    data.dx               = _dx;
+    data.dy               = _dy;
+    data.shotPattern      = _shotPattern;
+    data.bulletSpeed      = _bulltSpeed;
+    data.shotInterval     = _shotInterval;
+    data.score            = _score;
+    data.isStageLastEnemy = _isStageLastEnemy;
 
     dataList.emplace_back(data);
 }

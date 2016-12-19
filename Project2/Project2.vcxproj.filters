@@ -43,6 +43,9 @@
     <Filter Include="got\Input">
       <UniqueIdentifier>{f28702da-e706-4603-87c3-68ef3ea04072}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Actor\Boss">
+      <UniqueIdentifier>{1a2e0fa0-ae3a-4ee5-8e13-e9e04eb80919}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp">
@@ -125,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="OperatingScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Game\Actor\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="OperatingScene.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Game\Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

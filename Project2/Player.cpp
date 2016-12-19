@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/9/27
-// 更新日:2016/11/30
+// 更新日:2016/12/19
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
@@ -114,7 +114,8 @@ void Player::setDamage(const int damage)
 {
 	hp -= damage;
 	if (hp <= 0) {
-		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::RESULT);
+        got::Fade::getInstance().setIsFadeOut(true);
+        Game::getInstance().setIsNextScene(true);
         got::XAudio2::getInstance().stopBGM();
 	}
 }

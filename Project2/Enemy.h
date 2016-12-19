@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/27
-// 更新日:2016/11/30
+// 更新日:2016/12/19
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -25,7 +25,6 @@ public:
 	void end() override;
 
 	int  getHp() const;
-    int  getRad() const;
 	void setDamage(const int damage);
     void setData(const int          _hp,
                  const std::string& _spriteName,
@@ -37,7 +36,8 @@ public:
                  const int          _shotPattern, 
                  const float        _bulletSpeed, 
                  const float        _shotInterval, 
-                 const int          _score);
+                 const int          _score,
+                 const bool         _isStageLastEnemy = false);
 
 private:
 	int	  hp;
@@ -47,6 +47,7 @@ private:
     float bulletSpeed;
     float shotInterval;
     int   score;
+    bool isStageLastEnemy;
 	got::Time time;
 	got::Time time2;
 
@@ -54,7 +55,8 @@ private:
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
 
     std::function<void()> Enemy::moveFunc;
-    std::function<void()> Enemy::shotFunc;  
+    std::function<void()> Enemy::shotFunc;
+    void outOfStage();
 
     void setMovePattern(const int pattern);
     void setShotPattern(const int pattern);

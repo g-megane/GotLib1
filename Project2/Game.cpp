@@ -59,6 +59,7 @@ bool Game::init()
     got::XAudio2::getInstance().openWave("Shot1", "Shot1.wav");
 
     isPause = false;
+    isNextScene = false;
 
 	auto &spriteManager = got::SpriteManager::getInstance();
 	//TODO:Font(仮)
@@ -198,4 +199,14 @@ const bool Game::getIsPause() const
 void Game::setIsPause(const bool _isPause)
 {
     isPause = _isPause;
+}
+
+const bool Game::getIsNextScene() const
+{
+    return isNextScene;
+}
+
+void Game::setIsNextScene(const bool _isNextScene)
+{
+    isNextScene = _isNextScene;
 }
