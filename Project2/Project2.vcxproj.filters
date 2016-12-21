@@ -138,6 +138,9 @@
     <ClCompile Include="Item.cpp">
       <Filter>Game\Actor\Item</Filter>
     </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>Game\Actor\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -251,8 +254,11 @@
     <ClInclude Include="Boss.h">
       <Filter>Game\Actor\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>Game\Actor\Item</Filter>
+    </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>got\ヘッダー ファイル</Filter>
+      <Filter>Game\Actor\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

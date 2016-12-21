@@ -1,6 +1,7 @@
 #include "Boss.h"
 
 Boss::Boss()
+    :Actor()
 {
 }
 

@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #include "Enemy.h"
 #include "SpriteManager.h"
+#include "ItemManager.h"
 #include "Game.h"
 
 // コンストラクタ
@@ -88,11 +89,16 @@ void Enemy::setDamage(const int damage)
 	hp -= damage;
     // 死んでいる場合
     if (hp <= 0) {
+        auto &game = Game::getInstance();
+
         state = STATE::UN_USE;
-        Game::getInstance().addScore(score);
+        game.addScore(score);
+        std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
+
         if (!isStageLastEnemy) { return; }
         got::Fade::getInstance().setIsFadeOut(true);
-        Game::getInstance().setIsNextScene(true);
+        game.setIsNextScene(true);
+
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする

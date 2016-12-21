@@ -56,7 +56,7 @@ void Player::move()
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyPush(DIK_LSHIFT))     { deceleration = 0.5f; }
+    if (input.keyPush(DIK_LSHIFT))     { deceleration = 0.3f; }
 
 	// キー移動
 	if		(input.keyPush(DIK_UP	)) { position.y -= dy * deceleration * dTime; }

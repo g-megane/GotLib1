@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "PlayerBulletManager.h"
 #include "EnemyBulletManager.h"
+#include "ItemManager.h"
 #include "EnemyManager.h"
 #include "Information.h"
 #include "XAudio2.h"
@@ -32,6 +33,9 @@ Game::Game() : time()
     rootActor->addChild(tmp);
 	//std::shared_ptr<Actor> ebm    
     tmp= std::make_shared<EnemyBulletManager>(500);
+    rootActor->addChild(tmp);
+
+    tmp = std::make_shared<ItemManager>(10);
     rootActor->addChild(tmp);
 
 	// rootActorへの追加
