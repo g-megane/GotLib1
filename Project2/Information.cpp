@@ -45,16 +45,14 @@ void Information::draw() const
 	auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 	got::SpriteManager::getInstance().draw("Board", mt, drawRect, color);
 
+    // タイムの表示
+    // 文字
     spriteSize = got::SpriteManager::getInstance().getSprite("Time")->getSize();
     mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 25.0f, 80.0f));
     drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     got::SpriteManager::getInstance().draw("Time", mt, drawRect, color);
 
-
-
-    // タイムの表示
-    // 文字
-	std::ostringstream oss;
+    std::ostringstream oss;
 	float nowTime = elapsedTime / 1000.0f;
 	oss << std::fixed << std::setprecision(1) << std::setfill('0') << std::setw(6) << nowTime;
 	int length = oss.str().length();

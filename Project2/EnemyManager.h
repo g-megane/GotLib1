@@ -21,6 +21,7 @@ public:
 	void draw() const override;
 	void end()  override;
 
+    const bool getIsEnemiesUnUse() const;
     void setEnemy(const float        _bornTime,
                   const std::string& _spriteName,
                   const int          _hp, 
@@ -36,7 +37,7 @@ public:
                   const bool         _isStageLastEnemy = false);
 
 private:
-    float elapsedTime; // Enemyの生成に使う経過時間
+    float elapsedTime;    // Enemyの生成に使う経過時間
 
     struct EnemyData {
         float       bornTime;         // 出現までの時間

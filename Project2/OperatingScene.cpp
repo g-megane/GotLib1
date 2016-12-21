@@ -33,7 +33,15 @@ void OperatingScene::move()
 
 void OperatingScene::draw() const
 {
-    //TODO: 操作説明を描画
+    auto mt = got::Matrix4x4<float>::translate(position.ZERO);
+    auto spriteSize = got::SpriteManager::getInstance().getSprite("Board")->getSize();
+    auto color = got::Color<float>::WHITE;
+    auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    got::SpriteManager::getInstance().draw("Board", mt, drawRect, color);
+
+    spriteSize = got::SpriteManager::getInstance().getSprite("OperatingMenu")->getSize();
+    drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    got::SpriteManager::getInstance().draw("OperatingMenu", mt, drawRect, color);
 }
 
 void OperatingScene::end()

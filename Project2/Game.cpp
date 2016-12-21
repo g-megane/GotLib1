@@ -85,6 +85,9 @@ bool Game::init()
     spriteManager.addMap("Operating", L"Resources\\Operating.png");
     spriteManager.addMap("ChooseBar", L"Resources\\ChooseBar.png");
 
+    // OperatingScene用画像
+    spriteManager.addMap("OperatingMenu", L"Resources\\OperatingMenu.png");
+
 	//TODO:MainScene用画像(仮)
 	spriteManager.addMap("Player"    , L"Resources\\Player.png");
 	spriteManager.addMap("Bullet"    , L"Resources\\Boul.png");

@@ -74,8 +74,8 @@ void Player::move()
 	for (auto & enemy : enemyManager->getChildren()) {
 		if (enemy->getState() == STATE::UN_USE) { continue; }
         if(got::Collison::circleToCircle(this->getCenter(), rad, enemy->getCenter(), enemy->getRad())) {
-#ifndef _DEBUG
             setDamage(1);
+#ifndef _DEBUG
 #endif // !_DEBUG
 		}
 
