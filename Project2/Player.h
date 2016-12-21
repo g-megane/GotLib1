@@ -31,6 +31,7 @@ private:
 	float dy;           // y移動量
     float deceleration; // 減速量
 	int   hp;           // ヒットポイント
+    const int maxHp;    // HPの限界値
 	std::shared_ptr<PlayerBulletManager> playerBulletManager;
 	std::shared_ptr<EnemyManager>		 enemyManager;
 	got::Time time;

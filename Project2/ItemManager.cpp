@@ -47,6 +47,7 @@ void ItemManager::move()
             //TODO: PlayerとItemのあたり判定
             //      PlayerのHPを増やす
             item->setState(STATE::UN_USE);
+            std::dynamic_pointer_cast<Player>(player)->setDamage(-1);
         }
     }
 }

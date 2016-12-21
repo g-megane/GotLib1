@@ -20,7 +20,4 @@ public:
 
     void itemDrop(const got::Vector2<float> &dropPos);
 
-private:
-   // std::shared_ptr<Player> player;
-
 };

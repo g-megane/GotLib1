@@ -14,8 +14,9 @@
 #include "XAudio2.h"
 
 // コンストラクタ
+//TODO: Shotのパターン数やゲームの難しさを考慮して決める
 Player::Player()
-	:Actor(L"Player"), time()
+	:Actor(L"Player"), time(), maxHp(2)
 {
 	time = got::Time();
     spriteName = "Player";
@@ -30,7 +31,7 @@ bool Player::init()
 	dx           = 0.4f; //TODO:移動量(仮)
 	dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
-	hp           = 2;    // ヒットポイント
+	hp           = 1;    // ヒットポイント
     rad          = 4.0f; // 円のあたり判定の半径
 	
 	auto &root          = Game::getInstance().getRootActor();
@@ -117,6 +118,9 @@ void Player::setDamage(const int damage)
         Game::getInstance().setIsNextScene(true);
         got::XAudio2::getInstance().stopBGM();
 	}
+    else if (hp >= maxHp) {
+        hp = maxHp;
+    }
 }
 // 弾を発射する座標を返す
 const got::Vector2<float> Player::getShotPosition() const

@@ -6,6 +6,7 @@
 #include "PlayerBulletManager.h"
 #include "Game.h"
 #include "Collision.h"
+#include "Player.h"
 
 // コンストラクタ
 PlayerBulletManager::PlayerBulletManager(const int num)
@@ -24,7 +25,8 @@ PlayerBulletManager::~PlayerBulletManager()
 // 初期化
 bool PlayerBulletManager::init()
 {
-    shotLevel = 2;
+    shotLevel = std::dynamic_pointer_cast<Player>(Game::getInstance().getRootActor()->getChild(L"Player"))->getHp();
+
     setShotFunc(shotLevel);
 	auto &root = Game::getInstance().getRootActor();
 	enemyManager = std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
