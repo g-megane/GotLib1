@@ -46,6 +46,9 @@
     <Filter Include="Game\Actor\Boss">
       <UniqueIdentifier>{1a2e0fa0-ae3a-4ee5-8e13-e9e04eb80919}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Actor\Item">
+      <UniqueIdentifier>{0721c079-96fc-4909-849b-18d9ce063efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectX11.cpp">
@@ -131,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Game\Actor\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Game\Actor\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Game\Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

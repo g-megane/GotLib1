@@ -48,8 +48,8 @@ void EnemyBulletManager::move()
 		//TODO:半径を変数に変える
         if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, got::Vector2<float>(player->getCenter().x + 1.0f, player->getCenter().y + 8.0f), player->getRad())) {
             //if (player->getRect().intersection(bullet->getRect())) {
-#ifndef _DEBUG
             player->setDamage(1);
+#ifndef _DEBUG
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
             break;

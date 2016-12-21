@@ -9,10 +9,10 @@
 
 // コンストラクタ
 PlayerBulletManager::PlayerBulletManager(const int num)
-	: Actor(L"PlayerBulletManager"), bulletsNum(num)
+	: Actor(L"PlayerBulletManager")
 {
 	std::shared_ptr<Actor> bullet;
-	for (int i = 0; i < bulletsNum; ++i) {
+	for (int i = 0; i < num; ++i) {
 		bullet = std::make_shared<Bullet>("Bullet2");
 		addChild(bullet);
 	}
@@ -24,6 +24,8 @@ PlayerBulletManager::~PlayerBulletManager()
 // 初期化
 bool PlayerBulletManager::init()
 {
+    shotLevel = 2;
+    setShotFunc(shotLevel);
 	auto &root = Game::getInstance().getRootActor();
 	enemyManager = std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
 	for (auto & bullet : children) {
@@ -46,8 +48,7 @@ void PlayerBulletManager::move()
 		for (auto & enemy : enemyManager->getChildren()) {
 			if (enemy->getState() == STATE::UN_USE) { continue; }
 			if(got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, enemy->getCenter(), enemy->getRad())) {
-            //if (bullet->getRect().intersection(enemy->getRect())) {
-				bullet->setState(STATE::UN_USE);
+            	bullet->setState(STATE::UN_USE);
 				std::dynamic_pointer_cast<Enemy>(enemy)->setDamage(1);
                 break;
 			}
@@ -57,7 +58,6 @@ void PlayerBulletManager::move()
 // 描画
 void PlayerBulletManager::draw() const
 {
-
 	for (auto & bullet : children) {
 		bullet->draw();
 	}
@@ -66,8 +66,20 @@ void PlayerBulletManager::draw() const
 void PlayerBulletManager::end()
 {
 }
-// 弾の発射
-void PlayerBulletManager::shot(const got::Vector2<float>& pos)
+void PlayerBulletManager::shot(const got::Vector2<float>& pos, const int _shotLevel)
+{
+    // shotLevelが上がっていれば
+    if (shotLevel != _shotLevel) {
+        //TODO: shotのパターンを変更する
+        setShotFunc(_shotLevel);
+    }
+
+    this->shotFunc(pos);
+
+    shotLevel = _shotLevel;
+}
+// 弾の発射(ShotLevel 1) : 直進で1発
+void PlayerBulletManager::shot1(const got::Vector2<float>& pos)
 {
  	for (auto &bullet : children) {
 		if (bullet->getState() == Bullet::STATE::UN_USE) {
@@ -75,4 +87,60 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos)
 			return;
 		}
 	}
+}
+// 弾の発射(ShotLevel 2) : 直進で2発
+void PlayerBulletManager::shot2(const got::Vector2<float>& pos)
+{
+    int count = 0;
+    for (auto &bullet : children) {
+        if (bullet->getState() == Bullet::STATE::UN_USE) {
+            if (count == 0) {
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                ++count;
+            }
+            else if (count == 1) {
+                std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                return;
+            }
+        }
+    }
+}
+
+void PlayerBulletManager::setShotFunc(const int _shotLevel)
+{
+    switch (_shotLevel)
+    {
+    case 1:
+        shotFunc = [&](const got::Vector2<float>& pos)
+        {
+            for (auto &bullet : children) {
+                if (bullet->getState() == Bullet::STATE::UN_USE) {
+                    std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.8f);
+                    return;
+                }
+            }
+        };
+        break;
+    case 2:
+        shotFunc = [&](const got::Vector2<float>& pos)
+        {
+            int count = 0;
+            for (auto &bullet : children) {
+                if (bullet->getState() == Bullet::STATE::UN_USE) {
+                    if (count == 0) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 1) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        return;
+                    }
+                }
+            }
+        };
+        break;
+    case 0:
+    default:
+        break;
+    }
 }

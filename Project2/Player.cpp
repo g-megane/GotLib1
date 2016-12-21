@@ -30,7 +30,7 @@ bool Player::init()
 	dx           = 0.4f; //TODO:移動量(仮)
 	dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
-	hp           = 1;    // ヒットポイント
+	hp           = 2;    // ヒットポイント
     rad          = 4.0f; // 円のあたり判定の半径
 	
 	auto &root          = Game::getInstance().getRootActor();
@@ -74,18 +74,17 @@ void Player::move()
 	for (auto & enemy : enemyManager->getChildren()) {
 		if (enemy->getState() == STATE::UN_USE) { continue; }
         if(got::Collison::circleToCircle(this->getCenter(), rad, enemy->getCenter(), enemy->getRad())) {
-            setDamage(1);
 #ifndef _DEBUG
+            setDamage(1);
 #endif // !_DEBUG
 		}
-
 	}
 
 	//TODO:(仮)弾の発射
 	if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
 	time.reset();
 	if(input.keyPush(DIK_Z)) {
-		playerBulletManager->shot(getShotPosition());
+		playerBulletManager->shot(getShotPosition(), hp);
         got::XAudio2::getInstance().play("Shot1");
 	}
 }

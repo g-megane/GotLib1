@@ -45,6 +45,7 @@ void Bullet::move()
 
     position.translate(dx * dTime, dy * dTime);
 
+    // 画面外に出た弾のStateをUN_USEに変更
 	if (position.x < 0)								   { setState(STATE::UN_USE); }
 	if (position.x > STAGE_WIDTH - spriteSize.width)   { setState(STATE::UN_USE); }
 	if (position.y < 0)								   { setState(STATE::UN_USE); }
@@ -74,4 +75,13 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = STATE::USE;
+}
+
+void Bullet::shot(const float _x, const float _y, const float _dx, const float _dy)
+{
+    dx = _dx;
+    dy = _dy;
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+    position = got::Vector2<float>(_x - spriteSize.width / 2, _y - spriteSize.height / 2);
+    state = STATE::USE;
 }

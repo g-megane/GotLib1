@@ -19,6 +19,7 @@ public:
 	void end() override;
 
 	void shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
+    void shot(const float _x, const float _y, const float _dx, const float _dy);
 
 private:
 	float dx;
