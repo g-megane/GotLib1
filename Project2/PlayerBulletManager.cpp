@@ -36,6 +36,8 @@ bool PlayerBulletManager::init()
 		}
 	}
 
+    shotCount = 0;
+
 	return true;
 }
 // 移動
@@ -80,41 +82,39 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos, const int _shotLe
 
     shotLevel = _shotLevel;
 }
-// 弾の発射(ShotLevel 1) : 直進で1発
-void PlayerBulletManager::shot1(const got::Vector2<float>& pos)
-{
- 	for (auto &bullet : children) {
-		if (bullet->getState() == Bullet::STATE::UN_USE) {
-			std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.8f);
-			return;
-		}
-	}
-}
-// 弾の発射(ShotLevel 2) : 直進で2発
-void PlayerBulletManager::shot2(const got::Vector2<float>& pos)
-{
-    int count = 0;
-    for (auto &bullet : children) {
-        if (bullet->getState() == Bullet::STATE::UN_USE) {
-            if (count == 0) {
-                std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
-                ++count;
-            }
-            else if (count == 1) {
-                std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
-                return;
-            }
-        }
-    }
-}
+
 
 void PlayerBulletManager::setShotFunc(const int _shotLevel)
 {
     switch (_shotLevel)
     {
+    // 弾の発射(ShotLevel 1) : 直進で1発
     case 1:
         shotFunc = [&](const got::Vector2<float>& pos)
         {
+            //TODO: 誘導弾の実験用
+            //for (auto &bullet : children) {
+            //    if(bullet->getState() == STATE::USE) { continue; }
+            //    float distance = 1000.0f;
+            //    std::shared_ptr<Actor> nearestEnemy = nullptr;
+            //    for (auto & enemy : enemyManager->getChildren()) {
+            //        if (enemy->getState() == STATE::UN_USE) { continue; }
+            //        if (distance >= pos.distance(enemy->getPosition())) {
+            //            distance = pos.distance(enemy->getPosition());
+            //            nearestEnemy = enemy;
+            //        }
+            //    }
+            //    // 敵が画面上にいない
+            //    if (nearestEnemy == nullptr) {
+            //        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+            //        return;
+            //    }
+            //    // 敵が見つかった
+            //    else {
+            //        std::dynamic_pointer_cast<Bullet>(bullet)->chaseShot(pos, nearestEnemy);
+            //        return;
+            //    }
+            //}
             for (auto &bullet : children) {
                 if (bullet->getState() == Bullet::STATE::UN_USE) {
                     std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.8f);
@@ -123,6 +123,7 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             }
         };
         break;
+    // 弾の発射(ShotLevel 2) : 直進で2発
     case 2:
         shotFunc = [&](const got::Vector2<float>& pos)
         {
@@ -136,6 +137,82 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
                     else if (count == 1) {
                         std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
                         return;
+                    }
+                }
+            }
+        };
+        break;
+    // 弾の発射(ShotLevel 3) : 直進で2発 + 左右の斜め2発
+    case 3:
+        shotFunc = [&](const got::Vector2<float>& pos)
+        {
+            int count = 0;
+            for (auto &bullet : children) {
+                if (bullet->getState() == Bullet::STATE::UN_USE) {
+                    if (count == 0) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 1) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 2) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.4f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 3) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, -0.4f, -0.8f);
+                        return;
+                    }
+                }
+            }
+        };
+        break;
+    case 4:
+        shotFunc = [&](const got::Vector2<float>& pos)
+        {
+            int count = 0;
+            for (auto &bullet : children) {
+                if (bullet->getState() == Bullet::STATE::UN_USE) {
+                    if (count == 0) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 1) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 2) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.4f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 3) {
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, -0.4f, -0.8f);
+                        ++count;
+                    }
+                    else if (count == 4) {
+                        ++shotCount;
+                        if(shotCount < 5) { return; }
+                        shotCount = 0;
+                        float distance = 1000.0f;
+                        std::shared_ptr<Actor> nearestEnemy = nullptr;
+                        for (auto & enemy : enemyManager->getChildren()) {
+                            if (enemy->getState() == STATE::UN_USE) { continue; }
+                            if (distance >= pos.distance(enemy->getPosition())) {
+                                distance = pos.distance(enemy->getPosition());
+                                nearestEnemy = enemy;
+                            }
+                        }
+                        // 敵が画面上にいない
+                        if (nearestEnemy == nullptr) { 
+                            std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        }
+                        // 敵が見つかった
+                        else {
+                            std::dynamic_pointer_cast<Bullet>(bullet)->chaseShot(pos, nearestEnemy);
+                            return;
+                        }
                     }
                 }
             }

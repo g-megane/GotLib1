@@ -101,6 +101,7 @@ bool Game::init()
 	spriteManager.addMap("Enemy"     , L"Resources\\EnemyBase2.png");
     spriteManager.addMap("BackGround", L"Resources\\Background1.png");
 
+    // Infomationクラスで使用する画像
     //spriteManager.addMap("Info"      , L"Resources\\Info.png");
 	spriteManager.addMap("Time", L"Resources\\Time.png");
     spriteManager.addMap("Score", L"Resources\\Score.png");

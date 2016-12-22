@@ -21,11 +21,10 @@ public:
 	void end() override;
 		
     void shot (const got::Vector2<float>& pos, const int _shotLevel);
-	void shot1(const got::Vector2<float>& pos);
-    void shot2(const got::Vector2<float>& pos);
 
 private:
     int shotLevel;
+    int shotCount;
     void setShotFunc(const int _shotLevel);
     std::function<void(const got::Vector2<float>&)> PlayerBulletManager::shotFunc;
 	std::shared_ptr<EnemyManager> enemyManager;

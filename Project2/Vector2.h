@@ -105,7 +105,7 @@ namespace got
 		T toAngle() const
 		{
 			if (isZero()) return static_cast<T>(0); // ゼロベクトルは角度を求められない
-			return Vector2(std::atan2(y, x)); // 度数法に変換
+			return Angle<T>::toDegree(std::atan2(y, x)); // 度数法に変換
 		}
 		// 回転
 		Vector2 rotate(T degree) const

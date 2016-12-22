@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/11/30
+// 更新日:2016/12/22
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -27,13 +27,13 @@ public:
 	const got::Vector2<float> getShotPosition() const; 
 
 private:
-	float dx;           // x移動量
-	float dy;           // y移動量
+    float dx;           // x移動量
+    float dy;           // y移動量
     float deceleration; // 減速量
-	int   hp;           // ヒットポイント
+    int   hp;           // ヒットポイント
     const int maxHp;    // HPの限界値
-	std::shared_ptr<PlayerBulletManager> playerBulletManager;
-	std::shared_ptr<EnemyManager>		 enemyManager;
-	got::Time time;
+    std::shared_ptr<PlayerBulletManager> playerBulletManager;
+    std::shared_ptr<EnemyManager>		 enemyManager;
+    got::Time time;
 
 };

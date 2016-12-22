@@ -9,6 +9,7 @@
 #include "Information.h"
 #include "GV.h"
 #include "Game.h"
+#include "Player.h"
 
 // コンストラクタ
 Information::Information()
@@ -48,7 +49,7 @@ void Information::draw() const
     // タイムの表示
     // 文字
     spriteSize = got::SpriteManager::getInstance().getSprite("Time")->getSize();
-    mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 25.0f, 80.0f));
+    mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 20.0f, 80.0f));
     drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     got::SpriteManager::getInstance().draw("Time", mt, drawRect, color);
 
@@ -77,7 +78,7 @@ void Information::draw() const
     // スコア表示
     // 文字
     spriteSize = got::SpriteManager::getInstance().getSprite("Score")->getSize();
-    mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 25.0f, 260.0f));
+    mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 20.0f, 260.0f));
     drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     got::SpriteManager::getInstance().draw("Score", mt, drawRect, color);
 
@@ -96,12 +97,27 @@ void Information::draw() const
         got::SpriteManager::getInstance().draw(c, mt, drawRect, color);
     }
 
-    //TODO:プレイヤーのショットレベルの表示
+    // プレイヤーのショットレベルの表示
     // 文字
-    //spriteSize = got::SpriteManager::getInstance().getSprite("Score")->getSize();
-    //mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 25.0f, 260.0f));
-    //drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
-    //got::SpriteManager::getInstance().draw("Score", mt, drawRect, color);
+    spriteSize = got::SpriteManager::getInstance().getSprite("ShotLevel")->getSize();
+    mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 20.0f, 450.0f));
+    drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    got::SpriteManager::getInstance().draw("ShotLevel", mt, drawRect, color);
+
+    // 数字
+    int shotLevel = std::dynamic_pointer_cast<Player>(Game::getInstance().getRootActor()->getChild(L"Player"))->getHp();
+    std::ostringstream oss3;
+    oss3 << std::setfill('0') << std::setw(2) << shotLevel;
+    length = oss3.str().length();
+
+    for (int i = length - 1; i > 0; --i) {
+        const auto c = oss3.str().substr(i, 1);
+        spriteSize = got::SpriteManager::getInstance().getSprite(c)->getSize();
+        mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 500.0f));
+        drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+
+        got::SpriteManager::getInstance().draw(c, mt, drawRect, color);
+    }
 }
 
 // 終了

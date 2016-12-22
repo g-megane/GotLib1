@@ -4,8 +4,8 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include "Actor.h"
 #include <string>
+#include "Actor.h"
 
 class Bullet : public Actor
 {
@@ -20,10 +20,15 @@ public:
 
 	void shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
     void shot(const float _x, const float _y, const float _dx, const float _dy);
+    void chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target);
 
 private:
 	float dx;
 	float dy;
-    got::Color<float> color;
+    bool isChase;
+    float beforeAngle;
+    got::Vector2<float>  targetPos;
+    std::weak_ptr<Actor> target;
+    got::Color<float>    color;
 
 };

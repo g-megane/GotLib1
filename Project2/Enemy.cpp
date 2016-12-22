@@ -94,11 +94,11 @@ void Enemy::setDamage(const int damage)
         state = STATE::UN_USE;
         game.addScore(score);
         std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
-
+        // ステージ最後の敵か？
         if (!isStageLastEnemy) { return; }
+        //TODO: Bossを出現させる処理に変更する
         got::Fade::getInstance().setIsFadeOut(true);
         game.setIsNextScene(true);
-
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
