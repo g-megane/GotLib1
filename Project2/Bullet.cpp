@@ -6,6 +6,7 @@
 #include "Bullet.h"
 #include "SpriteManager.h"
 #include "Game.h"
+#include "GV.h"
 
 // コンストラクタ
 //TODO:使う弾のスプライトを引数で呼べるように
@@ -33,6 +34,7 @@ bool Bullet::init()
     dy = 0.0f;
     
     isChase     = false;
+    angle = 0.0f;
     beforeAngle = 0.0f;
 
     return true;
@@ -49,6 +51,9 @@ void Bullet::move()
             got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
             got::Vector2<float> shotVec2(shotVec.normalize());
 
+            beforeAngle = angle;
+            angle = shotVec2.toAngle() + PI / 2;
+            
             dx = shotVec2.x * 0.25f;
             dy = shotVec2.y * 0.25f;
         }
@@ -71,8 +76,14 @@ void Bullet::draw() const
 {
 	if (state == STATE::UN_USE) { return; }
 
-	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
+	auto mt              = got::Matrix4x4<float>::translate(position);
+    auto mt1 = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteManager.getSprite(spriteName)->getSize().width / 2, -spriteManager.getSprite(spriteName)->getSize().height / 2));
+    auto mr  = got::Matrix4x4<float>::rotate(angle);
+    auto mt2 = got::Matrix4x4<float>::translate(position);
+
+    mt = mt1 * mr * mt2;
+    
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);

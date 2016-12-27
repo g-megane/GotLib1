@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/5
-// 更新日:2016/11/16
+// 更新日:2016/12/27
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -105,7 +105,8 @@ namespace got
 		T toAngle() const
 		{
 			if (isZero()) return static_cast<T>(0); // ゼロベクトルは角度を求められない
-			return Angle<T>::toDegree(std::atan2(y, x)); // 度数法に変換
+            return std::atan2(y, x);
+			//return Angle<T>::toDegree(std::atan2(y, x)); // 度数法に変換
 		}
 		// 回転
 		Vector2 rotate(T degree) const

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/11/30
+// 更新日:2016/12/27
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -26,6 +26,7 @@ private:
 	float dx;
 	float dy;
     bool isChase;
+    float angle;
     float beforeAngle;
     const std::string defaultBulletName;
     got::Vector2<float>  targetPos;
