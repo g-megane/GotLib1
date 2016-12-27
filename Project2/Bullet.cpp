@@ -10,7 +10,7 @@
 // コンストラクタ
 //TODO:使う弾のスプライトを引数で呼べるように
 Bullet::Bullet(const std::string& _spriteName)
-	:Actor(), color()
+	:Actor(), color(), defaultBulletName(_spriteName)
 {
     spriteName = _spriteName;
 }
@@ -22,16 +22,16 @@ Bullet::~Bullet()
 // 初期化
 bool Bullet::init()
 {
-	auto &spriteManager = got::SpriteManager::getInstance();
-	state               = STATE::UN_USE;
-	position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
-	
+    auto &spriteManager = got::SpriteManager::getInstance();
+    state               = STATE::UN_USE;
+    position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
+    
     // 半径を画像幅の半分で初期化
     rad = spriteManager.getSprite(spriteName)->getSize().width / 2.0f;
 
     dx = 0.0f;
-	dy = 0.0f;
-	
+    dy = 0.0f;
+    
     isChase     = false;
     beforeAngle = 0.0f;
 
@@ -49,8 +49,8 @@ void Bullet::move()
             got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
             got::Vector2<float> shotVec2(shotVec.normalize());
 
-            dx = shotVec2.x * 0.5f;
-            dy = shotVec2.y * 0.5f;
+            dx = shotVec2.x * 0.25f;
+            dy = shotVec2.y * 0.25f;
         }
         else {
             isChase = false;
@@ -70,13 +70,12 @@ void Bullet::move()
 void Bullet::draw() const
 {
 	if (state == STATE::UN_USE) { return; }
-	
+
 	auto mt = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
-	
 }
 // 終了
 void Bullet::end()
@@ -92,6 +91,7 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
 	state = STATE::USE;
+    spriteName = defaultBulletName;
 }
 
 void Bullet::shot(const float _x, const float _y, const float _dx, const float _dy)
@@ -103,13 +103,15 @@ void Bullet::shot(const float _x, const float _y, const float _dx, const float _
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position = got::Vector2<float>(_x - spriteSize.width / 2, _y - spriteSize.height / 2);
     state = STATE::USE;
+    spriteName = defaultBulletName;
 }
 
 void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target)
 {
-    isChase = true;
+    isChase  = true;
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position = got::Vector2<float>(startPos.x - spriteSize.width / 2, startPos.y - spriteSize.height / 2);
-    target = _target;
-    state = STATE::USE;
+    target   = _target;
+    state    = STATE::USE;
+    spriteName = "ChaseBullet";
 }

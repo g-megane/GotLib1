@@ -27,6 +27,7 @@ private:
 	float dy;
     bool isChase;
     float beforeAngle;
+    const std::string defaultBulletName;
     got::Vector2<float>  targetPos;
     std::weak_ptr<Actor> target;
     got::Color<float>    color;

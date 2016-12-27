@@ -54,7 +54,7 @@ void EnemyManager::move()
         // 空いている敵を探してデータをセット
         if (child->getState() == STATE::UN_USE) {
            //TODO:vectorに変更して繰り返しをなくす
-            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isStageLastEnemy);
+            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isStageLastEnemy);
             //dataList.emplace_back(*itr); // 繰り返しのための処理
             dataList.erase(itr);
             elapsedTime = 0.0f;
@@ -91,12 +91,13 @@ const bool EnemyManager::getIsEnemiesUnUse() const
     return false;
 }
 
-void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*=fasle*/)
+void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*=fasle*/)
 {
     EnemyData data;
     data.bornTime         = _bornTime;
     data.spriteName       = _spriteName;
     data.hp               = _hp;
+    data.color            = _color;
     data.initX            = _initX;
     data.initY            = _initY;
     data.movePattern      = _movePattern;

@@ -49,6 +49,9 @@ void Enemy::move()
 	// 移動
     this->moveFunc();
 
+    // ダメージ表現
+    damageEffect();
+
 	// 弾の発射
 	if (time2.timeOver(shotInterval)) {
 		this->shotFunc();
@@ -69,7 +72,7 @@ void Enemy::draw() const
 	//TODO:テスト
 	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	auto color			 = got::Color<float>::RED;
+	color.RED;
 	auto drawRect	     = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	spriteManager.draw(spriteName, mt, drawRect, color);
@@ -87,6 +90,7 @@ int Enemy::getHp() const
 void Enemy::setDamage(const int damage)
 {
 	hp -= damage;
+    color.a = 0.0f;
     // 死んでいる場合
     if (hp <= 0) {
         auto &game = Game::getInstance();
@@ -102,10 +106,11 @@ void Enemy::setDamage(const int damage)
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*= false*/)
+void Enemy::setData(const int _hp, const got::Color<float> _color, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*= false*/)
 {
     // データのセット
-    hp = _hp;
+    hp         = _hp;
+    color      = _color;
     spriteName = _spriteName;
     spriteName = _spriteName;
     position.move(_initX, _initY);
@@ -118,10 +123,6 @@ void Enemy::setData(const int _hp, const std::string& _spriteName, const float _
     score = _score;
     isStageLastEnemy = _isStageLastEnemy;
     rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
-
-    //TODO:移動量の初期化
-    //dx = 0.1f;
-    //dy = 0.1f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
@@ -254,6 +255,11 @@ void Enemy::setShotPattern(const int pattern)
 // 弾の発射位置を返す
 got::Vector2<float> Enemy::getShotPosition() const
 {
-	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y + spriteSize.height);
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+    return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y + spriteSize.height);
+}
+
+void Enemy::damageEffect()
+{
+    color.a += 0.1f;
 }

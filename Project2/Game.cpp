@@ -93,13 +93,15 @@ bool Game::init()
     spriteManager.addMap("OperatingMenu", L"Resources\\OperatingMenu.png");
 
 	//TODO:MainScene用画像(仮)
-	spriteManager.addMap("Player"    , L"Resources\\Player.png");
-	spriteManager.addMap("Bullet"    , L"Resources\\Boul.png");
-    spriteManager.addMap("Bullet1"   , L"Resources\\Bullet1.png");
-    spriteManager.addMap("Bullet2"   , L"Resources\\Bullet2.png");
-    spriteManager.addMap("Bullet3"   , L"Resources\\Bullet3.png");
-	spriteManager.addMap("Enemy"     , L"Resources\\EnemyBase2.png");
-    spriteManager.addMap("BackGround", L"Resources\\Background1.png");
+	spriteManager.addMap("Player"     , L"Resources\\Player.png");
+	spriteManager.addMap("Bullet"     , L"Resources\\Boul.png");
+    spriteManager.addMap("Bullet1"    , L"Resources\\Bullet1.png");
+    spriteManager.addMap("Bullet2"    , L"Resources\\Bullet2.png");
+    spriteManager.addMap("Bullet3"    , L"Resources\\Bullet3.png");
+    spriteManager.addMap("ChaseBullet", L"Resources\\ChaseBullet.png");
+	spriteManager.addMap("Enemy"      , L"Resources\\EnemyBase2.png");
+    spriteManager.addMap("BackGround" , L"Resources\\Background1.png");
+    spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
 
     // Infomationクラスで使用する画像
     //spriteManager.addMap("Info"      , L"Resources\\Info.png");

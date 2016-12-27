@@ -14,8 +14,6 @@
 class Enemy : public Actor
 {
 public:
-
-
 	Enemy();
 	~Enemy() override;
 
@@ -27,6 +25,7 @@ public:
 	int  getHp() const;
 	void setDamage(const int damage);
     void setData(const int          _hp,
+                 const got::Color<float> _color,
                  const std::string& _spriteName,
                  const float        _initX, 
                  const float        _initY, 
@@ -41,13 +40,13 @@ public:
 
 private:
 	int	  hp;
-   // std::string spriteName;
 	float dx;
 	float dy;
     float bulletSpeed;
     float shotInterval;
     int   score;
-    bool isStageLastEnemy;
+    bool  isStageLastEnemy;
+    got::Color<float> color;
 	got::Time time;
 	got::Time time2;
 
@@ -56,10 +55,11 @@ private:
 
     std::function<void()> Enemy::moveFunc;
     std::function<void()> Enemy::shotFunc;
-    void outOfStage();
 
+    void outOfStage();
     void setMovePattern(const int pattern);
     void setShotPattern(const int pattern);
 	got::Vector2<float> getShotPosition() const;
+    void damageEffect();
 
 };
