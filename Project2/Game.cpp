@@ -16,6 +16,8 @@
 #include "EnemyManager.h"
 #include "Information.h"
 #include "XAudio2.h"
+#include "EffectManager.h"
+#include "Explosion.h"
 
 // コンストラクタ
 Game::Game() : time()
@@ -38,6 +40,10 @@ Game::Game() : time()
     tmp = std::make_shared<ItemManager>(10);
     rootActor->addChild(tmp);
 
+    auto& effectManager = EffectManager::getInstance();
+    for (int i = 0; i < 10; ++i) {
+        effectManager.addEffecr(std::make_shared<Explosion>("Explosion"));
+    }
 	// rootActorへの追加
 	//rootActor->addChild(player);
 	//rootActor->addChild(pbm);
@@ -103,6 +109,8 @@ bool Game::init()
     spriteManager.addMap("BackGround" , L"Resources\\Background1.png");
     spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
 
+    spriteManager.addMap("Explosion"  , L"Resources\\Explosion1.png");
+
     // Infomationクラスで使用する画像
     //spriteManager.addMap("Info"      , L"Resources\\Info.png");
 	spriteManager.addMap("Time", L"Resources\\Time.png");
@@ -154,7 +162,7 @@ void Game::update()
 		// シーンのアップデート
 		sm.move();
         got::MyDirectInput::getInstance().update();
-        //TODO:動作確認
+        
         got::XAudio2::getInstance().update();
 
         if (got::Fade::getInstance().getIsFadeIn()) {

@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/21
-// 更新日:2016/12/22
+// 更新日:2016/12/27
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Bullet.h"
@@ -78,9 +78,9 @@ void Bullet::draw() const
 
 	auto & spriteManager = got::SpriteManager::getInstance();
 	auto mt              = got::Matrix4x4<float>::translate(position);
-    auto mt1 = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteManager.getSprite(spriteName)->getSize().width / 2, -spriteManager.getSprite(spriteName)->getSize().height / 2));
-    auto mr  = got::Matrix4x4<float>::rotate(angle);
-    auto mt2 = got::Matrix4x4<float>::translate(position);
+    auto mt1             = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteManager.getSprite(spriteName)->getSize().width / 2, -spriteManager.getSprite(spriteName)->getSize().height / 2));
+    auto mr              = got::Matrix4x4<float>::rotate(angle);
+    auto mt2             = got::Matrix4x4<float>::translate(position);
 
     mt = mt1 * mr * mt2;
     

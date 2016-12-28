@@ -7,6 +7,7 @@
 #include "SpriteManager.h"
 #include "ItemManager.h"
 #include "Game.h"
+#include "EffectManager.h"
 
 // コンストラクタ
 Enemy::Enemy()
@@ -97,6 +98,7 @@ void Enemy::setDamage(const int damage)
 
         state = STATE::UN_USE;
         game.addScore(score);
+        EffectManager::getInstance().startEffect("Explosion", position);
         std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
         // ステージ最後の敵か？
         if (!isStageLastEnemy) { return; }

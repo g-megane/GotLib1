@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "Fade.h"
 #include "XAudio2.h"
+#include "EffectManager.h"
 
 // コンストラクタ
 MainScene::MainScene()
@@ -80,6 +81,7 @@ bool MainScene::init()
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     
     got::XAudio2::getInstance().playBGM("Stage");
+    EffectManager::getInstance().init();
 
 	return true;
 }
@@ -109,6 +111,7 @@ void MainScene::move()
 
     backGround->move();
     rootActor->move();
+    EffectManager::getInstance().move();
     
 }
 
@@ -117,6 +120,7 @@ void MainScene::draw() const
 {
     backGround->draw();
 	rootActor->draw();
+    EffectManager::getInstance().draw();
 }
 // 終了
 void MainScene::end()
