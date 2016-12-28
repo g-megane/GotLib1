@@ -76,15 +76,15 @@ void Bullet::draw() const
 {
 	if (state == STATE::UN_USE) { return; }
 
-	auto & spriteManager = got::SpriteManager::getInstance();
+	auto spriteSize      = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 	auto mt              = got::Matrix4x4<float>::translate(position);
-    auto mt1             = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteManager.getSprite(spriteName)->getSize().width / 2, -spriteManager.getSprite(spriteName)->getSize().height / 2));
+    auto mt1             = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteSize.width / 2.0f, -spriteSize.height / 2.0f));
     auto mr              = got::Matrix4x4<float>::rotate(angle);
     auto mt2             = got::Matrix4x4<float>::translate(position);
 
     mt = mt1 * mr * mt2;
     
-	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
+	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
 	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
 }
@@ -100,7 +100,7 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 	dx = _dx;
 	dy = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	position = got::Vector2<float>(vec.x - spriteSize.width / 2, vec.y - spriteSize.height / 2);
+	position = got::Vector2<float>(vec.x, vec.y - spriteSize.height / 2);
 	state = STATE::USE;
     spriteName = defaultBulletName;
 }
@@ -112,7 +112,7 @@ void Bullet::shot(const float _x, const float _y, const float _dx, const float _
     dx = _dx;
     dy = _dy;
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    position = got::Vector2<float>(_x - spriteSize.width / 2, _y - spriteSize.height / 2);
+    position = got::Vector2<float>(_x, _y - spriteSize.height / 2);
     state = STATE::USE;
     spriteName = defaultBulletName;
 }

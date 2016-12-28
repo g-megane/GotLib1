@@ -65,8 +65,9 @@ bool Game::init()
 		return false;
 	}
 
-    got::XAudio2::getInstance().openWave("Stage", "Stage.wav");
-    got::XAudio2::getInstance().openWave("Shot1", "Shot1.wav");
+    got::XAudio2::getInstance().openWave("Stage",     "Resources\\Stage.wav");
+    got::XAudio2::getInstance().openWave("Shot1",     "Resources\\Shot1.wav");
+    got::XAudio2::getInstance().openWave("Explosion", "Resources\\Explosion.wav");
 
     isPause = false;
     isNextScene = false;

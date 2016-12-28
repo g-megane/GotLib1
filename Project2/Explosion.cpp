@@ -6,6 +6,7 @@
 #include "Explosion.h"
 #include "Matrix4x4.h"
 #include "SpriteManager.h"
+#include "XAudio2.h"
 
 Explosion::Explosion(std::string name)
     : Effect(name)
@@ -66,4 +67,5 @@ void Explosion::startEffect(const got::Vector2<float>& effectPos)
     scale = 0.0f;
     position = effectPos;
     state = Effect::STATE::USE;
+    got::XAudio2::getInstance().play("Explosion");
 }
