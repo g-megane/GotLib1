@@ -65,26 +65,30 @@ bool Game::init()
 		return false;
 	}
 
-    got::XAudio2::getInstance().openWave("Stage",     "Resources\\Stage.wav");
-    got::XAudio2::getInstance().openWave("Shot1",     "Resources\\Shot1.wav");
-    got::XAudio2::getInstance().openWave("Explosion", "Resources\\Explosion.wav");
+    auto& xAudio2 = got::XAudio2::getInstance();
+    xAudio2.openWave("Stage",     "Resources\\Sound\\Stage.wav");
+    xAudio2.openWave("Shot1",     "Resources\\Sound\\Shot.wav");
+    xAudio2.openWave("Explosion", "Resources\\Sound\\Explosion.wav");
+    xAudio2.openWave("Item",      "Resources\\Sound\\Item.wav");
+    xAudio2.openWave("LevelUp",   "Resources\\Sound\\LevelUp.wav");
+    
 
-    isPause = false;
+    isPause     = false;
     isNextScene = false;
 
 	auto &spriteManager = got::SpriteManager::getInstance();
 	//TODO:Font(仮)
     spriteManager.addMap("comma", L"Resources\\comma.png");
-	spriteManager.addMap("0", L"Resources\\0.png");
-	spriteManager.addMap("1", L"Resources\\1.png");
-	spriteManager.addMap("2", L"Resources\\2.png");
-	spriteManager.addMap("3", L"Resources\\3.png");
-	spriteManager.addMap("4", L"Resources\\4.png");
-	spriteManager.addMap("5", L"Resources\\5.png");
-	spriteManager.addMap("6", L"Resources\\6.png");
-	spriteManager.addMap("7", L"Resources\\7.png");
-	spriteManager.addMap("8", L"Resources\\8.png");
-	spriteManager.addMap("9", L"Resources\\9.png");
+	spriteManager.addMap("0",     L"Resources\\0.png");
+	spriteManager.addMap("1",     L"Resources\\1.png");
+	spriteManager.addMap("2",     L"Resources\\2.png");
+	spriteManager.addMap("3",     L"Resources\\3.png");
+	spriteManager.addMap("4",     L"Resources\\4.png");
+	spriteManager.addMap("5",     L"Resources\\5.png");
+	spriteManager.addMap("6",     L"Resources\\6.png");
+	spriteManager.addMap("7",     L"Resources\\7.png");
+	spriteManager.addMap("8",     L"Resources\\8.png");
+	spriteManager.addMap("9",     L"Resources\\9.png");
 
 	//TODO:フェードとスコア表示に使う四角(仮)
 	spriteManager.addMap("Board", L"Resources\\Board.png");
@@ -114,8 +118,8 @@ bool Game::init()
 
     // Infomationクラスで使用する画像
     //spriteManager.addMap("Info"      , L"Resources\\Info.png");
-	spriteManager.addMap("Time", L"Resources\\Time.png");
-    spriteManager.addMap("Score", L"Resources\\Score.png");
+	spriteManager.addMap("Time",      L"Resources\\Time.png");
+    spriteManager.addMap("Score",     L"Resources\\Score.png");
     spriteManager.addMap("ShotLevel", L"Resources\\ShotLevel.png");
 
 	//TODO:ResultScene用画像(仮)

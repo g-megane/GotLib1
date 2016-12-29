@@ -119,10 +119,17 @@ void Player::setDamage(const int damage)
         Game::getInstance().setIsNextScene(true);
         got::XAudio2::getInstance().stopBGM();
     }
+}
+void Player::levelUp(const int _addLevel)
+{
+    hp += _addLevel;
+
     // HPの限界値の確認
-    else if (hp >= maxHp) {
+    if (hp >= maxHp) {
         hp = maxHp;
+        return;
     }
+    got::XAudio2::getInstance().play("LevelUp");
 }
 // 弾を発射する座標を返す
 const got::Vector2<float> Player::getShotPosition() const

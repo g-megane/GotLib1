@@ -24,6 +24,7 @@ public:
 
 	int   getHp() const;
 	void  setDamage(const int damage);
+    void  levelUp(const int _addLevel);
 	const got::Vector2<float> getShotPosition() const; 
 
 private:
