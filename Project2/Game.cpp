@@ -111,6 +111,7 @@ bool Game::init()
     spriteManager.addMap("Bullet3"    , L"Resources\\Bullet3.png");
     spriteManager.addMap("ChaseBullet", L"Resources\\ChaseBullet.png");
 	spriteManager.addMap("Enemy"      , L"Resources\\EnemyBase2.png");
+    spriteManager.addMap("Boss"       , L"Resources\\EnemySample.png");
     spriteManager.addMap("BackGround" , L"Resources\\Background1.png");
     spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
     spriteManager.addMap("Cloud"      , L"Resources\\Cloud.png");

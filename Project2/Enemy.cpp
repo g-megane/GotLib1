@@ -100,15 +100,15 @@ void Enemy::setDamage(const int damage)
         game.addScore(score);
         EffectManager::getInstance().startEffect("Explosion", position);
         std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
+
         // ステージ最後の敵か？
-        if (!isStageLastEnemy) { return; }
-        //TODO: Bossを出現させる処理に変更する
+        if (!isBoss) { return; }
         got::Fade::getInstance().setIsFadeOut(true);
         game.setIsNextScene(true);
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const got::Color<float> _color, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*= false*/)
+void Enemy::setData(const int _hp, const got::Color<float> _color, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isBoss)
 {
     // データのセット
     hp         = _hp;
@@ -123,7 +123,7 @@ void Enemy::setData(const int _hp, const got::Color<float> _color, const std::st
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
     score = _score;
-    isStageLastEnemy = _isStageLastEnemy;
+    isBoss = _isBoss;
     rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
@@ -135,11 +135,11 @@ void Enemy::outOfStage()
     state = STATE::UN_USE;
     // ステージの最後の敵(モブ)の場合
     //TODO:ボスを出現させる
-    if (isStageLastEnemy) {
-        //TODO:とりあえずリザルトシーンへ
-        got::Fade::getInstance().setIsFadeOut(true);
-        Game::getInstance().setIsNextScene(true);
-    }
+    //if (isBoss) {
+    //    //TODO:とりあえずリザルトシーンへ
+    //    got::Fade::getInstance().setIsFadeOut(true);
+    //    Game::getInstance().setIsNextScene(true);
+    //}
 }
 // 移動処理を行う関数オブジェクトに関数をセット
 void Enemy::setMovePattern(const int pattern)

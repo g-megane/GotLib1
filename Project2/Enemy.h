@@ -36,16 +36,17 @@ public:
                  const float        _bulletSpeed, 
                  const float        _shotInterval, 
                  const int          _score,
-                 const bool         _isStageLastEnemy = false);
+                 const bool         _isBoss
+        );
 
-private:
+protected:
 	int	  hp;
 	float dx;
 	float dy;
     float bulletSpeed;
     float shotInterval;
     int   score;
-    bool  isStageLastEnemy;
+    bool  isBoss;
     got::Color<float> color;
 	got::Time time;
 	got::Time time2;

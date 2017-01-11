@@ -4,7 +4,6 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include <list>
 #include "Actor.h"
 #include "Enemy.h"
 
@@ -21,7 +20,6 @@ public:
 	void draw() const override;
 	void end()  override;
 
-    const bool getIsEnemiesUnUse() const;
     void setEnemy(const float             _bornTime,
                   const std::string&      _spriteName,
                   const int               _hp, 
@@ -35,7 +33,7 @@ public:
                   const float             _bulletSpeed, 
                   const float             _shotInterval,
                   const int               _score,
-                  const bool              _isStageLastEnemy = false);
+                  const bool              _isBoss = false);
 
     void readFile(const std::string &filename);
 
@@ -58,8 +56,8 @@ private:
         float             bulletSpeed;      // 弾速
         float             shotInterval;     // 発射間隔
         int               score;            // 持ち点
-        bool              isStageLastEnemy; // ステージの最後の敵か？
+        bool              isBoss;           // Bossか？
     };
-    std::list<EnemyData> dataList;
-    std::vector<double> dest;
+    std::vector<EnemyData> dataList;
+
 };

@@ -6,6 +6,7 @@
 #include <fstream>
 #include "EnemyManager.h"
 #include "Game.h"
+#include "Boss.h"
 
 
 // コンストラクタ
@@ -32,7 +33,7 @@ bool EnemyManager::init()
 		child->init();
 	}
 
-    elapsedTime    = 0.0f;
+    elapsedTime = 0.0f;
 	return true;
 }
 // 更新
@@ -55,8 +56,7 @@ void EnemyManager::move()
     for (auto & child : children) {
         // 空いている敵を探してデータをセット
         if (child->getState() == STATE::UN_USE) {
-           //TODO:vectorに変更して繰り返しをなくす
-            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isStageLastEnemy);
+            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isBoss);
             //dataList.emplace_back(*itr); // 繰り返しのための処理
             dataList.erase(itr);
             elapsedTime = 0.0f;
@@ -79,37 +79,23 @@ void EnemyManager::end()
 	}
 }
 
-const bool EnemyManager::getIsEnemiesUnUse() const
-{
-    unsigned int unUseCount = 0;
-    for (auto & child : children) {
-        if (child->getState() == STATE::UN_USE) {
-            ++unUseCount;
-        }
-    }
-    if (unUseCount == children.size()) {
-        return true;
-    }
-    return false;
-}
-
-void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isStageLastEnemy/*=fasle*/)
+void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isBoss/*=fasle*/)
 {
     EnemyData data;
-    data.bornTime         = _bornTime;
-    data.spriteName       = _spriteName;
-    data.hp               = _hp;
-    data.color            = _color;
-    data.initX            = _initX;
-    data.initY            = _initY;
-    data.movePattern      = _movePattern;
-    data.dx               = _dx;
-    data.dy               = _dy;
-    data.shotPattern      = _shotPattern;
-    data.bulletSpeed      = _bulltSpeed;
-    data.shotInterval     = _shotInterval;
-    data.score            = _score;
-    data.isStageLastEnemy = _isStageLastEnemy;
+    data.bornTime     = _bornTime;
+    data.spriteName   = _spriteName;
+    data.hp           = _hp;
+    data.color        = _color;
+    data.initX        = _initX;
+    data.initY        = _initY;
+    data.movePattern  = _movePattern;
+    data.dx           = _dx;
+    data.dy           = _dy;
+    data.shotPattern  = _shotPattern;
+    data.bulletSpeed  = _bulltSpeed;
+    data.shotInterval = _shotInterval;
+    data.score        = _score;
+    data.isBoss       = _isBoss;
 
     dataList.emplace_back(data);
 }
@@ -142,7 +128,7 @@ void EnemyManager::readFile(const std::string & filename)
             eData.bulletSpeed      = std::stof(destination[i +  9]);
             eData.shotInterval     = std::stof(destination[i + 10]);
             eData.score            = std::stoi(destination[i + 11]);
-            eData.isStageLastEnemy = std::stoi(destination[i + 12]);
+            eData.isBoss           = std::stoi(destination[i + 12]) == 1 ? true : false;
 
             dataList.push_back(eData);
         }

@@ -4,9 +4,9 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include "Actor.h"
+#include "Enemy.h"
 
-class Boss : public Actor
+class Boss : public Enemy
 {
 public:
     Boss();
