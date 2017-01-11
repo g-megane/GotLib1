@@ -113,6 +113,7 @@ bool Game::init()
 	spriteManager.addMap("Enemy"      , L"Resources\\EnemyBase2.png");
     spriteManager.addMap("BackGround" , L"Resources\\Background1.png");
     spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
+    spriteManager.addMap("Cloud"      , L"Resources\\Cloud.png");
 
     spriteManager.addMap("Explosion"  , L"Resources\\Explosion1.png");
 

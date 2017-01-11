@@ -120,6 +120,7 @@ void Player::setDamage(const int damage)
         got::XAudio2::getInstance().stopBGM();
     }
 }
+// プレイヤーのショットレベルを上げる
 void Player::levelUp(const int _addLevel)
 {
     hp += _addLevel;

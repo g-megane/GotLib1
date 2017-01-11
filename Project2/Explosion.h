@@ -21,5 +21,6 @@ public:
 
 private:
     float scale;
+    float dy;
 
 };

@@ -37,7 +37,11 @@ public:
                   const int               _score,
                   const bool              _isStageLastEnemy = false);
 
+    void readFile(const std::string &filename);
+
 private:
+    void split(const std::string &source, const std::string &delimiter, std::vector<std::string>& destination);
+
     float elapsedTime;    // Enemyの生成に使う経過時間
 
     struct EnemyData {
@@ -57,4 +61,5 @@ private:
         bool              isStageLastEnemy; // ステージの最後の敵か？
     };
     std::list<EnemyData> dataList;
+    std::vector<double> dest;
 };

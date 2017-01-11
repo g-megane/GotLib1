@@ -7,6 +7,7 @@
 #include "Matrix4x4.h"
 #include "SpriteManager.h"
 #include "XAudio2.h"
+#include "Game.h"
 
 Explosion::Explosion(std::string name)
     : Effect(name)
@@ -23,6 +24,7 @@ bool Explosion::init()
     Effect::init();
 
     scale = 0.0f;
+    dy = 0.1f;
 
     return true;
 }
@@ -31,6 +33,8 @@ void Explosion::move()
 {
     if(state == Effect::STATE::UN_USE) { return; }
     
+    position.y += dy * Game::getInstance().getDeltaTime();
+
     if(scale < 1.0f) { 
         scale += 0.05f;
         return; 
@@ -47,7 +51,7 @@ void Explosion::draw() const
 
     auto & spriteManager = got::SpriteManager::getInstance();
     auto mt              = got::Matrix4x4<float>::translate(position);
-    auto mt1             = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteManager.getSprite(name)->getSize().width / 2, -spriteManager.getSprite(name)->getSize().height / 2));
+    auto mt1             = got::Matrix4x4<float>::translate(got::Vector2<float>(static_cast<float>(-spriteManager.getSprite(name)->getSize().width / 2), static_cast<float>(-spriteManager.getSprite(name)->getSize().height / 2)));
     auto ms              = got::Matrix4x4<float>::scale(scale);
     auto mt2             = got::Matrix4x4<float>::translate(got::Vector2<float>(position.x + spriteManager.getSprite(name)->getSize().width / 2, position.y + spriteManager.getSprite(name)->getSize().height / 2));
 
