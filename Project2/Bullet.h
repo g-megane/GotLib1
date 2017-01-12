@@ -19,18 +19,22 @@ public:
 	void end() override;
 
 	void shot(const got::Vector2<float>& vec, const float _dx, const float _dy);
-    void shot(const float _x, const float _y, const float _dx, const float _dy);
+    void changeVelocityShot(const got::Vector2<float>& vec, const float _dx, const float _dy, const float _maxVelocity, const float _dVelocity);
     void chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target);
 
 private:
 	float dx;
 	float dy;
-    bool isChase;
+    bool  isChase;
     float angle;
     float beforeAngle;
     const std::string defaultBulletName;
     got::Vector2<float>  targetPos;
     std::weak_ptr<Actor> target;
     got::Color<float>    color;
+    float maxVelocity;
+    float dVelocity;
 
+    std::function<void()> moveFunc;
+    void changeMoveFunc(const int num);
 };

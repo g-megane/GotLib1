@@ -250,6 +250,9 @@ void Enemy::setShotPattern(const int pattern)
         //TODO:マジックナンバーをやめる
         shotFunc = [&]() { enemyBulletManager->shot4(getShotPosition(), 7, bulletSpeed); };
         break;
+    case 4:
+        shotFunc = [&]() { enemyBulletManager->shot5(getCenter(), bulletSpeed); };
+        break;
     default:
         break;
     }
@@ -261,6 +264,7 @@ got::Vector2<float> Enemy::getShotPosition() const
     return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y + spriteSize.height);
 }
 
+// damage表現
 void Enemy::damageEffect()
 {
     color.a += 0.1f;

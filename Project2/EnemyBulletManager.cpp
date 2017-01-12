@@ -29,6 +29,9 @@ bool EnemyBulletManager::init()
 	auto &root = Game::getInstance().getRootActor();
     player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
 
+    degree  = 0.0f;
+    dDegree = 11.0f;
+
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
 			return false;
@@ -97,7 +100,7 @@ void EnemyBulletManager::shot2(const got::Vector2<float>& startPos, const float 
 void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int size, const float speed)
 {
     // dtheta間隔で弾を発射
-    const float dtheta = 360.0f / size;
+    const float theta = 360.0f / size;
 
     got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
     got::Vector2<float> shotVec2(shotVec.normalize());
@@ -105,7 +108,7 @@ void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int si
     for (int i = 0; i < size; ++i) {
         for (auto & bullet : children) {
             if (bullet->getState() == Bullet::STATE::UN_USE) {
-                shotVec = shotVec2.rotate(dtheta * i);
+                shotVec = shotVec2.rotate(theta * i);
                 std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec.x * speed, shotVec.y * speed);
                 break;
             }
@@ -115,8 +118,6 @@ void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int si
 // 奇数way弾
 void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int size, const float speed)
 {
-    const float dtheta = 10.0f * PI / 180;
-
     got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
     got::Vector2<float> shotVec2(shotVec.normalize());
 
@@ -147,4 +148,45 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
         }
     }
     
+}
+
+void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float speed)
+{
+    got::Vector2<float> shotVec(0.0f, -1.0f);
+    got::Vector2<float> shotVec2 = shotVec.rotate(degree);//)(shotVec);//.normalize());
+    //shotVec2 = shotVec2.rotate(shot5Theata);
+    degree += dDegree;
+    if (degree >= 45.0f) {
+        dDegree = -dDegree;
+    }
+    if (degree <= -45.0f) {
+        dDegree = -dDegree;
+    }
+
+    int loopCount = 0;
+    int leftTurncount = 0;
+    int rightTurnCount = 0;
+    for (auto & bullet : children) {
+        if (bullet->getState() == Bullet::STATE::UN_USE) {
+            if (loopCount == 9) {
+                break;
+            }
+            if (loopCount == 0) {
+                std::dynamic_pointer_cast<Bullet>(bullet)->changeVelocityShot(startPos, shotVec2.x * speed, shotVec2.y * speed, 0.5f, 0.0005f);
+                ++loopCount;
+            }
+            else if (loopCount % 2 == 1) {
+                ++leftTurncount;
+                shotVec = shotVec2.rotate(15.0f * leftTurncount);
+                std::dynamic_pointer_cast<Bullet>(bullet)->changeVelocityShot(startPos, shotVec.x * speed, shotVec.y * speed, 0.5f, 0.0005f);
+                ++loopCount;
+            }
+            else if (loopCount % 2 == 0) {
+                ++rightTurnCount;
+                shotVec = shotVec2.rotate(-15.0f * rightTurnCount);
+                std::dynamic_pointer_cast<Bullet>(bullet)->changeVelocityShot(startPos, shotVec.x * speed, shotVec.y * speed, 0.5f, 0.0005f);
+                ++loopCount;
+            }
+        }
+    }
 }

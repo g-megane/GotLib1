@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/11
-// 更新日:2016/12/19
+// 更新日:2016/1/11
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
@@ -33,26 +33,29 @@ MainScene::~MainScene()
 }
 // 初期化
 bool MainScene::init()
-{	
+{
     // 先頭のメインシーンだけでいい(Stage1のこと)
     Game::getInstance().resetScore();
     Game::getInstance().setIsNextScene(false);
 
     auto em = std::dynamic_pointer_cast<EnemyManager>(enemyManager);
     em->init();
+
     if (!backGround->init()) {
         return false;
     }
-	if (!rootActor->init()) {
-		return false;
-	}
+
+    if (!rootActor->init()) {
+        return false;
+    }
+
+    // Enemyのデータの読み込み
+    em->readFile("EnemyData.txt");
+    
     //TODO:仮データ
     //TODO:出現位置は定数にするのが有かも？
     // ・出現時間を0にするとひとつ前の敵と同時に出現する
     // ・移動パターンの6と7は移動量(X)を0にしてやる必要がある
-    //auto color = got::Color<float>::RED; // 敵の色
-    em->readFile("EnemyData.txt");
-    
     //------------------------------------------------ [エネミーデータのセット] ----------------------------------------------------------------------------------------------------
     //-------- {出現時間} - {スプライト名} - {HP} --- {スプライトの色｝--- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -{移動量(x)} - {移動量(y)} - {攻撃パターン} -- {弾速} -- {発射間隔} - {持ち点} - {ステージ最後の敵か？(デフォルトではfalse)}
     //em->setEnemy(3000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
@@ -86,24 +89,24 @@ bool MainScene::init()
     got::XAudio2::getInstance().playBGM("Stage");
     EffectManager::getInstance().init();
 
-	return true;
+    return true;
 }
 
 // 更新
 void MainScene::move()
 {
+    // Pキーが押された
     if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
         Game::getInstance().setIsPause(true);
         got::Fade::getInstance().setIsFadeOut(true);
     }
+
     if (got::Fade::getInstance().getIsFadeOut()) {
         // 次のシーンへの遷移の場合
         if (Game::getInstance().getIsNextScene()) {
-           // if (std::dynamic_pointer_cast<EnemyManager>(Game::getInstance().getRootActor()->getChild(L"EnemyManager"))->getIsEnemiesUnUse()) {
-           got::XAudio2::getInstance().stopBGM();
-           got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::RESULT);
-           return;
-           // }
+            got::XAudio2::getInstance().stopBGM();
+            got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::RESULT);
+            return;
         }
         // ポーズシーンへの遷移の場合
         else {
@@ -121,7 +124,7 @@ void MainScene::move()
 void MainScene::draw() const
 {
     backGround->draw();
-	rootActor->draw();
+    rootActor->draw();
     EffectManager::getInstance().draw();
 }
 // 終了

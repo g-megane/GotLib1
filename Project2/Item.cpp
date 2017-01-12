@@ -24,7 +24,7 @@ bool Item::init()
     dy = -0.2f;
     position.ZERO;
     spriteName = "Item";
-    rad = got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width / 2;
+    rad = got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width / 2.0f;
 
     return true;
 }

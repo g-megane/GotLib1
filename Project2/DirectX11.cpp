@@ -166,8 +166,8 @@ namespace got
 
 		//TODO:make_sharedに
 		// ポインターに対する処理
-		spSwapChain = std::shared_ptr<IDXGISwapChain>(swapChain, safeRelease<IDXGISwapChain>);
-		spDevice = std::shared_ptr<ID3D11Device>(device, safeRelease<ID3D11Device>);
+		spSwapChain     = std::shared_ptr<IDXGISwapChain>(swapChain, safeRelease<IDXGISwapChain>);
+		spDevice        = std::shared_ptr<ID3D11Device>(device, safeRelease<ID3D11Device>);
 		spDeviceContext = std::shared_ptr<ID3D11DeviceContext>(deviceContext, [](ID3D11DeviceContext *&ptr)
 		{
 			ptr->ClearState();

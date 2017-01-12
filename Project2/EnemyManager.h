@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/12/19
+// 更新日:2016/1/11
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -10,8 +10,6 @@
 class EnemyManager : public Actor
 {
 public:
-
-
 	EnemyManager(const int _num);
 	~EnemyManager() override;
 
@@ -27,8 +25,8 @@ public:
                   const float             _initX, 
                   const float             _initY, 
                   const int               _movePattern,
-                  const float             _dx, 
-                  const float             _dy, 
+                  const float             _dx,
+                  const float             _dy,
                   const int               _shotPattern, 
                   const float             _bulletSpeed, 
                   const float             _shotInterval,
@@ -40,7 +38,7 @@ public:
 private:
     void split(const std::string &source, const std::string &delimiter, std::vector<std::string>& destination);
 
-    float elapsedTime;    // Enemyの生成に使う経過時間
+    float elapsedTime; // Enemyの生成に使う経過時間
 
     struct EnemyData {
         float             bornTime;         // 出現までの時間

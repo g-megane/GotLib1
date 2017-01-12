@@ -131,11 +131,11 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             for (auto &bullet : children) {
                 if (bullet->getState() == Bullet::STATE::UN_USE) {
                     if (count == 0) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), 0.0f, -0.8f);
                         ++count;
                     }
                     else if (count == 1) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x + 10.0f, pos.y), 0.0f, -0.8f);
                         return;
                     }
                 }
@@ -150,19 +150,19 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             for (auto &bullet : children) {
                 if (bullet->getState() == Bullet::STATE::UN_USE) {
                     if (count == 0) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), 0.0f, -0.8f);
                         ++count;
                     }
                     else if (count == 1) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x + 10.0f, pos.y), 0.0f, -0.8f);
                         ++count;
                     }
                     else if (count == 2) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.4f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x + 10.0f, pos.y), 0.4f, -0.8f);
                         ++count;
                     }
                     else if (count == 3) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, -0.4f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), -0.4f, -0.8f);
                         return;
                     }
                 }
@@ -176,19 +176,19 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             for (auto &bullet : children) {
                 if (bullet->getState() == Bullet::STATE::UN_USE) {
                     if (count == 0) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), 0.0f, -0.8f);
                         ++count;
                     }
                     else if (count == 1) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.0f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x + 10.0f, pos.y), 0.0f, -0.8f);
                         ++count;
                     }
                     else if (count == 2) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x + 10.0f, pos.y, 0.4f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x + 10.0f, pos.y), 0.4f, -0.8f);
                         ++count;
                     }
                     else if (count == 3) {
-                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, -0.4f, -0.8f);
+                        std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), -0.4f, -0.8f);
                         ++count;
                     }
                     else if (count == 4) {
@@ -206,7 +206,7 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
                         }
                         // 敵が画面上にいない
                         if (nearestEnemy == nullptr) { 
-                            std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
+                            std::dynamic_pointer_cast<Bullet>(bullet)->shot(got::Vector2<float>(pos.x - 10.0f, pos.y), 0.0f, -0.8f);
                         }
                         // 敵が見つかった
                         else {

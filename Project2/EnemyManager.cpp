@@ -78,7 +78,7 @@ void EnemyManager::end()
 		child->end();
 	}
 }
-
+// EnemyData構造体に値をセット
 void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isBoss/*=fasle*/)
 {
     EnemyData data;
@@ -99,7 +99,7 @@ void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteNam
 
     dataList.emplace_back(data);
 }
-
+// ファイルからEnemyのデータを読み込む
 void EnemyManager::readFile(const std::string & filename)
 {
     std::ifstream ifs;
@@ -147,12 +147,10 @@ void EnemyManager::split(const std::string & source, const std::string & delimit
         std::string::size_type p = source.find(delimiter, pos);
 
         if (p == std::string::npos) {
-            //const float n = std::stof(source.substr(pos));
             destination.push_back(source.substr(pos));
             break;
         }
         else {
-            //const float n = std::stof(source.substr(pos, p - pos));
             destination.push_back(source.substr(pos, p - pos));
         }
         pos = p + delimiter.size();
