@@ -62,13 +62,12 @@ namespace got {
         friend class Singleton<XAudio2>;
         XAudio2();
 
-        bool read(const std::string &fileName);
-        bool readRiff(std::ifstream &ifs);
-        bool readFmt(std::ifstream &ifs);
-        bool readData(std::ifstream &ifs);
+        //bool read(const std::string &fileName);
+        //bool readRiff(std::ifstream &ifs);
+        //bool readFmt(std::ifstream &ifs);
+        //bool readData(std::ifstream &ifs);
 
         std::unordered_map<std::string, Wave> waveMap;
-        //std::vector<IXAudio2SourceVoice*> voices_;
         std::vector<std::shared_ptr<IXAudio2SourceVoice>> voices_;
 
         std::shared_ptr<IXAudio2> spXAudio2;

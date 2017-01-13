@@ -62,6 +62,7 @@ namespace got {
 
         // riffチャンクの読み込み
         Riff riff;
+        // 構造体のサイズ分一気に読み込む
         ifs.read(reinterpret_cast<char*>(&riff), sizeof(Riff));
         if (strncmp(reinterpret_cast<char *>(&riff.riff), "RIFF", 4) != 0) {
             return false;
@@ -69,24 +70,25 @@ namespace got {
 
         // fmtチャンクの読み込み
         Format format;
+        // 構造体のサイズ分一気に読み込む
         ifs.read(reinterpret_cast<char*>(&format), sizeof(Format));
-
         if (strncmp(reinterpret_cast<char*>(&format.id), "fmt ", 4) != 0) {
             return false;
         }
+
         // dataチャンクの読み込み
+        //   daraチャンクはファイル毎にデータのサイズが違うので
+        //   sizeを見てその分だけ読み込む
         Data data;
         ifs.read(reinterpret_cast<char*>(&data.id), sizeof(4));
         if (strncmp(reinterpret_cast<char*>(&data.id), "data", 4) != 0) {
             return false;
         }
-
         ifs.read(reinterpret_cast<char*>(&data.size), sizeof(4));
         data.waveFormatData.resize(data.size);
         ifs.read(reinterpret_cast<char*>(data.waveFormatData.data()), data.size);
 
         WAVEFORMATEXTENSIBLE wfx = {};
-        //TODO: Formatだけで動いた？
         wfx.Format.cbSize          = static_cast<WORD>(format.size);
         wfx.Format.nAvgBytesPerSec = format.bytepersec;
         wfx.Format.nBlockAlign     = format.blockalign;

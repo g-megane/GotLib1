@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #pragma once
 #include "Scene.h"
+#include "BackGround.h"
 
 // タイトルシーンクラス(Sceneを継承)
 class TitleScene : public Scene
@@ -20,5 +21,6 @@ public:
 
 private:
     got::Vector2<float> choosePos;
+
 };
 

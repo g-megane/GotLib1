@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/28
-// 更新日:2016/12/19
+// 更新日:2016/1/13
 // 制作者:got
 //////////////////////////////////////////////////
 #include <fstream>
@@ -40,11 +40,12 @@ bool EnemyManager::init()
 void EnemyManager::move()
 {
     for (auto & child : children) {
-        child->move();
+       child->move();
     } 
     
     auto itr = dataList.begin();
     if (itr == dataList.end()) {
+        //TODO:一度だけボスを出現させる
         return;
     }
     // ポーズ中かどうかの確認
@@ -57,7 +58,6 @@ void EnemyManager::move()
         // 空いている敵を探してデータをセット
         if (child->getState() == STATE::UN_USE) {
             std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isBoss);
-            //dataList.emplace_back(*itr); // 繰り返しのための処理
             dataList.erase(itr);
             elapsedTime = 0.0f;
             break;
@@ -105,52 +105,50 @@ void EnemyManager::readFile(const std::string & filename)
     std::ifstream ifs;
     ifs.open(filename.c_str());
 
-    std::string source;
-    const std::string delimiter(",");
-    std::vector<std::string> destination;
+    std::string source;                   // 読み込んだ一行
+    const std::string delimiter(",");     // splitで分割する単位
+    std::vector<std::string> destination; // 分割後の一行
 
     while (!std::getline(ifs, source).eof()) {
+        // 読み込んだ一行を分割
         split(source, delimiter, destination);
-        std::vector<EnemyData> data;
-        data.clear();
+        // 分割された一行をEnemyData構造体にセット
         for (std::vector<std::string>::size_type i = 0; i < destination.size(); i += 13) {
             EnemyData eData;
-            eData.bornTime         = std::stof(destination[i]);
-            eData.spriteName       =           destination[i +  1];
-            eData.hp               = std::stoi(destination[i +  2]);
-            eData.color            = got::Color<float>::RED;
-            eData.initX            = std::stof(destination[i +  3]);
-            eData.initY            = std::stof(destination[i +  4]);
-            eData.movePattern      = std::stoi(destination[i +  5]);
-            eData.dx               = std::stof(destination[i +  6]);
-            eData.dy               = std::stof(destination[i +  7]);
-            eData.shotPattern      = std::stoi(destination[i +  8]);
-            eData.bulletSpeed      = std::stof(destination[i +  9]);
-            eData.shotInterval     = std::stof(destination[i + 10]);
-            eData.score            = std::stoi(destination[i + 11]);
-            eData.isBoss           = std::stoi(destination[i + 12]) == 1 ? true : false;
+            eData.bornTime     = std::stof(destination[i]);
+            eData.spriteName   =           destination[i +  1];
+            eData.hp           = std::stoi(destination[i +  2]);
+            eData.color        = got::Color<float>::RED;
+            eData.initX        = std::stof(destination[i +  3]);
+            eData.initY        = std::stof(destination[i +  4]);
+            eData.movePattern  = std::stoi(destination[i +  5]);
+            eData.dx           = std::stof(destination[i +  6]);
+            eData.dy           = std::stof(destination[i +  7]);
+            eData.shotPattern  = std::stoi(destination[i +  8]);
+            eData.bulletSpeed  = std::stof(destination[i +  9]);
+            eData.shotInterval = std::stof(destination[i + 10]);
+            eData.score        = std::stoi(destination[i + 11]);
+            eData.isBoss       = std::stoi(destination[i + 12]) == 1 ? true : false;
 
             dataList.push_back(eData);
         }
     }
-
     ifs.close();
 }
-
+// 引数で指定した
 void EnemyManager::split(const std::string & source, const std::string & delimiter, std::vector<std::string>& destination)
 {
     destination.clear();
-
     std::string::size_type pos = 0;
 
     while (pos != std::string::npos) {
+        // delimiterが最初に見つかる位置
         std::string::size_type p = source.find(delimiter, pos);
-
-        if (p == std::string::npos) {
+        if (p == std::string::npos) { // 何も見つからなかった
             destination.push_back(source.substr(pos));
             break;
         }
-        else {
+        else {                        // 見つかった
             destination.push_back(source.substr(pos, p - pos));
         }
         pos = p + delimiter.size();

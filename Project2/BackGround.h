@@ -6,13 +6,13 @@
 #pragma once
 #include "Matrix4x4.h"
 #include "Color.h"
-#include "Rectangle.h"
 #include "Vector2.h"
+#include <string>
 
 class BackGround
 {
 public:
-    BackGround();
+    BackGround(const std::string& _spriteName);
     ~BackGround();
 
     bool init();
@@ -24,5 +24,6 @@ private:
    float dx;
    float dy;
    got::Vector2<float> position;
+   std::string spriteName;
 
 };

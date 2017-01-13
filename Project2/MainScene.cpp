@@ -17,7 +17,7 @@
 MainScene::MainScene()
 {
 	rootActor  = Game::getInstance().getRootActor();
-    backGround = std::make_shared<BackGround>();
+    backGround = std::make_shared<BackGround>("Background1");
    
     //TODO:とりあえず10体を使いまわし
     enemyManager = std::make_shared<EnemyManager>(10);

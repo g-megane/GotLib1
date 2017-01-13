@@ -152,10 +152,10 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
 
 void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float speed)
 {
-    auto rad = PI / 6.0f * sin(degree);
+    auto radTmp = PI / 6.0f * sin(degree);
     degree += dDegree;
     got::Vector2<float> shotVec(0.0f, -1.0f);
-    got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(rad));
+    got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(radTmp));
 
     int loopCount = 0;
     int leftTurncount = 0;

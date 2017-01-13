@@ -11,7 +11,7 @@
 
 // コンストラクタ
 Enemy::Enemy()
-	: Actor(), time(), time2()
+	: Actor(), time(), time2(), time3()
 {
 }
 // デストラクタ
@@ -33,6 +33,7 @@ bool Enemy::init()
     //TODO:timeの初期化は必要？
 	time.reset();
 	time2.reset();
+    time3.reset();
 
 	state = STATE::UN_USE; 
 	
@@ -58,6 +59,12 @@ void Enemy::move()
 		this->shotFunc();
 		time2.reset();
 	}
+    if (isBoss) {
+        if (time3.timeOver(500)) {
+            enemyBulletManager->shot4(getShotPosition(), 7, 0.15f);
+            time3.reset();
+        }
+    }
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
     //TODO:仮の値
 	if (position.x /*spriteSize.width*/ < -100)   { outOfStage(); return; }
@@ -83,7 +90,7 @@ void Enemy::end()
 {
 }
 // ヒットポイントを返す
-int Enemy::getHp() const
+const int Enemy::getHp() const
 {
 	return hp;
 }
@@ -129,6 +136,10 @@ void Enemy::setData(const int _hp, const got::Color<float> _color, const std::st
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
     state = STATE::USE;
+}
+const bool Enemy::getIsBoss() const
+{
+    return isBoss;
 }
 void Enemy::outOfStage()
 {

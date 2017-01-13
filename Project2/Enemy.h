@@ -22,7 +22,7 @@ public:
 	void draw() const override;
 	void end() override;
 
-	int  getHp() const;
+	const int  getHp() const;
 	void setDamage(const int damage);
     void setData(const int          _hp,
                  const got::Color<float> _color,
@@ -38,6 +38,7 @@ public:
                  const int          _score,
                  const bool         _isBoss
         );
+    const bool getIsBoss() const;
 
 protected:
 	int	  hp;
@@ -50,6 +51,7 @@ protected:
     got::Color<float> color;
 	got::Time time;
 	got::Time time2;
+    got::Time time3;
 
     float dTime;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;

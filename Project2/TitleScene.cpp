@@ -12,6 +12,7 @@
 // コンストラクタ
 TitleScene::TitleScene()
 {
+    background = std::make_shared<BackGround>("Background");
 }
 // デストラクタ
 TitleScene::~TitleScene()
@@ -23,6 +24,11 @@ bool TitleScene::init()
 	auto &sm = got::SpriteManager::getInstance();
 	position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
+
+    if (!background->init()) {
+        return false;
+    }
+
     return true;
 }
 // 更新
@@ -30,6 +36,8 @@ void TitleScene::move()
 {
     auto &di   = got::MyDirectInput::getInstance();
     auto &fade = got::Fade::getInstance();
+
+    background->move();
 
     // 選択
     if (di.keyTrigger(DIK_UP)) {
@@ -56,9 +64,11 @@ void TitleScene::move()
 // 描画
 void TitleScene::draw() const
 {
-	auto &sm = got::SpriteManager::getInstance();
-	auto color          = got::Color<float>();
+	auto &sm   = got::SpriteManager::getInstance();
+	auto color = got::Color<float>::WHITE;
 	
+    background->draw();
+
     //TODO: 仮背景
     position.ZERO;
     auto mt             = got::Matrix4x4<float>::translate(position);
@@ -66,9 +76,9 @@ void TitleScene::draw() const
 	sm.draw("Board", mt, drawRect, color);
 
     //TODO: タイトルロゴを作って表示
-    //mt = got::Matrix4x4<float>::translate(position);
-    //drawRect = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Title")->getSize().width, sm.getSprite("Title")->getSize().height));
-    //got::SpriteManager::getInstance().draw("Title", mt, drawRect, color);
+    mt       = got::Matrix4x4<float>::translate(got::Vector2<float>(200.0f, position.y + 50.0f));
+    drawRect = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Title")->getSize().width, sm.getSprite("Title")->getSize().height));
+    got::SpriteManager::getInstance().draw("Title", mt, drawRect, color);
 
     // 選択しているメニューを強調するバー
     mt       = got::Matrix4x4<float>::translate(choosePos);
@@ -88,4 +98,5 @@ void TitleScene::draw() const
 // 終了
 void TitleScene::end()
 {
+    background->end();
 }

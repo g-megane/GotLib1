@@ -30,10 +30,10 @@ Game::Game() : time()
 	// rootActorに追加したいActorを継承したオブジェクト(MainScene)
 	tmp = std::make_shared<Player>();
 	rootActor->addChild(tmp);
-	//std::shared_ptr<Actor> pbm	  = 
+	
     tmp = std::make_shared<PlayerBulletManager>(100);
     rootActor->addChild(tmp);
-	//std::shared_ptr<Actor> ebm    
+
     tmp= std::make_shared<EnemyBulletManager>(750);
     rootActor->addChild(tmp);
 
@@ -44,10 +44,6 @@ Game::Game() : time()
     for (int i = 0; i < 10; ++i) {
         effectManager.addEffecr(std::make_shared<Explosion>("Explosion"));
     }
-	// rootActorへの追加
-	//rootActor->addChild(player);
-	//rootActor->addChild(pbm);
-	//rootActor->addChild(ebm);
 }
 // デストラクタ
 Game::~Game()
@@ -94,11 +90,12 @@ bool Game::init()
 	spriteManager.addMap("Board", L"Resources\\Board.png");
 
 	//TODO:Titlecene用画像(仮)
-	spriteManager.addMap("Title"	, L"Resources\\TitleSample.png");
+	spriteManager.addMap("Title"	, L"Resources\\TitleName.png");
 	spriteManager.addMap("PushEnter", L"Resources\\PushEnterSample.png");
     spriteManager.addMap("Start"    , L"Resources\\Start.png");
     spriteManager.addMap("Operating", L"Resources\\Operating.png");
     spriteManager.addMap("ChooseBar", L"Resources\\ChooseBar.png");
+    spriteManager.addMap("Background", L"Resources\\BackgroundTest.png");
 
     // OperatingScene用画像
     spriteManager.addMap("OperatingMenu", L"Resources\\OperatingMenu.png");
@@ -112,7 +109,7 @@ bool Game::init()
     spriteManager.addMap("ChaseBullet", L"Resources\\ChaseBullet.png");
 	spriteManager.addMap("Enemy"      , L"Resources\\EnemyBase2.png");
     spriteManager.addMap("Boss"       , L"Resources\\EnemySample.png");
-    spriteManager.addMap("BackGround" , L"Resources\\Background1.png");
+    spriteManager.addMap("Background1" , L"Resources\\Background1.png");
     spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
     spriteManager.addMap("Cloud"      , L"Resources\\Cloud.png");
 

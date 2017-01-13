@@ -9,6 +9,7 @@
 #include "Rectangle.h"
 #include "Color.h"
 #include "GV.h"
+#include "BackGround.h"
 
 class Scene {
 public:
@@ -22,5 +23,6 @@ public:
 	
 protected:
 	got::Vector2<float> position;
+    std::shared_ptr<BackGround> background;
 
 };

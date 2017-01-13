@@ -56,8 +56,7 @@ SceneManager::SCENE_NAME SceneManager::getBeforeSceneName()
 // シーン遷移
 void SceneManager::changeScene(SCENE_NAME name, bool init/*= true*/)
 {
-	//const std::unordered_map<SCENE_NAME, std::shared_ptr<Scene>>::const_iterator p = sceneMap.find(name);
-    beforeSceneName = nowSceneName; // 今のシーン名を前のシーン名に
+	beforeSceneName = nowSceneName; // 今のシーン名を前のシーン名に
     nowSceneName    = name;         // 遷移先のシーン名を今のシーン名に
 
 	if (init) {
@@ -65,7 +64,6 @@ void SceneManager::changeScene(SCENE_NAME name, bool init/*= true*/)
 	}
 
 	nowScene = sceneMap[name];
-	//nowScene = p->second;
 }
 // 初期化
 bool SceneManager::init()
