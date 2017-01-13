@@ -30,7 +30,7 @@ bool EnemyBulletManager::init()
     player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
 
     degree  = 0.0f;
-    dDegree = 11.0f;
+    dDegree = PI / 18.3f;
 
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
@@ -121,8 +121,8 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
     got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
     got::Vector2<float> shotVec2(shotVec.normalize());
 
-    int loopCount = 0;
-    int leftTurncount = 0;
+    int loopCount      = 0;
+    int leftTurncount  = 0;
     int rightTurnCount = 0;
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
@@ -152,23 +152,17 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
 
 void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float speed)
 {
-    got::Vector2<float> shotVec(0.0f, -1.0f);
-    got::Vector2<float> shotVec2 = shotVec.rotate(degree);//)(shotVec);//.normalize());
-    //shotVec2 = shotVec2.rotate(shot5Theata);
+    auto rad = PI / 6.0f * sin(degree);
     degree += dDegree;
-    if (degree >= 45.0f) {
-        dDegree = -dDegree;
-    }
-    if (degree <= -45.0f) {
-        dDegree = -dDegree;
-    }
+    got::Vector2<float> shotVec(0.0f, -1.0f);
+    got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(rad));
 
     int loopCount = 0;
     int leftTurncount = 0;
     int rightTurnCount = 0;
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
-            if (loopCount == 9) {
+            if (loopCount == 7) {
                 break;
             }
             if (loopCount == 0) {
@@ -177,13 +171,13 @@ void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float 
             }
             else if (loopCount % 2 == 1) {
                 ++leftTurncount;
-                shotVec = shotVec2.rotate(15.0f * leftTurncount);
+                shotVec = shotVec2.rotate(30.0f * leftTurncount);
                 std::dynamic_pointer_cast<Bullet>(bullet)->changeVelocityShot(startPos, shotVec.x * speed, shotVec.y * speed, 0.5f, 0.0005f);
                 ++loopCount;
             }
             else if (loopCount % 2 == 0) {
                 ++rightTurnCount;
-                shotVec = shotVec2.rotate(-15.0f * rightTurnCount);
+                shotVec = shotVec2.rotate(-30.0f * rightTurnCount);
                 std::dynamic_pointer_cast<Bullet>(bullet)->changeVelocityShot(startPos, shotVec.x * speed, shotVec.y * speed, 0.5f, 0.0005f);
                 ++loopCount;
             }

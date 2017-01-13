@@ -33,11 +33,13 @@ void TitleScene::move()
 
     // 選択
     if (di.keyTrigger(DIK_UP)) {
+        got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
         return;
     }
     else if (di.keyTrigger(DIK_DOWN)) {
+        got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
         return;

@@ -66,12 +66,12 @@ bool Game::init()
 	}
 
     auto& xAudio2 = got::XAudio2::getInstance();
-    xAudio2.openWave("Stage",     "Resources\\Sound\\Stage.wav");
-    xAudio2.openWave("Shot1",     "Resources\\Sound\\Shot.wav");
-    xAudio2.openWave("Explosion", "Resources\\Sound\\Explosion.wav");
-    xAudio2.openWave("Item",      "Resources\\Sound\\Item.wav");
-    xAudio2.openWave("LevelUp",   "Resources\\Sound\\LevelUp.wav");
-    
+    xAudio2.openWave("Stage",      "Resources\\Sound\\Stage.wav");
+    xAudio2.openWave("Shot1",      "Resources\\Sound\\Shot.wav");
+    xAudio2.openWave("Explosion",  "Resources\\Sound\\Explosion.wav");
+    xAudio2.openWave("Item",       "Resources\\Sound\\Item.wav");
+    xAudio2.openWave("LevelUp",    "Resources\\Sound\\LevelUp.wav");
+    xAudio2.openWave("MenuSelect", "Resources\\Sound\\MenuSelect.wav");
 
     isPause     = false;
     isNextScene = false;
