@@ -94,29 +94,6 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
     case 1:
         shotFunc = [&](const got::Vector2<float>& pos)
         {
-            //TODO: 誘導弾の実験用
-            //for (auto &bullet : children) {
-            //    if(bullet->getState() == STATE::USE) { continue; }
-            //    float distance = 1000.0f;
-            //    std::shared_ptr<Actor> nearestEnemy = nullptr;
-            //    for (auto & enemy : enemyManager->getChildren()) {
-            //        if (enemy->getState() == STATE::UN_USE) { continue; }
-            //        if (distance >= pos.distance(enemy->getPosition())) {
-            //            distance = pos.distance(enemy->getPosition());
-            //            nearestEnemy = enemy;
-            //        }
-            //    }
-            //    // 敵が画面上にいない
-            //    if (nearestEnemy == nullptr) {
-            //        std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos.x - 10.0f, pos.y, 0.0f, -0.8f);
-            //        return;
-            //    }
-            //    // 敵が見つかった
-            //    else {
-            //        std::dynamic_pointer_cast<Bullet>(bullet)->chaseShot(pos, nearestEnemy);
-            //        return;
-            //    }
-            //}
             for (auto &bullet : children) {
                 if (bullet->getState() == Bullet::STATE::UN_USE) {
                     std::dynamic_pointer_cast<Bullet>(bullet)->shot(pos, 0.0f, -0.8f);

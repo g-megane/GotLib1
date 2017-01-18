@@ -33,7 +33,6 @@ bool Bullet::init()
     dx = 0.0f;
     dy = 0.0f;
     
-    isChase     = false;
     angle = 0.0f;
     beforeAngle = 0.0f;
 
@@ -60,14 +59,17 @@ void Bullet::draw() const
 {
 	if (state == STATE::UN_USE) { return; }
 
-	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	auto mt         = got::Matrix4x4<float>::translate(position);
-    auto mt1        = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteSize.width / 2.0f, -spriteSize.height / 2.0f));
-    auto mr         = got::Matrix4x4<float>::rotate(angle);
-    auto mt2        = got::Matrix4x4<float>::translate(position);
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+    auto mt = got::Matrix4x4<float>::translate(position);
 
-    mt = mt1 * mr * mt2;
-    
+    if (angle != 0.0f) {
+        auto mt1 = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteSize.width / 2.0f, -spriteSize.height / 2.0f));
+        auto mr  = got::Matrix4x4<float>::rotate(angle);
+        auto mt2 = got::Matrix4x4<float>::translate(got::Vector2<float>(position.x + spriteSize.width / 2.0f, position.y + spriteSize.height / 2.0f));
+
+        mt = mt1 * mr * mt2;
+    }
+
 	auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
 	got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
@@ -76,17 +78,15 @@ void Bullet::draw() const
 void Bullet::end()
 {
 }
-// 通常弾（発射位置Vector2）
+// 通常弾
 void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _dy)
 {
-    isChase = false;
-
     changeMoveFunc(0);
 
 	dx = _dx;
 	dy = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	position = got::Vector2<float>(vec.x, vec.y - spriteSize.height / 2);
+	position = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
 	state = STATE::USE;
     spriteName = defaultBulletName;
 }
@@ -94,12 +94,13 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 void Bullet::changeVelocityShot(const got::Vector2<float>& vec, const float _dx, const float _dy, const float _maxVelocity, const float _dVelocity)
 {
     changeMoveFunc(2);
+
     maxVelocity = _maxVelocity;
     dVelocity   = _dVelocity;
     dx = _dx;
     dy = _dy;
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    position        = got::Vector2<float>(vec.x, vec.y - spriteSize.height / 2);
+    position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
     state           = STATE::USE;
     spriteName      = defaultBulletName;
 }
@@ -109,10 +110,11 @@ void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Acto
     changeMoveFunc(1);
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    position        = got::Vector2<float>(startPos.x - spriteSize.width / 2, startPos.y - spriteSize.height / 2);
+    position        = got::Vector2<float>(startPos.x - spriteSize.width / 2.0f, startPos.y - spriteSize.height / 2.0f);
     target          = _target;
     state           = STATE::USE;
     spriteName      = "ChaseBullet";
+    angle           = 0.0f;
 }
 
 void Bullet::changeMoveFunc(const int num)
@@ -133,7 +135,7 @@ void Bullet::changeMoveFunc(const int num)
                 got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
                 got::Vector2<float> shotVec2(shotVec.normalize());
 
-                beforeAngle = angle;
+                
                 angle = shotVec2.toAngle() + PI / 2;
 
                 dx = shotVec2.x * 0.25f;

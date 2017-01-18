@@ -136,5 +136,5 @@ void Player::levelUp(const int _addLevel)
 const got::Vector2<float> Player::getShotPosition() const
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y);
+    return got::Vector2<float>(position.x + (spriteSize.width / 2.0f), position.y);
 }

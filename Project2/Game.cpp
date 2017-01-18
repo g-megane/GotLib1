@@ -115,9 +115,10 @@ bool Game::init()
     spriteManager.addMap("Background1" , L"Resources\\Background1.png");
     spriteManager.addMap("Item"        , L"Resources\\PowerUpItem.png");
     spriteManager.addMap("Cloud"       , L"Resources\\Cloud.png");
-    spriteManager.addMap("Explosion"  , L"Resources\\Explosion1.png");
+    spriteManager.addMap("Explosion"   , L"Resources\\Explosion1.png");
+    spriteManager.addMap("FixedBattery", L"Resources\\FixedBattery.png");
 
-    //TODO:MainScene用画像(仮)
+    //TODO:PauseScene用画像(仮)
     spriteManager.addMap("Title", L"Resources\\Title.png");
 
     // Infomationクラスで使用する画像

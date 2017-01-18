@@ -77,12 +77,30 @@ void Enemy::draw() const
 {
 	if (state == STATE::UN_USE) { return; }
 	//TODO:テスト
-	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	//color.RED;
-	auto drawRect	     = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
-	spriteManager.draw(spriteName, mt, drawRect, color);
+    float angle = 0.0f;
+
+	auto mt         = got::Matrix4x4<float>::translate(position);
+    auto spriteSize = spriteManager.getSprite(spriteName)->getSize();
+    
+    if(spriteName == "FixedBattery") {
+        const auto player = Game::getInstance().getRootActor()->getChild(L"Player");
+        got::Vector2<float> rotateVec(player->getCenter().x - getCenter().x, player->getCenter().y - getCenter().y);
+        got::Vector2<float> rotateVec2(rotateVec.normalize());
+
+        angle = rotateVec2.toAngle() - PI / 2;
+        const auto mt1 = got::Matrix4x4<float>::translate(got::Vector2<float>(-spriteSize.width / 2.0f, -spriteSize.height / 2.0f));
+        const auto mr  = got::Matrix4x4<float>::rotate(angle);
+        const auto mt2 = got::Matrix4x4<float>::translate(got::Vector2<float>(position.x + spriteSize.width / 2.0f, position.y + spriteSize.height / 2.0f));
+	
+        mt = mt1 * mr * mt2;
+
+    }
+
+        const auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+	    spriteManager.draw(spriteName, mt, drawRect, color);
+
 }
 // 終了
 void Enemy::end()
@@ -106,12 +124,6 @@ void Enemy::setDamage(const int damage)
         game.addScore(score);
         EffectManager::getInstance().startEffect("Explosion", position);
         std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
-
-        //TODO: この関数を仮想関数にする?
-        // ステージ最後の敵か？
-        //if (!isBoss) { return; }
-        //got::Fade::getInstance().setIsFadeOut(true);
-        //game.setIsNextScene(true);
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
@@ -130,7 +142,7 @@ void Enemy::setData(const int _hp, const got::Color<float> _color, const std::st
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
     score = _score;
-    rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
+    rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2.0f;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
@@ -139,13 +151,6 @@ void Enemy::setData(const int _hp, const got::Color<float> _color, const std::st
 void Enemy::outOfStage()
 {
     state = STATE::UN_USE;
-    // ステージの最後の敵(モブ)の場合
-    //TODO:ボスを出現させる
-    //if (isBoss) {
-    //    //TODO:とりあえずリザルトシーンへ
-    //    got::Fade::getInstance().setIsFadeOut(true);
-    //    Game::getInstance().setIsNextScene(true);
-    //}
 }
 // 移動処理を行う関数オブジェクトに関数をセット
 void Enemy::setMovePattern(const int pattern)
@@ -246,7 +251,7 @@ void Enemy::setShotPattern(const int pattern)
         shotFunc = [&]() { enemyBulletManager->shot1(getShotPosition(), bulletSpeed); };
         break;
     case 1: // 自機狙い
-        shotFunc = [&]() { enemyBulletManager->shot2(getShotPosition(), bulletSpeed); };
+        shotFunc = [&]() { enemyBulletManager->shot2(getCenter(), bulletSpeed); };
         break;
     case 2: // 円形弾
         //TODO:マジックナンバーをやめる
@@ -267,7 +272,7 @@ void Enemy::setShotPattern(const int pattern)
 got::Vector2<float> Enemy::getShotPosition() const
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    return got::Vector2<float>(position.x + (spriteSize.width / 2), position.y + spriteSize.height);
+    return got::Vector2<float>(position.x + (spriteSize.width / 2.0f), position.y + spriteSize.height);
 }
 
 // damage表現

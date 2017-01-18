@@ -50,13 +50,11 @@ void EnemyBulletManager::move()
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		//TODO:半径を変数に変える
         if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, got::Vector2<float>(player->getCenter().x + 3.0f, player->getCenter().y + 8.0f), player->getRad())) {
-            //if (player->getRect().intersection(bullet->getRect())) {
 #ifndef _DEBUG
             player->setDamage(1);
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
             break;
-            //}
         }
 	}
 }
@@ -71,7 +69,7 @@ void EnemyBulletManager::draw() const
 void EnemyBulletManager::end()
 {
 }
-// 進行方向に弾を発射
+// 直進弾を発射
 void EnemyBulletManager::shot1(const got::Vector2<float>& startPos, const float speed)
 {
 	for (auto & bullet : children) {
@@ -84,13 +82,10 @@ void EnemyBulletManager::shot1(const got::Vector2<float>& startPos, const float 
 // Playerを狙って弾を発射
 void EnemyBulletManager::shot2(const got::Vector2<float>& startPos, const float speed)
 {
-    got::Vector2<float> shotVec;
-    got::Vector2<float> shotVec2;
-
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
-            shotVec.move(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
-            shotVec2 = shotVec.normalize();
+            got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
+            got::Vector2<float> shotVec2 = shotVec.normalize();
             std::dynamic_pointer_cast<Bullet>(bullet)->shot(startPos, shotVec2.x * speed, shotVec2.y * speed);
             return;
         }
@@ -124,6 +119,7 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
     int loopCount      = 0;
     int leftTurncount  = 0;
     int rightTurnCount = 0;
+
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
             if(loopCount == size) {
@@ -157,9 +153,10 @@ void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float 
     got::Vector2<float> shotVec(0.0f, -1.0f);
     got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(radTmp));
 
-    int loopCount = 0;
-    int leftTurncount = 0;
+    int loopCount      = 0;
+    int leftTurncount  = 0;
     int rightTurnCount = 0;
+
     for (auto & bullet : children) {
         if (bullet->getState() == Bullet::STATE::UN_USE) {
             if (loopCount == 7) {

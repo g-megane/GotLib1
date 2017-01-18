@@ -25,7 +25,6 @@ public:
 private:
 	float dx;
 	float dy;
-    bool  isChase;
     float angle;
     float beforeAngle;
     const std::string defaultBulletName;

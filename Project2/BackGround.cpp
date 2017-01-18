@@ -7,6 +7,7 @@
 #include "Matrix4x4.h"
 #include "SpriteManager.h"
 #include "GV.h"
+#include "Game.h"
 
 // コンストラクタ
 BackGround::BackGround(const std::string& _spriteName)
@@ -22,7 +23,7 @@ bool BackGround::init()
 {
     position.ZERO;
     dx = 0.0f;
-    dy = 1.0f;
+    dy = 0.05f;
     color.WHITE;
 
     return true;
@@ -30,7 +31,8 @@ bool BackGround::init()
 // 更新
 void BackGround::move()
 {
-    position.translate(dx, dy);
+    const auto dTime = Game::getInstance().getDeltaTime();
+    position.translate(dx * dTime, dy * dTime);
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
     if (position.x > 0) {

@@ -113,7 +113,7 @@ const got::Vector2<float>& Actor::getPosition() const
 const got::Vector2<float> Actor::getCenter() const
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-   return got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2);
+   return got::Vector2<float>(position.x + spriteSize.width / 2.0f, position.y + spriteSize.height / 2.0f);
 }
 
 const float Actor::getRad() const

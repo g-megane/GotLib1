@@ -117,6 +117,9 @@ void EnemyManager::readFile(const std::string & filename)
     std::string source;                   // 読み込んだ一行
     const std::string delimiter(",");     // splitで分割する単位
     std::vector<std::string> destination; // 分割後の一行
+    
+    std::getline(ifs, source);
+    ifs.clear();
 
     while (!std::getline(ifs, source).eof()) {
         // 読み込んだ一行を分割
