@@ -12,6 +12,7 @@
 // コンストラクタ
 PauseScene::PauseScene()
 {
+    background = std::make_shared<BackGround>("Background");
 }
 // デストラクタ
 PauseScene::~PauseScene()
@@ -20,6 +21,10 @@ PauseScene::~PauseScene()
 // 初期化
 bool PauseScene::init()
 {
+    if (!background->init()) {
+        return false;
+    }
+
     auto &sm = got::SpriteManager::getInstance();
     position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
@@ -29,13 +34,12 @@ bool PauseScene::init()
 // 更新
 void PauseScene::move()
 {
-    //TODO: 特定のボタンが押されたらポーズシーンを呼んだシーンに戻る
-    //      またはタイトルに戻る
+    background->move();
+
     // 選択
     auto &di = got::MyDirectInput::getInstance();
     auto &fade = got::Fade::getInstance();
-
-
+    
     if (di.keyTrigger(DIK_UP)) {
         got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
@@ -77,6 +81,8 @@ void PauseScene::move()
 // 描画
 void PauseScene::draw() const
 {
+    background->draw();
+
     // 選択しているメニューを強調するバー
     auto &sm = got::SpriteManager::getInstance();
     auto mt = got::Matrix4x4<float>::translate(choosePos);
@@ -96,4 +102,5 @@ void PauseScene::draw() const
 // 終了
 void PauseScene::end()
 {
+    background->end();
 }

@@ -6,6 +6,7 @@
 #pragma once
 #include "Scene.h"
 
+
 class PauseScene : public Scene
 {
 public:
@@ -19,5 +20,5 @@ public:
 
 private:
     got::Vector2<float> choosePos;
-    got::Color<float> color; 
+
 };

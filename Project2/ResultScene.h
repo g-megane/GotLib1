@@ -17,4 +17,5 @@ public:
 	void move() override;
 	void draw() const override;
 	void end()  override;
+
 };

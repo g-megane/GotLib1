@@ -21,6 +21,6 @@ public:
 
 private:
     got::Vector2<float> choosePos;
-    got::Color<float> color;
+    
 };
 

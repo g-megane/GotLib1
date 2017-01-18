@@ -23,6 +23,7 @@ public:
 	
 protected:
 	got::Vector2<float> position;
+    got::Color<float> color;
     std::shared_ptr<BackGround> background;
 
 };

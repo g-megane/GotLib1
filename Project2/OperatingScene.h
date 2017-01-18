@@ -19,6 +19,5 @@ public:
     void end()  override;
 
 private:
-    std::shared_ptr<BackGround> background;
     got::Color<float> color;
 };
