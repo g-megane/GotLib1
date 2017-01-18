@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/12/14
-// 更新日:2016/12/14
+// 更新日:2016/1/18
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -17,4 +17,8 @@ public:
     void move() override;
     void draw() const override;
     void end()  override;
+
+private:
+    std::shared_ptr<BackGround> background;
+    got::Color<float> color;
 };

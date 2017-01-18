@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/10/10
-// 更新日:2016/12/14
+// 更新日:2016/1/18
 // 制作者:got
 //////////////////////////////////////////////////
 #include <chrono>
@@ -62,12 +62,14 @@ bool Game::init()
 	}
 
     auto& xAudio2 = got::XAudio2::getInstance();
-    xAudio2.openWave("Stage",      "Resources\\Sound\\Stage.wav");
-    xAudio2.openWave("Shot1",      "Resources\\Sound\\Shot.wav");
-    xAudio2.openWave("Explosion",  "Resources\\Sound\\Explosion.wav");
-    xAudio2.openWave("Item",       "Resources\\Sound\\Item.wav");
-    xAudio2.openWave("LevelUp",    "Resources\\Sound\\LevelUp.wav");
-    xAudio2.openWave("MenuSelect", "Resources\\Sound\\MenuSelect.wav");
+    xAudio2.openWave("Stage",       "Resources\\Sound\\Stage.wav");
+    xAudio2.openWave("Shot1",       "Resources\\Sound\\Shot.wav");
+    xAudio2.openWave("Explosion",   "Resources\\Sound\\Explosion.wav");
+    xAudio2.openWave("Item",        "Resources\\Sound\\Item.wav");
+    xAudio2.openWave("LevelUp",     "Resources\\Sound\\LevelUp.wav");
+    xAudio2.openWave("MenuSelect",  "Resources\\Sound\\MenuSelect.wav");
+    xAudio2.openWave("Enter",       "Resources\\Sound\\Enter.wav");
+    xAudio2.openWave("EnemyDamage", "Resources\\Sound\\EnemyDamage.wav");
 
     isPause     = false;
     isNextScene = false;
@@ -90,30 +92,33 @@ bool Game::init()
 	spriteManager.addMap("Board", L"Resources\\Board.png");
 
 	//TODO:Titlecene用画像(仮)
-	spriteManager.addMap("Title"	, L"Resources\\TitleName.png");
-	spriteManager.addMap("PushEnter", L"Resources\\PushEnterSample.png");
-    spriteManager.addMap("Start"    , L"Resources\\Start.png");
-    spriteManager.addMap("Operating", L"Resources\\Operating.png");
-    spriteManager.addMap("ChooseBar", L"Resources\\ChooseBar.png");
+	spriteManager.addMap("TitleName" , L"Resources\\TitleName.png");
+	spriteManager.addMap("PushEnter" , L"Resources\\PushEnterSample.png");
+    spriteManager.addMap("Start"     , L"Resources\\Start.png");
+    spriteManager.addMap("Operating" , L"Resources\\Operating.png");
+    spriteManager.addMap("ChooseBar" , L"Resources\\ChooseBar.png");
     spriteManager.addMap("Background", L"Resources\\Background.png");
 
     // OperatingScene用画像
-    spriteManager.addMap("OperatingMenu", L"Resources\\OperatingMenu.png");
+    //spriteManager.addMap("OperatingMenu",  L"Resources\\OperatingMenu.png");
+    spriteManager.addMap("OperatingMenu", L"Resources\\Operating2.png");
 
 	//TODO:MainScene用画像(仮)
-	spriteManager.addMap("Player"     , L"Resources\\Player.png");
-	spriteManager.addMap("Bullet"     , L"Resources\\Boul.png");
-    spriteManager.addMap("Bullet1"    , L"Resources\\Bullet1.png");
-    spriteManager.addMap("Bullet2"    , L"Resources\\Bullet2.png");
-    spriteManager.addMap("Bullet3"    , L"Resources\\Bullet3.png");
-    spriteManager.addMap("ChaseBullet", L"Resources\\ChaseBullet.png");
-	spriteManager.addMap("Enemy"      , L"Resources\\EnemyBase2.png");
-    spriteManager.addMap("Boss"       , L"Resources\\EnemySample.png");
+	spriteManager.addMap("Player"      , L"Resources\\Player.png");
+	spriteManager.addMap("Bullet"      , L"Resources\\Boul.png");
+    spriteManager.addMap("Bullet1"     , L"Resources\\Bullet1.png");
+    spriteManager.addMap("Bullet2"     , L"Resources\\Bullet2.png");
+    spriteManager.addMap("Bullet3"     , L"Resources\\Bullet3.png");
+    spriteManager.addMap("ChaseBullet" , L"Resources\\ChaseBullet.png");
+	spriteManager.addMap("Enemy"       , L"Resources\\EnemyBase2.png");
+    spriteManager.addMap("Boss"        , L"Resources\\EnemySample.png");
     spriteManager.addMap("Background1" , L"Resources\\Background1.png");
-    spriteManager.addMap("Item"       , L"Resources\\PowerUpItem.png");
-    spriteManager.addMap("Cloud"      , L"Resources\\Cloud.png");
-
+    spriteManager.addMap("Item"        , L"Resources\\PowerUpItem.png");
+    spriteManager.addMap("Cloud"       , L"Resources\\Cloud.png");
     spriteManager.addMap("Explosion"  , L"Resources\\Explosion1.png");
+
+    //TODO:MainScene用画像(仮)
+    spriteManager.addMap("Title", L"Resources\\Title.png");
 
     // Infomationクラスで使用する画像
     //spriteManager.addMap("Info"      , L"Resources\\Info.png");

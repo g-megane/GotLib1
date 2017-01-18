@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "Collision.h"
 #include "Player.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 PlayerBulletManager::PlayerBulletManager(const int num)
@@ -52,6 +53,7 @@ void PlayerBulletManager::move()
 		for (auto & enemy : enemyManager->getChildren()) {
 			if (enemy->getState() == STATE::UN_USE) { continue; }
 			if(got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, enemy->getCenter(), enemy->getRad())) {
+                got::XAudio2::getInstance().play("EnemyDamage");
             	bullet->setState(STATE::UN_USE);
 				std::dynamic_pointer_cast<Enemy>(enemy)->setDamage(1);
                 break;
