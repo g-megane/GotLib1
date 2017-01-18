@@ -20,10 +20,10 @@ public:
 	bool init() override;
 	void move() override;
 	void draw() const override;
-	void end() override;
+	void end()  override;
 
 	const int  getHp() const;
-	void setDamage(const int damage);
+	virtual void setDamage(const int damage);
     void setData(const int          _hp,
                  const got::Color<float> _color,
                  const std::string& _spriteName,
@@ -35,10 +35,8 @@ public:
                  const int          _shotPattern, 
                  const float        _bulletSpeed, 
                  const float        _shotInterval, 
-                 const int          _score,
-                 const bool         _isBoss
+                 const int          _score
         );
-    const bool getIsBoss() const;
 
 protected:
 	int	  hp;
@@ -47,11 +45,9 @@ protected:
     float bulletSpeed;
     float shotInterval;
     int   score;
-    bool  isBoss;
     got::Color<float> color;
 	got::Time time;
 	got::Time time2;
-    got::Time time3;
 
     float dTime;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;

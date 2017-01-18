@@ -19,6 +19,7 @@ EnemyManager::EnemyManager(const int _num)
 		enemy = std::make_shared<Enemy>();
 		addChild(enemy);
 	}
+    boss = std::make_shared<Boss>();
 }
 // デストラクタ
 EnemyManager::~EnemyManager()
@@ -32,8 +33,11 @@ bool EnemyManager::init()
 	for (auto & child : children) {
 		child->init();
 	}
+    boss->init();
 
     elapsedTime = 0.0f;
+    isBoss = false;
+
 	return true;
 }
 // 更新
@@ -46,6 +50,12 @@ void EnemyManager::move()
     auto itr = dataList.begin();
     if (itr == dataList.end()) {
         //TODO:一度だけボスを出現させる
+        if (!isBoss) {
+            isBoss = true;
+            addChild(boss);
+            boss->setState(STATE::USE);
+            return;
+        }
         return;
     }
     // ポーズ中かどうかの確認
@@ -57,7 +67,7 @@ void EnemyManager::move()
     for (auto & child : children) {
         // 空いている敵を探してデータをセット
         if (child->getState() == STATE::UN_USE) {
-            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score, itr->isBoss);
+            std::dynamic_pointer_cast<Enemy>(child)->setData(itr->hp, itr->color, itr->spriteName, itr->initX, itr->initY, itr->movePattern, itr->dx, itr->dy, itr->shotPattern, itr->bulletSpeed, itr->shotInterval, itr->score);
             dataList.erase(itr);
             elapsedTime = 0.0f;
             break;
@@ -79,7 +89,7 @@ void EnemyManager::end()
 	}
 }
 // EnemyData構造体に値をセット
-void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score, const bool _isBoss/*=fasle*/)
+void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score)
 {
     EnemyData data;
     data.bornTime     = _bornTime;
@@ -95,7 +105,6 @@ void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteNam
     data.bulletSpeed  = _bulltSpeed;
     data.shotInterval = _shotInterval;
     data.score        = _score;
-    data.isBoss       = _isBoss;
 
     dataList.emplace_back(data);
 }
@@ -128,7 +137,6 @@ void EnemyManager::readFile(const std::string & filename)
             eData.bulletSpeed  = std::stof(destination[i +  9]);
             eData.shotInterval = std::stof(destination[i + 10]);
             eData.score        = std::stoi(destination[i + 11]);
-            eData.isBoss       = std::stoi(destination[i + 12]) == 1 ? true : false;
 
             dataList.push_back(eData);
         }

@@ -11,7 +11,7 @@
 
 // コンストラクタ
 Enemy::Enemy()
-	: Actor(), time(), time2(), time3()
+	: Actor(), time(), time2()
 {
 }
 // デストラクタ
@@ -27,14 +27,13 @@ bool Enemy::init()
 	hp = 0;
 	dx = 0.1f;
 	dy = 0.1f;
-    bulletSpeed  = 0.0f;
-    shotInterval = 0.0f;
+    bulletSpeed  = 0.1f;
+    shotInterval = 0.1f;
 
     //TODO:timeの初期化は必要？
 	time.reset();
 	time2.reset();
-    time3.reset();
-
+    
 	state = STATE::UN_USE; 
 	
 	return true;
@@ -59,12 +58,12 @@ void Enemy::move()
 		this->shotFunc();
 		time2.reset();
 	}
-    if (isBoss) {
+    /*if (isBoss) {
         if (time3.timeOver(500)) {
             enemyBulletManager->shot4(getShotPosition(), 7, 0.15f);
             time3.reset();
         }
-    }
+    }*/
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
     //TODO:仮の値
 	if (position.x /*spriteSize.width*/ < -100)   { outOfStage(); return; }
@@ -80,7 +79,7 @@ void Enemy::draw() const
 	//TODO:テスト
 	auto mt				 = got::Matrix4x4<float>::translate(position);
 	auto & spriteManager = got::SpriteManager::getInstance();
-	color.RED;
+	//color.RED;
 	auto drawRect	     = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite(spriteName)->getSize().width, spriteManager.getSprite(spriteName)->getSize().height));
 
 	spriteManager.draw(spriteName, mt, drawRect, color);
@@ -108,14 +107,15 @@ void Enemy::setDamage(const int damage)
         EffectManager::getInstance().startEffect("Explosion", position);
         std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
 
+        //TODO: この関数を仮想関数にする?
         // ステージ最後の敵か？
-        if (!isBoss) { return; }
-        got::Fade::getInstance().setIsFadeOut(true);
-        game.setIsNextScene(true);
+        //if (!isBoss) { return; }
+        //got::Fade::getInstance().setIsFadeOut(true);
+        //game.setIsNextScene(true);
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする
-void Enemy::setData(const int _hp, const got::Color<float> _color, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score, const bool _isBoss)
+void Enemy::setData(const int _hp, const got::Color<float> _color, const std::string& _spriteName, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulletSpeed, const float _shotInterval, const int _score)
 {
     // データのセット
     hp         = _hp;
@@ -130,16 +130,11 @@ void Enemy::setData(const int _hp, const got::Color<float> _color, const std::st
     bulletSpeed  = _bulletSpeed;
     shotInterval = _shotInterval;
     score = _score;
-    isBoss = _isBoss;
     rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width) / 2;
 
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
     state = STATE::USE;
-}
-const bool Enemy::getIsBoss() const
-{
-    return isBoss;
 }
 void Enemy::outOfStage()
 {
@@ -261,7 +256,7 @@ void Enemy::setShotPattern(const int pattern)
         //TODO:マジックナンバーをやめる
         shotFunc = [&]() { enemyBulletManager->shot4(getShotPosition(), 7, bulletSpeed); };
         break;
-    case 4:
+    case 4: // ケロちゃんもどき
         shotFunc = [&]() { enemyBulletManager->shot5(getCenter(), bulletSpeed); };
         break;
     default:

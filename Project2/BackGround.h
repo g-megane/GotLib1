@@ -25,5 +25,6 @@ private:
    float dy;
    got::Vector2<float> position;
    std::string spriteName;
+   got::Color<float> color;
 
 };

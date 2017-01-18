@@ -6,6 +6,7 @@
 #pragma once
 #include "Actor.h"
 #include "Enemy.h"
+#include "Boss.h"
 
 class EnemyManager : public Actor
 {
@@ -30,8 +31,8 @@ public:
                   const int               _shotPattern, 
                   const float             _bulletSpeed, 
                   const float             _shotInterval,
-                  const int               _score,
-                  const bool              _isBoss = false);
+                  const int               _score
+    );
 
     void readFile(const std::string &filename);
 
@@ -39,6 +40,7 @@ private:
     void split(const std::string &source, const std::string &delimiter, std::vector<std::string>& destination);
 
     float elapsedTime; // Enemyの生成に使う経過時間
+    bool isBoss;
 
     struct EnemyData {
         float             bornTime;         // 出現までの時間
@@ -54,8 +56,8 @@ private:
         float             bulletSpeed;      // 弾速
         float             shotInterval;     // 発射間隔
         int               score;            // 持ち点
-        bool              isBoss;           // Bossか？
     };
     std::vector<EnemyData> dataList;
+    std::shared_ptr<Actor> boss;
 
 };

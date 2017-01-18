@@ -16,12 +16,8 @@ public:
     void move() override;
     void draw() const override;
     void end()  override;
+    void setDamage(const int damage) override;
 
 private:
-    int	  hp;
-    float dx;
-    float dy;
-    float bulletSpeed;
-    float shotInterval;
-    int   score;
+
 };

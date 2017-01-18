@@ -45,6 +45,7 @@ void SceneManager::createScene()
 
     nowSceneName = SCENE_NAME::TITLE;
 	nowScene = scene;
+    nowScene->init();
 }
 
 // 前のシーンの名前を取得する

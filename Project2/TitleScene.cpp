@@ -21,13 +21,14 @@ TitleScene::~TitleScene()
 // 初期化
 bool TitleScene::init()
 {
+    //if (!background->init()) {
+    //    return false;
+    //}
+    background->init();
 	auto &sm = got::SpriteManager::getInstance();
 	position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
 
-    if (!background->init()) {
-        return false;
-    }
 
     return true;
 }
@@ -70,14 +71,14 @@ void TitleScene::draw() const
     background->draw();
 
     //TODO: 仮背景
-    position.ZERO;
-    auto mt             = got::Matrix4x4<float>::translate(position);
-	auto drawRect       = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Board")->getSize().width, sm.getSprite("Board")->getSize().height));
-	sm.draw("Board", mt, drawRect, color);
+ //   position.ZERO;
+ //   auto mt             = got::Matrix4x4<float>::translate(position);
+	//auto drawRect       = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Board")->getSize().width, sm.getSprite("Board")->getSize().height));
+	//sm.draw("Board", mt, drawRect, color);
 
     //TODO: タイトルロゴを作って表示
-    mt       = got::Matrix4x4<float>::translate(got::Vector2<float>(200.0f, position.y + 50.0f));
-    drawRect = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Title")->getSize().width, sm.getSprite("Title")->getSize().height));
+    auto mt       = got::Matrix4x4<float>::translate(got::Vector2<float>(200.0f, position.y + 50.0f));
+    auto drawRect = got::Rectangle<int>(got::Vector2<int>(sm.getSprite("Title")->getSize().width, sm.getSprite("Title")->getSize().height));
     got::SpriteManager::getInstance().draw("Title", mt, drawRect, color);
 
     // 選択しているメニューを強調するバー

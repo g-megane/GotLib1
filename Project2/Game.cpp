@@ -95,7 +95,7 @@ bool Game::init()
     spriteManager.addMap("Start"    , L"Resources\\Start.png");
     spriteManager.addMap("Operating", L"Resources\\Operating.png");
     spriteManager.addMap("ChooseBar", L"Resources\\ChooseBar.png");
-    spriteManager.addMap("Background", L"Resources\\BackgroundTest.png");
+    spriteManager.addMap("Background", L"Resources\\Background.png");
 
     // OperatingScene用画像
     spriteManager.addMap("OperatingMenu", L"Resources\\OperatingMenu.png");
