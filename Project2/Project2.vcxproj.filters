@@ -153,6 +153,9 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>Game\Effect</Filter>
     </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="Explosion.h">
       <Filter>Game\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

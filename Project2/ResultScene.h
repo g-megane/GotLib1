@@ -4,6 +4,7 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
+#include <sstream>
 #include "Scene.h"
 
 // リザルトシーン(Sceneを継承)
@@ -17,5 +18,8 @@ public:
 	void move() override;
 	void draw() const override;
 	void end()  override;
+
+private:
+    std::ostringstream oss3;
 
 };

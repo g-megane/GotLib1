@@ -143,6 +143,7 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="MyDirectInput.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Ranking.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="MyDirectInput.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Ranking.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Scene.h" />

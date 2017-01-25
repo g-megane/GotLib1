@@ -25,7 +25,7 @@ bool Boss::init()
     }
 
     spriteName = "Boss";
-    hp = 200;
+    hp = 10;
     color.WHITE;
     position.move(250.0f, -64.0f);
     setMovePattern(3);

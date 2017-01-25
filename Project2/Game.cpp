@@ -18,6 +18,7 @@
 #include "XAudio2.h"
 #include "EffectManager.h"
 #include "Explosion.h"
+#include "Ranking.h"
 
 // コンストラクタ
 Game::Game() : time()
@@ -39,6 +40,8 @@ Game::Game() : time()
 
     tmp = std::make_shared<ItemManager>(10);
     rootActor->addChild(tmp);
+
+    Ranking::getInstance().readRanking();
 
     auto& effectManager = EffectManager::getInstance();
     for (int i = 0; i < 10; ++i) {
