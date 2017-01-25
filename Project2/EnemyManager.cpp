@@ -49,7 +49,6 @@ void EnemyManager::move()
     
     auto itr = dataList.begin();
     if (itr == dataList.end()) {
-        //TODO:一度だけボスを出現させる
         if (!isBoss) {
             isBoss = true;
             addChild(boss);

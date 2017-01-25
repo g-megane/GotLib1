@@ -50,7 +50,7 @@ bool MainScene::init()
     }
 
     // Enemyのデータの読み込み
-    em->readFile("EnemyData1.csv");
+    em->readFile("Resources\\Data\\DebugData.csv");
     
     //TODO:仮データ
     //TODO:出現位置は定数にするのが有かも？

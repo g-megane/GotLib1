@@ -9,6 +9,7 @@
 #include "SceneManager.h"
 #include "MyDirectInput.h"
 #include "Game.h"
+#include "XAudio2.h"
 
 // コンストラクタ
 ResultScene::ResultScene()
@@ -39,6 +40,7 @@ void ResultScene::move()
 
 	// シーン遷移(TITLE->MAIN)
 	if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
+        got::XAudio2::getInstance().play("Enter");
 		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::TITLE);
 	}
 }

@@ -51,7 +51,7 @@ void EnemyBulletManager::move()
 		//TODO:半径を変数に変える
         if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, got::Vector2<float>(player->getCenter().x + 3.0f, player->getCenter().y + 8.0f), player->getRad())) {
 #ifndef _DEBUG
-            player->setDamage(1);
+            //player->setDamage(1);
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
             break;
@@ -97,7 +97,7 @@ void EnemyBulletManager::shot3(const got::Vector2<float>& startPos, const int si
     // dtheta間隔で弾を発射
     const float theta = 360.0f / size;
 
-    got::Vector2<float> shotVec(player->getCenter().x - startPos.x, player->getCenter().y - startPos.y);
+    got::Vector2<float> shotVec(0.0f, -1.0f);
     got::Vector2<float> shotVec2(shotVec.normalize());
     
     for (int i = 0; i < size; ++i) {

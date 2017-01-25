@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
 // 作成日:2016/12/19
-// 更新日:2016/1/11
+// 更新日:2016/1/25
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Boss.h"
@@ -9,7 +9,7 @@
 #include "ItemManager.h"
 
 Boss::Boss()
-    :Enemy()
+    :Enemy(), subShotTimer()
 {
 }
 
@@ -25,7 +25,7 @@ bool Boss::init()
     }
 
     spriteName = "Boss";
-    hp = 100;
+    hp = 200;
     color.WHITE;
     position.move(250.0f, -64.0f);
     setMovePattern(3);
@@ -35,7 +35,8 @@ bool Boss::init()
     bulletSpeed = 0.1f;
     shotInterval = 50.0f;
     score = 1000;
-    rad = static_cast<float>(got::SpriteManager::getInstance().getSprite(spriteName)->getSize().width);
+    subShotTimer.reset();
+    rad = 64.0f;
 
     return true;
 }
@@ -48,8 +49,11 @@ void Boss::move()
 
     dTime = Game::getInstance().getDeltaTime();
 
+    changeMove();
+
     // 移動
     this->moveFunc();
+    checkMoveLimit();
 
     // ダメージ表現
     damageEffect();
@@ -58,6 +62,10 @@ void Boss::move()
     if (time2.timeOver(shotInterval)) {
         this->shotFunc();
         time2.reset();
+    }
+    if (subShotTimer.timeOver(500.0f)) {
+        enemyBulletManager->shot4(getShotPosition(), 5, 0.2f);
+        subShotTimer.reset();
     }
 }
 
@@ -86,4 +94,20 @@ void Boss::setDamage(const int damage)
         got::Fade::getInstance().setIsFadeOut(true);
         game.setIsNextScene(true);
     }
+}
+
+void Boss::changeMove()
+{
+    if (hp < 100) {
+        setMovePattern(-1);
+    }
+}
+
+void Boss::checkMoveLimit()
+{
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+    if     (position.x < 0)                                { dx = -dx; }
+    else if(position.x > STAGE_WIDTH - spriteSize.width)   { dx = -dx; }
+    //if     (position.y < 0)                                { dy = -dy; }
+    //else if(position.y > STAGE_HEIGHT - spriteSize.height) { dy = -dy; }
 }
