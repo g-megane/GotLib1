@@ -60,7 +60,7 @@ void Ranking::writeRanking(const int newScore)
     }
 
     std::ofstream ofs;
-    ofs.open("Resources\\Data\\Ranking.txt");
+    ofs.open("Resources\\Data\\Ranking.txt", std::ios::trunc, std::ios::binary);
 
     const int size = rankings.size();
     ofs.write(reinterpret_cast<const char*>(&size), sizeof(size));

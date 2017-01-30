@@ -63,7 +63,7 @@ void Boss::move()
         this->shotFunc();
         time2.reset();
     }
-    if (subShotTimer.timeOver(500.0f)) {
+    if (subShotTimer.timeOver(1000.0f)) {
         enemyBulletManager->shot2(getShotPosition(), 0.2f);
         subShotTimer.reset();
     }

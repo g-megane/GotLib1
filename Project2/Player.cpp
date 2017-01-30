@@ -60,13 +60,13 @@ void Player::move()
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyDown(DIK_LSHIFT) || input.buttonDown(5))     { deceleration = 0.3f; }
+    if (input.keyDown(DIK_LSHIFT) || input.buttonDown(5))     { deceleration = 0.25f; }
 
     // キー移動
-    if      (input.keyDown(DIK_UP   ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP)    { position.y -= dy * deceleration * dTime; }
-    else if (input.keyDown(DIK_DOWN ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN)  { position.y += dy * deceleration * dTime; }
+    if      (input.keyDown(DIK_UP   ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP   ) { position.y -= dy * deceleration * dTime; }
+    else if (input.keyDown(DIK_DOWN ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN ) { position.y += dy * deceleration * dTime; }
     if      (input.keyDown(DIK_RIGHT) || input.getStickPosX() == got::MyDirectInput::STICK_STATE::RIGHT) { position.x += dx * deceleration * dTime; }
-    else if (input.keyDown(DIK_LEFT ) || input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT)  { position.x	-= dx * deceleration * dTime; }
+    else if (input.keyDown(DIK_LEFT ) || input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT ) { position.x	-= dx * deceleration * dTime; }
 
     // ステージ外に出たら補正する
     if      (position.x < 0                               ) { position.x = 0;                                }

@@ -100,6 +100,8 @@ void Boss2::changeMove()
 {
     if (hp < 100) {
         setMovePattern(-1);
+        setShotPattern(2);
+        shotInterval = 500.0f;
     }
 }
 

@@ -61,10 +61,10 @@ void Enemy::move()
 
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
     //TODO:仮の値
-	if (position.x /*spriteSize.width*/ < -100)   { outOfStage(); return; }
-	if (position.x > STAGE_WIDTH + 100)           { outOfStage(); return; }
-	if (position.y + 100/*spriteSize.height*/< 0) { outOfStage(); return; }
-	if (position.y > STAGE_HEIGHT + 100)          { outOfStage(); return; }
+	if (position.x       < -200.0f              ) { outOfStage(); return; }
+	if (position.x       > STAGE_WIDTH + 200.0f ) { outOfStage(); return; }
+	if (position.y       < -100.0f              ) { outOfStage(); return; }
+	if (position.y       > STAGE_HEIGHT + 100.0f) { outOfStage(); return; }
 
 }
 // 描画
@@ -150,6 +150,8 @@ void Enemy::outOfStage()
 // 移動処理を行う関数オブジェクトに関数をセット
 void Enemy::setMovePattern(const int pattern)
 {
+    // ・出現時間を0にするとひとつ前の敵と同時に出現する
+    // ・移動パターンの6と7は移動量(X)を0にしてやる必要がある
     switch (pattern)
     {
     case 0: // 直線移動

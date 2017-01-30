@@ -32,8 +32,6 @@ Game::Game() : time()
 	tmp = std::make_shared<Player>();
 	rootActor->addChild(tmp);
 	
-    tmp = std::make_shared<EnemyManager>(10);
-    rootActor->addChild(tmp);
 
     tmp = std::make_shared<PlayerBulletManager>(100);
     rootActor->addChild(tmp);
@@ -42,6 +40,9 @@ Game::Game() : time()
     rootActor->addChild(tmp);
 
     tmp = std::make_shared<ItemManager>(10);
+    rootActor->addChild(tmp);
+
+    tmp = std::make_shared<EnemyManager>(20);
     rootActor->addChild(tmp);
 
     Ranking::getInstance().readRanking();
