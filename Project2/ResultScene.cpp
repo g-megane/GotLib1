@@ -43,7 +43,8 @@ void ResultScene::move()
     background->move();
 
 	// シーン遷移(TITLE->MAIN)
-	if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
+    auto &input = got::MyDirectInput::getInstance();
+	if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
         got::XAudio2::getInstance().play("Enter");
 		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::TITLE);
 	}
@@ -55,21 +56,11 @@ void ResultScene::draw() const
 
     // 情報表示エリアの背景
     auto &spriteManager = got::SpriteManager::getInstance();
-    //auto mt		    = got::Matrix4x4<float>::translate(position);
-    //auto drawRect	= got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("Result")->getSize().width, spriteManager.getSprite("Result")->getSize().height));
-    //
-    //spriteManager.draw("Result", mt, drawRect, color);
-    //
-	//auto mt2		 = got::Matrix4x4<float>::translate(static_cast<float>(WINDOW_WIDTH / 2 - spriteManager.getSprite("PushEnter")->getSize().width / 2), 500.0f);
-	//auto mt3		 = got::Matrix4x4<float>::translate(position) * mt2;
-	//auto drawRect2	 = got::Rectangle<int>(got::Vector2<int>(spriteManager.getSprite("PushEnter")->getSize().width, spriteManager.getSprite("PushEnter")->getSize().height));
-    //
-    //spriteManager.draw("PushEnter", mt2, drawRect2, color);
 
     // スコア表示
     // 文字
     auto spriteSize = spriteManager.getSprite("Score")->getSize();
-    auto mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + 25.0f, 260.0f));
+    auto mt = got::Matrix4x4<float>::translate(got::Vector2<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2, 100.0f));
     auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     spriteManager.draw("Score", mt, drawRect, color);
 
@@ -82,7 +73,7 @@ void ResultScene::draw() const
     for (int i = length - 1; i > 0; --i) {
         const auto c = oss2.str().substr(i, 1);
         spriteSize = spriteManager.getSprite(c)->getSize();
-        mt = got::Matrix4x4<float>::translate(got::Vector2<float>(STAGE_WIDTH + spriteSize.width * i, 310.0f));
+        mt = got::Matrix4x4<float>::translate(got::Vector2<float>((STAGE_WIDTH / 2 + 64.0f) + spriteSize.width * i, 150.0f));
         drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
 
         spriteManager.draw(c, mt, drawRect, color);
@@ -96,14 +87,13 @@ void ResultScene::draw() const
     for (int i = length - 1; i >= 0; --i) {
         auto str = oss3.str().substr(i, 1);
         // null
-        if (str == "") {
-
-        }
+        if (str == "") { continue; }
         // 改行
         else if (str == "n") {
             y -= 35.0f;
             x =  900.0f;
         }
+        // スペース
         else if (str == " ") {
             x -= spriteSize.width + 5.0f;
         }
@@ -111,8 +101,8 @@ void ResultScene::draw() const
         else if (str == ".") {
             str = "comma";
             spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
-            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(x, y));
-            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+            mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(x, y));
+            drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
             got::SpriteManager::getInstance().draw(str, mt, drawRect, color);
             x -= spriteSize.width;
         }

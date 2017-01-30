@@ -40,13 +40,13 @@ void PauseScene::move()
     auto &di = got::MyDirectInput::getInstance();
     auto &fade = got::Fade::getInstance();
     
-    if (di.keyTrigger(DIK_UP)) {
+    if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
         got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
         return;
     }
-    else if (di.keyTrigger(DIK_DOWN)) {
+    else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
         got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
@@ -54,7 +54,7 @@ void PauseScene::move()
     }
 
     // シーン遷移(TITLE->MAIN or TITLE->OPERATING)
-    if (di.keyTrigger(DIK_RETURN)) {
+    if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
         got::XAudio2::getInstance().play("Enter");
         fade.setIsFadeOut(true);
         Game::getInstance().setIsPause(false);
@@ -68,14 +68,6 @@ void PauseScene::move()
             fade.fadeOut(SceneManager::SCENE_NAME::TITLE);
         }
     }
-
-    //TODO: Pキーでもポーズを解除
-    //if (got::MyDirectInput::getInstance().keyTrigger(DIK_P)) {
-    //    Game::getInstance().setIsPause(false);
-    //}
-    //if (!Game::getInstance().getIsPause()) {
-    //    got::Fade::getInstance().fadeOut(SceneManager::getInstance().getBeforeSceneName() , false);
-    //}
 }
 
 // 描画

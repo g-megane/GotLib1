@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////
-// 作成日:2016/10/11
-// 更新日:2016/11/16
+// 作成日:2016/1/30
+// 更新日:2016/1/30
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
@@ -12,18 +12,18 @@
 #include "EnemyManager.h"
 
 // メインシーンクラス(Sceneを継承)
-class MainScene : public Scene
+class MainScene2 : public Scene
 {
 public:
-	MainScene();
-	~MainScene();
+    MainScene2();
+    ~MainScene2();
 
-	bool init() override;
-	void move() override;
-	void draw() const override;
-	void end()  override;
+    bool init() override;
+    void move() override;
+    void draw() const override;
+    void end()  override;
 
 private:
-	std::shared_ptr<Actor>      rootActor;
+    std::shared_ptr<Actor>      rootActor;
     std::shared_ptr<BackGround> backGround;
 };

@@ -41,15 +41,14 @@ void ItemManager::move()
         item->move();
     }
 
+    auto player = Game::getInstance().getRootActor()->getChild(L"Player");
     for (auto &item : children) {
         if(item->getState() == STATE::UN_USE) { continue; }
-        auto player = Game::getInstance().getRootActor()->getChild(L"Player");
-        if (got::Collison::circleToCircle(item->getPosition(), item->getRad(), player->getPosition(), player->getRad())) {
-            //TODO: PlayerとItemのあたり判定
-            //      PlayerのHPを増やす
+        if (got::Collison::circleToCircle(item->getPosition(), item->getRad(), player->getPosition(), 16.0f)) {
             item->setState(STATE::UN_USE);
             got::XAudio2::getInstance().play("Item");
             std::dynamic_pointer_cast<Player>(player)->levelUp(1);
+            Game::getInstance().addScore(10);
         }
     }
 }

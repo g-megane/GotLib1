@@ -33,7 +33,8 @@ void OperatingScene::move()
     background->move();
 
     auto &fade = got::Fade::getInstance();
-    if (got::MyDirectInput::getInstance().keyTrigger(DIK_RETURN)) {
+    auto &input = got::MyDirectInput::getInstance();
+    if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
         got::XAudio2::getInstance().play("Enter");
         fade.setIsFadeOut(true);
     }

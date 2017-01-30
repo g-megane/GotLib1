@@ -7,15 +7,16 @@
 #include "EnemyManager.h"
 #include "Game.h"
 #include "Boss.h"
+#include "Boss2.h"
 
 
 // コンストラクタ
 // 引数: Enemyの生成数
 EnemyManager::EnemyManager(const int _num)
-	: Actor(L"EnemyManager")
+	: Actor(L"EnemyManager"), max_Children(_num)
 {
 	std::shared_ptr<Actor> enemy;
-	for (int i = 0; i < _num; ++i) {
+	for (int i = 0; i < max_Children; ++i) {
 		enemy = std::make_shared<Enemy>();
 		addChild(enemy);
 	}
@@ -33,6 +34,18 @@ bool EnemyManager::init()
 	for (auto & child : children) {
 		child->init();
 	}
+
+    std::shared_ptr<Actor> tmp;
+    switch (SceneManager::getInstance().getNowSceneName()) {
+    case SceneManager::SCENE_NAME::MAIN:
+        tmp = std::make_shared<Boss>();
+        break;
+    case SceneManager::SCENE_NAME::MAIN2:
+        tmp = std::make_shared<Boss2>();
+        break;
+    }
+
+    boss.swap(tmp);
     boss->init();
 
     elapsedTime = 0.0f;
@@ -86,6 +99,12 @@ void EnemyManager::end()
 	for (auto & child : children) {
 		child->end();
 	}
+}
+void EnemyManager::eraseBoss()
+{
+    while (max_Children < children.size()) {
+        children.pop_back();
+    }
 }
 // EnemyData構造体に値をセット
 void EnemyManager::setEnemy(const float _bornTime, const std::string& _spriteName, const int _hp, got::Color<float> _color, const float _initX, const float _initY, const int _movePattern, const float _dx, const float _dy, const int _shotPattern, const float _bulltSpeed, const float _shotInterval, const int _score)

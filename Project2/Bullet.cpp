@@ -134,7 +134,6 @@ void Bullet::changeMoveFunc(const int num)
             if (target.lock()->getState() == STATE::USE) {
                 got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
                 got::Vector2<float> shotVec2(shotVec.normalize());
-
                 
                 angle = shotVec2.toAngle() + PI / 2;
 
@@ -151,7 +150,7 @@ void Bullet::changeMoveFunc(const int num)
     case 2:
         moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
-            if (dy < 0.5f) {
+            if (dy < 0.15f) {
                 dy += 0.0005f;
             }
             

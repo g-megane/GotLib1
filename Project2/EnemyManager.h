@@ -19,6 +19,7 @@ public:
 	void draw() const override;
 	void end()  override;
 
+    void eraseBoss();
     void setEnemy(const float             _bornTime,
                   const std::string&      _spriteName,
                   const int               _hp, 
@@ -41,6 +42,7 @@ private:
 
     float elapsedTime; // Enemyの生成に使う経過時間
     bool isBoss;
+    const int max_Children;
 
     struct EnemyData {
         float             bornTime;         // 出現までの時間

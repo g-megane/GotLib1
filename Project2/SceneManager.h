@@ -16,6 +16,7 @@ public:
 	{
 		TITLE,
 		MAIN,
+        MAIN2,
         PAUSE,
         OPERATING,
 		RESULT,
@@ -29,6 +30,7 @@ public:
 	void end();
 	void createScene();
     SCENE_NAME getBeforeSceneName();
+    SCENE_NAME getNowSceneName();
 
 private:
 	friend class got::Singleton<SceneManager>;

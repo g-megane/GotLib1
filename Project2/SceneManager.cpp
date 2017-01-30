@@ -5,6 +5,7 @@
 //////////////////////////////////////////////////
 #include "SceneManager.h"
 #include "MainScene.h"
+#include "MainScene2.h"
 #include "TitleScene.h"
 #include "ResultScene.h"
 #include "PauseScene.h"
@@ -33,6 +34,9 @@ void SceneManager::createScene()
 	sceneMap[SCENE_NAME::MAIN] = scene;
 	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
 
+    scene = std::make_shared<MainScene2>();
+    sceneMap[SCENE_NAME::MAIN2] = scene;
+
     scene = std::make_shared<PauseScene>();
     sceneMap[SCENE_NAME::PAUSE] = scene;
 
@@ -52,6 +56,11 @@ void SceneManager::createScene()
 SceneManager::SCENE_NAME SceneManager::getBeforeSceneName()
 {
     return beforeSceneName;
+}
+
+SceneManager::SCENE_NAME SceneManager::getNowSceneName()
+{
+    return nowSceneName;
 }
 
 // シーン遷移

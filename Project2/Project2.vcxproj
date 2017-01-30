@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Boss2.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
@@ -133,6 +134,7 @@
     <ClCompile Include="Information.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemManager.cpp" />
+    <ClCompile Include="MainScene2.cpp" />
     <ClCompile Include="OperatingScene.cpp" />
     <ClCompile Include="PauseScene.cpp" />
     <ClCompile Include="PlayerBulletManager.cpp" />
@@ -161,6 +163,7 @@
     <ClInclude Include="Angle.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Boss2.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Effect.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="Information.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemManager.h" />
+    <ClInclude Include="MainScene2.h" />
     <ClInclude Include="OperatingScene.h" />
     <ClInclude Include="PauseScene.h" />
     <ClInclude Include="PlayerBulletManager.h" />

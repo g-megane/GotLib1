@@ -156,6 +156,12 @@
     <ClCompile Include="Ranking.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="MainScene2.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss2.cpp">
+      <Filter>Game\Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX11.h">
@@ -286,6 +292,12 @@
     </ClInclude>
     <ClInclude Include="Ranking.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene2.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss2.h">
+      <Filter>Game\Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

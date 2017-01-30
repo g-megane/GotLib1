@@ -32,6 +32,9 @@ Game::Game() : time()
 	tmp = std::make_shared<Player>();
 	rootActor->addChild(tmp);
 	
+    tmp = std::make_shared<EnemyManager>(10);
+    rootActor->addChild(tmp);
+
     tmp = std::make_shared<PlayerBulletManager>(100);
     rootActor->addChild(tmp);
 
@@ -59,10 +62,16 @@ bool Game::init()
 	if (FAILED(hr)) { // DirectXの初期化	
 		return false;
 	}
+
 	hr = got::MyDirectInput::getInstance().init();
 	if (FAILED(hr)) {		 // DirectInputの初期化
 		return false;
 	}
+
+    hr = got::MyDirectInput::getInstance().initGamepad();
+    if (FAILED(hr)) {		 // DirectInputの初期化
+       // return false;
+    }
 
     auto& xAudio2 = got::XAudio2::getInstance();
     xAudio2.openWave("Stage",       "Resources\\Sound\\Stage.wav");
@@ -104,7 +113,7 @@ bool Game::init()
 
     // OperatingScene用画像
     //spriteManager.addMap("OperatingMenu",  L"Resources\\OperatingMenu.png");
-    spriteManager.addMap("OperatingMenu", L"Resources\\Operating2.png");
+    spriteManager.addMap("OperatingMenu", L"Resources\\Operating3.png");
 
 	//TODO:MainScene用画像(仮)
 	spriteManager.addMap("Player"      , L"Resources\\Player.png");
@@ -175,6 +184,7 @@ void Game::update()
 		// シーンのアップデート
 		sm.move();
         got::MyDirectInput::getInstance().update();
+        got::MyDirectInput::getInstance().updateGamepad();
         
         got::XAudio2::getInstance().update();
 

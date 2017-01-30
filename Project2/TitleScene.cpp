@@ -41,13 +41,13 @@ void TitleScene::move()
     background->move();
 
     // 選択
-    if (di.keyTrigger(DIK_UP)) {
+    if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
         got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
         return;
     }
-    else if (di.keyTrigger(DIK_DOWN)) {
+    else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
         got::XAudio2::getInstance().play("MenuSelect");
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
@@ -55,7 +55,7 @@ void TitleScene::move()
     }
 
 	// シーン遷移(TITLE->MAIN or TITLE->OPERATING)
-	if (di.keyTrigger(DIK_RETURN)) {
+	if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
         got::XAudio2::getInstance().play("Enter");
         fade.setIsFadeOut(true);
     }

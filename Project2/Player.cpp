@@ -31,7 +31,10 @@ bool Player::init()
     dx           = 0.4f; //TODO:移動量(仮)
     dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
-    hp           = 1;    // ヒットポイント
+    // 最初のステージの時だけヒットポイントを初期化
+    if (SceneManager::getInstance().getNowSceneName() == SceneManager::SCENE_NAME::MAIN) {
+        hp = 1;    // ヒットポイント
+    }
     rad          = 4.0f; // 円のあたり判定の半径
     
     auto &root          = Game::getInstance().getRootActor();
@@ -57,13 +60,13 @@ void Player::move()
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyPush(DIK_LSHIFT))     { deceleration = 0.3f; }
+    if (input.keyDown(DIK_LSHIFT) || input.buttonDown(5))     { deceleration = 0.3f; }
 
     // キー移動
-    if      (input.keyPush(DIK_UP   )) { position.y -= dy * deceleration * dTime; }
-    else if (input.keyPush(DIK_DOWN )) { position.y += dy * deceleration * dTime; }
-    if      (input.keyPush(DIK_RIGHT)) { position.x += dx * deceleration * dTime; }
-    else if (input.keyPush(DIK_LEFT )) { position.x	-= dx * deceleration * dTime; }
+    if      (input.keyDown(DIK_UP   ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP)    { position.y -= dy * deceleration * dTime; }
+    else if (input.keyDown(DIK_DOWN ) || input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN)  { position.y += dy * deceleration * dTime; }
+    if      (input.keyDown(DIK_RIGHT) || input.getStickPosX() == got::MyDirectInput::STICK_STATE::RIGHT) { position.x += dx * deceleration * dTime; }
+    else if (input.keyDown(DIK_LEFT ) || input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT)  { position.x	-= dx * deceleration * dTime; }
 
     // ステージ外に出たら補正する
     if      (position.x < 0                               ) { position.x = 0;                                }
@@ -84,7 +87,7 @@ void Player::move()
     // 弾の発射
     if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
     time.reset();
-    if(input.keyPush(DIK_Z)) {
+    if(input.keyDown(DIK_Z) || input.buttonDown(0)) {
         playerBulletManager->shot(getShotPosition(), hp);
            got::XAudio2::getInstance().play("Shot1");
     }
@@ -118,6 +121,7 @@ void Player::setDamage(const int damage)
         got::Fade::getInstance().setIsFadeOut(true);
         Game::getInstance().setIsNextScene(true);
         got::XAudio2::getInstance().stopBGM();
+        enemyManager->eraseBoss();
     }
 }
 // プレイヤーのショットレベルを上げる

@@ -3,21 +3,21 @@
 // 更新日:2016/1/25
 // 制作者:got
 //////////////////////////////////////////////////
-#include "Boss.h"
+#include "Boss2.h"
 #include "Game.h"
 #include "EffectManager.h"
 #include "ItemManager.h"
 
-Boss::Boss()
-    :Enemy(), subShotTimer()
+Boss2::Boss2()
+    : Boss(), subShotTimer()
 {
 }
 
-Boss::~Boss()
+Boss2::~Boss2()
 {
 }
 
-bool Boss::init()
+bool Boss2::init()
 {
 
     if (!Enemy::init()) {
@@ -31,9 +31,9 @@ bool Boss::init()
     setMovePattern(3);
     dx = 0.1f;
     dy = 0.1f;
-    setShotPattern(3);
-    bulletSpeed = 0.15f;
-    shotInterval = 750.0f;
+    setShotPattern(4);
+    bulletSpeed = 0.1f;
+    shotInterval = 50.0f;
     score = 1000;
     subShotTimer.reset();
     rad = 64.0f;
@@ -41,7 +41,7 @@ bool Boss::init()
     return true;
 }
 
-void Boss::move()
+void Boss2::move()
 {
     if (state == STATE::UN_USE) { return; }
 
@@ -63,22 +63,22 @@ void Boss::move()
         this->shotFunc();
         time2.reset();
     }
-    if (subShotTimer.timeOver(500.0f)) {
+    if (subShotTimer.timeOver(1000.0f)) {
         enemyBulletManager->shot2(getShotPosition(), 0.2f);
         subShotTimer.reset();
     }
 }
 
-void Boss::draw() const
+void Boss2::draw() const
 {
     Enemy::draw();
 }
 
-void Boss::end()
+void Boss2::end()
 {
 }
 
-void Boss::setDamage(const int damage)
+void Boss2::setDamage(const int damage)
 {
     hp -= damage;
     color.a = 0.0f;
@@ -96,19 +96,18 @@ void Boss::setDamage(const int damage)
     }
 }
 
-void Boss::changeMove()
+void Boss2::changeMove()
 {
     if (hp < 100) {
         setMovePattern(-1);
-        setShotPattern(2);
     }
 }
 
-void Boss::checkMoveLimit()
+void Boss2::checkMoveLimit()
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    if     (position.x < 0)                                { dx = -dx; }
-    else if(position.x > STAGE_WIDTH - spriteSize.width)   { dx = -dx; }
+    if (position.x < 0) { dx = -dx; }
+    else if (position.x > STAGE_WIDTH - spriteSize.width) { dx = -dx; }
     //if     (position.y < 0)                                { dy = -dy; }
     //else if(position.y > STAGE_HEIGHT - spriteSize.height) { dy = -dy; }
 }
