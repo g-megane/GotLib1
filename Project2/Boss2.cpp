@@ -31,9 +31,9 @@ bool Boss2::init()
     setMovePattern(3);
     dx = 0.1f;
     dy = 0.1f;
-    setShotPattern(4);
-    bulletSpeed = 0.1f;
-    shotInterval = 50.0f;
+    setShotPattern(1);
+    bulletSpeed = 0.2f;
+    shotInterval = 1000.0f;
     score = 1000;
     subShotTimer.reset();
     rad = 64.0f;
@@ -63,8 +63,8 @@ void Boss2::move()
         this->shotFunc();
         time2.reset();
     }
-    if (subShotTimer.timeOver(1000.0f)) {
-        enemyBulletManager->shot2(getShotPosition(), 0.2f);
+    if (subShotTimer.timeOver(50)) {
+        enemyBulletManager->shot5(getShotPosition(), 0.175f);
         subShotTimer.reset();
     }
 }
@@ -99,9 +99,9 @@ void Boss2::setDamage(const int damage)
 void Boss2::changeMove()
 {
     if (hp < 100) {
-        setMovePattern(-1);
+        //setMovePattern(-1);
         setShotPattern(2);
-        shotInterval = 500.0f;
+        shotInterval = 750.0f;
     }
 }
 

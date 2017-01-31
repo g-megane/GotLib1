@@ -36,7 +36,7 @@ Game::Game() : time()
     tmp = std::make_shared<PlayerBulletManager>(100);
     rootActor->addChild(tmp);
 
-    tmp= std::make_shared<EnemyBulletManager>(750);
+    tmp= std::make_shared<EnemyBulletManager>(1000);
     rootActor->addChild(tmp);
 
     tmp = std::make_shared<ItemManager>(10);

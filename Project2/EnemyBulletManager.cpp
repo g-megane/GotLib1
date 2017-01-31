@@ -30,7 +30,7 @@ bool EnemyBulletManager::init()
     player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
 
     degree  = 0.0f;
-    dDegree = PI / 18.3f;
+    dDegree = PI / 17.3f;
 
 	for (auto & bullet : children) {
 		if (!bullet->init()) {
@@ -51,7 +51,7 @@ void EnemyBulletManager::move()
 		//TODO:半径を変数に変える
         if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, got::Vector2<float>(player->getCenter().x + 3.0f, player->getCenter().y + 8.0f), player->getRad())) {
 #ifndef _DEBUG
-            player->setDamage(1);
+            //player->setDamage(1);
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
             break;
@@ -148,7 +148,7 @@ void EnemyBulletManager::shot4(const got::Vector2<float>& startPos, const int si
 
 void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float speed)
 {
-    auto radTmp = PI / 6.0f * sin(degree);
+    auto radTmp = PI / 5.0f * sin(degree);
     degree += dDegree;
     got::Vector2<float> shotVec(0.0f, -1.0f);
     got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(radTmp));

@@ -49,10 +49,10 @@ void Bullet::move()
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     // 画面外に出た弾のStateをUN_USEに変更
     //TODO: 範囲を広げる
-	if (position.x < -100.0f)				{ setState(STATE::UN_USE); return; }
-	if (position.x > STAGE_WIDTH + 100.0f)  { setState(STATE::UN_USE); return; }
-	if (position.y < -500.0f)				{ setState(STATE::UN_USE); return; }
-	if (position.y > STAGE_HEIGHT + 100.0f) { setState(STATE::UN_USE); return; }
+	if (position.x < -50.0f)				{ setState(STATE::UN_USE); return; }
+	if (position.x > STAGE_WIDTH  + 50.0f)  { setState(STATE::UN_USE); return; }
+	if (position.y < -300.0f)				{ setState(STATE::UN_USE); return; }
+	if (position.y > STAGE_HEIGHT + 50.0f)  { setState(STATE::UN_USE); return; }
 }
 // 描画
 void Bullet::draw() const
@@ -151,7 +151,7 @@ void Bullet::changeMoveFunc(const int num)
         moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
             if (dy < 0.15f) {
-                dy += 0.0005f;
+                dy += 0.001f;
             }
             
           
