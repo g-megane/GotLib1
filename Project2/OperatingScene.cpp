@@ -34,9 +34,11 @@ void OperatingScene::move()
 
     auto &fade = got::Fade::getInstance();
     auto &input = got::MyDirectInput::getInstance();
-    if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
-        got::XAudio2::getInstance().play("Enter");
-        fade.setIsFadeOut(true);
+    if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
+        if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
+            got::XAudio2::getInstance().play("Enter");
+            fade.setIsFadeOut(true);
+        }
     }
     if (fade.getIsFadeOut()) {
         fade.fadeOut(SceneManager::SCENE_NAME::TITLE);

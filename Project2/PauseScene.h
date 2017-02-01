@@ -20,5 +20,6 @@ public:
 
 private:
     got::Vector2<float> choosePos;
+    bool canSelectDown;
 
 };

@@ -9,11 +9,11 @@ namespace got
 {
     Fade::Fade()
     {
-        isFade = false;
+        isFade    = false;
         isFadeOut = false;
-        isFadeIn = false;
-        color   = Color<float>::BLACK;   // 色を黒にセット
-        alpha   = 0.0f;
+        isFadeIn  = false;
+        color     = Color<float>::BLACK;   // 色を黒にセット
+        alpha     = 0.0f;
         position.ZERO;
     }
 

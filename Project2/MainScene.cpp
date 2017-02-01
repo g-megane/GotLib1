@@ -98,19 +98,24 @@ void MainScene::move()
 {
     // Pキーが押された
     auto &input = got::MyDirectInput::getInstance();
-    auto &game = Game::getInstance();
-    if (input.keyPressed(DIK_P) || input.buttonPressed(7)) {
-        game.setIsPause(true);
-        got::Fade::getInstance().setIsFadeOut(true);
+    auto &game  = Game::getInstance();
+    auto &fade  = got::Fade::getInstance();
+
+    if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
+        if (input.keyPressed(DIK_P) || input.buttonPressed(7)) {
+            got::XAudio2::getInstance().play("Enter");
+            game.setIsPause(true);
+            fade.setIsFadeOut(true);
+        }
     }
 
-    if (got::Fade::getInstance().getIsFadeOut()) {
+    if (fade.getIsFadeOut()) {
         // 次のシーンへの遷移の場合
         if (game.getIsNextScene()) {
             // プレイヤーが死んでいる場合
             if (std::dynamic_pointer_cast<Player>(game.getRootActor()->getChild(L"Player"))->getHp() <= 0) {
                 got::XAudio2::getInstance().stopBGM();
-                got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::RESULT);
+                fade.fadeOut(SceneManager::SCENE_NAME::RESULT);
                 // EnemyManagerのchildからBossを削除
                 std::dynamic_pointer_cast<EnemyManager>(game.getRootActor()->getChild(L"EnemyManager"))->eraseBoss();
                 return;
@@ -118,7 +123,7 @@ void MainScene::move()
             // クリアの場合
             else {
                 got::XAudio2::getInstance().stopBGM();
-                got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::MAIN2);
+                fade.fadeOut(SceneManager::SCENE_NAME::MAIN2);
                 // EnemyManagerのchildからBossを削除
                 std::dynamic_pointer_cast<EnemyManager>(game.getRootActor()->getChild(L"EnemyManager"))->eraseBoss();
                 return;
@@ -126,7 +131,7 @@ void MainScene::move()
         }
         // ポーズシーンへの遷移の場合
         else {
-            got::Fade::getInstance().fadeOut(SceneManager::SCENE_NAME::PAUSE);
+            fade.fadeOut(SceneManager::SCENE_NAME::PAUSE);
             return;
         }
     }

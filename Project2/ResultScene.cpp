@@ -44,10 +44,18 @@ void ResultScene::move()
 
 	// シーン遷移(TITLE->MAIN)
     auto &input = got::MyDirectInput::getInstance();
-	if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
-        got::XAudio2::getInstance().play("Enter");
-		SceneManager::getInstance().changeScene(SceneManager::SCENE_NAME::TITLE);
-	}
+    auto &fade  = got::Fade::getInstance();
+
+    if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
+        if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
+            got::XAudio2::getInstance().play("Enter");
+            fade.setIsFadeOut(true);
+        }
+    }
+
+    if (fade.getIsFadeOut()) {
+		fade.fadeOut(SceneManager::SCENE_NAME::TITLE);
+    }
 }
 // 描画
 void ResultScene::draw() const

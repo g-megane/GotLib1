@@ -28,6 +28,7 @@ bool PauseScene::init()
     auto &sm = got::SpriteManager::getInstance();
     position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
+    canSelectDown = false;
 
     return true;
 }
@@ -37,28 +38,30 @@ void PauseScene::move()
     background->move();
 
     // 選択
-    auto &di = got::MyDirectInput::getInstance();
+    auto &di   = got::MyDirectInput::getInstance();
     auto &fade = got::Fade::getInstance();
-    
-    if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
-        got::XAudio2::getInstance().play("MenuSelect");
+    if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
-        choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
-        return;
-    }
-    else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
-        got::XAudio2::getInstance().play("MenuSelect");
-        auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
-        choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
-        return;
+        if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
+            if (!canSelectDown) { got::XAudio2::getInstance().play("MenuSelect"); }
+            choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
+            canSelectDown = true;
+            return;
+        }
+        else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
+            if (canSelectDown) { got::XAudio2::getInstance().play("MenuSelect"); };
+            choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
+            canSelectDown = false;
+            return;
+        }
+        // シーン遷移(TITLE->MAIN or TITLE->OPERATING)
+        if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
+            got::XAudio2::getInstance().play("Enter");
+            fade.setIsFadeOut(true);
+            Game::getInstance().setIsPause(false);
+        }
     }
 
-    // シーン遷移(TITLE->MAIN or TITLE->OPERATING)
-    if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
-        got::XAudio2::getInstance().play("Enter");
-        fade.setIsFadeOut(true);
-        Game::getInstance().setIsPause(false);
-    }
     if (fade.getIsFadeOut()) {
         if (choosePos.y <= 550.0f) {
             fade.fadeOut(SceneManager::getInstance().getBeforeSceneName(), false);
