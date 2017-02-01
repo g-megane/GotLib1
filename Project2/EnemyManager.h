@@ -42,7 +42,7 @@ private:
 
     float elapsedTime; // Enemyの生成に使う経過時間
     bool isBoss;
-    const int max_Children;
+    const unsigned int max_Children;
 
     struct EnemyData {
         float             bornTime;         // 出現までの時間

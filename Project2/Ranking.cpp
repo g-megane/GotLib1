@@ -83,7 +83,7 @@ std::ostringstream Ranking::getRankingsString()
     for (auto rank : rankings) {
         //oss << "/" << std::setw(2) << no++ << "/";
         //if (rank.score >= 0) {
-            oss << std::setw(2) << ++no << " " << std::setw(4) << rank.time.wYear << "." << std::setw(2) << rank.time.wMonth << "." << std::setw(2) << rank.time.wDay;
+            oss << ++no << " " << std::setw(4) << rank.time.wYear << "/" << std::setw(2) << rank.time.wMonth << "/" << std::setw(2) << rank.time.wDay;
             oss << " " << std::setw(2) << rank.time.wHour + 9 << "." << std::setw(2) << rank.time.wMinute << "." << std::setw(2) << rank.time.wSecond;
             oss << " " << std::setw(5) << rank.score;
         //}

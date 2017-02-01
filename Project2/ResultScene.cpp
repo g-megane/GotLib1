@@ -68,7 +68,7 @@ void ResultScene::draw() const
     // スコア表示
     // 文字
     auto spriteSize = spriteManager.getSprite("Score")->getSize();
-    auto mt = got::Matrix4x4<float>::translate(got::Vector2<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2, 100.0f));
+    auto mt = got::Matrix4x4<float>::translate(got::Vector2<float>(static_cast<float>(WINDOW_WIDTH) / 2.0f - spriteSize.width / 2.0f, 100.0f));
     auto drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     spriteManager.draw("Score", mt, drawRect, color);
 
@@ -88,6 +88,12 @@ void ResultScene::draw() const
     }
 
     // ランキング
+    // 文字
+    spriteSize = spriteManager.getSprite("Ranking")->getSize();
+    mt         = got::Matrix4x4<float>::translate(got::Vector2<float>(static_cast<float>(WINDOW_WIDTH) / 2.0f - spriteSize.width / 2.0f, 290.0f));
+    drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    spriteManager.draw("Ranking", mt, drawRect, color);
+    // 数字
     float y = 700.0f;
     float x = 900.0f;
     length = oss3.str().length();
@@ -104,6 +110,14 @@ void ResultScene::draw() const
         // スペース
         else if (str == " ") {
             x -= spriteSize.width + 5.0f;
+        }
+        else if (str == "/") {
+            str = "Sra";
+            spriteSize = got::SpriteManager::getInstance().getSprite(str)->getSize();
+            mt = got::Matrix4x4<float>::translate(got::Vector2<float>(x, y));
+            drawRect = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+            got::SpriteManager::getInstance().draw(str, mt, drawRect, color);
+            x -= spriteSize.width;
         }
         // 「.」
         else if (str == ".") {

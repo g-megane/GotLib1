@@ -16,7 +16,7 @@ EnemyManager::EnemyManager(const int _num)
 	: Actor(L"EnemyManager"), max_Children(_num)
 {
 	std::shared_ptr<Actor> enemy;
-	for (int i = 0; i < max_Children; ++i) {
+	for (unsigned int i = 0; i < max_Children; ++i) {
 		enemy = std::make_shared<Enemy>();
 		addChild(enemy);
 	}

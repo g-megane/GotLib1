@@ -50,7 +50,7 @@ bool MainScene2::init()
     }
 
     // Enemyのデータの読み込み
-    em->readFile("Resources\\Data\\DebugData.csv");
+    em->readFile("Resources\\Data\\EnemyData2.csv");
 
     got::XAudio2::getInstance().playBGM("Stage");
     EffectManager::getInstance().init();

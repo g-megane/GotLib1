@@ -49,9 +49,9 @@ void EnemyBulletManager::move()
 	for (auto & bullet : children) {
 		if (bullet->getState() == STATE::UN_USE) { continue; }
 		//TODO:半径を変数に変える
-        if (got::Collison::circleToCircle<float>(bullet->getCenter(), 8.0f, got::Vector2<float>(player->getCenter().x + 3.0f, player->getCenter().y + 8.0f), player->getRad())) {
+        if (got::Collison::circleToCircle<float>(bullet->getCenter(), 7.0f, got::Vector2<float>(player->getCenter().x + 0.5f, player->getCenter().y + 8.0f), player->getRad())) {
 #ifndef _DEBUG
-            //player->setDamage(1);
+            player->setDamage(1);
 #endif // _DEBUG
             bullet->setState(STATE::UN_USE);
             break;

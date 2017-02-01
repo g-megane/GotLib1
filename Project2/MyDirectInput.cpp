@@ -272,8 +272,11 @@ namespace got
     }
     bool MyDirectInput::buttonDown(const int pos)
     {
-        if(spPadDevice == nullptr) { return false; }
-        return padData.rgbButtons[pos];
+        if (spPadDevice == nullptr) { return false; }
+        if (padData.rgbButtons[pos]) {
+            return true;
+        }
+        return false;
     }
     bool MyDirectInput::buttonPressed(const int pos)
     {

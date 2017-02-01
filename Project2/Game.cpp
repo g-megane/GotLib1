@@ -142,6 +142,8 @@ bool Game::init()
 
 	//TODO:ResultScene用画像(仮)
 	spriteManager.addMap("Result", L"Resources\\ResultSample.png");
+    spriteManager.addMap("Ranking", L"Resources\\ranking.png");
+    spriteManager.addMap("Sra",    L"Resources\\sra.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();
