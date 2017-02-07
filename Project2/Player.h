@@ -33,9 +33,11 @@ private:
     float deceleration; // 減速量
     int   hp;           // ヒットポイント
     const int maxHp;    // HPの限界値
+    bool  isInvicible;
     std::shared_ptr<PlayerBulletManager> playerBulletManager;
     std::shared_ptr<EnemyManager>		 enemyManager;
     got::Time time;
+    got::Time invincibleTime;
     got::Color<float> color;
 
     void damageEffect();

@@ -16,7 +16,7 @@
 // コンストラクタ
 //TODO: Shotのパターン数やゲームの難しさを考慮して決める
 Player::Player()
-    :Actor(L"Player"), time(), maxHp(4)
+    :Actor(L"Player"), time(), invincibleTime(), maxHp(4)
 {
     time       = got::Time();
     spriteName = "Player";
@@ -32,6 +32,7 @@ bool Player::init()
     dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
     rad          = 4.0f; // 円のあたり判定の半径
+    isInvicible  = false;
     color = got::Color<float>();
     // 最初のステージの時だけヒットポイントを初期化
     if (SceneManager::getInstance().getNowSceneName() == SceneManager::SCENE_NAME::MAIN) {
@@ -47,6 +48,7 @@ bool Player::init()
     position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
     
     time.reset();
+    invincibleTime.reset();
     
     return true;
 }
@@ -117,8 +119,12 @@ int Player::getHp() const
 // ダメージ処理
 void Player::setDamage(const int damage)
 {
-    hp -= damage;
-    color.a = 0.0f;
+    if (!isInvicible) {
+        hp -= damage;
+    }
+    color.a     = 0.5f;
+    isInvicible = true;
+    invincibleTime.reset();
     got::XAudio2::getInstance().play("PlayerDamage");
     
     // 死亡時の処理
@@ -150,6 +156,8 @@ const got::Vector2<float> Player::getShotPosition() const
 
 void Player::damageEffect()
 {
-    if(color.a == 1.0f) { return; }
-    color.a += 0.1f;
+    if (invincibleTime.timeOver(1000)) {
+        color.a = 1.0f;
+        isInvicible = false;
+    }
 }

@@ -86,8 +86,8 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 	dx = _dx;
 	dy = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	position = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
-	state = STATE::USE;
+	position   = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
+	state      = STATE::USE;
     spriteName = defaultBulletName;
 }
 // 変速弾
@@ -102,7 +102,7 @@ void Bullet::changeVelocityShot(const got::Vector2<float>& vec, const float _dx,
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
     state           = STATE::USE;
-    spriteName      = "Bullet3";
+    spriteName      = defaultBulletName;
 }
 // 追尾弾
 void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target)
@@ -130,8 +130,7 @@ void Bullet::changeMoveFunc(const int num)
     case 1: // 追尾
         moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
-            if (target.lock() != nullptr) {
-                if (target.lock()->getState() == STATE::USE) {
+            if (target.lock()->getState() == STATE::USE) {
                     got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
                     got::Vector2<float> shotVec2(shotVec.normalize());
 
@@ -139,7 +138,6 @@ void Bullet::changeMoveFunc(const int num)
 
                     dx = shotVec2.x * 0.25f;
                     dy = shotVec2.y * 0.25f;
-                }
             }
             else {
                 changeMoveFunc(0);

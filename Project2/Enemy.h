@@ -4,7 +4,7 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-
+#include <random>
 #include <functional>
 #include "Actor.h"
 #include "Time.h"
@@ -45,16 +45,17 @@ protected:
     float bulletSpeed;
     float shotInterval;
     int   score;
+    float dTime;
     got::Color<float> color;
 	got::Time time;
 	got::Time time2;
+    std::random_device rd;
 
-    float dTime;
 	std::shared_ptr<EnemyBulletManager> enemyBulletManager;
-
+    // 関数オブジェクト
     std::function<void()> Enemy::moveFunc;
     std::function<void()> Enemy::shotFunc;
-
+    // private関数
     inline void outOfStage();
     void setMovePattern(const int pattern);
     void setShotPattern(const int pattern);

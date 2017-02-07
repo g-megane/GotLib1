@@ -114,11 +114,16 @@ void Enemy::setDamage(const int damage)
     // 死んでいる場合
     if (hp <= 0) {
         auto &game = Game::getInstance();
-
         state = STATE::UN_USE;
         game.addScore(score);
         EffectManager::getInstance().startEffect("Explosion", position);
-        std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
+        //TODO: Itemの出現をランダムに
+
+        std::mt19937 mt(rd());
+        std::uniform_int_distribution<int> dice(0, 3);
+        if (dice(mt) == 0) {
+            std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
+        }
     }
 }
 // EnemyManagerがEnemyを動かすのに必要なデータをセットする

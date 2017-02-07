@@ -66,7 +66,7 @@ void MainScene2::move()
     auto &game  = Game::getInstance();
     auto &fade  = got::Fade::getInstance();
 
-    if (fade.getIsFadeOut() && fade.getIsFadeIn()) {
+    if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
         if (input.keyPressed(DIK_P) || input.buttonPressed(7)) {
             got::XAudio2::getInstance().play("Enter");
             game.setIsPause(true);
