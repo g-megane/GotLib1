@@ -55,7 +55,7 @@ protected:
     std::function<void()> Enemy::moveFunc;
     std::function<void()> Enemy::shotFunc;
 
-    void outOfStage();
+    inline void outOfStage();
     void setMovePattern(const int pattern);
     void setShotPattern(const int pattern);
 	got::Vector2<float> getShotPosition() const;

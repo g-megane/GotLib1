@@ -88,7 +88,7 @@ namespace got
 		cb.rect[2] = static_cast<float>(rect.getBottomRight().x);
 		cb.rect[3] = static_cast<float>(rect.getBottomRight().y);
 
-		DirectX11::getInstance().getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+        directX11.getDeviceContext()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
 
 		auto constantBuffer = spConstantBuffer.get();
 

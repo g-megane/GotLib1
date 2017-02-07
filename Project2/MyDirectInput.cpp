@@ -268,7 +268,7 @@ namespace got
             return STICK_STATE::RIGHT;
         }
 
-        return STICK_STATE();
+        return STICK_STATE::NOT_MOVING;
     }
     bool MyDirectInput::buttonDown(const int pos)
     {

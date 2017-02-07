@@ -4,7 +4,7 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-
+#pragma comment(lib, "d3d11.lib")
 #include <d3d11.h>
 #include "Singleton.h"
 #include "Dimention.h"

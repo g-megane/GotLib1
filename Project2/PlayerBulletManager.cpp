@@ -148,6 +148,7 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             }
         };
         break;
+    // 弾の発射(ShotLevel 3) : 直進で2発 + 左右の斜め2発 + 5発に1回追尾弾
     case 4:
         shotFunc = [&](const got::Vector2<float>& pos)
         {

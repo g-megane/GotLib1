@@ -61,10 +61,10 @@ void Enemy::move()
 
 	// ステージ外に出たら消す(Enemyが画面外に完全に出たら)
     //TODO:仮の値
-	if (position.x       < -200.0f              ) { outOfStage(); return; }
-	if (position.x       > STAGE_WIDTH + 200.0f ) { outOfStage(); return; }
-	if (position.y       < -100.0f              ) { outOfStage(); return; }
-	if (position.y       > STAGE_HEIGHT + 100.0f) { outOfStage(); return; }
+	if (position.x < -200.0f                         ) { outOfStage(); return; }
+	if (position.x > STAGE_WIDTH + 200.0f            ) { outOfStage(); return; }
+	if (position.y < -100.0f                         ) { outOfStage(); return; }
+	if (position.y > STAGE_HEIGHT + spriteSize.height) { outOfStage(); return; }
 
 }
 // 描画

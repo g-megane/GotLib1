@@ -71,18 +71,19 @@ bool Game::init()
 
     hr = got::MyDirectInput::getInstance().initGamepad();
     if (FAILED(hr)) {		 // DirectInputの初期化
-       // return false;
+        return false;
     }
 
     auto& xAudio2 = got::XAudio2::getInstance();
-    xAudio2.openWave("Stage",       "Resources\\Sound\\Stage.wav");
-    xAudio2.openWave("Shot1",       "Resources\\Sound\\Shot.wav");
-    xAudio2.openWave("Explosion",   "Resources\\Sound\\Explosion.wav");
-    xAudio2.openWave("Item",        "Resources\\Sound\\Item.wav");
-    xAudio2.openWave("LevelUp",     "Resources\\Sound\\LevelUp.wav");
-    xAudio2.openWave("MenuSelect",  "Resources\\Sound\\MenuSelect.wav");
-    xAudio2.openWave("Enter",       "Resources\\Sound\\Enter.wav");
-    xAudio2.openWave("EnemyDamage", "Resources\\Sound\\EnemyDamage.wav");
+    xAudio2.openWave("Stage",        "Resources\\Sound\\Stage.wav");
+    xAudio2.openWave("Shot1",        "Resources\\Sound\\Shot.wav");
+    xAudio2.openWave("Explosion",    "Resources\\Sound\\Explosion.wav");
+    xAudio2.openWave("Item",         "Resources\\Sound\\Item.wav");
+    xAudio2.openWave("LevelUp",      "Resources\\Sound\\LevelUp.wav");
+    xAudio2.openWave("MenuSelect",   "Resources\\Sound\\MenuSelect.wav");
+    xAudio2.openWave("Enter",        "Resources\\Sound\\Enter.wav");
+    xAudio2.openWave("EnemyDamage",  "Resources\\Sound\\EnemyDamage.wav");
+    xAudio2.openWave("PlayerDamage", "Resources\\Sound\\PlayerDamage.wav");
 
     isPause     = false;
     isNextScene = false;

@@ -31,10 +31,6 @@ namespace got
             DOWN,
             LEFT,
             RIGHT,
-            UP_RIGHT,
-            UP_LEFT,
-            DOWN_RIGHT,
-            DOWN_LEFT,
             NOT_MOVING,
         };
 

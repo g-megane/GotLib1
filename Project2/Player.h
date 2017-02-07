@@ -36,5 +36,7 @@ private:
     std::shared_ptr<PlayerBulletManager> playerBulletManager;
     std::shared_ptr<EnemyManager>		 enemyManager;
     got::Time time;
+    got::Color<float> color;
 
+    void damageEffect();
 };

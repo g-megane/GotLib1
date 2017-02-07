@@ -18,7 +18,7 @@
 Player::Player()
     :Actor(L"Player"), time(), maxHp(4)
 {
-    time = got::Time();
+    time       = got::Time();
     spriteName = "Player";
 }
 // デストラクタ
@@ -31,11 +31,12 @@ bool Player::init()
     dx           = 0.4f; //TODO:移動量(仮)
     dy           = 0.4f; //TODO:移動量(仮)
     deceleration = 1.0f; // 減速量
+    rad          = 4.0f; // 円のあたり判定の半径
+    color = got::Color<float>();
     // 最初のステージの時だけヒットポイントを初期化
     if (SceneManager::getInstance().getNowSceneName() == SceneManager::SCENE_NAME::MAIN) {
         hp = 1;    // ヒットポイント
     }
-    rad          = 4.0f; // 円のあたり判定の半径
     
     auto &root          = Game::getInstance().getRootActor();
     enemyManager        = std::dynamic_pointer_cast<EnemyManager>(root->getChild(L"EnemyManager"));
@@ -83,13 +84,15 @@ void Player::move()
 #endif // !_DEBUG
         }
     }
+
+    damageEffect();
     
     // 弾の発射
     if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
     time.reset();
     if(input.keyDown(DIK_Z) || input.buttonDown(0)) {
         playerBulletManager->shot(getShotPosition(), hp);
-           got::XAudio2::getInstance().play("Shot1");
+        got::XAudio2::getInstance().play("Shot1");
     }
 }
 // 描画
@@ -98,7 +101,6 @@ void Player::draw() const
     //TODO:テスト
     auto mt         = got::Matrix4x4<float>::translate(position);
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    auto color      = got::Color<float>();
     auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     
     got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
@@ -116,6 +118,9 @@ int Player::getHp() const
 void Player::setDamage(const int damage)
 {
     hp -= damage;
+    color.a = 0.0f;
+    got::XAudio2::getInstance().play("PlayerDamage");
+    
     // 死亡時の処理
     if (hp <= 0) {
         got::Fade::getInstance().setIsFadeOut(true);
@@ -141,4 +146,10 @@ const got::Vector2<float> Player::getShotPosition() const
 {
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     return got::Vector2<float>(position.x + (spriteSize.width / 2.0f), position.y);
+}
+
+void Player::damageEffect()
+{
+    if(color.a == 1.0f) { return; }
+    color.a += 0.1f;
 }

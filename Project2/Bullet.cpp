@@ -102,7 +102,7 @@ void Bullet::changeVelocityShot(const got::Vector2<float>& vec, const float _dx,
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
     state           = STATE::USE;
-    spriteName      = defaultBulletName;
+    spriteName      = "Bullet3";
 }
 // 追尾弾
 void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target)
@@ -130,15 +130,16 @@ void Bullet::changeMoveFunc(const int num)
     case 1: // 追尾
         moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
+            if (target.lock() != nullptr) {
+                if (target.lock()->getState() == STATE::USE) {
+                    got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
+                    got::Vector2<float> shotVec2(shotVec.normalize());
 
-            if (target.lock()->getState() == STATE::USE) {
-                got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
-                got::Vector2<float> shotVec2(shotVec.normalize());
-                
-                angle = shotVec2.toAngle() + PI / 2;
+                    angle = shotVec2.toAngle() + PI / 2;
 
-                dx = shotVec2.x * 0.25f;
-                dy = shotVec2.y * 0.25f;
+                    dx = shotVec2.x * 0.25f;
+                    dy = shotVec2.y * 0.25f;
+                }
             }
             else {
                 changeMoveFunc(0);
@@ -147,7 +148,7 @@ void Bullet::changeMoveFunc(const int num)
             position.translate(dx * dTime, dy * dTime);
         };
         break;
-    case 2:
+    case 2: // 変速弾
         moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
             if (dy < 0.15f) {
@@ -155,6 +156,13 @@ void Bullet::changeMoveFunc(const int num)
             }
             
           
+            position.translate(dx * dTime, dy * dTime);
+        };
+        break;
+    default: // defaultの場合は通常弾
+        moveFunc = [&]() {
+            auto dTime = Game::getInstance().getDeltaTime();
+
             position.translate(dx * dTime, dy * dTime);
         };
         break;
