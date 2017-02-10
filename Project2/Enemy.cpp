@@ -116,7 +116,8 @@ void Enemy::setDamage(const int damage)
         auto &game = Game::getInstance();
         state = STATE::UN_USE;
         game.addScore(score);
-        EffectManager::getInstance().startEffect("Explosion", position);
+        auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+        EffectManager::getInstance().startEffect("Explosion", got::Vector2<float>(position.x + spriteSize.width / 2, position.y + spriteSize.height / 2));
         //TODO: Itemの出現をランダムに
 
         std::mt19937 mt(rd());

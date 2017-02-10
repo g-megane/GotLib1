@@ -24,7 +24,7 @@ bool Explosion::init()
     Effect::init();
 
     scale = 0.0f;
-    dy = 0.1f;
+    dy    = 0.1f;
 
     return true;
 }
@@ -67,9 +67,10 @@ void Explosion::end()
 
 void Explosion::startEffect(const got::Vector2<float>& effectPos)
 {
-    color.a = 1.0f;
-    scale = 0.0f;
-    position = effectPos;
-    state = Effect::STATE::USE;
+    color.a  = 1.0f;
+    scale    = 0.0f;
+    auto spriteSize = got::SpriteManager::getInstance().getSprite(name)->getSize();
+    position.move(effectPos.x - spriteSize.width / 2, effectPos.y - spriteSize.height / 2);
+    state    = Effect::STATE::USE;
     got::XAudio2::getInstance().play("Explosion");
 }

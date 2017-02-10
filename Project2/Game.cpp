@@ -224,6 +224,9 @@ const float Game::getDeltaTime() const
 void Game::addScore(const int addValue)
 {
     score += addValue;
+    if (score < 0) {
+        score = 0;
+    }
 }
 
 const int Game::getScore() const

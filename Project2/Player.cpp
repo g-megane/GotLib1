@@ -100,7 +100,6 @@ void Player::move()
 // 描画
 void Player::draw() const
 {
-    //TODO:テスト
     auto mt         = got::Matrix4x4<float>::translate(position);
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
@@ -121,11 +120,12 @@ void Player::setDamage(const int damage)
 {
     if (!isInvicible) {
         hp -= damage;
+        got::XAudio2::getInstance().play("PlayerDamage");
+        invincibleTime.reset();
+        color.a     = 0.5f;
+        isInvicible = true;
+        Game::getInstance().addScore(-100);
     }
-    color.a     = 0.5f;
-    isInvicible = true;
-    invincibleTime.reset();
-    got::XAudio2::getInstance().play("PlayerDamage");
     
     // 死亡時の処理
     if (hp <= 0) {

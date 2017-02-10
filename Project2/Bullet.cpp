@@ -102,7 +102,7 @@ void Bullet::changeVelocityShot(const got::Vector2<float>& vec, const float _dx,
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
     state           = STATE::USE;
-    spriteName      = defaultBulletName;
+    spriteName      = "Bullet3";
 }
 // 追尾弾
 void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Actor> _target)

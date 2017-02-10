@@ -25,7 +25,7 @@ bool Boss2::init()
     }
 
     spriteName = "Boss";
-    hp = 200;
+    hp = 300;
     color.WHITE;
     position.move(250.0f, -500.0f);
     setMovePattern(3);
@@ -89,7 +89,6 @@ void Boss2::setDamage(const int damage)
         state = STATE::UN_USE;
         game.addScore(score);
         EffectManager::getInstance().startEffect("Explosion", position);
-        std::dynamic_pointer_cast<ItemManager>(game.getRootActor()->getChild(L"ItemManager"))->itemDrop(position);
 
         got::Fade::getInstance().setIsFadeOut(true);
         game.setIsNextScene(true);
@@ -98,9 +97,9 @@ void Boss2::setDamage(const int damage)
 
 void Boss2::changeMove()
 {
-    if (hp < 100) {
+    if (hp < 150) {
         //setMovePattern(-1);
-        setShotPattern(2);
+        setShotPattern(3);
         shotInterval = 750.0f;
     }
 }
