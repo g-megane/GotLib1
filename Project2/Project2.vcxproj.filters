@@ -301,13 +301,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
-      <Filter>got\Shader</Filter>
-    </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
       <Filter>got\Shader</Filter>
     </FxCompile>
     <FxCompile Include="ShaderTest.fx">
+      <Filter>got\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
       <Filter>got\Shader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -18,6 +18,6 @@ namespace
     constexpr float PI = 3.14159265358979323846f;
 
     // 画面のゲーム部分のサイズ
-    constexpr float STAGE_WIDTH  = WINDOW_WIDTH - WINDOW_WIDTH / 3;
-    constexpr float STAGE_HEIGHT = WINDOW_HEIGHT;
+    constexpr float STAGE_WIDTH  = static_cast<float>(WINDOW_WIDTH - WINDOW_WIDTH / 3);
+    constexpr float STAGE_HEIGHT = static_cast<float>(WINDOW_HEIGHT);
 }
