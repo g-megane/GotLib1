@@ -21,8 +21,6 @@ Explosion::~Explosion()
 
 bool Explosion::init()
 {
-    Effect::init();
-
     scale = 0.0f;
     dy    = 0.1f;
 

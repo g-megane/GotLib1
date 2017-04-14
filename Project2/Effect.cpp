@@ -8,35 +8,14 @@
 Effect::Effect(std::string _name)
 {
     name = _name;
+	position.ZERO;
+	color.WHITE;
+	state = STATE::UN_USE;
 }
 
 Effect::~Effect()
 {
-}
 
-bool Effect::init()
-{
-    position.ZERO;
-    color.WHITE;
-    state = STATE::UN_USE;
-
-    return true;
-}
-
-void Effect::move()
-{
-}
-
-void Effect::draw() const
-{
-}
-
-void Effect::end()
-{
-}
-
-void Effect::startEffect(const got::Vector2<float>& effectPos)
-{
 }
 
 const std::string & Effect::getName() const

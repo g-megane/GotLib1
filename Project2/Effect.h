@@ -19,11 +19,11 @@ public:
 
     Effect(std::string _name);
     virtual ~Effect();
-    virtual bool init();
-    virtual void move();
-    virtual void draw() const;
-    virtual void end();
-    virtual void startEffect(const got::Vector2<float>& effectPos);
+    virtual bool init() = 0;
+    virtual void move() = 0;
+    virtual void draw() const = 0;
+    virtual void end() = 0;
+    virtual void startEffect(const got::Vector2<float>& effectPos) = 0;
 
     const std::string& getName() const;
     const STATE getState() const;
