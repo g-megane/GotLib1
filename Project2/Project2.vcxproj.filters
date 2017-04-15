@@ -54,260 +54,260 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectX11.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MainScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MyDirectInput.cpp">
-      <Filter>got\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Actor\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Actor\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Game\Actor\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
+    <ClCompile Include="Game\Actor\Actor.cpp">
       <Filter>Game\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerBulletManager.cpp">
+    <ClCompile Include="Game\Actor\Boss.cpp">
+      <Filter>Game\Actor\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor\Boss2.cpp">
+      <Filter>Game\Actor\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor\Bullet.cpp">
       <Filter>Game\Actor\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBulletManager.cpp">
-      <Filter>Game\Actor\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
+    <ClCompile Include="Game\Actor\Enemy.cpp">
       <Filter>Game\Actor\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
+    <ClCompile Include="Game\Actor\EnemyBulletManager.cpp">
+      <Filter>Game\Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor\EnemyManager.cpp">
+      <Filter>Game\Actor\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor\Player.cpp">
+      <Filter>Game\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Actor\PlayerBulletManager.cpp">
+      <Filter>Game\Actor\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Effect\Effect.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Effect\EffectManager.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Effect\Explosion.cpp">
+      <Filter>Game\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\ResultScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Information.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="BackGround.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseScene.cpp">
+    <ClCompile Include="Game\Scene\SceneManager.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="XAudio2.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="OperatingScene.cpp">
+    <ClCompile Include="Game\Scene\TitleScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>Game\Actor\Boss</Filter>
+    <ClCompile Include="Game\Scene\OperatingScene.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
+    <ClCompile Include="Game\Scene\PauseScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\MainScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\MainScene2.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Item\Item.cpp">
       <Filter>Game\Actor\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ItemManager.cpp">
+    <ClCompile Include="Game\Item\ItemManager.cpp">
       <Filter>Game\Actor\Item</Filter>
     </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>Game\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>Game\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Explosion.cpp">
-      <Filter>Game\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Ranking.cpp">
+    <ClCompile Include="Game\UI\Information.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="MainScene2.cpp">
-      <Filter>Game\Scene</Filter>
+    <ClCompile Include="Game\Common\Game.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Boss2.cpp">
-      <Filter>Game\Actor\Boss</Filter>
+    <ClCompile Include="Game\Common\BackGround.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="got\DirectX\DirectX11.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Input\MyDirectInput.cpp">
+      <Filter>got\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Audio\XAudio2.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Window\Window.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Fade.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Main.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Ranking.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Shader.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Sprite.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\SpriteManager.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Texture.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Utility\Time.cpp">
+      <Filter>got\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectX11.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Dimention.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>got\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>got\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Angle.h">
-      <Filter>got\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.h">
-      <Filter>got\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>got\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="MainScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
+    <ClInclude Include="Game\Actor\Actor.h">
       <Filter>Game\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>got\ヘッダー ファイル</Filter>
+    <ClInclude Include="Game\Actor\Boss.h">
+      <Filter>Game\Actor\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>got\ヘッダー ファイル</Filter>
+    <ClInclude Include="Game\Actor\Boss2.h">
+      <Filter>Game\Actor\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="MyDirectInput.h">
-      <Filter>got\Input</Filter>
+    <ClInclude Include="Game\Actor\Bullet.h">
+      <Filter>Game\Actor\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Game\Scene</Filter>
+    <ClInclude Include="Game\Actor\Enemy.h">
+      <Filter>Game\Actor\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="ResultScene.h">
-      <Filter>Game\Scene</Filter>
+    <ClInclude Include="Game\Actor\EnemyBulletManager.h">
+      <Filter>Game\Actor\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="Game\Actor\EnemyManager.h">
+      <Filter>Game\Actor\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Actor\Player.h">
       <Filter>Game\Actor\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Game\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
+    <ClInclude Include="Game\Actor\PlayerBulletManager.h">
       <Filter>Game\Actor\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>got\ヘッダー ファイル</Filter>
+    <ClInclude Include="Game\Effect\Effect.h">
+      <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBulletManager.h">
-      <Filter>Game\Actor\Bullet</Filter>
+    <ClInclude Include="Game\Effect\EffectManager.h">
+      <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBulletManager.h">
-      <Filter>Game\Actor\Bullet</Filter>
+    <ClInclude Include="Game\Effect\Explosion.h">
+      <Filter>Game\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Game\Actor\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="GV.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Information.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="BackGround.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseScene.h">
+    <ClInclude Include="Game\Scene\ResultScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
+    <ClInclude Include="Game\Scene\Scene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\SceneManager.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\TitleScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\OperatingScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\PauseScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Math\Angle.h">
       <Filter>got\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="XAudio2.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="OperatingScene.h">
+    <ClInclude Include="Game\Scene\MainScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>Game\Actor\Boss</Filter>
+    <ClInclude Include="Game\Scene\MainScene2.h">
+      <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ItemManager.h">
+    <ClInclude Include="Game\Item\Item.h">
       <Filter>Game\Actor\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
+    <ClInclude Include="Game\Item\ItemManager.h">
       <Filter>Game\Actor\Item</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Explosion.h">
-      <Filter>Game\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Ranking.h">
+    <ClInclude Include="Game\UI\Information.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="MainScene2.h">
-      <Filter>Game\Scene</Filter>
+    <ClInclude Include="Game\Common\BackGround.h">
+      <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Boss2.h">
-      <Filter>Game\Actor\Boss</Filter>
+    <ClInclude Include="Game\Common\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\GV.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="got\DirectX\DirectX11.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Input\MyDirectInput.h">
+      <Filter>got\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Audio\XAudio2.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Window\Window.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Math\Matrix4x4.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Math\Vector2.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Collision.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Color.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Dimention.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Fade.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Ranking.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Rectangle.h">
+      <Filter>got\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Shader.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Singleton.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Sprite.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\SpriteManager.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Texture.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Utility\Time.h">
+      <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="got\Shader\PixelShader.hlsl">
       <Filter>got\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="ShaderTest.fx">
+    <FxCompile Include="got\Shader\ShaderTest.fx">
       <Filter>got\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="got\Shader\VertexShader.hlsl">
       <Filter>got\Shader</Filter>
     </FxCompile>
   </ItemGroup>

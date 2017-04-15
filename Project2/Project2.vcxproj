@@ -127,92 +127,92 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Boss2.cpp" />
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Effect.cpp" />
-    <ClCompile Include="EffectManager.cpp" />
-    <ClCompile Include="EnemyBulletManager.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="Explosion.cpp" />
-    <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="Information.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemManager.cpp" />
-    <ClCompile Include="MainScene2.cpp" />
-    <ClCompile Include="OperatingScene.cpp" />
-    <ClCompile Include="PauseScene.cpp" />
-    <ClCompile Include="PlayerBulletManager.cpp" />
-    <ClCompile Include="DirectX11.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MainScene.cpp" />
-    <ClCompile Include="MyDirectInput.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Ranking.cpp" />
-    <ClCompile Include="ResultScene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="BackGround.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteManager.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="Window.cpp" />
-    <ClCompile Include="XAudio2.cpp" />
+    <ClCompile Include="Game\Actor\Actor.cpp" />
+    <ClCompile Include="Game\Actor\Boss.cpp" />
+    <ClCompile Include="Game\Actor\Boss2.cpp" />
+    <ClCompile Include="Game\Actor\Bullet.cpp" />
+    <ClCompile Include="Game\Effect\Effect.cpp" />
+    <ClCompile Include="Game\Effect\EffectManager.cpp" />
+    <ClCompile Include="Game\Actor\EnemyBulletManager.cpp" />
+    <ClCompile Include="Game\Actor\EnemyManager.cpp" />
+    <ClCompile Include="Game\Effect\Explosion.cpp" />
+    <ClCompile Include="got\Utility\Fade.cpp" />
+    <ClCompile Include="Game\UI\Information.cpp" />
+    <ClCompile Include="Game\Item\Item.cpp" />
+    <ClCompile Include="Game\Item\ItemManager.cpp" />
+    <ClCompile Include="Game\Scene\MainScene2.cpp" />
+    <ClCompile Include="Game\Scene\OperatingScene.cpp" />
+    <ClCompile Include="Game\Scene\PauseScene.cpp" />
+    <ClCompile Include="Game\Actor\PlayerBulletManager.cpp" />
+    <ClCompile Include="got\DirectX\DirectX11.cpp" />
+    <ClCompile Include="Game\Actor\Enemy.cpp" />
+    <ClCompile Include="Game\Common\Game.cpp" />
+    <ClCompile Include="got\Utility\Main.cpp" />
+    <ClCompile Include="Game\Scene\MainScene.cpp" />
+    <ClCompile Include="got\Input\MyDirectInput.cpp" />
+    <ClCompile Include="Game\Actor\Player.cpp" />
+    <ClCompile Include="got\Utility\Ranking.cpp" />
+    <ClCompile Include="Game\Scene\ResultScene.cpp" />
+    <ClCompile Include="Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="got\Utility\Shader.cpp" />
+    <ClCompile Include="Game\Common\BackGround.cpp" />
+    <ClCompile Include="got\Utility\Sprite.cpp" />
+    <ClCompile Include="got\Utility\SpriteManager.cpp" />
+    <ClCompile Include="got\Utility\Texture.cpp" />
+    <ClCompile Include="got\Utility\Time.cpp" />
+    <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="got\Window\Window.cpp" />
+    <ClCompile Include="got\Audio\XAudio2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Angle.h" />
-    <ClInclude Include="BackGround.h" />
-    <ClInclude Include="Boss.h" />
-    <ClInclude Include="Boss2.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Collision.h" />
-    <ClInclude Include="Effect.h" />
-    <ClInclude Include="EffectManager.h" />
-    <ClInclude Include="EnemyBulletManager.h" />
-    <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="Explosion.h" />
-    <ClInclude Include="Fade.h" />
-    <ClInclude Include="Information.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemManager.h" />
-    <ClInclude Include="MainScene2.h" />
-    <ClInclude Include="OperatingScene.h" />
-    <ClInclude Include="PauseScene.h" />
-    <ClInclude Include="PlayerBulletManager.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="Dimention.h" />
-    <ClInclude Include="DirectX11.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GV.h" />
-    <ClInclude Include="MainScene.h" />
-    <ClInclude Include="Matrix4x4.h" />
-    <ClInclude Include="MyDirectInput.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Ranking.h" />
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="ResultScene.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteManager.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Window.h" />
-    <ClInclude Include="XAudio2.h" />
+    <ClInclude Include="Game\Actor\Actor.h" />
+    <ClInclude Include="got\Math\Angle.h" />
+    <ClInclude Include="Game\Common\BackGround.h" />
+    <ClInclude Include="Game\Actor\Boss.h" />
+    <ClInclude Include="Game\Actor\Boss2.h" />
+    <ClInclude Include="Game\Actor\Bullet.h" />
+    <ClInclude Include="got\Utility\Collision.h" />
+    <ClInclude Include="Game\Effect\Effect.h" />
+    <ClInclude Include="Game\Effect\EffectManager.h" />
+    <ClInclude Include="Game\Actor\EnemyBulletManager.h" />
+    <ClInclude Include="Game\Actor\EnemyManager.h" />
+    <ClInclude Include="Game\Effect\Explosion.h" />
+    <ClInclude Include="got\Utility\Fade.h" />
+    <ClInclude Include="Game\UI\Information.h" />
+    <ClInclude Include="Game\Item\Item.h" />
+    <ClInclude Include="Game\Item\ItemManager.h" />
+    <ClInclude Include="Game\Scene\MainScene2.h" />
+    <ClInclude Include="Game\Scene\OperatingScene.h" />
+    <ClInclude Include="Game\Scene\PauseScene.h" />
+    <ClInclude Include="Game\Actor\PlayerBulletManager.h" />
+    <ClInclude Include="got\Utility\Color.h" />
+    <ClInclude Include="got\Utility\Dimention.h" />
+    <ClInclude Include="got\DirectX\DirectX11.h" />
+    <ClInclude Include="Game\Actor\Enemy.h" />
+    <ClInclude Include="Game\Common\Game.h" />
+    <ClInclude Include="Game\Common\GV.h" />
+    <ClInclude Include="Game\Scene\MainScene.h" />
+    <ClInclude Include="got\Math\Matrix4x4.h" />
+    <ClInclude Include="got\Input\MyDirectInput.h" />
+    <ClInclude Include="Game\Actor\Player.h" />
+    <ClInclude Include="got\Utility\Ranking.h" />
+    <ClInclude Include="got\Utility\Rectangle.h" />
+    <ClInclude Include="Game\Scene\ResultScene.h" />
+    <ClInclude Include="Game\Scene\Scene.h" />
+    <ClInclude Include="Game\Scene\SceneManager.h" />
+    <ClInclude Include="got\Utility\Shader.h" />
+    <ClInclude Include="got\Utility\Singleton.h" />
+    <ClInclude Include="got\Utility\Sprite.h" />
+    <ClInclude Include="got\Utility\SpriteManager.h" />
+    <ClInclude Include="got\Utility\Texture.h" />
+    <ClInclude Include="got\Utility\Time.h" />
+    <ClInclude Include="Game\Scene\TitleScene.h" />
+    <ClInclude Include="got\Math\Vector2.h" />
+    <ClInclude Include="got\Window\Window.h" />
+    <ClInclude Include="got\Audio\XAudio2.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="VertexShader.hlsl">
+    <FxCompile Include="got\Shader\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
@@ -226,7 +226,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="PixelShader.hlsl">
+    <FxCompile Include="got\Shader\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
@@ -236,7 +236,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </FxCompile>
-    <FxCompile Include="ShaderTest.fx">
+    <FxCompile Include="got\Shader\ShaderTest.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
