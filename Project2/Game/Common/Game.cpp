@@ -65,15 +65,16 @@ bool Game::init()
 	}
 
 	hr = got::MyDirectInput::getInstance().init();
-	if (FAILED(hr)) {		 // DirectInputの初期化
+	if (FAILED(hr)) { // DirectInputの初期化
 		return false;
 	}
 
     hr = got::MyDirectInput::getInstance().initGamepad();
-    if (FAILED(hr)) {		 // DirectInputの初期化
+    if (FAILED(hr)) { // DirectInputの初期化
         return false;
     }
 
+    // 使用するAudioの登録
     auto& xAudio2 = got::XAudio2::getInstance();
     xAudio2.openWave("Stage",        "Resources\\Sound\\Stage.wav");
     xAudio2.openWave("Shot1",        "Resources\\Sound\\Shot.wav");
@@ -87,6 +88,7 @@ bool Game::init()
 
     isPause     = false;
     isNextScene = false;
+    isRun       = true;
 
 	auto &spriteManager = got::SpriteManager::getInstance();
 	//TODO:Font(仮)
@@ -102,7 +104,8 @@ bool Game::init()
 	spriteManager.addMap("8",     L"Resources\\8.png");
 	spriteManager.addMap("9",     L"Resources\\9.png");
 
-	//TODO:フェードとスコア表示に使う四角(仮)
+	//フェードとスコア表示に使う四角
+    //TODO:フェードが若干おかしい気がする・・・
 	spriteManager.addMap("Board", L"Resources\\Board.png");
 
 	//TODO:Titlecene用画像(仮)
@@ -110,11 +113,11 @@ bool Game::init()
 	spriteManager.addMap("PushEnter" , L"Resources\\PushEnterSample.png");
     spriteManager.addMap("Start"     , L"Resources\\Start.png");
     spriteManager.addMap("Operating" , L"Resources\\Operating.png");
+    spriteManager.addMap("Exit"      , L"Resources\\Exit.png");
     spriteManager.addMap("ChooseBar" , L"Resources\\ChooseBar.png");
     spriteManager.addMap("Background", L"Resources\\Background.png");
 
     // OperatingScene用画像
-    //spriteManager.addMap("OperatingMenu",  L"Resources\\OperatingMenu.png");
     spriteManager.addMap("OperatingMenu", L"Resources\\Operating3.png");
 
 	//TODO:MainScene用画像(仮)
@@ -136,15 +139,14 @@ bool Game::init()
     spriteManager.addMap("Title", L"Resources\\Title.png");
 
     // Infomationクラスで使用する画像
-    //spriteManager.addMap("Info"      , L"Resources\\Info.png");
-	spriteManager.addMap("Time",      L"Resources\\Time.png");
-    spriteManager.addMap("Score",     L"Resources\\Score.png");
+	spriteManager.addMap("Time"     , L"Resources\\Time.png");
+    spriteManager.addMap("Score"    , L"Resources\\Score.png");
     spriteManager.addMap("ShotLevel", L"Resources\\ShotLevel.png");
 
 	//TODO:ResultScene用画像(仮)
-	spriteManager.addMap("Result", L"Resources\\ResultSample.png");
+	spriteManager.addMap("Result" , L"Resources\\ResultSample.png");
     spriteManager.addMap("Ranking", L"Resources\\ranking.png");
-    spriteManager.addMap("Sra",    L"Resources\\sra.png");
+    spriteManager.addMap("Sra"    , L"Resources\\sra.png");
 
 	auto & sm = SceneManager::getInstance();
 	sm.createScene();
@@ -160,12 +162,12 @@ void Game::update()
 {
 	auto & sm = SceneManager::getInstance();
 	//TODO:runを上手く実装する
-	bool run = true;
+	//bool run = true;
 	int fps = 0;
 	float countTime = 0.0f;
 	std::ostringstream oss;
 	
-	while (run) {
+	while (isRun) {
 
 		msg = window->Update();
 		if (msg.message == WM_QUIT) {
@@ -257,4 +259,9 @@ const bool Game::getIsNextScene() const
 void Game::setIsNextScene(const bool _isNextScene)
 {
     isNextScene = _isNextScene;
+}
+
+void Game::setIsRun(const bool _isRun)
+{
+    isRun = _isRun;
 }

@@ -171,6 +171,7 @@
     <ClInclude Include="Game\Actor\Boss.h" />
     <ClInclude Include="Game\Actor\Boss2.h" />
     <ClInclude Include="Game\Actor\Bullet.h" />
+    <ClInclude Include="got\Math\MyAlgorithm.h" />
     <ClInclude Include="got\Utility\Collision.h" />
     <ClInclude Include="Game\Effect\Effect.h" />
     <ClInclude Include="Game\Effect\EffectManager.h" />

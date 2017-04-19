@@ -28,6 +28,7 @@ public:
     void setIsPause(const bool _isPause);
     const bool getIsNextScene() const;
     void setIsNextScene(const bool _isNextScene);
+    void setIsRun(const bool _isRun);
 
 private:
 	friend class got::Singleton<Game>;
@@ -36,6 +37,7 @@ private:
     int   score;
     bool  isPause;
     bool  isNextScene;
+    bool  isRun;
 	Game();
 	std::shared_ptr<Actor> rootActor;
 	std::shared_ptr<got::Window> window;

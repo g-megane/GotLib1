@@ -27,7 +27,7 @@ EnemyBulletManager::~EnemyBulletManager()
 bool EnemyBulletManager::init()
 {
 	auto &root = Game::getInstance().getRootActor();
-    player = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
+    player     = std::dynamic_pointer_cast<Player>(root->getChild(L"Player"));
 
     degree  = 0.0f;
     dDegree = PI / 17.3f;
@@ -151,7 +151,7 @@ void EnemyBulletManager::shot5(const got::Vector2<float>& startPos, const float 
     auto radTmp = PI / 5.0f * sin(degree);
     degree += dDegree;
     got::Vector2<float> shotVec(0.0f, -1.0f);
-    got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle<float>::toDegree(radTmp));
+    got::Vector2<float> shotVec2 = shotVec.rotate(got::Angle::toDegree(radTmp));
 
     int loopCount      = 0;
     int leftTurncount  = 0;

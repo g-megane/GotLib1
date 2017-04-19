@@ -299,6 +299,9 @@
     <ClInclude Include="got\Utility\Time.h">
       <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="got\Math\MyAlgorithm.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="got\Shader\PixelShader.hlsl">

@@ -159,7 +159,7 @@ namespace got
 		ID3D11VertexShader *vertexShader = nullptr;
 
 		// Compile VertexShader
-		auto VSBlob = Shader::shaderCompile(L"got\\Shader\\VertexShader.hlsl", "main", "vs_5_0");
+		auto VSBlob = Shader::shaderCompile(L"VertexShader.hlsl", "main", "vs_5_0");
 
 		if (VSBlob == nullptr) {
 			MessageBox(NULL, "VSコンパイル失敗", "Error", MB_OK);
@@ -217,7 +217,7 @@ namespace got
 		ID3D11PixelShader  *pixelShader = nullptr;
 
 		// Compile PixelShader
-		auto PSBlob = Shader::shaderCompile(L"got\\Shader\\PixelShader.hlsl", "main", "ps_5_0");
+		auto PSBlob = Shader::shaderCompile(L"PixelShader.hlsl", "main", "ps_5_0");
 		if (PSBlob == nullptr) {
 			MessageBox(NULL, "PSコンパイル失敗", "Error", MB_OK);
 			return false;

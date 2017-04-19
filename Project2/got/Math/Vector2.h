@@ -31,17 +31,17 @@ namespace got
 
 		}
 		// コンストラクタ
-		explicit Vector2(const T _x, const T _y)
+		explicit Vector2(const T x_, const T y_)
 		{
-			x = _x;
-			y = _y;
+			x = x_;
+			y = y_;
 		}
 
 		// 指定された座標に移動させる
-		void move(const T _x, const T _y)
+		void move(const T x_, const T y_)
 		{
-			x = _x;
-			y = _y;
+			x = x_;
+			y = y_;
 		}
 		void move(const Vector2 &vec)
 		{
@@ -55,10 +55,10 @@ namespace got
 			y += vec.y;
 			return *this;
 		}
-		Vector2 & translate(const T _x, const T _y)
+		Vector2 & translate(const T x_, const T y_)
 		{
-			x += _x;
-			y += _y;
+			x += x_;
+			y += y_;
 			return *this;
 		}
 		// 内積を求める
@@ -98,7 +98,7 @@ namespace got
 		// 角度からベクトルを作成
 		static Vector2 fromAngle(T degree)
 		{
-			const float rad = Angle<T>::toRadian(degree); // 弧度法に変換
+			const float rad = Angle::toRadian(degree); // 弧度法に変換
 			return Vector2(std::cos(rad), std::sin(rad));
 		}
 		// ベクトルが向いている角度を求める
@@ -111,7 +111,7 @@ namespace got
 		// 回転
 		Vector2 rotate(T degree) const
 		{
-			const float rad = Angle<T>::toRadian(degree); // 弧度法に変換
+			const float rad = Angle::toRadian(degree); // 弧度法に変換
 			return Vector2(x * std::cos(rad) - y * std::sin(rad),
 						   x * std::sin(rad) + y * std::cos(rad));
 		}

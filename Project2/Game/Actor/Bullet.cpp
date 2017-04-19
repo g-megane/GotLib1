@@ -10,7 +10,6 @@
 #include "..\Common\Game.h"
 
 // コンストラクタ
-//TODO:使う弾のスプライトを引数で呼べるように
 Bullet::Bullet(const std::string& _spriteName)
 	:Actor(), color(), defaultBulletName(_spriteName)
 {
@@ -34,7 +33,7 @@ bool Bullet::init()
     dx = 0.0f;
     dy = 0.0f;
     
-    angle = 0.0f;
+    angle        = 0.0f;
     beforeAngle = 0.0f;
 
     changeMoveFunc(0);
@@ -84,22 +83,22 @@ void Bullet::shot(const got::Vector2<float>& vec, const float _dx, const float _
 {
     changeMoveFunc(0);
 
-	dx = _dx;
-	dy = _dy;
+	dx              = _dx;
+	dy              = _dy;
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-	position   = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
-	state      = STATE::USE;
-    spriteName = defaultBulletName;
+	position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
+	state           = STATE::USE;
+    spriteName      = defaultBulletName;
 }
 // 変速弾
 void Bullet::changeVelocityShot(const got::Vector2<float>& vec, const float _dx, const float _dy, const float _maxVelocity, const float _dVelocity)
 {
     changeMoveFunc(2);
 
-    maxVelocity = _maxVelocity;
-    dVelocity   = _dVelocity;
-    dx = _dx;
-    dy = _dy;
+    maxVelocity     = _maxVelocity;
+    dVelocity       = _dVelocity;
+    dx              = _dx;
+    dy              = _dy;
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     position        = got::Vector2<float>(vec.x - spriteSize.width / 2.0f, vec.y - spriteSize.height / 2.0f);
     state           = STATE::USE;
@@ -152,8 +151,7 @@ void Bullet::changeMoveFunc(const int num)
             auto dTime = Game::getInstance().getDeltaTime();
             if (dy < 0.15f) {
                 dy += 0.001f;
-            }
-            
+            }            
           
             position.translate(dx * dTime, dy * dTime);
         };
