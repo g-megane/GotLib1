@@ -116,15 +116,7 @@ namespace got
         ed.ppPadDevice = &dDevice;
 
         hr = dInput->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumJoysticksCallback, &ed, DIEDFL_ATTACHEDONLY);
-       // if (FAILED(hr) || spDDevice == nullptr) {
-       //     spDDevice = std::shared_ptr<IDirectInputDevice8>(*ed.ppPadDevice, [](LPDIRECTINPUTDEVICE8 & ptr)
-       //     {
-       //         if (ptr == nullptr) return;
-       //         ptr->Unacquire();
-       //         safeRelease<LPDIRECTINPUTDEVICE8>(ptr);
-       //     });
-       //     return hr;
-       // }
+
         if (FAILED(hr)) {
             spPadDevice = std::shared_ptr<IDirectInputDevice8>(dDevice, [](LPDIRECTINPUTDEVICE8 & ptr)
             {
@@ -164,11 +156,6 @@ namespace got
         if (FAILED(hr)) {
             return hr;
         }
-
-       // hr = spDDevice->EnumObjects(EnumAxesCallback, this, DIDFT_AXIS);
-       // if (FAILED(hr)) {
-       //     return hr;
-       // }
 
         return S_OK;
     }

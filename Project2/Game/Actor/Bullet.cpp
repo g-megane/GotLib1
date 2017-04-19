@@ -156,12 +156,13 @@ void Bullet::changeMoveFunc(const int num)
             position.translate(dx * dTime, dy * dTime);
         };
         break;
-    default: // defaultの場合は通常弾
-        moveFunc = [&]() {
+    default:
+        /*moveFunc = [&]() {
             auto dTime = Game::getInstance().getDeltaTime();
 
             position.translate(dx * dTime, dy * dTime);
-        };
+        };*/
+        assert(!"Bullet::changeMoveFunc()で不正な値");
         break;
     }
 

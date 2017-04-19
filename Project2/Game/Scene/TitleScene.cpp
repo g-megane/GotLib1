@@ -44,7 +44,7 @@ void TitleScene::move()
 
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
-
+        //TODO: パッドの連続入力をなくす
         // 上が押された
         if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
             --menuNum;
@@ -57,6 +57,7 @@ void TitleScene::move()
             got::XAudio2::getInstance().play("MenuSelect");
             return;
         }
+
         menuNum = got::MyAlgorithm::rollup(menuNum, 2);
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f + menuNum * 100.0f);
 
@@ -78,7 +79,7 @@ void TitleScene::move()
             Game::getInstance().setIsRun(false);
             break;
         default:
-            //TODO: assertを実装
+            assert(!"TitleScene::move()で不正な値");
             break;
         }
     }

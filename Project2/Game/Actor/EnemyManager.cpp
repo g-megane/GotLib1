@@ -43,6 +43,9 @@ bool EnemyManager::init()
     case SceneManager::SCENE_NAME::MAIN2:
         tmp = std::make_shared<Boss2>();
         break;
+    default:
+        assert(!"EnemyManager::init()で不正な値");
+        break;
     }
 
     boss.swap(tmp);

@@ -243,13 +243,16 @@ void Enemy::setMovePattern(const int pattern)
             }
         };
         break;
-    default: // 指定の移動量で移動する
+    case 8: // 指定の移動量で移動する
         moveFunc = [&]()
         {
             auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
 
             position.translate(dx * dTime, dy * dTime);
         };
+        break;
+    default:
+        assert(!"Enemy::setMovePattern()で不正な値");
         break;
     }
 }
@@ -276,6 +279,7 @@ void Enemy::setShotPattern(const int pattern)
         shotFunc = [&]() { enemyBulletManager->shot5(getCenter(), bulletSpeed); };
         break;
     default:
+        assert(!"Enemy::setShotPattern()で不正な値");
         break;
     }
 }

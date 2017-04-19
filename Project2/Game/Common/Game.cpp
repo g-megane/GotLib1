@@ -168,7 +168,6 @@ void Game::update()
 	std::ostringstream oss;
 	
 	while (isRun) {
-
 		msg = window->Update();
 		if (msg.message == WM_QUIT) {
 			break;
@@ -211,6 +210,7 @@ void Game::update()
 // 終了
 void Game::end()
 {
+    SendMessage(window->getHWND(), WM_CLOSE, 0, 0);
 }
 
 std::shared_ptr<Actor> & Game::getRootActor()

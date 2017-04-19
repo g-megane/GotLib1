@@ -200,6 +200,7 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
         break;
     case 0:
     default:
+        assert(!"存在しないPlayerBulletPattern");
         break;
     }
 }
