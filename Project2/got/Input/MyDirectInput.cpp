@@ -222,9 +222,7 @@ namespace got
         auto hr = spPadDevice->Poll();
         if (FAILED(hr)) {
             spPadDevice->Acquire();
-            //return false;
         }
-        
 
         memcpy(&padDataPrev, &padData, sizeof(DIJOYSTATE2));
         hr = spPadDevice->GetDeviceState(sizeof(DIJOYSTATE2), &padData);
@@ -234,6 +232,14 @@ namespace got
 
         return true;
     }
+
+    Vector2<float> MyDirectInput::getStickVec()
+    {
+        if (padData.lX > -500 && padData.lX < 500 && padData.lY > -500 && padData.lY < 500) { return Vector2<float>::ZERO; }
+        
+        return Vector2<float>(static_cast<float>(padData.lX), static_cast<float>(padData.lY)).normalize();
+    }
+    
     MyDirectInput::STICK_STATE MyDirectInput::getStickPosY()
     {
         if (spPadDevice == nullptr) { return STICK_STATE::NOT_MOVING; }

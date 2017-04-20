@@ -98,7 +98,7 @@ void Boss::setDamage(const int damage)
 void Boss::changeMove()
 {
     if (hp < 100) {
-        setMovePattern(-1);
+        setMovePattern(8);
         setShotPattern(2);
     }
 }

@@ -13,10 +13,13 @@ namespace got {
     // コンストラクタ
     XAudio2::XAudio2()
     {
-        CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+        auto hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+        if (FAILED(hr)) {
+            return;
+        }
 
         IXAudio2 *xaudio2 = nullptr;
-        auto hr = XAudio2Create(&xaudio2, 0);
+        hr = XAudio2Create(&xaudio2, 0);
         if (FAILED(hr)) {
             spXAudio2 = std::shared_ptr<IXAudio2>(xaudio2, safeRelease<IXAudio2>);
             CoUninitialize();

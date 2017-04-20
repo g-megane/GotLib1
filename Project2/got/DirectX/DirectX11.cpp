@@ -40,17 +40,17 @@ namespace got
 		init = createDeviceAndSwapChain();
 		if (FAILED(init)) {
 			OutputDebugString("createDeviceAndSwapChain()の失敗");
-			return false;
+			return E_FAIL;
 		}
 		
 		init = createRenderTargetView();
 		if (FAILED(init)) {
 			OutputDebugString("createRenderTargetView()の失敗");
-			return false;
+			return E_FAIL;
 		}
 		setRenderTargetView();
 
-		return true;
+		return S_OK;
 	}
 
 	// フレームを開始

@@ -5,10 +5,11 @@
 //////////////////////////////////////////////////
 #pragma once
 #define DIRECTINPUT_VERSION 0x0800
-#include<dinput.h>
-#include<unordered_map>
-#include<d3d11.h>
-#include"..\..\got\Utility\Singleton.h"
+#include <dinput.h>
+#include <unordered_map>
+#include <d3d11.h>
+#include "..\..\got\Utility\Singleton.h"
+#include "..\Math\Vector2.h"
 
 #pragma comment(lib, "dinput8.lib")
 //TODO:WindowsSDKから直接パスを通す
@@ -39,6 +40,7 @@ namespace got
         bool keyReleased (const int code);
         
         bool updateGamepad();
+        Vector2<float> getStickVec();
         STICK_STATE getStickPosY();
         STICK_STATE getStickPosX();
         bool buttonDown(const int pos);
