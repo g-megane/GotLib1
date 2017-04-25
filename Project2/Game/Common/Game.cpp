@@ -19,6 +19,7 @@
 #include "..\Effect\EffectManager.h"
 #include "..\Effect\Explosion.h"
 #include "..\..\got\Utility\Ranking.h"
+#include "../../got/Input/MyXInput.h"
 
 // コンストラクタ
 Game::Game() : time()
@@ -190,6 +191,7 @@ void Game::update()
 		sm.move();
         got::MyDirectInput::getInstance().update();
         got::MyDirectInput::getInstance().updateGamepad();
+        got::MyXInput::getInstance().updateControllerState();
         
         got::XAudio2::getInstance().update();
 

@@ -4,14 +4,15 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene2.h"
-#include "..\Common\Game.h"
-#include "..\UI\Information.h"
-#include "..\..\got\Input\MyDirectInput.h"
 #include "SceneManager.h"
-#include "..\..\got\Utility\Fade.h"
-#include "..\..\got\Audio\XAudio2.h"
+#include "..\UI\Information.h"
+#include "..\Actor\Boss.h"
+#include "..\Common\Game.h"
+#include "..\Common\Fade.h"
 #include "..\Effect\EffectManager.h"
-#include "..\\Actor\Boss.h"
+#include "..\..\got\Input\MyDirectInput.h"
+#include "..\..\got\Input\MyXInput.h"
+#include "..\..\got\Audio\XAudio2.h"
 
 // コンストラクタ
 MainScene2::MainScene2()
@@ -62,12 +63,13 @@ bool MainScene2::init()
 void MainScene2::move()
 {
     // Pキーが押された
-    auto &input = got::MyDirectInput::getInstance();
+    auto &di = got::MyDirectInput::getInstance();
+    auto &xi = got::MyXInput::getInstance();
     auto &game  = Game::getInstance();
     auto &fade  = got::Fade::getInstance();
 
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
-        if (input.keyPressed(DIK_P) || input.buttonPressed(7)) {
+        if (di.keyPressed(DIK_P) || xi.isButtonPressed(0, XINPUT_GAMEPAD_START)) {
             got::XAudio2::getInstance().play("Enter");
             game.setIsPause(true);
             fade.setIsFadeOut(true);

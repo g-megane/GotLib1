@@ -66,7 +66,8 @@ namespace got
 		unsigned char bufferPrev[256];  // 前のフレームでの入力
         DIJOYSTATE2 padData;
         DIJOYSTATE2 padDataPrev;
-
+        bool stickState[4];
+        bool stickStatePrev[4];
 
 		std::shared_ptr<IDirectInput8> spDInput;
 		std::shared_ptr<IDirectInputDevice8> spDDevice; 

@@ -76,7 +76,6 @@ void PlayerBulletManager::shot(const got::Vector2<float>& pos, const int _shotLe
 {
     // shotLevelが上がっていれば
     if (shotLevel != _shotLevel) {
-        //TODO: shotのパターンを変更する
         setShotFunc(_shotLevel);
     }
 

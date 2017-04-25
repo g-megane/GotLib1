@@ -4,7 +4,7 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Fade.h"
-#include "SpriteManager.h"
+#include "..\..\got\Utility\SpriteManager.h"
 namespace got
 {
     Fade::Fade()
@@ -27,7 +27,7 @@ namespace got
         isFade = true;
 
         // ループさせてα値を255から一定時間ごとに下げていく
-        alpha  -= 0.04f;
+        alpha  -= 0.01f;
         color.a = alpha;
 
         // α値が0になったらループを抜けてフェードインの終了を通知
@@ -48,7 +48,7 @@ namespace got
         
 
         // ループさせてα値を255から一定時間ごとに下げていく
-        alpha += 0.025f;
+        alpha += 0.01f;
         color.a = alpha;
 
         // α値が0になったらループを抜けてフェードインの終了を通知

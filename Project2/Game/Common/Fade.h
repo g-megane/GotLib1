@@ -4,10 +4,10 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include "Singleton.h"
-#include "Color.h"
+#include "..\Scene\SceneManager.h"
+#include "..\..\got\Utility\Color.h"
+#include "..\..\got\Utility\Singleton.h"
 #include "..\..\got\Math\Vector2.h"
-#include "..\..\Game\\Scene\SceneManager.h"
 
 namespace got
 {

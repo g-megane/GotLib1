@@ -24,9 +24,9 @@ bool Enemy::init()
 	auto &root = Game::getInstance().getRootActor();
 	enemyBulletManager = std::dynamic_pointer_cast<EnemyBulletManager>(root->getChild(L"EnemyBulletManager"));
        
-	hp = 0;
-	dx = 0.1f;
-	dy = 0.1f;
+	hp           = 0;
+	dx           = 0.1f;
+	dy           = 0.1f;
     bulletSpeed  = 0.1f;
     shotInterval = 0.1f;
 

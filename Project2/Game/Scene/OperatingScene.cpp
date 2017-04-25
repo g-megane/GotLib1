@@ -4,8 +4,8 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "OperatingScene.h"
+#include "..\Common\Fade.h"
 #include "..\..\got\Input\MyDirectInput.h"
-#include "..\..\got\Utility\Fade.h"
 #include "..\..\got\Audio\XAudio2.h"
 
 OperatingScene::OperatingScene()

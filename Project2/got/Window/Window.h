@@ -4,10 +4,11 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#include<Windows.h>
-#include<memory>
-#include"..\..\got\Utility\Texture.h"
-#include"..\..\got\Utility\Dimention.h"
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#include <memory>
+#include "..\..\got\Utility\Texture.h"
+#include "..\..\got\Utility\Dimention.h"
 
 // ウィンドウ生成クラス
 namespace got

@@ -4,11 +4,11 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
+#include "Fade.h"
+#include "..\Actor\Actor.h"
 #include "..\..\got\Window\Window.h"
 #include "..\..\got\Utility\Singleton.h"
 #include "..\..\got\Utility\Time.h"
-#include "..\Actor\Actor.h"
-#include "..\..\got\Utility\Fade.h"
 
 // ゲームを動かすクラス
 class Game : public got::Singleton<Game>

@@ -12,6 +12,8 @@
 #include "..\Scene\SceneManager.h"
 #include "..\..\got\Utility\Collision.h"
 #include "..\..\got\Audio\XAudio2.h"
+#include "..\..\got\Input\MyXInput.h"
+#include "..\..\got\Math\MyAlgorithm.h"
 
 // コンストラクタ
 //TODO: Shotのパターン数やゲームの難しさを考慮して決める
@@ -28,8 +30,7 @@ Player::~Player()
 // 初期化
 bool Player::init()
 {
-    dx           = 0.4f; //TODO:移動量(仮)
-    dy           = 0.4f; //TODO:移動量(仮)
+    speed        = 0.4f; // 移動速度
     deceleration = 1.0f; // 減速量
     rad          = 4.0f; // 円のあたり判定の半径
     isInvicible  = false;
@@ -66,12 +67,13 @@ void Player::move()
     if (input.keyDown(DIK_LSHIFT) || input.buttonDown(5))     { deceleration = 0.25f; }
 
     // キー移動
-    if      (input.keyDown(DIK_UP   ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP   */) { position.y -= dy * deceleration * dTime; }
-    else if (input.keyDown(DIK_DOWN ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN */) { position.y += dy * deceleration * dTime; }
-    if      (input.keyDown(DIK_RIGHT) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::RIGHT*/) { position.x += dx * deceleration * dTime; }
-    else if (input.keyDown(DIK_LEFT ) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT */) { position.x -= dx * deceleration * dTime; }
-
-    position += input.getStickVec() * dx * deceleration * dTime;
+    if      (input.keyDown(DIK_UP   ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP   */) { position.y -= speed * deceleration * dTime; }
+    else if (input.keyDown(DIK_DOWN ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN */) { position.y += speed * deceleration * dTime; }
+    if      (input.keyDown(DIK_RIGHT) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::RIGHT*/) { position.x += speed * deceleration * dTime; }
+    else if (input.keyDown(DIK_LEFT ) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT */) { position.x -= speed * deceleration * dTime; }
+    // ジョイパッド操作
+   // position += input.getStickVec() * speed * deceleration * dTime;
+    position += got::MyXInput::getInstance().padVec(0) * speed * deceleration * dTime;
 
     // ステージ外に出たら補正する
     if      (position.x < 0                               ) { position.x = 0;                                }
@@ -94,7 +96,7 @@ void Player::move()
     // 弾の発射
     if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
     time.reset();
-    if(input.keyDown(DIK_Z) || input.buttonDown(0)) {
+    if(input.keyDown(DIK_Z) || got::MyXInput::getInstance().isButtonDown(0, XINPUT_GAMEPAD_A)) {
         playerBulletManager->shot(getShotPosition(), hp);
         got::XAudio2::getInstance().play("Shot1");
     }
@@ -123,6 +125,7 @@ void Player::setDamage(const int damage)
     if (!isInvicible) {
         hp -= damage;
         got::XAudio2::getInstance().play("PlayerDamage");
+        got::MyXInput::getInstance().setRightVibration(0, 30000);
         invincibleTime.reset();
         color.a     = 0.5f;
         isInvicible = true;
@@ -132,6 +135,7 @@ void Player::setDamage(const int damage)
     // 死亡時の処理
     if (hp <= 0) {
         got::Fade::getInstance().setIsFadeOut(true);
+        got::MyXInput::getInstance().setRightVibration(0, 0);
         Game::getInstance().setIsNextScene(true);
         got::XAudio2::getInstance().stopBGM();
         enemyManager->eraseBoss();
@@ -159,6 +163,7 @@ const got::Vector2<float> Player::getShotPosition() const
 void Player::damageEffect()
 {
     if (invincibleTime.timeOver(1000)) {
+        got::MyXInput::getInstance().setRightVibration(0, 0);
         color.a = 1.0f;
         isInvicible = false;
     }

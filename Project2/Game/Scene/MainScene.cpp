@@ -4,15 +4,16 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "MainScene.h"
-#include "..\Common\Game.h"
-#include "..\UI\Information.h"
-#include "..\..\got\Input\MyDirectInput.h"
 #include "SceneManager.h"
-#include "..\..\got\Utility\Fade.h"
-#include "..\..\got\Audio\XAudio2.h"
-#include "..\Effect\EffectManager.h"
 #include "..\Actor\Boss.h"
 #include "..\Actor\Player.h"
+#include "..\UI\Information.h"
+#include "..\Common\Game.h"
+#include "..\Common\Fade.h"
+#include "..\Effect\EffectManager.h"
+#include "..\..\got\Input\MyDirectInput.h"
+#include "..\..\got\Input\MyXInput.h"
+#include "..\..\got\Audio\XAudio2.h"
 
 // コンストラクタ
 MainScene::MainScene()
@@ -20,12 +21,8 @@ MainScene::MainScene()
 	rootActor  = Game::getInstance().getRootActor();
     backGround = std::make_shared<BackGround>("Background");
    
-    //TODO:とりあえず10体を使いまわし
-    //enemyManager = std::make_shared<EnemyManager>(10);
     std::shared_ptr<Actor> info = std::make_shared<Information>();
 
-    // ここの順番大事！！
-    //rootActor->addChild(enemyManager);
     rootActor->addChild(info);
 }
 // デストラクタ
@@ -52,41 +49,7 @@ bool MainScene::init()
 
     // Enemyのデータの読み込み
     em->readFile("Resources\\Data\\EnemyData1.csv");
-    
-    //TODO:仮データ
-    //TODO:出現位置は定数にするのが有かも？
-    // ・出現時間を0にするとひとつ前の敵と同時に出現する
-    // ・移動パターンの6と7は移動量(X)を0にしてやる必要がある
-    //------------------------------------------------ [エネミーデータのセット] ----------------------------------------------------------------------------------------------------
-    //-------- {出現時間} - {スプライト名} - {HP} --- {スプライトの色｝--- {出現座標(x)} ------- {出現座標(y)} -- {移動パターン} -{移動量(x)} - {移動量(y)} - {攻撃パターン} -- {弾速} -- {発射間隔} - {持ち点}
-    //em->setEnemy(3000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(2000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           0,            0.2f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(3000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           6,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           6,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           6,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(2000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           7,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           7,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           7,            0.0f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(3000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           4,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           4,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH - 128.0f,  50.0f,           4,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(2000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           5,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           5,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,                    20.0f,         50.0f,           5,            0.1f,         0.15f,        0,            0.3f,      500.0f,     100);
-    //em->setEnemy(3000.0f,    "Enemy",       5,        color,                    20.0f,         50.0f,           3,            0.1f,         0.15f,        2,            0.2f,      750.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           1,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           1,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           1,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100);
-    //em->setEnemy(3000.0f,    "Enemy",       10,       color,            STAGE_WIDTH - 128.0f,  50.0f,           3,            0.1f,         0.15f,        2,            0.2f,      250.0f,     100);
-    //em->setEnemy(4000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           2,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           2,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100);
-    //em->setEnemy(1000.0f,    "Enemy",       3,        color,            STAGE_WIDTH / 2.0f,    50.0f,           2,            0.1f,         0.15f,        0,            0.2f,      500.0f,     100,       true);
-    //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- 
+   
     got::XAudio2::getInstance().playBGM("Stage");
     EffectManager::getInstance().init();
 
@@ -98,11 +61,12 @@ void MainScene::move()
 {
     // Pキーが押された
     auto &input = got::MyDirectInput::getInstance();
+    auto &xi    = got::MyXInput::getInstance();
     auto &game  = Game::getInstance();
     auto &fade  = got::Fade::getInstance();
 
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
-        if (input.keyPressed(DIK_P) || input.buttonPressed(7)) {
+        if (input.keyPressed(DIK_P) || xi.isButtonPressed(0, XINPUT_GAMEPAD_START)) {
             got::XAudio2::getInstance().play("Enter");
             game.setIsPause(true);
             fade.setIsFadeOut(true);

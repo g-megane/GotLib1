@@ -33,7 +33,7 @@ bool Bullet::init()
     dx = 0.0f;
     dy = 0.0f;
     
-    angle        = 0.0f;
+    angle       = 0.0f;
     beforeAngle = 0.0f;
 
     changeMoveFunc(0);
@@ -49,9 +49,9 @@ void Bullet::move()
 	auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     // 画面外に出た弾のStateをUN_USEに変更
     //TODO: 範囲を広げる
-	if (position.x < -50.0f)				{ setState(STATE::UN_USE); return; }
+	if (position.x < -50.0f)                { setState(STATE::UN_USE); return; }
 	if (position.x > STAGE_WIDTH  + 50.0f)  { setState(STATE::UN_USE); return; }
-	if (position.y < -300.0f)				{ setState(STATE::UN_USE); return; }
+	if (position.y < -300.0f)               { setState(STATE::UN_USE); return; }
 	if (position.y > STAGE_HEIGHT + 50.0f)  { setState(STATE::UN_USE); return; }
 }
 // 描画
@@ -116,19 +116,21 @@ void Bullet::chaseShot(const got::Vector2<float>& startPos, std::shared_ptr<Acto
     spriteName      = "ChaseBullet";
     angle           = 0.0f;
 }
-
+// 弾の種類を変更する
 void Bullet::changeMoveFunc(const int num)
 {
     switch (num) {
     case 0: // 通常の移動
-        moveFunc = [&]() {
+        moveFunc = [&]() 
+        {
             auto dTime = Game::getInstance().getDeltaTime();
 
             position.translate(dx * dTime, dy * dTime);
         };
         break;
     case 1: // 追尾
-        moveFunc = [&]() {
+        moveFunc = [&]() 
+        {
             auto dTime = Game::getInstance().getDeltaTime();
             if (target.lock()->getState() == STATE::USE) {
                     got::Vector2<float> shotVec(target.lock()->getCenter().x - position.x, target.lock()->getCenter().y - position.y);
@@ -147,21 +149,17 @@ void Bullet::changeMoveFunc(const int num)
         };
         break;
     case 2: // 変速弾
-        moveFunc = [&]() {
+        moveFunc = [&]()
+        {
             auto dTime = Game::getInstance().getDeltaTime();
             if (dy < 0.15f) {
                 dy += 0.001f;
-            }            
-          
+            }
+
             position.translate(dx * dTime, dy * dTime);
         };
         break;
     default:
-        /*moveFunc = [&]() {
-            auto dTime = Game::getInstance().getDeltaTime();
-
-            position.translate(dx * dTime, dy * dTime);
-        };*/
         assert(!"Bullet::changeMoveFunc()で不正な値");
         break;
     }

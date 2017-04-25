@@ -4,11 +4,12 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "TitleScene.h"
-#include "..\..\got\Input\MyDirectInput.h"
-#include "..\..\got\Utility\Fade.h"
+#include "..\Common\Fade.h"
 #include "..\Common\Game.h"
+#include "..\..\got\Input\MyDirectInput.h"
 #include "..\..\got\Audio\XAudio2.h"
 #include "..\..\got\Math\MyAlgorithm.h"
+#include "..\..\got\Input\MyXInput.h"
 
 // コンストラクタ
 TitleScene::TitleScene()
@@ -38,6 +39,7 @@ bool TitleScene::init()
 void TitleScene::move()
 {
     auto &di   = got::MyDirectInput::getInstance();
+    auto &xi   = got::MyXInput::getInstance();
     auto &fade = got::Fade::getInstance();
 
     background->move();
@@ -46,13 +48,13 @@ void TitleScene::move()
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
         //TODO: パッドの連続入力をなくす
         // 上が押された
-        if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
+        if (di.keyPressed(DIK_UP) || xi.isPadUp(0)) {
             --menuNum;
             got::XAudio2::getInstance().play("MenuSelect");
             return;
         }
         // 下が押された
-        else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
+        else if (di.keyPressed(DIK_DOWN) || xi.isPadDown(0)) { 
             ++menuNum;
             got::XAudio2::getInstance().play("MenuSelect");
             return;
@@ -62,7 +64,7 @@ void TitleScene::move()
         choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f + menuNum * 100.0f);
 
         // 決定キー
-        if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
+        if (di.keyPressed(DIK_RETURN) || xi.isButtonReleased(0, XINPUT_GAMEPAD_A)) {
             got::XAudio2::getInstance().play("Enter");
             fade.setIsFadeOut(true);
         }

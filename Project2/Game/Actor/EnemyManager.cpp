@@ -64,6 +64,8 @@ void EnemyManager::move()
     } 
     
     auto itr = dataList.begin();
+    // 取得したイテレータが最後を指していた場合
+    // ボスを出現させる
     if (itr == dataList.end()) {
         if (!isBoss) {
             isBoss = true;

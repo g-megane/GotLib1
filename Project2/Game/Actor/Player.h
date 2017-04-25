@@ -27,8 +27,7 @@ public:
 	const got::Vector2<float> getShotPosition() const; 
 
 private:
-    float dx;           // x移動量
-    float dy;           // y移動量
+    float speed;        // 移動速度
     float deceleration; // 減速量
     int   hp;           // ヒットポイント
     const int maxHp;    // HPの限界値
