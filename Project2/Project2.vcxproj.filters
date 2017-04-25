@@ -138,9 +138,6 @@
     <ClCompile Include="got\Window\Window.cpp">
       <Filter>got\ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="got\Utility\Fade.cpp">
-      <Filter>got\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="got\Utility\Main.cpp">
       <Filter>got\ソース ファイル</Filter>
     </ClCompile>
@@ -160,6 +157,12 @@
       <Filter>got\ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="got\Utility\Time.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="got\Input\MyXInput.cpp">
+      <Filter>got\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\Fade.cpp">
       <Filter>got\ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -272,9 +275,6 @@
     <ClInclude Include="got\Utility\Dimention.h">
       <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="got\Utility\Fade.h">
-      <Filter>got\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="got\Utility\Ranking.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -300,6 +300,12 @@
       <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="got\Math\MyAlgorithm.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="got\Input\MyXInput.h">
+      <Filter>got\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Fade.h">
       <Filter>got\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

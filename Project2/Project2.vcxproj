@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2B449FAC-8D25-4CA7-8258-74AF26C5137F}</ProjectGuid>
     <RootNamespace>Project2</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -136,7 +136,8 @@
     <ClCompile Include="Game\Actor\EnemyBulletManager.cpp" />
     <ClCompile Include="Game\Actor\EnemyManager.cpp" />
     <ClCompile Include="Game\Effect\Explosion.cpp" />
-    <ClCompile Include="got\Utility\Fade.cpp" />
+    <ClCompile Include="got\Input\MyXInput.cpp" />
+    <ClCompile Include="Game\Common\Fade.cpp" />
     <ClCompile Include="Game\UI\Information.cpp" />
     <ClCompile Include="Game\Item\Item.cpp" />
     <ClCompile Include="Game\Item\ItemManager.cpp" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Actor\Actor.h" />
+    <ClInclude Include="got\Input\MyXInput.h" />
     <ClInclude Include="got\Math\Angle.h" />
     <ClInclude Include="Game\Common\BackGround.h" />
     <ClInclude Include="Game\Actor\Boss.h" />
@@ -178,7 +180,7 @@
     <ClInclude Include="Game\Actor\EnemyBulletManager.h" />
     <ClInclude Include="Game\Actor\EnemyManager.h" />
     <ClInclude Include="Game\Effect\Explosion.h" />
-    <ClInclude Include="got\Utility\Fade.h" />
+    <ClInclude Include="Game\Common\Fade.h" />
     <ClInclude Include="Game\UI\Information.h" />
     <ClInclude Include="Game\Item\Item.h" />
     <ClInclude Include="Game\Item\ItemManager.h" />
