@@ -59,7 +59,7 @@ namespace got {
         CoUninitialize();
     }
     // Waveファイルの読み込み
-    bool XAudio2::openWave(const std::string keyName, const std::string& fileName)
+    bool XAudio2::openWave(const std::string& keyName, const std::string& fileName)
     {
         std::ifstream ifs(fileName, std::ios::binary);
 
@@ -188,7 +188,7 @@ namespace got {
     }
 
     // ループ再生
-    bool XAudio2::playBGM(const std::string key)
+    bool XAudio2::playBGM(const std::string& key)
     {
         // 引数で渡されたkeyがあるか？
         if (waveMap.find(key) == waveMap.end()) {
@@ -227,7 +227,7 @@ namespace got {
     }
 
     // ループなしの再生
-    bool XAudio2::play(const std::string key)
+    bool XAudio2::play(const std::string& key)
     {
         // 引数で渡されたkeyがあるか？
         if (waveMap.find(key) == waveMap.end()) {

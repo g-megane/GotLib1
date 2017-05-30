@@ -61,10 +61,10 @@ void TitleScene::move()
         }
 
         menuNum = got::MyAlgorithm::rollup(menuNum, 2);
-        choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f + menuNum * 100.0f);
+        choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), static_cast<float>(500.0f + menuNum * 100.0f));
 
         // 決定キー
-        if (di.keyPressed(DIK_RETURN) || xi.isButtonReleased(0, XINPUT_GAMEPAD_A)) {
+        if (di.keyPressed(DIK_RETURN) || xi.isButtonPressed(0, XINPUT_GAMEPAD_A)) {
             got::XAudio2::getInstance().play("Enter");
             fade.setIsFadeOut(true);
         }

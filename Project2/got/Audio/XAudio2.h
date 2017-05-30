@@ -19,11 +19,11 @@ namespace got {
     {
     public:
         ~XAudio2();
-        bool openWave(const std::string keyName, const std::string& fileName);
+        bool openWave(const std::string& keyName, const std::string& fileName);
 
         void update();
-        bool playBGM(const std::string key);
-        bool play(const std::string key);
+        bool playBGM(const std::string& key);
+        bool play(const std::string& key);
         void stopBGM();
 
         struct Riff

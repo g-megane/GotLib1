@@ -3,6 +3,8 @@
 // 更新日:2016/10/1
 // 制作者:got
 //////////////////////////////////////////////////
+#include <tchar.h>
+#include <algorithm>
 #include "DirectX11.h"
 #include "..\..\Game\Common\GV.h"
 #include "..\Window\Window.h"
@@ -59,13 +61,41 @@ namespace got
 		//TODO:Colorクラスを作って実装しなおし
 		float ClearColor[4]{ 0.0f, 0.125f, 0.3f, 1.0f };
 		// レンダーターゲットのすべての要素に１つの値を設定
-		//spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), clearColor.rgba);
-		spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), ClearColor);
+		//spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), ClearColor);
+
+        IDWriteFactory1 *writeFactory;
+        DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(writeFactory), (IUnknown**)(&writeFactory));
+        // create the DRwite text format
+
+        IDWriteTextFormat *textFormat;
+        writeFactory->CreateTextFormat(
+            L"Arial",
+            nullptr,
+            DWRITE_FONT_WEIGHT_NORMAL,
+            DWRITE_FONT_STYLE_NORMAL,
+            DWRITE_FONT_STRETCH_NORMAL,
+            50,
+            L"",
+            &textFormat);
+
+        // create a brush
+
+        ID2D1SolidColorBrush *whiteBrush;
+        spRenderTarget->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &whiteBrush);
+
+        const WCHAR *text = L"Hello World";
+        spRenderTarget->BeginDraw();
+        spRenderTarget->DrawTextA(text, wcslen(text), textFormat, D2D1::RectF(0, 0, 800, 600), whiteBrush);
+
+        writeFactory->Release();
+        textFormat->Release();
+        whiteBrush->Release();
 	}
 
 	// フレームを終了
 	void DirectX11::endFrame() const
 	{
+        spRenderTarget->EndDraw();
 		spSwapChain->Present(0, 0); // レンダリングされたイメージをユーザーに表示
 	}
 
@@ -86,6 +116,10 @@ namespace got
 	{
 		return spDeviceContext;
 	}
+    std::shared_ptr<IDXGISwapChain> DirectX11::getSwapChain() const
+    {
+        return spSwapChain;
+    }
 	std::shared_ptr<Window> DirectX11::getWindow() const
 	{
 		return window;
@@ -145,10 +179,10 @@ namespace got
 		{
 			g_driverType = driverTypes[driverTypeIndex];
 			hr = D3D11CreateDeviceAndSwapChain(
-				NULL,			   // 使用するビデオアダプターへのポインター（既定のものを使う場合NULL）
+				nullptr,	       // 使用するビデオアダプターへのポインター（既定のものを使う場合NULL）
 				g_driverType,	   // 使用するデバイスの種類
-				NULL,			   // ソフトウェアラスタライザーを実装するDLLのハンドル
-				0,				   // 有効にするランタイムレイヤー
+				nullptr,     	   // ソフトウェアラスタライザーを実装するDLLのハンドル
+                D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT,				   // 有効にするランタイムレイヤー
 				featureLevels,	   // D3D_FEATURE_LEVELの配列へのポインター
 				numFeatureLevels,  // 上記配列の要素数
 				D3D11_SDK_VERSION, // SDKのバージョン
@@ -173,26 +207,70 @@ namespace got
 			ptr->ClearState();
 			safeRelease(ptr);
 		});
-
-		return S_OK;
+      
+        return S_OK;
 	}
 
 	// レンダーターゲットビューの作成
 	HRESULT DirectX11::createRenderTargetView()
 	{
-		ID3D11Texture2D		   *backBuffer = nullptr;
-		ID3D11RenderTargetView *renderTargetView = nullptr;
-		// バックバッファの取得
-		spSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*> (&backBuffer));
-		// レンダーターゲットビューの作成
-		auto hr = spDevice->CreateRenderTargetView(backBuffer, nullptr, &renderTargetView);
+		ID3D11Texture2D		   *backBuffer       = nullptr;
+		//ID3D11RenderTargetView *renderTargetView = nullptr;
+        
+        //TODO: 元々のコード
+        // バックバッファの取得
+		//spSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*> (&backBuffer));
+		//// レンダーターゲットビューの作成
+		//auto hr = spDevice->CreateRenderTargetView(backBuffer, nullptr, &renderTargetView);
+		//if (FAILED(hr)) {
+        //    return E_FAIL;
+		//}
+        //
+        //IDXGISurface *surf;
+        //hr = spSwapChain->GetBuffer(0, IID_PPV_ARGS(&surf));
+        //if (FAILED(hr)) {
+        //    return E_FAIL;
+        //}
+        //surf->Release();
+        // set up the D3D render target view to the back buffer
 
-		spRenderTargetView = std::shared_ptr<ID3D11RenderTargetView>(renderTargetView, safeRelease<ID3D11RenderTargetView>);
+        ID3D11RenderTargetView *backBufferView;
+        auto hr = spSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&backBuffer));
+        if (FAILED(hr)) {
+            return hr;
+        }
+        hr = spDevice->CreateRenderTargetView(backBuffer, nullptr, &backBufferView);
+        if (FAILED(hr)) {
+            return hr;
+        }
+        spDeviceContext->OMSetRenderTargets(1, &backBufferView, nullptr);
+
+        // create the D2D factory
+        ID2D1Factory *factory;
+        D2D1_FACTORY_OPTIONS options;
+        options.debugLevel = D2D1_DEBUG_LEVEL_INFORMATION;
+        D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, options, &factory);
+
+        // set up the D2D render target using the back buffer
+
+        IDXGISurface *dxgiBackbuffer;
+        hr = spSwapChain->GetBuffer(0, IID_PPV_ARGS(&dxgiBackbuffer));
+        if (FAILED(hr)) {
+            return hr;
+        }
+        ID2D1RenderTarget *d2dRenderTarget;
+        D2D1_RENDER_TARGET_PROPERTIES props = D2D1::RenderTargetProperties(
+            D2D1_RENDER_TARGET_TYPE_DEFAULT,
+            D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED));
+        factory->CreateDxgiSurfaceRenderTarget(dxgiBackbuffer, props, &d2dRenderTarget);
+        dxgiBackbuffer->Release();
+        factory->Release();
+
+
+        spRenderTarget = std::shared_ptr<ID2D1RenderTarget>(d2dRenderTarget, safeRelease<ID2D1RenderTarget>);
+		//spRenderTargetView = std::shared_ptr<ID3D11RenderTargetView>(renderTargetView, safeRelease<ID3D11RenderTargetView>);
 		safeRelease(backBuffer);
 
-		if (FAILED(hr)) {
-			return E_FAIL;
-		}
 
 		return S_OK;
 	}
@@ -201,8 +279,8 @@ namespace got
 	void DirectX11::setRenderTargetView()
 	{
 		// 
-		auto renderTargetView = spRenderTargetView.get();
-		spDeviceContext->OMSetRenderTargets(1, &renderTargetView, NULL);
+		//auto renderTargetView = spRenderTargetView.get();
+		//spDeviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr);
 
 		// Viewportの初期化
 		D3D11_VIEWPORT vp;

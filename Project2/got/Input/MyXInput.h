@@ -39,10 +39,10 @@ namespace got
         bool isPadDown(const DWORD playerIndex_);
         bool isPadRight(const DWORD playerIndex_);
         bool isPadLeft(const DWORD playerIndex_);
-        Vector2<float> padVec(const DWORD playerIndex_, const bool useDeadZone = true);
+        const Vector2<float> padVec(const DWORD playerIndex_, const bool useDeadZone = true);
 
-        void setLeftVibration(const DWORD playerIndex_, const WORD motorSpeed);
-        void setRightVibration(const DWORD playerIndex_, const WORD motorSpeed);
+        void setLeftVibration(const DWORD playerIndex_, const WORD motorSpeed_);
+        void setRightVibration(const DWORD playerIndex_, const WORD motorSpeed_);
 
     private:
         friend class Singleton<MyXInput>;

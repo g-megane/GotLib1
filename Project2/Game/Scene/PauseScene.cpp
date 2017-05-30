@@ -5,9 +5,11 @@
 //////////////////////////////////////////////////
 #include "PauseScene.h"
 #include "SceneManager.h"
-#include "..\..\got\Input\MyDirectInput.h"
 #include "..\Common\Game.h"
+#include "..\..\got\Input\MyDirectInput.h"
+#include "..\..\got\Input\MyXInput.h"
 #include "..\..\got\Audio\XAudio2.h"
+#include "..\..\got\Math\MyAlgorithm.h"
 
 // コンストラクタ
 PauseScene::PauseScene()
@@ -30,6 +32,7 @@ bool PauseScene::init()
     position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
     canSelectDown = false;
+    menuNum = 0;
 
     return true;
 }
@@ -39,24 +42,29 @@ void PauseScene::move()
     background->move();
 
     // 選択
+    //TODO: Xinputに変更
     auto &di   = got::MyDirectInput::getInstance();
+    auto &xi   = got::MyXInput::getInstance();
     auto &fade = got::Fade::getInstance();
+
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
-        if (di.keyPressed(DIK_UP) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::UP) {
-            if (!canSelectDown) { got::XAudio2::getInstance().play("MenuSelect"); }
-            choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f);
-            canSelectDown = true;
+        if (di.keyPressed(DIK_UP) || xi.isPadUp(0)) {
+            --menuNum;
+            got::XAudio2::getInstance().play("MenuSelect");
             return;
         }
-        else if (di.keyPressed(DIK_DOWN) || di.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN) {
-            if (canSelectDown) { got::XAudio2::getInstance().play("MenuSelect"); };
-            choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 600.0f);
-            canSelectDown = false;
+        else if (di.keyPressed(DIK_DOWN) || xi.isPadDown(0)) {
+            ++menuNum;
+            got::XAudio2::getInstance().play("MenuSelect");
             return;
         }
+
+        menuNum = got::MyAlgorithm::rollup(menuNum, 1);
+        choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - spriteSize.width / 2), 500.0f + menuNum * 100.0f);
+
         // シーン遷移(TITLE->MAIN or TITLE->OPERATING)
-        if (di.keyPressed(DIK_RETURN) || di.buttonPressed(0)) {
+        if (di.keyPressed(DIK_RETURN) || xi.isButtonPressed(0, XINPUT_GAMEPAD_A)) {
             got::XAudio2::getInstance().play("Enter");
             fade.setIsFadeOut(true);
             Game::getInstance().setIsPause(false);
@@ -64,12 +72,17 @@ void PauseScene::move()
     }
 
     if (fade.getIsFadeOut()) {
-        if (choosePos.y <= 550.0f) {
+        switch (menuNum) {
+        case 0:
             fade.fadeOut(SceneManager::getInstance().getBeforeSceneName(), false);
-        }
-        else {
+            break;
+        case 1:
             got::XAudio2::getInstance().stopBGM();
             fade.fadeOut(SceneManager::SCENE_NAME::TITLE);
+            break;
+        default:
+            assert(!"PauseSceneMove()で不正な値");
+            break;
         }
     }
 }

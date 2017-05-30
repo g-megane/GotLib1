@@ -4,11 +4,14 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #pragma once
-#pragma comment(lib, "d3d11.lib")
 #include <d3d11.h>
 #include "..\..\got\Utility\Singleton.h"
 #include "..\..\got\Utility\Dimention.h"
 #include "..\..\got\Utility\Color.h"
+
+#include "..\Font\Font.h"
+
+#pragma comment(lib, "d3d11.lib")
 
 // DirectX11の制御クラス
 namespace got
@@ -26,6 +29,7 @@ namespace got
 		
 		std::shared_ptr<ID3D11Device> getDevice() const;
 		std::shared_ptr<ID3D11DeviceContext> getDeviceContext() const;
+        std::shared_ptr<IDXGISwapChain> getSwapChain() const; 
 		std::shared_ptr<Window> getWindow() const;
 		Dimention<int> getSize() const;
 		HRESULT isInit() const;
@@ -43,11 +47,16 @@ namespace got
 		std::shared_ptr<ID3D11DeviceContext>	spDeviceContext;
 		std::shared_ptr<IDXGISwapChain>			spSwapChain;
 		std::shared_ptr<ID3D11RenderTargetView> spRenderTargetView;
+
+        std::shared_ptr<ID2D1RenderTarget> spRenderTarget;
+
 		D3D_FEATURE_LEVEL featureLevel;
 		D3D_DRIVER_TYPE   g_driverType;
 
 		Dimention<int> size;
 		HRESULT init;
 		Color<float> clearColor;
+        float dpiX;
+        float dpiY;
 	};
 }

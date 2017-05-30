@@ -109,7 +109,7 @@ namespace got
     }
 
     // パッドのベクトルを返す
-    Vector2<float> MyXInput::padVec(const DWORD playerIndex_, const bool useDeadZone)
+    const Vector2<float> MyXInput::padVec(const DWORD playerIndex_, const bool useDeadZone)
     {
         if (useDeadZone) {
             if (isNeutral(playerIndex_)) {
@@ -122,15 +122,15 @@ namespace got
                              ).normalize();
     }
     // 左のバイブレーションの設定(振動大)
-    void MyXInput::setLeftVibration(const DWORD playerIndex_, const WORD motorSpeed)
+    void MyXInput::setLeftVibration(const DWORD playerIndex_, const WORD motorSpeed_)
     {
-        controllers[playerIndex_].vibration.wLeftMotorSpeed = motorSpeed;
+        controllers[playerIndex_].vibration.wLeftMotorSpeed = motorSpeed_;
         XInputSetState(playerIndex_, &controllers[playerIndex_].vibration);
     }
     // 右のバイブレーションの設定(振動小)
-    void MyXInput::setRightVibration(const DWORD playerIndex_, const WORD motorSpeed)
+    void MyXInput::setRightVibration(const DWORD playerIndex_, const WORD motorSpeed_)
     {
-        controllers[playerIndex_].vibration.wRightMotorSpeed = motorSpeed;
+        controllers[playerIndex_].vibration.wRightMotorSpeed = motorSpeed_;
         XInputSetState(playerIndex_, &controllers[playerIndex_].vibration);
     }
     // パッドがニュートラルな位置にあるか？

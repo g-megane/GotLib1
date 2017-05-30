@@ -21,6 +21,7 @@
 #include "..\..\got\Utility\Ranking.h"
 #include "../../got/Input/MyXInput.h"
 
+
 // コンストラクタ
 Game::Game() : time()
 {

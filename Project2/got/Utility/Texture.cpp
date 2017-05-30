@@ -37,13 +37,6 @@ namespace got
 	{
 	}
 
-	/* Comment
-	 * shaderCompile を "ShaderTest.fx" から "ComputeShader.hlsl" と "PixelShader.hlsl" に変更
-	 * shaderCompile の EntryPoint を "VS", "PS" から "main"に変更
-	 * VBlob を shaderCompile の戻り値に設定
-	 * 戻り値がbool型のため "return hr" を 失敗した場合 "return false"に変更
-	 */
-
 	// テクスチャの作成
 	bool Texture::create(const std::wstring &path)
 	{

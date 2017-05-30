@@ -67,6 +67,7 @@ void EnemyManager::move()
     // 取得したイテレータが最後を指していた場合
     // ボスを出現させる
     if (itr == dataList.end()) {
+        // ボスがすでに出現しているか？
         if (!isBoss) {
             isBoss = true;
             addChild(boss);
