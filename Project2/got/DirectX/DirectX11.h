@@ -48,8 +48,6 @@ namespace got
 		std::shared_ptr<IDXGISwapChain>			spSwapChain;
 		std::shared_ptr<ID3D11RenderTargetView> spRenderTargetView;
 
-        std::shared_ptr<ID2D1RenderTarget> spRenderTarget;
-
 		D3D_FEATURE_LEVEL featureLevel;
 		D3D_DRIVER_TYPE   g_driverType;
 
