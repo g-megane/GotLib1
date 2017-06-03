@@ -136,7 +136,6 @@
     <ClCompile Include="Game\Actor\EnemyBulletManager.cpp" />
     <ClCompile Include="Game\Actor\EnemyManager.cpp" />
     <ClCompile Include="Game\Effect\Explosion.cpp" />
-    <ClCompile Include="got\Font\Font.cpp" />
     <ClCompile Include="got\Input\MyXInput.cpp" />
     <ClCompile Include="Game\Common\Fade.cpp" />
     <ClCompile Include="Game\UI\Information.cpp" />
@@ -168,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Actor\Actor.h" />
-    <ClInclude Include="got\Font\Font.h" />
     <ClInclude Include="got\Input\MyXInput.h" />
     <ClInclude Include="got\Math\Angle.h" />
     <ClInclude Include="Game\Common\BackGround.h" />

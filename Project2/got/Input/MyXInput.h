@@ -9,7 +9,6 @@
 #include "../Utility/Singleton.h"
 #include "../Math/Vector2.h"
 
-
 #ifdef USE_DIRECTX_SDK
 #include <C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\include\xinput.h>
 #pragma comment(lib,"xinput.lib")

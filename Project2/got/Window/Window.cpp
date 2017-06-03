@@ -68,7 +68,7 @@ namespace got
 		hWnd = CreateWindow(
 			"gotLib",				// ウィンドウクラス名
 			"gotLib",				// ウィンドウタイトル
-			WS_OVERLAPPEDWINDOW,	// ウィンドウスタイル
+            WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE,	// ウィンドウスタイル
 			CW_USEDEFAULT,			// Y座標の初期値
 			CW_USEDEFAULT,			// X座標の初期値
 			rect.right - rect.left, // 幅の初期値
@@ -80,6 +80,8 @@ namespace got
 		if (!hWnd) {
 			return E_FAIL;
 		}
+
+        EnableMenuItem(GetSystemMenu(hWnd, NULL), SC_CLOSE, MF_DISABLED);
 
 		ShowWindow(hWnd, nCmdShow);
 

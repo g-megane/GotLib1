@@ -88,10 +88,6 @@ namespace got
 	{
 		return spDeviceContext;
 	}
-    std::shared_ptr<IDXGISwapChain> DirectX11::getSwapChain() const
-    {
-        return spSwapChain;
-    }
 	std::shared_ptr<Window> DirectX11::getWindow() const
 	{
 		return window;
@@ -203,7 +199,6 @@ namespace got
         if (FAILED(hr)) {
             return E_FAIL;
         }
-        surf->Release();
         
         spRenderTargetView = std::shared_ptr<ID3D11RenderTargetView>(renderTargetView, safeRelease<ID3D11RenderTargetView>);
 		safeRelease(backBuffer);
