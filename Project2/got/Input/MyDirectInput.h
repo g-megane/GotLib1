@@ -21,15 +21,6 @@ namespace got
 	class MyDirectInput : public Singleton<MyDirectInput>
 	{
 	public:
-        enum class STICK_STATE
-        {
-            UP,
-            DOWN,
-            LEFT,
-            RIGHT,
-            NOT_MOVING,
-        };
-
 		~MyDirectInput();
 		HRESULT init();
 		HRESULT initGamepad();
@@ -41,8 +32,6 @@ namespace got
         
         bool updateGamepad();
         Vector2<float> getStickVec();
-        STICK_STATE getStickPosY();
-        STICK_STATE getStickPosX();
         bool buttonDown(const int pos);
         bool buttonPressed(const int pos);
         bool buttonReleased(const int pos);
