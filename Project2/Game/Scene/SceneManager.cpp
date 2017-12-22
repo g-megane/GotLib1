@@ -21,18 +21,16 @@ SceneManager::~SceneManager()
 {
 	nowScene = nullptr;
 }
-// シーンの作成
+// 各シーンの作成と登録
 void SceneManager::createScene()
 {
 	std::shared_ptr<Scene> scene;
 
 	scene = std::make_shared<ResultScene>();
 	sceneMap[SCENE_NAME::RESULT] = scene;
-	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(RESULT, scene));
 
 	scene = std::make_shared<MainScene>();
 	sceneMap[SCENE_NAME::MAIN] = scene;
-	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(MAIN,   scene));
 
     scene = std::make_shared<MainScene2>();
     sceneMap[SCENE_NAME::MAIN2] = scene;
@@ -45,7 +43,6 @@ void SceneManager::createScene()
 
 	scene = std::make_shared<TitleScene>();
 	sceneMap[SCENE_NAME::TITLE] = scene;
-	//sceneMap.insert(std::pair<SCENE_NAME, std::shared_ptr<Scene>>(TITLE,  scene));
 
     nowSceneName = SCENE_NAME::TITLE;
 	nowScene = scene;
