@@ -11,8 +11,7 @@
 #include "..\Common\Game.h"
 #include "..\Common\Fade.h"
 #include "..\Effect\EffectManager.h"
-#include "..\..\got\Input\MyDirectInput.h"
-#include "..\..\got\Input\MyXInput.h"
+#include "..\Common\Controller.h"
 #include "..\..\got\Audio\XAudio2.h"
 
 // コンストラクタ
@@ -60,13 +59,12 @@ bool MainScene::init()
 void MainScene::move()
 {
     // Pキーが押された
-    auto &input = got::MyDirectInput::getInstance();
-    auto &xi    = got::MyXInput::getInstance();
+    auto &input = Controller::getInstance();
     auto &game  = Game::getInstance();
     auto &fade  = got::Fade::getInstance();
 
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
-        if (input.keyPressed(DIK_P) || xi.isButtonPressed(0, XINPUT_GAMEPAD_START)) {
+        if (input.pause()) {
             got::XAudio2::getInstance().play("Enter");
             game.setIsPause(true);
             fade.setIsFadeOut(true);

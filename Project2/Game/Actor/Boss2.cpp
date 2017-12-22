@@ -37,7 +37,7 @@ bool Boss2::init()
     score = 1000;
     subShotTimer.reset();
     rad = 64.0f;
-
+    
     return true;
 }
 

@@ -15,6 +15,7 @@ namespace got {
     {
         auto hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
         if (FAILED(hr)) {
+            OutputDebugString("CoInitializeEx()の失敗");
             return;
         }
 
@@ -23,6 +24,7 @@ namespace got {
         if (FAILED(hr)) {
             spXAudio2 = std::shared_ptr<IXAudio2>(xaudio2, safeRelease<IXAudio2>);
             CoUninitialize();
+            OutputDebugString("XAudio2Create()の失敗");
             return;
         }
 
@@ -31,6 +33,7 @@ namespace got {
         if (FAILED(hr)) {
             spXAudio2 = std::shared_ptr<IXAudio2>(xaudio2, safeRelease<IXAudio2>);
             CoUninitialize();
+            OutputDebugString("CreateMasteringVoice()の失敗");
             return;
         }
 
@@ -45,14 +48,7 @@ namespace got {
     // デストラクタ
     XAudio2::~XAudio2()
     {
-        //while (itr != voices_.end()) {
-        //    (*itr)->Stop();
-        //    (*itr)->DestroyVoice();
-        //     voices_.erase(itr);
-        //     ++itr;
-        //}
         voices_.clear();
-        //spSourceVoice.reset();
         BGM.reset();
         spMasteringVoice.reset();
         spXAudio2.reset();
@@ -68,6 +64,7 @@ namespace got {
         // 構造体のサイズ分一気に読み込む
         ifs.read(reinterpret_cast<char*>(&riff), sizeof(Riff));
         if (strncmp(reinterpret_cast<char *>(&riff.riff), "RIFF", 4) != 0) {
+            OutputDebugString("RIFFチャンクの読み込み失敗");
             return false;
         }
 
@@ -76,15 +73,17 @@ namespace got {
         // 構造体のサイズ分一気に読み込む
         ifs.read(reinterpret_cast<char*>(&format), sizeof(Format));
         if (strncmp(reinterpret_cast<char*>(&format.id), "fmt ", 4) != 0) {
+            OutputDebugString("fmtチャンクの読み込み失敗");
             return false;
         }
 
         // dataチャンクの読み込み
-        //   daraチャンクはファイル毎にデータのサイズが違うので
+        //   dataチャンクはファイル毎にデータのサイズが違うので
         //   sizeを見てその分だけ読み込む
         Data data;
         ifs.read(reinterpret_cast<char*>(&data.id), sizeof(4));
         if (strncmp(reinterpret_cast<char*>(&data.id), "data", 4) != 0) {
+            OutputDebugString("dataチャンクの読み込み失敗");
             return false;
         }
         ifs.read(reinterpret_cast<char*>(&data.size), sizeof(4));
@@ -108,68 +107,6 @@ namespace got {
 
         return true;
     }
-
-    //bool XAudio2::read(const std::string& fileName)
-    //{
-    //    std::ifstream ifs(fileName, std::ios::binary);
-    //    if (!ifs.is_open()) {
-    //        return false;
-    //    }
-    //
-    //    if (!readRiff(ifs)) {
-    //        return false;
-    //    }
-    //
-    //    if (!readFmt(ifs)) {
-    //        return false;
-    //    }
-    //
-    //    if (!readData(ifs)) {
-    //        return false;
-    //    }
-    //
-    //    ifs.close();
-    //
-    //    return true;
-    //}
-    //
-    //// RIFFヘッダの読み込み
-    //bool XAudio2::readRiff(std::ifstream& ifs)
-    //{
-    //    ifs.read(reinterpret_cast<char*>(&riff), sizeof(Riff));
-    //    if (strncmp(reinterpret_cast<char *>(&riff.riff), "RIFF", 4) != 0) {
-    //        return false;
-    //    }
-    //
-    //    return true;
-    //}
-    //
-    //// fmtチャンクの読み込み
-    //bool XAudio2::readFmt(std::ifstream& ifs)
-    //{
-    //    ifs.read(reinterpret_cast<char*>(&format), sizeof(Format));
-    //
-    //    if (strncmp(reinterpret_cast<char*>(&format.id), "fmt ", 4) != 0) {
-    //        return false;
-    //    }
-    //
-    //    return true;
-    //}
-    //
-    //// dataチャンクの読み込み
-    //bool XAudio2::readData(std::ifstream & ifs)
-    //{
-    //    ifs.read(reinterpret_cast<char*>(&data.id), sizeof(4));
-    //    if (strncmp(reinterpret_cast<char*>(&data.id), "data", 4) != 0) {
-    //        return false;
-    //    }
-    //
-    //    ifs.read(reinterpret_cast<char*>(&data.size), sizeof(4));
-    //    data.waveFormatData.resize(data.size);
-    //    ifs.read(reinterpret_cast<char*>(data.waveFormatData.data()), data.size);
-    //
-    //    return true;
-    //}
 
     // 終了している効果音を探し終了処理を行う
     void XAudio2::update()
@@ -205,12 +142,14 @@ namespace got {
         auto hr = spXAudio2->CreateSourceVoice(&sourceVoice, &waveMap[key].wfx.Format);
         if (FAILED(hr)) {
             sourceVoice->DestroyVoice();
+            OutputDebugString("CreateSourceVoice()の失敗");
             return false;
         }
 
         hr = sourceVoice->SubmitSourceBuffer(&buffer);
         if (FAILED(hr)) {
             sourceVoice->DestroyVoice();
+            OutputDebugString("SubmitSourceBuffer()の失敗");
             return false;
         }
 
@@ -258,7 +197,6 @@ namespace got {
         });
 
         voices_.emplace_back(temp);
-        //spSourceVoice.reset();
 
         sourceVoice->Start(0);
 

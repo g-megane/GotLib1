@@ -42,22 +42,21 @@ void TitleScene::move()
     auto &xi   = got::MyXInput::getInstance();
     auto &fade = got::Fade::getInstance();
 
+    // 背景の更新
     background->move();
 
+    // メニューの更新
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
         auto spriteSize = got::SpriteManager::getInstance().getSprite("ChooseBar")->getSize();
-        //TODO: パッドの連続入力をなくす
         // 上が押された
         if (di.keyPressed(DIK_UP) || xi.isPadUp(0)) {
             --menuNum;
             got::XAudio2::getInstance().play("MenuSelect");
-            return;
         }
         // 下が押された
         else if (di.keyPressed(DIK_DOWN) || xi.isPadDown(0)) { 
             ++menuNum;
             got::XAudio2::getInstance().play("MenuSelect");
-            return;
         }
 
         menuNum = got::MyAlgorithm::rollup(menuNum, 2);
@@ -71,15 +70,19 @@ void TitleScene::move()
     }
     if (fade.getIsFadeOut()) {
         switch (menuNum) {
+        // ゲームスタート
         case 0:
             fade.fadeOut(SceneManager::SCENE_NAME::MAIN);
             break;
+        // 操作説明シーン
         case 1:
             fade.fadeOut(SceneManager::SCENE_NAME::OPERATING);
             break;
+        // ゲームを終了
         case 2:
             Game::getInstance().setIsRun(false);
             break;
+        // 存在しないメニュー番号が選択されている
         default:
             assert(!"TitleScene::move()で不正な値");
             break;
