@@ -16,7 +16,7 @@ SamplerState samLinear : register(s0);
 float4 main(PixelIn input) : SV_TARGET
 {
 	PixelOut output;
-output.col = txDiffuse.Sample(samLinear, input.tex) * input.col;
+    output.col = txDiffuse.Sample(samLinear, input.tex) * input.col;
 
 return output.col;
 }
