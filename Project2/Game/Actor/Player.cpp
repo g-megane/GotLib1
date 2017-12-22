@@ -4,19 +4,17 @@
 // 制作者:got
 //////////////////////////////////////////////////
 #include "Player.h"
-#include "..\..\got\Math\Matrix4x4.h"
-#include "..\..\got\Utility\SpriteManager.h"
-#include "..\..\got\Input\MyDirectInput.h"
 #include "..\Common\GV.h"
 #include "..\Common\Game.h"
 #include "..\Scene\SceneManager.h"
+#include "..\Common\Controller.h"
+#include "..\..\got\Math\Matrix4x4.h"
+#include "..\..\got\Utility\SpriteManager.h"
 #include "..\..\got\Utility\Collision.h"
 #include "..\..\got\Audio\XAudio2.h"
-#include "..\..\got\Input\MyXInput.h"
 #include "..\..\got\Math\MyAlgorithm.h"
 
 // コンストラクタ
-//TODO: Shotのパターン数やゲームの難しさを考慮して決める
 Player::Player()
     :Actor(L"Player"), time(), invincibleTime(), maxHp(4)
 {
@@ -34,7 +32,7 @@ bool Player::init()
     deceleration = 1.0f; // 減速量
     rad          = 4.0f; // 円のあたり判定の半径
     isInvicible  = false;
-    color = got::Color<float>();
+    color        = got::Color<float>();
     // 最初のステージの時だけヒットポイントを初期化
     if (SceneManager::getInstance().getNowSceneName() == SceneManager::SCENE_NAME::MAIN) {
         hp = 1;    // ヒットポイント
@@ -46,7 +44,8 @@ bool Player::init()
     
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
     
-    position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100); //TODO:スタート地点（仮）
+    // スタート地点を設定
+    position.move(STAGE_WIDTH / 2, STAGE_HEIGHT - 100);
     
     time.reset();
     invincibleTime.reset();
@@ -56,24 +55,16 @@ bool Player::init()
 // 更新
 void Player::move()
 {
-    //TODO:・斜め移動早くなるやつ直す
-    auto &input     = got::MyDirectInput::getInstance();
+    auto &input     = Controller::getInstance();
     auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-
-    auto dTime = Game::getInstance().getDeltaTime();
+    auto dTime      = Game::getInstance().getDeltaTime();
 
     // 低速移動(左Shiftを押している間移動量を減らす)
     deceleration = 1.0f;
-    if (input.keyDown(DIK_LSHIFT) || input.buttonDown(5))     { deceleration = 0.25f; }
+    if (input.speedDown())     { deceleration = 0.25f; }
 
-    // キー移動
-    if      (input.keyDown(DIK_UP   ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::UP   */) { position.y -= speed * deceleration * dTime; }
-    else if (input.keyDown(DIK_DOWN ) /*|| input.getStickPosY() == got::MyDirectInput::STICK_STATE::DOWN */) { position.y += speed * deceleration * dTime; }
-    if      (input.keyDown(DIK_RIGHT) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::RIGHT*/) { position.x += speed * deceleration * dTime; }
-    else if (input.keyDown(DIK_LEFT ) /*|| input.getStickPosX() == got::MyDirectInput::STICK_STATE::LEFT */) { position.x -= speed * deceleration * dTime; }
-    // ジョイパッド操作
-   // position += input.getStickVec() * speed * deceleration * dTime;
-    position += got::MyXInput::getInstance().padVec(0) * speed * deceleration * dTime;
+    // 移動
+    position += input.move() * speed * deceleration * dTime;
 
     // ステージ外に出たら補正する
     if      (position.x < 0                               ) { position.x = 0;                                }
@@ -84,7 +75,8 @@ void Player::move()
     // 敵とのあたり判定
     for (auto & enemy : enemyManager->getChildren()) {
         if (enemy->getState() == STATE::UN_USE) { continue; }
-        if(got::Collison::circleToCircle(this->getCenter(), rad, enemy->getCenter(), enemy->getRad())) {
+        if(got::Collison::circleToCircle(getCenter(), rad, enemy->getCenter(), enemy->getRad())) {
+// デバッグ実行の際はダメージをなくす
 #ifndef _DEBUG
             setDamage(1);
 #endif // !_DEBUG
@@ -96,7 +88,7 @@ void Player::move()
     // 弾の発射
     if (!time.timeOver(250.0f)) { return; } // 発射間隔(仮)
     time.reset();
-    if(input.keyDown(DIK_Z) || got::MyXInput::getInstance().isButtonDown(0, XINPUT_GAMEPAD_A)) {
+    if(input.shot()) {
         playerBulletManager->shot(getShotPosition(), hp);
         got::XAudio2::getInstance().play("Shot1");
     }
@@ -104,9 +96,9 @@ void Player::move()
 // 描画
 void Player::draw() const
 {
-    auto mt         = got::Matrix4x4<float>::translate(position);
-    auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
-    auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
+    const auto mt         = got::Matrix4x4<float>::translate(position);
+    const auto spriteSize = got::SpriteManager::getInstance().getSprite(spriteName)->getSize();
+    const auto drawRect   = got::Rectangle<int>(got::Vector2<int>(spriteSize.width, spriteSize.height));
     
     got::SpriteManager::getInstance().draw(spriteName, mt, drawRect, color);
 }
