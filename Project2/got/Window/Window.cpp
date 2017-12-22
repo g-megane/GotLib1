@@ -28,6 +28,7 @@ namespace got
 		auto nCmdShow  = SW_SHOWNORMAL;
 
 		if (FAILED(InitWindow(hInstance, nCmdShow))) {
+            OutputDebugString("InitWindow()の失敗");
 			return 0;
 		}
 
@@ -59,6 +60,7 @@ namespace got
 		wcex.lpszClassName = windowName;								 // ウィンドウクラスの名前
 		wcex.hIconSm	   = nullptr;									 // アイコン小
 		if (!RegisterClassEx(&wcex)) {
+            OutputDebugString("RegisterClassEx()の失敗");
 			return E_FAIL;
 		}
 
@@ -78,6 +80,7 @@ namespace got
 			hInstance,				// インスタンスハンドル
 			nullptr);				// 作成パラメータ
 		if (!hWnd) {
+            OutputDebugString("CreateWindow()の失敗");
 			return E_FAIL;
 		}
 
