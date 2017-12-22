@@ -86,7 +86,7 @@ namespace got
 		auto constantBuffer = spConstantBuffer.get();
 
 		// コンスタントバッファを更新
-		directX11.getDeviceContext()->UpdateSubresource(spConstantBuffer.get(), 0, nullptr, &cb, 0, 0);
+		directX11.getDeviceContext()->UpdateSubresource(constantBuffer, 0, nullptr, &cb, 0, 0);
 
 		// 頂点シェーダーをセット
 		directX11.getDeviceContext()->VSSetShader(spVertexShader.get(), nullptr, 0);
@@ -108,21 +108,15 @@ namespace got
 	{
 		return textureSize;
 	}
-
-	//void Texture::setTextureSize(Dimention<int> dimention)
-	//{
-	//	textureSize = dimention;
-	//}
-
-	//void Texture::setTextureSize(const int width, const int height)
-	//{
-	//	textureSize = Dimention<int>(width, height);
-	//}
 	
 	// テクスチャの読み込み
 	bool Texture::loadTexture(const std::wstring &path)
 	{
-		DirectX::LoadFromWICFile(path.c_str(), 0, &metadata, image);
+		auto hr = DirectX::LoadFromWICFile(path.c_str(), 0, &metadata, image);
+
+        if (FAILED(hr)) {
+            return false;
+        }
 
 		textureSize = Dimention<int>(static_cast<int>(image.GetImages()->width), static_cast<int>(image.GetImages()->height));
 
@@ -152,7 +146,7 @@ namespace got
 		ID3D11VertexShader *vertexShader = nullptr;
 
 		// Compile VertexShader
-		auto VSBlob = Shader::shaderCompile(L"VertexShader.hlsl", "main", "vs_5_0");
+		auto VSBlob = Shader::shaderCompile(L"Shader//VertexShader.hlsl", "main", "vs_5_0");
 
 		if (VSBlob == nullptr) {
 			MessageBox(NULL, "VSコンパイル失敗", "Error", MB_OK);
@@ -210,7 +204,7 @@ namespace got
 		ID3D11PixelShader  *pixelShader = nullptr;
 
 		// Compile PixelShader
-		auto PSBlob = Shader::shaderCompile(L"PixelShader.hlsl", "main", "ps_5_0");
+		auto PSBlob = Shader::shaderCompile(L"Shader//PixelShader.hlsl", "main", "ps_5_0");
 		if (PSBlob == nullptr) {
 			MessageBox(NULL, "PSコンパイル失敗", "Error", MB_OK);
 			return false;
