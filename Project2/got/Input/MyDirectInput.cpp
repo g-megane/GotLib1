@@ -47,6 +47,7 @@ namespace got
 		// になってしまうので下記のようになっている
 		spDInput = std::shared_ptr<IDirectInput8>(dInput, safeRelease<LPDIRECTINPUT8>);
 		if (FAILED(hr)) {
+            OutputDebugString("DirectInput8Create()の失敗");
 			return E_FAIL;
 		}
 
@@ -69,12 +70,14 @@ namespace got
 			safeRelease<LPDIRECTINPUTDEVICE8>(ptr);
 		});
 		if (FAILED(hr)) {
+            OutputDebugString("DirectInput CreateDevice()の失敗");
 			return E_FAIL;
 		}
 		
 		// キーボードのデータ形式の設定
 		hr = dDevice->SetDataFormat(&c_dfDIKeyboard);
 		if (FAILED(hr)) {
+            OutputDebugString("DirectInput SetDataFormat()の失敗");
 			return E_FAIL;
 		}
 
@@ -85,6 +88,7 @@ namespace got
 			DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
 		);
 		if (FAILED(hr)) {
+            OutputDebugString("DirectInput SetCooperativeLevel()の失敗");
 			return E_FAIL;
 		}
 
@@ -105,6 +109,7 @@ namespace got
         );
         if (FAILED(hr)) {
             spDInput = std::shared_ptr<IDirectInput8>(dInput, safeRelease<LPDIRECTINPUT8>);
+            OutputDebugString("DirectInput SetCooperativeLevel()の失敗");
             return hr;
         }
         spDInput = std::shared_ptr<IDirectInput8>(dInput, safeRelease<LPDIRECTINPUT8>);
@@ -124,6 +129,7 @@ namespace got
                 ptr->Unacquire();
                 safeRelease<LPDIRECTINPUTDEVICE8>(ptr);
             });
+            OutputDebugString("DirectInput EnumDevices()の失敗");
             return hr;
         }
         spPadDevice = std::shared_ptr<IDirectInputDevice8>(dDevice, [](LPDIRECTINPUTDEVICE8 & ptr)
@@ -138,22 +144,26 @@ namespace got
 
         hr = spPadDevice->SetDataFormat(&c_dfDIJoystick2);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput SetDataFormat()の失敗");
             return hr;
         }
 
         hr = spPadDevice->SetCooperativeLevel(DirectX11::getInstance().getWindow()->getHWND(), DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput SetCooperativeLevel()の失敗");
             return hr;
         }
         
         diDevCaps.dwSize = sizeof(DIDEVCAPS);
         hr = spPadDevice->GetCapabilities(&diDevCaps);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput GetCapabilities()の失敗");
             return hr;
         }
 
         hr = spPadDevice->EnumObjects(EnumAxesCallback, &ed, DIDFT_AXIS);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput EnumObjects()の失敗");
             return hr;
         }
 
@@ -175,8 +185,6 @@ namespace got
 		// キーボードへのアクセス権の取得
 		spDDevice->Acquire();
 
-		//spDDevice->GetDeviceState(sizeof(buffer), &buffer);
-
 		if (buffer[code] & 0x80) {
 			return true;
 		}
@@ -190,12 +198,9 @@ namespace got
 		// キーボードへのアクセス権の取得
 		spDDevice->Acquire();
 
-		//spDDevice->GetDeviceState(sizeof(buffer), &buffer);
-
 		if ((buffer[code] & 0x80) != 0 && (bufferPrev[code] & 0x80) == 0) {
 			result = true;
 		}
-		//std::copy(std::begin(buffer), std::end(buffer), bufferPrev);
 
 		return result;
 	}
@@ -206,9 +211,7 @@ namespace got
         bool result = false;
         // キーボードへのアクセス権の取得
         spDDevice->Acquire();
-
-        //spDDevice->GetDeviceState(sizeof(buffer), &buffer);
-
+        
         if ((buffer[code] & 0x80) == 0 && (bufferPrev[code] & 0x80) != 0) {
             result = true;
         }
@@ -239,30 +242,7 @@ namespace got
         
         return Vector2<float>(static_cast<float>(padData.lX), static_cast<float>(padData.lY)).normalize();
     }
-    
-    MyDirectInput::STICK_STATE MyDirectInput::getStickPosY()
-    {
-        if (spPadDevice == nullptr) { return STICK_STATE::NOT_MOVING; }
-        if (padData.lY < -500) {
-            return STICK_STATE::UP; 
-        }
-        else if (padData.lY > 500) {
-            return STICK_STATE::DOWN;
-        }
-
-        return STICK_STATE::NOT_MOVING;
-    }
-    MyDirectInput::STICK_STATE MyDirectInput::getStickPosX()
-    {
-        if (padData.lX < -500) {
-            return STICK_STATE::LEFT;
-        }
-        else if (padData.lX > 500) {
-            return STICK_STATE::RIGHT;
-        }
-
-        return STICK_STATE::NOT_MOVING;
-    }
+        
     bool MyDirectInput::buttonDown(const int pos)
     {
         if (spPadDevice == nullptr) { return false; }
@@ -305,6 +285,7 @@ namespace got
         // 列挙されたジョイスティックへのインターフェースを取得する
         auto hr = ed->pInput->CreateDevice(pdidInstance->guidInstance, ed->ppPadDevice, nullptr);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput EnumJoysticksCallback CreateDevice()の失敗");
             return DIENUM_CONTINUE;
         }
 
@@ -324,6 +305,7 @@ namespace got
         diprg.lMax =  1000;
         auto hr = ed->ppPadDevice[0][0].SetProperty(DIPROP_RANGE, &diprg.diph);
         if (FAILED(hr)) {
+            OutputDebugString("DirectInput SetProperty()の失敗");
             return DIENUM_STOP;
         }
     

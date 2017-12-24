@@ -58,5 +58,3 @@ bool Controller::pause()
 {
     return got::MyXInput::getInstance().isButtonPressed(0, XINPUT_GAMEPAD_START) || got::MyDirectInput::getInstance().keyPressed(DIK_P);
 }
-
-

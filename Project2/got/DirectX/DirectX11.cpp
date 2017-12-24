@@ -58,7 +58,6 @@ namespace got
 	// フレームを開始
 	void DirectX11::begineFrame() const
 	{
-		//TODO:Colorクラスを作って実装しなおし
 		float ClearColor[4]{ 0.0f, 0.125f, 0.3f, 1.0f };
 		// レンダーターゲットのすべての要素に１つの値を設定
 		spDeviceContext->ClearRenderTargetView(spRenderTargetView.get(), ClearColor);
@@ -162,11 +161,16 @@ namespace got
 
 			);
 
-			if (SUCCEEDED(hr)) break;
+			if (SUCCEEDED(hr)) {
+                OutputDebugString("D3D11CreateDeviceAndSwapChain()の失敗");
+                break;
+            }
 		}
-		if (FAILED(hr)) return hr;
+		if (FAILED(hr)) { 
+            OutputDebugString("D3D11CreateDeviceAndSwapChain()の失敗");
+            return hr;
+        }
 
-		//TODO:make_sharedに
 		// ポインターに対する処理
 		spSwapChain     = std::shared_ptr<IDXGISwapChain>(swapChain, safeRelease<IDXGISwapChain>);
 		spDevice        = std::shared_ptr<ID3D11Device>(device, safeRelease<ID3D11Device>);
@@ -185,18 +189,19 @@ namespace got
 		ID3D11Texture2D		   *backBuffer       = nullptr;
 		ID3D11RenderTargetView *renderTargetView = nullptr;
         
-        //TODO: 元々のコード
         // バックバッファの取得
 		spSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*> (&backBuffer));
 		// レンダーターゲットビューの作成
 		auto hr = spDevice->CreateRenderTargetView(backBuffer, nullptr, &renderTargetView);
 		if (FAILED(hr)) {
+            OutputDebugString("CreateRenderTargetView()の失敗");
             return E_FAIL;
 		}
         
         IDXGISurface *surf;
         hr = spSwapChain->GetBuffer(0, IID_PPV_ARGS(&surf));
         if (FAILED(hr)) {
+            OutputDebugString("GetBuffer()の失敗");
             return E_FAIL;
         }
         
