@@ -24,15 +24,17 @@ PauseScene::~PauseScene()
 // 初期化
 bool PauseScene::init()
 {
-    if (!background->init()) {
-        return false;
-    }
-
     auto &sm = got::SpriteManager::getInstance();
     position.ZERO;
     choosePos.move(static_cast<float>(WINDOW_WIDTH / 2 - sm.getSprite("ChooseBar")->getSize().width / 2), 500.0f);
     canSelectDown = false;
     menuNum = 0;
+    
+    got::MyXInput::getInstance().setRightVibration(0, 0);
+
+    if (!background->init()) {
+        return false;
+    }
 
     return true;
 }

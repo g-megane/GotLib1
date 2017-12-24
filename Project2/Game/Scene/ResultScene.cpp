@@ -11,6 +11,7 @@
 #include "..\Common\Game.h"
 #include "..\..\got\Audio\XAudio2.h"
 #include "..\..\got\Utility\Ranking.h"
+#include "..\..\got\Input\MyXInput.h"
 
 // コンストラクタ
 ResultScene::ResultScene()
@@ -27,6 +28,8 @@ bool ResultScene::init()
     if (!background->init()) {
         return false;
     }
+
+    got::MyXInput::getInstance().setRightVibration(0, 0);
 
 	auto spriteSize = got::SpriteManager::getInstance().getSprite("Result")->getSize();
 	position.move(WINDOW_WIDTH / 2.0f - spriteSize.width / 2.0f, WINDOW_HEIGHT / 4.0f);
