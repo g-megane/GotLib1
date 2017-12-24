@@ -32,6 +32,7 @@ public:
 
 private:
 	friend class got::Singleton<Game>;
+    void setResources();
 
     float deltaTime;
     int   score;
