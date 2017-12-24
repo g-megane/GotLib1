@@ -7,6 +7,7 @@
 #include "..\Common\Fade.h"
 #include "..\..\got\Input\MyDirectInput.h"
 #include "..\..\got\Audio\XAudio2.h"
+#include "..\..\got\Input\MyXInput.h"
 
 OperatingScene::OperatingScene()
 {
@@ -32,10 +33,12 @@ void OperatingScene::move()
 {
     background->move();
 
-    auto &fade = got::Fade::getInstance();
+    auto &fade  = got::Fade::getInstance();
     auto &input = got::MyDirectInput::getInstance();
+    auto &xInput = got::MyXInput::getInstance();
+
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
-        if (input.keyPressed(DIK_RETURN) || input.buttonPressed(0)) {
+        if (input.keyPressed(DIK_RETURN) || xInput.isButtonPressed(XINPUT_GAMEPAD_A)) {
             got::XAudio2::getInstance().play("Enter");
             fade.setIsFadeOut(true);
         }
