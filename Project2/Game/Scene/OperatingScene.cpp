@@ -38,7 +38,7 @@ void OperatingScene::move()
     auto &xInput = got::MyXInput::getInstance();
 
     if (!fade.getIsFadeOut() && !fade.getIsFadeIn()) {
-        if (input.keyPressed(DIK_RETURN) || xInput.isButtonPressed(XINPUT_GAMEPAD_A)) {
+        if (input.keyPressed(DIK_RETURN) || xInput.isButtonPressed(0, XINPUT_GAMEPAD_A)) {
             got::XAudio2::getInstance().play("Enter");
             fade.setIsFadeOut(true);
         }
