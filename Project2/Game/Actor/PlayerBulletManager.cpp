@@ -89,6 +89,8 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
 {
     switch (_shotLevel)
     {
+    case 0:
+        break;
     // 弾の発射(ShotLevel 1) : 直進で1発
     case 1:
         shotFunc = [&](const got::Vector2<float>& pos)
@@ -197,7 +199,6 @@ void PlayerBulletManager::setShotFunc(const int _shotLevel)
             }
         };
         break;
-    case 0:
     default:
         assert(!"存在しないPlayerBulletPattern");
         break;
