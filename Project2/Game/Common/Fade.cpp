@@ -41,7 +41,7 @@ namespace got
         return false;
     }
 
-    bool Fade::fadeOut(SceneManager::SCENE_NAME nextScene, bool isnextSceneInit /*= true*/)
+    bool Fade::fadeOut(SceneManager::SCENE_NAME nextScene, bool isNextSceneInit /*= true*/)
     {
 
         isFade    = true;
@@ -57,7 +57,7 @@ namespace got
             isFade    = false;
             isFadeOut = false;
             isFadeIn  = true;
-            SceneManager::getInstance().changeScene(nextScene, isnextSceneInit);
+            SceneManager::getInstance().changeScene(nextScene, isNextSceneInit);
             return true;
         }
 
