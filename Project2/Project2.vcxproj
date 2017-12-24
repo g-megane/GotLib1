@@ -131,6 +131,7 @@
     <ClCompile Include="Game\Actor\Boss.cpp" />
     <ClCompile Include="Game\Actor\Boss2.cpp" />
     <ClCompile Include="Game\Actor\Bullet.cpp" />
+    <ClCompile Include="Game\Common\Controller.cpp" />
     <ClCompile Include="Game\Effect\Effect.cpp" />
     <ClCompile Include="Game\Effect\EffectManager.cpp" />
     <ClCompile Include="Game\Actor\EnemyBulletManager.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Actor\Actor.h" />
+    <ClInclude Include="Game\Common\Controller.h" />
     <ClInclude Include="got\Input\MyXInput.h" />
     <ClInclude Include="got\Math\Angle.h" />
     <ClInclude Include="Game\Common\BackGround.h" />
